@@ -1,0 +1,521 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f4f5f7;
+}
+
+/* PHONE SHELL */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-shell {
+  max-width: 430px;
+  width: 100%;
+  height: 812px;
+  background: #ffffff;
+  border-radius: 0; /* flat corners */
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+}
+
+/* GENERIC SCREEN */
+.screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------- STATUS BAR ------------------------- */
+.status-bar {
+  height: 44px;
+  padding: 0 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #000;
+  pointer-events: none;
+}
+
+.status-time {
+  font-weight: 600;
+}
+
+/* RIGHT ICONS GROUP */
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* SIGNAL BARS */
+.icon-signal {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.icon-signal span {
+  width: 2px;
+  border-radius: 999px;
+  background: #000;
+}
+
+.icon-signal span:nth-child(1) {
+  height: 3px;
+}
+.icon-signal span:nth-child(2) {
+  height: 4px;
+}
+.icon-signal span:nth-child(3) {
+  height: 5px;
+}
+.icon-signal span:nth-child(4) {
+  height: 7px;
+}
+
+/* Filled iOS-style WiFi icon */
+.icon-wifi-filled {
+  width: 17px;
+  height: 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg width='17' height='12' viewBox='0 0 17 12' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.5 12C9.32843 12 10 11.3284 10 10.5C10 9.67157 9.32843 9 8.5 9C7.67157 9 7 9.67157 7 10.5C7 11.3284 7.67157 12 8.5 12Z'/%3E%3Cpath opacity='0.4' d='M3.34315 6.34315C5.36683 4.31947 8.63317 4.31947 10.6569 6.34315L12.0711 4.92893C9.21447 2.07232 4.78553 2.07232 1.92893 4.92893L3.34315 6.34315Z'/%3E%3Cpath opacity='0.2' d='M0.514719 2.51472C4.20101 -1.17157 10.799 -1.17157 14.4853 2.51472L15.8995 1.1005C11.6009 -3.19802 3.39914 -3.19802 -0.899495 1.1005L0.514719 2.51472Z'/%3E%3C/svg%3E");
+}
+
+/* BATTERY */
+.icon-battery {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.battery-body {
+  width: 18px;
+  height: 8px;
+  border: 1.5px solid #000;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+}
+
+.battery-level {
+  flex: 1;
+  height: 100%;
+  background: #000;
+  border-radius: 1px;
+}
+
+.battery-cap {
+  width: 2px;
+  height: 4px;
+  background: #000;
+  border-radius: 1px;
+}
+
+/* ------------------------- SPLASH ------------------------- */
+.splash-screen {
+  background: #005e6b;
+  color: white;
+}
+
+.splash-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.splash-logo {
+  width: 96px;
+  height: 96px;
+  background: white;
+  border-radius: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.logo-dot-red {
+  background: #ff4b4b;
+}
+.logo-dot-yellow {
+  background: #ffcc00;
+}
+.logo-dot-green {
+  background: #4caf50;
+}
+.logo-dot-blue {
+  background: #2196f3;
+}
+
+.splash-text {
+  font-size: 20px;
+  letter-spacing: 0.12em;
+}
+
+/* ------------------------- ONBOARDING ------------------------- */
+.onboarding-screen {
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+.onboarding-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  z-index: 0;
+}
+
+.onb-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.6) 60%,
+    black 100%
+  );
+  z-index: 1;
+}
+
+.onboarding-foreground {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+}
+
+/* SKIP under icons */
+.onb-skip {
+  position: absolute;
+  right: 16px;
+  top: 52px;
+  color: white;
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* onboarding bottom content */
+.onb-bottom {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.onb-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.onb-subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #e5e5e5;
+  text-align: center;
+  padding: 0 16px;
+}
+
+/* dots */
+.onb-dots-row {
+  display: flex;
+  gap: 6px;
+  margin: 16px 0;
+}
+
+.onb-dot {
+  width: 6px;
+  height: 6px;
+  background: #bbbbbb;
+  border-radius: 50%;
+}
+
+.onb-dot-active {
+  width: 16px;
+  background: white;
+  border-radius: 8px;
+}
+
+/* buttons */
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #005f6b;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.btn-secondary {
+  background: white;
+  color: #005f6b;
+}
+
+.onb-translator-link {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* dynamic side shapes */
+.onb-shape {
+  position: absolute;
+  z-index: 2;
+}
+
+.onb-shape-left {
+  border-radius: 0 100px 100px 0; /* half-circle from left */
+}
+
+.onb-shape-right {
+  border-radius: 50%; /* full circle from right */
+}
+
+/* ------------------------- LOGIN ------------------------- */
+.login-screen {
+  background: #fafbfc;
+}
+
+.login-body {
+  flex: 1;
+  padding: 20px;
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* subtitle style to match reference */
+.login-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #9ba2b1;
+  font-weight: 400;
+}
+
+.role-switch {
+  margin-top: 14px;
+  background: #eef0f4;
+  padding: 4px;
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.role-pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.role-pill-active {
+  background: #ef9f23;
+  color: white;
+}
+
+.role-pill-inactive {
+  background: transparent;
+  color: #7b8495;
+}
+
+/* login inputs */
+.field-label {
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+.field-wrapper {
+  margin-top: 4px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-wrapper.field-focused {
+  border-color: #005f6b;
+}
+
+.field-wrapper.field-error {
+  border-color: #ff4b4b;
+}
+
+/* base icon slot */
+.field-icon {
+  position: relative;
+  flex: 0 0 24px;
+  height: 24px;
+}
+
+/* PHONE ICON – rounded square with handset */
+.phone-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background-color: #f5f6f8;
+  border: 1.5px solid #d4d7dd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23d4d7dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.72 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.74a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 1 2.34.72A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E");
+}
+
+/* LOCK ICON – rounded square with lock glyph */
+.lock-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background-color: #f5f6f8;
+  border: 1.5px solid #d4d7dd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23d4d7dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3Crect x='5' y='11' width='14' height='10' rx='2' ry='2'/%3E%3Cpath d='M12 16v2'/%3E%3C/svg%3E");
+}
+
+/* Error state: icons become red */
+.field-wrapper.field-error .phone-icon {
+  border-color: #ea3e3e;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ea3e3e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.72 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.74a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 1 2.34.72A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E");
+}
+
+.field-wrapper.field-error .lock-icon {
+  border-color: #ea3e3e;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ea3e3e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3Crect x='5' y='11' width='14' height='10' rx='2' ry='2'/%3E%3Cpath d='M12 16v2'/%3E%3C/svg%3E");
+}
+
+.field-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 15px;
+}
+
+.field-error-text {
+  color: #ff4b4b;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* login buttons */
+.btn-login {
+  margin-top: 20px;
+  background: #005f6b;
+  color: white;
+}
+
+.btn-register {
+  margin-top: 10px;
+  background: #eceff3;
+  color: #9aa1ad;
+}
+
+/* forgot */
+.link-forgot {
+  margin-top: 12px;
+  background: transparent;
+  border: none;
+  color: #b4b7bd;
+  align-self: center;
+  cursor: pointer;
+}
+
+/* keypad */
+.keyboard {
+  height: 230px;
+  background: #e5e7eb;
+  border-top: 1px solid #cfd3dd;
+  display: grid;
+  padding: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.key {
+  background: white;
+  border-radius: 12px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.key-empty {
+  background: transparent;
+  cursor: default;
+}
+
+/* home bar */
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 140px;
+  height: 5px;
+  background: #000;
+  opacity: 0.18;
+  border-radius: 50px;
+  transform: translateX(-50%);
+}
+
+.home-indicator-keyboard {
+  bottom: 4px;
+}
