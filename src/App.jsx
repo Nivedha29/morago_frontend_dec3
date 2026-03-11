@@ -3,6 +3,7 @@ import "./index.css";
 
 import StatusBar from "./components/StatusBar.jsx"
 import LoginScreen from "./pages/login.jsx"
+import SignupScreen from "./pages/register.jsx"
 
 import bg1 from "./assets/bg1.png";
 import bg2 from "./assets/bg2.png";
@@ -192,58 +193,6 @@ const OnboardingScreen = ({
           />
         ))}
       </div>
-    </div>
-  );
-};
-
-/* ------------------------- SIGNUP SCREEN ------------------------- */
-const SignupScreen = ({ onBackToLogin }) => {
-  const [role, setRole] = useState("user");
-
-  return (
-    <div className="screen login-screen">
-      <StatusBar />
-
-      <div className="login-body">
-        <div className="login-header">
-          <h1 className="login-title">Sign up</h1>
-          <p className="login-subtitle">
-            Create an account to start using all the app’s features.
-          </p>
-
-          <div className="role-switch">
-            <button
-              className={
-                role === "user"
-                  ? "role-pill role-pill-active"
-                  : "role-pill role-pill-inactive"
-              }
-              onClick={() => setRole("user")}
-            >
-              I am a user
-            </button>
-            <button
-              className={
-                role === "translator"
-                  ? "role-pill role-pill-active"
-                  : "role-pill role-pill-inactive"
-              }
-              onClick={() => setRole("translator")}
-            >
-              I am a translator
-            </button>
-          </div>
-        </div>
-
-        <div className="login-form">
-          <button className="btn btn-login">Create account</button>
-          <button className="btn btn-register" onClick={onBackToLogin}>
-            Back to log in
-          </button>
-        </div>
-      </div>
-
-      <div className="home-indicator" />
     </div>
   );
 };

@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import StatusBar from "../components/StatusBar.jsx";
+
 /* ------------------------- LOGIN SCREEN ------------------------- */
 const LoginScreen = ({ onOpenSignup }) => {
   const [role, setRole] = useState("user");
