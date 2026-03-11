@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 
 import StatusBar from "./components/StatusBar.jsx"
+import SplashScreen from "./components/SplashScreen.jsx"
 import LoginScreen from "./pages/login.jsx"
 import SignupScreen from "./pages/register.jsx"
 import OnboardingScreen from "./pages/home.jsx"
@@ -78,24 +79,6 @@ const slides = [
     ],
   },
 ];
-
-/* ------------------------- SPLASH SCREEN ------------------------- */
-const SplashScreen = () => {
-  return (
-    <div className="screen splash-screen">
-      <StatusBar />
-      <div className="splash-content">
-        <div className="splash-logo">
-          <span className="logo-dot logo-dot-red" />
-          <span className="logo-dot logo-dot-yellow" />
-          <span className="logo-dot logo-dot-green" />
-          <span className="logo-dot logo-dot-blue" />
-        </div>
-        <div className="splash-text">morago</div>
-      </div>
-    </div>
-  );
-};
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
