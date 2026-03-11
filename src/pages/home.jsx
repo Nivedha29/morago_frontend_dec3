@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import { slides } from "../utils/slides";
 
 /* ------------------------- ONBOARDING SCREEN ------------------------- */
-const OnboardingScreen = ({
-  index,
-  total,
-  title,
-  subtitle,
-  heroImage,
-  heroPosition,
-  shapes = [],
-  onLogin,
-  onSignup,
-  onSwipeLeft,
-  onSwipeRight,
-}) => {
+const OnboardingScreen = () => {
+  const navigate = useNavigate();
+
   const [touchStartX, setTouchStartX] = useState(null);
+  const [onbIndex, setOnbIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOnbIndex((prev) => (prev + 1) % slides.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const s = slides[onbIndex];
 
   const handleTouchStart = (e) => setTouchStartX(e.touches[0].clientX);
 
@@ -24,8 +27,11 @@ const OnboardingScreen = ({
     const diff = e.changedTouches[0].clientX - touchStartX;
 
     if (Math.abs(diff) > 50) {
-      if (diff < 0) onSwipeLeft();
-      else onSwipeRight();
+      if (diff < 0) {
+        setOnbIndex((prev) => (prev + 1) % slides.length);
+      } else {
+        setOnbIndex((prev) => (prev - 1 + slides.length) % slides.length);
+      }
     }
 
     setTouchStartX(null);
@@ -41,8 +47,8 @@ const OnboardingScreen = ({
       <div
         className="onboarding-bg"
         style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundPosition: heroPosition,
+          backgroundImage: `url(${s.hero})`,
+          backgroundPosition: "center top",
         }}
       />
 
@@ -56,23 +62,29 @@ const OnboardingScreen = ({
         <button className="onb-skip">Skip</button>
 
         <div className="onb-bottom">
-          <h1 className="onb-title">{title}</h1>
-          <p className="onb-subtitle">{subtitle}</p>
+          <h1 className="onb-title">{s.title}</h1>
+          <p className="onb-subtitle">{s.subtitle}</p>
 
           <div className="onb-dots-row">
-            {Array.from({ length: total }).map((_, i) => (
+            {Array.from({ length: slides.length }).map((_, i) => (
               <span
                 key={i}
-                className={`onb-dot ${i === index ? "onb-dot-active" : ""}`}
+                className={`onb-dot ${i === onbIndex ? "onb-dot-active" : ""}`}
               />
             ))}
           </div>
 
           <div className="onb-buttons">
-            <button className="btn btn-primary" onClick={onLogin}>
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/login")}
+            >
               Log in
             </button>
-            <button className="btn btn-secondary" onClick={onSignup}>
+            <button
+              className="btn btn-secondary"
+              onClick={() => navigate("/register")}
+            >
               Sign up
             </button>
           </div>
@@ -81,7 +93,7 @@ const OnboardingScreen = ({
         </div>
 
         {/* Side colored shapes (exactly 2 per slide) */}
-        {shapes.map((shape, i) => (
+        {s.shapes.map((shape, i) => (
           <div
             key={i}
             className={`onb-shape ${
