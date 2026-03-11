@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 
+import StatusBar from "./StatusBar.jsx";
+
 import bg1 from "./assets/bg1.png";
 import bg2 from "./assets/bg2.png";
 import bg3 from "./assets/bg3.png";
@@ -72,36 +74,6 @@ const slides = [
     ],
   },
 ];
-
-/* ------------------------- STATUS BAR ------------------------- */
-const StatusBar = () => {
-  return (
-    <div className="status-bar">
-      <span className="status-time">9:41</span>
-
-      <div className="status-icons">
-        {/* SIGNAL */}
-        <div className="icon-signal">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-
-        {/* Filled iOS-style WIFI */}
-        <div className="icon-wifi-filled" />
-
-        {/* BATTERY */}
-        <div className="icon-battery">
-          <div className="battery-body">
-            <div className="battery-level" />
-          </div>
-          <div className="battery-cap" />
-        </div>
-      </div>
-    </div>
-  );
-};
 
 /* ------------------------- SPLASH SCREEN ------------------------- */
 const SplashScreen = () => {
