@@ -1,6 +1,6 @@
-import bg1 from "../assets/bg1.png";
-import bg2 from "../assets/bg2.png";
-import bg3 from "../assets/bg3.png";
+import bg1 from "../assets/bg1.jpg";
+import bg2 from "../assets/bg2.jpg";
+import bg3 from "../assets/bg3.jpg";
 
 
 /* ------------------------- SLIDES DATA ------------------------- */
