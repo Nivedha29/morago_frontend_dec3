@@ -11,6 +11,8 @@ const LoginScreen = () => {
   const [errors, setErrors] = useState({ phone: "", password: "" });
   const [activeField, setActiveField] = useState(null);
 
+  const isFormValid = phone.trim() !== "" && password.trim() !== "";
+
   const handleLogin = () => {
     const trimmedPhone = phone.replace(/\s+/g, "");
     const trimmedPassword = password;
@@ -92,7 +94,10 @@ const LoginScreen = () => {
               placeholder="Enter your phone number without dashes"
               value={phone}
               onFocus={() => setActiveField("phone")}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                setErrors({ phone: "", password: "" });
+              }}
             />
           </div>
 
@@ -112,7 +117,10 @@ const LoginScreen = () => {
               placeholder="Enter your password"
               value={password}
               onFocus={() => setActiveField("password")}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrors({ phone: "", password: "" });
+              }}
             />
           </div>
 
@@ -120,7 +128,11 @@ const LoginScreen = () => {
             <p className="field-error-text">Invalid number or password</p>
           )}
 
-          <button className="btn btn-login" onClick={handleLogin}>
+          <button
+            className={`btn btn-login ${!isFormValid ? "btn-disabled" : ""}`}
+            onClick={handleLogin}
+            disabled={!isFormValid}
+          >
             Log in
           </button>
 
