@@ -42,6 +42,7 @@ const LoginScreen = () => {
 
   const handleKeypadClick = (digit) => {
     if (activeField === "phone") setPhone((prev) => prev + digit);
+    setErrors({ phone: "", password: "" });
   };
 
   return (
