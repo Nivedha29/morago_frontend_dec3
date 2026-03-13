@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
 /* ------------------------- LOGIN SCREEN ------------------------- */
-const LoginScreen = ({ onOpenSignup }) => {
+const LoginScreen = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("user");
   const [phone, setPhone] = useState("");
@@ -28,11 +28,11 @@ const LoginScreen = ({ onOpenSignup }) => {
       if (!isCorrect) {
         phoneError = "Invalid number or password";
         passwordError = "Invalid number or password";
-      }else {
-      // LOGIN SUCCESS
-      navigate("/home");
-      return;
-    }
+      } else {
+        // LOGIN SUCCESS
+        navigate("/home");
+        return;
+      }
     }
 
     setErrors({ phone: phoneError, password: passwordError });
@@ -124,11 +124,19 @@ const LoginScreen = ({ onOpenSignup }) => {
             Log in
           </button>
 
-          <button className="btn btn-register" onClick={onOpenSignup}>
+          <button
+            className="btn btn-register"
+            onClick={() => navigate("/register")}
+          >
             Register
           </button>
 
-          <button className="link-forgot">Forgot password</button>
+          <button
+            className="link-forgot"
+            onClick={() => navigate("/forgot-password")}
+          >
+            Forgot password
+          </button>
         </div>
       </div>
 
@@ -148,7 +156,7 @@ const LoginScreen = ({ onOpenSignup }) => {
               >
                 {key}
               </button>
-            )
+            ),
           )}
         </div>
       )}
