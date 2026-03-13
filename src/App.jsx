@@ -5,7 +5,7 @@ import StatusBar from "./components/StatusBar.jsx"
 import SplashScreen from "./components/SplashScreen.jsx"
 import LoginScreen from "./pages/login.jsx"
 import SignupScreen from "./pages/register.jsx"
-import OnboardingScreen from "./pages/home.jsx"
+import OnboardingScreen from "./pages/onboarding.jsx"
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -14,7 +14,7 @@ return (
       <div className="phone-shell">
         <Routes>
           <Route path="/" element={<SplashScreen />} />
-          <Route path="/home" element={<OnboardingScreen />} />
+          <Route path="/onboarding" element={<OnboardingScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<SignupScreen />} />
         </Routes>
