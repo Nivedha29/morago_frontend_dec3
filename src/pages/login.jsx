@@ -32,7 +32,11 @@ const LoginScreen = () => {
         passwordError = "Invalid number or password";
       } else {
         // LOGIN SUCCESS
-        navigate("/home");
+        if (role === "translator") {
+          navigate("/translatorHome");
+        } else {
+          navigate("/home");
+        }
         return;
       }
     }
