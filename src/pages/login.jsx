@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
 /* ------------------------- LOGIN SCREEN ------------------------- */
 const LoginScreen = ({ onOpenSignup }) => {
+  const navigate = useNavigate();
   const [role, setRole] = useState("user");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,11 @@ const LoginScreen = ({ onOpenSignup }) => {
       if (!isCorrect) {
         phoneError = "Invalid number or password";
         passwordError = "Invalid number or password";
-      }
+      }else {
+      // LOGIN SUCCESS
+      navigate("/home");
+      return;
+    }
     }
 
     setErrors({ phone: phoneError, password: passwordError });
