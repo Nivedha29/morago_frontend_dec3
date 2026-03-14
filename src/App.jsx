@@ -9,6 +9,7 @@ import OnboardingScreen from "./pages/onboarding.jsx"
 import HomeScreen from "./pages/home.jsx";
 import TranslatorHome from "./pages/translator-home.jsx";
 import UserRegisterPage from "./pages/UserRegisterPage";
+import TranslatorRegisterPage from "./pages/register-translator";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -21,8 +22,9 @@ return (
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<SignupScreen />} />
           <Route path="/home" element={<HomeScreen />} />
-          <Route path="/translatorHome" element={<TranslatorHome />} />
+          <Route path="/translator-home" element={<TranslatorHome />} />
           <Route path="/register-user" element={<UserRegisterPage />} />
+          <Route path="/register-translator" element={<TranslatorRegisterPage />} />
         </Routes>
       </div>
     </div>

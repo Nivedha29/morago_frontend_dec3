@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import StatusBar from "../components/StatusBar";
 
 /* ------------------------- SIGNUP SCREEN ------------------------- */
-const SignupScreen = ({ onBackToLogin }) => {
+const SignupScreen = () => {
   const [role, setRole] = useState("user");
 
   const navigate = useNavigate();
@@ -54,7 +54,10 @@ const SignupScreen = ({ onBackToLogin }) => {
           <button className="btn btn-login" onClick={handleCreateAccount}>
             Create account
           </button>
-          <button className="btn btn-register" onClick={onBackToLogin}>
+          <button
+            className="btn btn-register"
+            onClick={() => navigate("/login")}
+          >
             Back to log in
           </button>
         </div>
