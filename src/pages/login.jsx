@@ -33,7 +33,7 @@ const LoginScreen = () => {
       } else {
         // LOGIN SUCCESS
         if (role === "translator") {
-          navigate("/translatorHome");
+          navigate("/translator-home");
         } else {
           navigate("/home");
         }

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import StatusBar from "../components/StatusBar";
 
@@ -5,6 +6,15 @@ import StatusBar from "../components/StatusBar";
 const SignupScreen = ({ onBackToLogin }) => {
   const [role, setRole] = useState("user");
 
+  const navigate = useNavigate();
+
+  const handleCreateAccount = () => {
+    if (role === "user") {
+      navigate("/register-user");
+    } else {
+      navigate("/register-translator");
+    }
+  };
   return (
     <div className="screen login-screen">
       <StatusBar />
@@ -41,7 +51,9 @@ const SignupScreen = ({ onBackToLogin }) => {
         </div>
 
         <div className="login-form">
-          <button className="btn btn-login">Create account</button>
+          <button className="btn btn-login" onClick={handleCreateAccount}>
+            Create account
+          </button>
           <button className="btn btn-register" onClick={onBackToLogin}>
             Back to log in
           </button>

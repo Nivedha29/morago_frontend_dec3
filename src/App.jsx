@@ -7,7 +7,8 @@ import LoginScreen from "./pages/login.jsx"
 import SignupScreen from "./pages/register.jsx"
 import OnboardingScreen from "./pages/onboarding.jsx"
 import HomeScreen from "./pages/home.jsx";
-import TranslatorHome from "./pages/translatorHome.jsx";
+import TranslatorHome from "./pages/translator-home.jsx";
+import UserRegisterPage from "./pages/UserRegisterPage";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -21,6 +22,7 @@ return (
           <Route path="/register" element={<SignupScreen />} />
           <Route path="/home" element={<HomeScreen />} />
           <Route path="/translatorHome" element={<TranslatorHome />} />
+          <Route path="/register-user" element={<UserRegisterPage />} />
         </Routes>
       </div>
     </div>
