@@ -143,7 +143,7 @@ const LoginScreen = () => {
 
           <button
             className="btn btn-register"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/sign-up")}
           >
             Register
           </button>
