@@ -10,6 +10,7 @@ import TranslatorHome from "./pages/translator-home.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import VerificationCodePage from "./pages/VerificationCodePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
             element={<RegisterPage role="translator" />}
           />
           <Route path="/verify" element={<VerificationCodePage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         </Routes>
       </div>
     </div>
