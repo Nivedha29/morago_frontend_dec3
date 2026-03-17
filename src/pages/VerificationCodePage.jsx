@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+
 
 const VerificationCodePage = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState(["", "", "", ""]);
+  const inputRefs = useRef([]);
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -12,6 +14,17 @@ const VerificationCodePage = () => {
     const newCode = [...code];
     newCode[index] = value;
     setCode(newCode);
+
+    // 👉 move to next input
+    if (value && index < code.length - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
   };
 
   return (
@@ -33,12 +46,15 @@ const VerificationCodePage = () => {
           <div className="code-container">
             {code.map((digit, index) => (
               <input
+                id={`code-${index}`}
+                ref={(el) => (inputRefs.current[index] = el)}
                 key={index}
                 className="code-input"
                 type="text"
                 maxLength="1"
                 value={digit}
                 onChange={(e) => handleChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
               />
             ))}
           </div>
