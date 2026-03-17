@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
@@ -9,6 +9,9 @@ const VerificationCodePage = () => {
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
   const [activeField, setActiveField] = useState("code");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isCodeComplete = code.every((digit) => digit !== "");
+  const [timeLeft, setTimeLeft] = useState(159);
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -39,6 +42,19 @@ const VerificationCodePage = () => {
       }, 0);
     }
   };
+
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+  const seconds = String(timeLeft % 60).padStart(2, "0");
 
   const handleKeypadClick = (value) => {
     const firstEmptyIndex = code.findIndex((digit) => digit === "");
@@ -82,7 +98,6 @@ const VerificationCodePage = () => {
       inputRefs.current[lastFilledIndex]?.focus();
     }, 0);
   };
-  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="screen">
@@ -96,7 +111,8 @@ const VerificationCodePage = () => {
         <div className="auth-card">
           <h1 className="auth-title">Verification code</h1>
           <p className="auth-subtitle">
-            We have sent a verification code <br />to your phone number
+            We have sent a verification code <br />
+            to your phone number
           </p>
 
           {/* CODE INPUTS */}
@@ -123,10 +139,13 @@ const VerificationCodePage = () => {
             ))}
           </div>
 
-          <p className="timer">02:39</p>
+          <p className="timer">
+            {minutes}:{seconds}
+          </p>
 
           <button
             className="primary-button"
+            disabled={!isCodeComplete}
             onClick={() => navigate("/success")}
           >
             Confirm
