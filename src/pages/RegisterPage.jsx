@@ -178,7 +178,15 @@ const RegisterPage = ({ role = "user" }) => {
           <button
             className="btn btn-login"
             disabled={!isFormValid}
-            onClick={() => navigate("/verify")}
+            onClick={() =>
+              navigate("/verify", {
+                state: {
+                  phone: form.phone,
+                  password: form.password,
+                  role,
+                },
+              })
+            }
           >
             Get code
           </button>

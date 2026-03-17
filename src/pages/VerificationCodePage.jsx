@@ -18,6 +18,10 @@ const VerificationCodePage = () => {
   const [timeLeft, setTimeLeft] = useState(159);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const getApiRole = () => {
+    return role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
+  };
+
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
 
@@ -151,7 +155,40 @@ const VerificationCodePage = () => {
           <button
             className="primary-button"
             disabled={!isCodeComplete}
-            onClick={() => setShowSuccess(true)}
+            onClick={async () => {
+              try {
+                const response = await fetch(
+                  "https://morago-api.habsida.net/auth/register",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      phone: phone.replace(/\s+/g, ""),
+                      password,
+                      confirmPassword: password,
+                      role: getApiRole(),
+                    }),
+                  },
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                  alert(data.error || "Registration failed");
+                  return;
+                }
+
+                localStorage.setItem("authToken", data.token);
+                localStorage.setItem("currentUser", JSON.stringify(data));
+
+                setShowSuccess(true);
+              } catch (error) {
+                console.error(error);
+                alert("Something went wrong");
+              }
+            }}
           >
             Confirm
           </button>
