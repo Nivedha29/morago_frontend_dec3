@@ -13,7 +13,7 @@ const LoginScreen = () => {
 
   const isFormValid = phone.trim() !== "" && password.trim() !== "";
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const trimmedPhone = phone.replace(/\s+/g, "");
     const trimmedPassword = password;
 
@@ -24,20 +24,40 @@ const LoginScreen = () => {
       phoneError = "Invalid number or password";
       passwordError = "Invalid number or password";
     } else {
-      const isCorrect =
-        trimmedPhone === "01077770000" && trimmedPassword === "admin1234!";
+      try {
+        const response = await fetch(
+          "https://morago-api.habsida.net/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              phone: trimmedPhone,
+              password: trimmedPassword,
+            }),
+          },
+        );
 
-      if (!isCorrect) {
-        phoneError = "Invalid number or password";
-        passwordError = "Invalid number or password";
-      } else {
-        // LOGIN SUCCESS
-        if (role === "translator") {
-          navigate("/translator-home");
+        const data = await response.json();
+
+        if (!response.ok) {
+          phoneError = data.error || "Invalid number or password";
+          passwordError = data.error || "Invalid number or password";
         } else {
-          navigate("/home");
+          localStorage.setItem("authToken", data.token);
+          localStorage.setItem("currentUser", JSON.stringify(data));
+
+          if (data.roles === "ROLE_TRANSLATOR") {
+            navigate("/translator-home");
+          } else {
+            navigate("/home");
+          }
+          return;
         }
-        return;
+      } catch (error) {
+        phoneError = "Something went wrong";
+        passwordError = "Something went wrong";
       }
     }
 
