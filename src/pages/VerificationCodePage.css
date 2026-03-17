@@ -1,12 +1,95 @@
-.code-input {
-  width: 50px;
-  height: 60px;
-  text-align: center;
-  font-size: 24px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+/* BACK BUTTON */
+.back-button {
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   border: 1px solid #d1d5db;
+   background: transparent;
+   color: #111827;
+   font-size: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   margin-top: 40px;
+   margin-left: 16px;
+   transition: all 0.2s ease;
 }
 
+/* HOVER */
+.back-button:hover {
+   background: #f9fafb;
+}
+
+/* CONTAINER */
+.auth-card {
+   margin-top: 20px;
+   margin-left: 16px;
+
+}
+
+.auth-subtitle {
+   margin-top: 10px;
+}
+
+/* OTP CONTAINER */
+.code-container {
+   display: flex;
+   justify-content: center;
+   gap: 15px;
+   margin: 24px 0 12px;
+}
+
+/* OTP BOX */
+.code-input {
+   width: 80px;
+   height: 70px;
+   background: #f3f4f6;
+   border: 1px solid transparent;
+   border-radius: 14px;
+   text-align: center;
+   font-size: 22px;
+   font-weight: 600;
+   color: #111827;
+   outline: none;
+   transition: all 0.2s ease;
+}
+
+/* ACTIVE BOX */
 .code-input-active {
-  border: 2px solid #4f46e5; /* adjust to figma later */
+   background: #ffffff;
+   border: 2px solid #1f2937;
+}
+
+/* TIMER */
+.timer {
+   margin-top: 30px;
+   text-align: center;
+   font-size: 18px;
+   color: #6b7280;
+   margin-bottom: 15px;
+   font-weight: 700;
+}
+
+/* CONFIRM BUTTON */
+.primary-button {
+   width: 85%;
+   height: 52px;
+   background: #0f6b75;
+   border: none;
+   border-radius: 26px;
+   color: white;
+   font-size: 16px;
+   font-weight: 600;
+   cursor: pointer;
+   margin-bottom: 16px;
+   margin-left: 30px;
+}
+
+/* RESEND TEXT */
+.resend {
+   margin-top: 10px;
+   text-align: center;
+   font-size: 13px;
+   color: #9ca3af;
 }

@@ -96,7 +96,7 @@ const VerificationCodePage = () => {
         <div className="auth-card">
           <h1 className="auth-title">Verification code</h1>
           <p className="auth-subtitle">
-            We have sent a verification code to your phone number
+            We have sent a verification code <br />to your phone number
           </p>
 
           {/* CODE INPUTS */}
