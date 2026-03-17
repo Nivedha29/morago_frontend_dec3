@@ -9,6 +9,7 @@ import HomeScreen from "./pages/home.jsx";
 import TranslatorHome from "./pages/translator-home.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import VerificationCodePage from "./pages/VerificationCodePage.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -20,8 +21,24 @@ const App = () => {
           <Route path="/onboarding" element={<OnboardingScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/sign-up" element={<SignupScreen />} />
-          <Route path="/home" element={<HomeScreen />} />
-          <Route path="/translator-home" element={<TranslatorHome />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <HomeScreen />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/translator-home"
+            element={
+              <ProtectedRoute>
+                <TranslatorHome />
+              </ProtectedRoute>
+            }
+          />
+          
           <Route path="/sign-up/user" element={<RegisterPage role="user" />} />
           <Route
             path="/sign-up/translator"
