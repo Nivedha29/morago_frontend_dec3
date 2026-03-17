@@ -24,7 +24,7 @@ const App = () => {
           <Route
             path="/home"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRole="ROLE_USER">
                 <HomeScreen />
               </ProtectedRoute>
             }
@@ -33,12 +33,12 @@ const App = () => {
           <Route
             path="/translator-home"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
                 <TranslatorHome />
               </ProtectedRoute>
             }
           />
-          
+
           <Route path="/sign-up/user" element={<RegisterPage role="user" />} />
           <Route
             path="/sign-up/translator"
