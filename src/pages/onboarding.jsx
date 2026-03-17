@@ -83,13 +83,19 @@ const OnboardingScreen = () => {
             </button>
             <button
               className="btn btn-secondary"
-               onClick={() => navigate("/sign-up")}
+              onClick={() => navigate("/sign-up")}
             >
               Sign up
             </button>
           </div>
 
-          <button className="onb-translator-link">I am a translator</button>
+          <button
+            type="button"
+            className="onb-translator-link"
+            onClick={() => navigate("/sign-up/translator")}
+          >
+            I am a translator
+          </button>
         </div>
 
         {/* Side colored shapes (exactly 2 per slide) */}
