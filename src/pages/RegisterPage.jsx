@@ -6,7 +6,7 @@ import "./RegisterPage.css";
 import call from "../assets/call.svg";
 import lock from "../assets/lock.svg";
 
-const UserRegisterPage = () => {
+const RegisterPage = ({ role = "user" }) => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -99,7 +99,7 @@ const UserRegisterPage = () => {
       <div className="login-body">
         <div className="login-header">
           <h1 className="login-title">
-            User <br />
+            {role === "translator" ? "Translator" : "User"} <br />
             Registration
           </h1>
 
@@ -175,7 +175,11 @@ const UserRegisterPage = () => {
             <p className="register-error">Passwords do not match</p>
           )}
 
-          <button className="btn btn-login" disabled ={!isFormValid} onClick={() => navigate("/verify")}>
+          <button
+            className="btn btn-login"
+            disabled={!isFormValid}
+            onClick={() => navigate("/verify")}
+          >
             Get code
           </button>
 
@@ -234,9 +238,8 @@ const UserRegisterPage = () => {
           activeField === "phone" ? "home-indicator-keyboard" : ""
         }`}
       />
-
     </div>
   );
 };
 
-export default UserRegisterPage;
+export default RegisterPage;

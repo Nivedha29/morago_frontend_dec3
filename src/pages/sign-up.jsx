@@ -10,9 +10,9 @@ const SignupScreen = () => {
 
   const handleCreateAccount = () => {
     if (role === "user") {
-      navigate("/register-user");
+      navigate("/sign-up/user");
     } else {
-      navigate("/register-translator");
+      navigate("/sign-up/translator");
     }
   };
   return (
