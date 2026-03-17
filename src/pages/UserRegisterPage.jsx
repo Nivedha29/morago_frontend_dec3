@@ -175,7 +175,7 @@ const UserRegisterPage = () => {
             <p className="register-error">Passwords do not match</p>
           )}
 
-          <button className="btn btn-login" disabled={!isFormValid}>
+          <button className="btn btn-login" disabled ={!isFormValid} onClick={() => navigate("/verify")}>
             Get code
           </button>
 

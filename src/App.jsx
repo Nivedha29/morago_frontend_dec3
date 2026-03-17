@@ -10,6 +10,7 @@ import HomeScreen from "./pages/home.jsx";
 import TranslatorHome from "./pages/translator-home.jsx";
 import UserRegisterPage from "./pages/UserRegisterPage";
 import TranslatorRegisterPage from "./pages/register-translator";
+import VerificationCodePage from "./pages/VerificationCodePage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -25,6 +26,7 @@ return (
           <Route path="/translator-home" element={<TranslatorHome />} />
           <Route path="/register-user" element={<UserRegisterPage />} />
           <Route path="/register-translator" element={<TranslatorRegisterPage />} />
+          <Route path="/verify" element={<VerificationCodePage />} />
         </Routes>
       </div>
     </div>
