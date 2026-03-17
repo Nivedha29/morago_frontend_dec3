@@ -45,15 +45,23 @@ const LoginScreen = () => {
           phoneError = data.error || "Invalid number or password";
           passwordError = data.error || "Invalid number or password";
         } else {
-          localStorage.setItem("authToken", data.token);
-          localStorage.setItem("currentUser", JSON.stringify(data));
+          const selectedRole =
+            role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
 
-          if (data.roles === "ROLE_TRANSLATOR") {
-            navigate("/translator-home");
+          if (data.roles !== selectedRole) {
+            phoneError = "Please select the correct account type";
+            passwordError = "Please select the correct account type";
           } else {
-            navigate("/home");
+            localStorage.setItem("authToken", data.token);
+            localStorage.setItem("currentUser", JSON.stringify(data));
+
+            if (data.roles === "ROLE_TRANSLATOR") {
+              navigate("/translator-home");
+            } else {
+              navigate("/home");
+            }
+            return;
           }
-          return;
         }
       } catch (error) {
         phoneError = "Something went wrong";
