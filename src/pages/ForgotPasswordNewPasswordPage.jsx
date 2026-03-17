@@ -10,6 +10,7 @@ const ForgotPasswordNewPasswordPage = () => {
   const phone = location.state?.phone || "";
   const role = location.state?.role || "user";
   const code = location.state?.code || "";
+  const resetToken = location.state?.resetToken || "";
 
   const [form, setForm] = useState({
     password: "",
@@ -90,7 +91,45 @@ const ForgotPasswordNewPasswordPage = () => {
             type="button"
             className="btn btn-login"
             disabled={!isFormValid}
-            onClick={() => navigate("/login")}
+            onClick={async () => {
+              try {
+                const response = await fetch(
+                  "https://morago-api.habsida.net/publicResetPassword/reset/confirm",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      resetToken,
+                      newPassword: form.password,
+                    }),
+                  },
+                );
+
+                const text = await response.text();
+
+                if (!response.ok) {
+                  let errorMessage = "Failed to reset password";
+
+                  try {
+                    const errorData = JSON.parse(text);
+                    errorMessage = errorData.error || errorMessage;
+                  } catch {
+                    // keep default
+                  }
+
+                  alert(errorMessage);
+                  return;
+                }
+
+                alert("Password changed successfully");
+                navigate("/login");
+              } catch (error) {
+                console.error(error);
+                alert("Something went wrong");
+              }
+            }}
           >
             Log in
           </button>

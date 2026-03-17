@@ -16,6 +16,7 @@ const ForgotPasswordVerifyPage = () => {
   const isCodeComplete = code.every((digit) => digit !== "");
   const [timeLeft, setTimeLeft] = useState(159);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [resetToken, setResetToken] = useState("");
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -150,7 +151,45 @@ const ForgotPasswordVerifyPage = () => {
           <button
             className="primary-button"
             disabled={!isCodeComplete}
-            onClick={() => setShowSuccess(true)}
+            onClick={async () => {
+              try {
+                const response = await fetch(
+                  "https://morago-api.habsida.net/publicResetPassword/reset/verify",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      phone: phone.replace(/\s+/g, ""),
+                      code: code.join(""),
+                    }),
+                  },
+                );
+
+                const text = await response.text();
+
+                if (!response.ok) {
+                  let errorMessage = "Invalid or expired code";
+
+                  try {
+                    const errorData = JSON.parse(text);
+                    errorMessage = errorData.error || errorMessage;
+                  } catch {
+                    // keep default message
+                  }
+
+                  alert(errorMessage);
+                  return;
+                }
+
+                setResetToken(text);
+                setShowSuccess(true);
+              } catch (error) {
+                console.error(error);
+                alert("Something went wrong");
+              }
+            }}
           >
             Confirm
           </button>
@@ -188,6 +227,7 @@ const ForgotPasswordVerifyPage = () => {
                         phone,
                         role,
                         code: code.join(""),
+                        resetToken,
                       },
                     })
                   }

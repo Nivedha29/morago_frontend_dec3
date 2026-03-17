@@ -14,7 +14,8 @@ const ForgotPasswordPage = () => {
     const numbers = value.replace(/\D/g, "");
 
     if (numbers.length <= 3) return numbers;
-    if (numbers.length <= 7) return `${numbers.slice(0, 3)} ${numbers.slice(3)}`;
+    if (numbers.length <= 7)
+      return `${numbers.slice(0, 3)} ${numbers.slice(3)}`;
     return `${numbers.slice(0, 3)} ${numbers.slice(3, 7)} ${numbers.slice(7, 11)}`;
   };
 
@@ -91,14 +92,39 @@ const ForgotPasswordPage = () => {
             type="button"
             className="btn btn-login"
             disabled={!isPhoneValid}
-            onClick={() =>
-              navigate("/forgot-password/verify", {
-                state: {
-                  phone,
-                  role,
-                },
-              })
-            }
+            onClick={async () => {
+              try {
+                const response = await fetch(
+                  "https://morago-api.habsida.net/publicResetPassword/reset/request",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      phone: phone.replace(/\s+/g, ""),
+                    }),
+                  },
+                );
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                  alert(data.error || "Failed to request reset code");
+                  return;
+                }
+
+                navigate("/forgot-password/verify", {
+                  state: {
+                    phone,
+                    role,
+                  },
+                });
+              } catch (error) {
+                console.error(error);
+                alert("Something went wrong");
+              }
+            }}
           >
             Reset password
           </button>
