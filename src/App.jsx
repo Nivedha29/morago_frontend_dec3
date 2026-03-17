@@ -12,6 +12,7 @@ import VerificationCodePage from "./pages/VerificationCodePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
+import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -51,6 +52,10 @@ const App = () => {
           <Route
             path="/forgot-password/verify"
             element={<ForgotPasswordVerifyPage />}
+          />
+          <Route
+            path="/forgot-password/new-password"
+            element={<ForgotPasswordNewPasswordPage />}
           />
         </Routes>
       </div>
