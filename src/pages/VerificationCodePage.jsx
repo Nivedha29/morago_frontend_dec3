@@ -12,6 +12,7 @@ const VerificationCodePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const isCodeComplete = code.every((digit) => digit !== "");
   const [timeLeft, setTimeLeft] = useState(159);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -146,14 +147,47 @@ const VerificationCodePage = () => {
           <button
             className="primary-button"
             disabled={!isCodeComplete}
-            onClick={() => navigate("/success")}
+            onClick={() => setShowSuccess(true)}
           >
             Confirm
           </button>
 
           <p className="resend">Didn’t receive the code? Try again</p>
 
-          {activeField === "code" && (
+          {showSuccess && (
+            <div className="success-overlay">
+              <div className="success-top-dim" />
+              <div className="success-handle" />
+
+              <div className="success-bottom-panel">
+                <div className="success-graphic">
+                  <div className="success-check">✓</div>
+
+                  <div className="success-avatar-wrap">
+                    <div className="success-avatar-circle">
+                      <span className="success-avatar-icon">👤</span>
+                    </div>
+                    <div className="success-avatar-line" />
+                  </div>
+                </div>
+
+                <h1 className="success-title">Registration was successful</h1>
+
+                <p className="success-subtitle">
+                  You can now fully enjoy all the features
+                </p>
+
+                <button
+                  className="primary-button success-button"
+                  onClick={() => navigate("/login")}
+                >
+                  Great!
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeField === "code" && !showSuccess && (
             <div className="register-keyboard">
               {[
                 { value: "1", sub: "" },

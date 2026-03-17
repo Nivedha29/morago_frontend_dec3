@@ -83,7 +83,7 @@ const OnboardingScreen = () => {
             </button>
             <button
               className="btn btn-secondary"
-              onClick={() => navigate("/register")}
+               onClick={() => navigate("/sign-up")}
             >
               Sign up
             </button>
