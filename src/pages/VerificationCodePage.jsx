@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
 import "./VerificationCodePage.css";
 
 const VerificationCodePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const phone = location.state?.phone || "";
+  const password = location.state?.password || "";
+  const role = location.state?.role || "user";
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
   const [activeField, setActiveField] = useState("code");
