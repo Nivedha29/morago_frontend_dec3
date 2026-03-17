@@ -1,0 +1,12 @@
+.code-input {
+  width: 50px;
+  height: 60px;
+  text-align: center;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.code-input-active {
+  border: 2px solid #4f46e5; /* adjust to figma later */
+}

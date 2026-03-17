@@ -235,11 +235,6 @@ const UserRegisterPage = () => {
         }`}
       />
 
-      <div
-        className={`home-indicator ${
-          activeField === "phone" ? "home-indicator-keyboard" : ""
-        }`}
-      />
     </div>
   );
 };

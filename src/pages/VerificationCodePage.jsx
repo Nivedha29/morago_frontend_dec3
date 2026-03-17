@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
+import "./VerificationCodePage.css";
+
 const VerificationCodePage = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState(["", "", "", ""]);
@@ -45,6 +47,7 @@ const VerificationCodePage = () => {
 
     const newCode = [...code];
     newCode[firstEmptyIndex] = value;
+    setActiveIndex(firstEmptyIndex);
     setCode(newCode);
 
     if (firstEmptyIndex < code.length - 1) {
@@ -72,12 +75,14 @@ const VerificationCodePage = () => {
 
     const newCode = [...code];
     newCode[lastFilledIndex] = "";
+    setActiveIndex(lastFilledIndex);
     setCode(newCode);
 
     setTimeout(() => {
       inputRefs.current[lastFilledIndex]?.focus();
     }, 0);
   };
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="screen">
@@ -101,12 +106,17 @@ const VerificationCodePage = () => {
                 id={`code-${index}`}
                 ref={(el) => (inputRefs.current[index] = el)}
                 key={index}
-                className="code-input"
+                className={`code-input ${
+                  activeIndex === index ? "code-input-active" : ""
+                }`}
                 type="text"
                 inputMode="numeric"
                 maxLength="1"
                 value={digit}
-                onFocus={() => setActiveField("code")}
+                onFocus={() => {
+                  setActiveField("code");
+                  setActiveIndex(index);
+                }}
                 onChange={(e) => handleChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
               />
@@ -169,7 +179,6 @@ const VerificationCodePage = () => {
               activeField === "code" ? "home-indicator-keyboard" : ""
             }`}
           />
-          
         </div>
       </div>
     </div>
