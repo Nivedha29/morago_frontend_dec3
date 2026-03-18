@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import { register } from "../services/auth";
 
 import "./VerificationCodePage.css";
 
@@ -157,36 +158,24 @@ const VerificationCodePage = () => {
             disabled={!isCodeComplete}
             onClick={async () => {
               try {
-                const response = await fetch(
-                  "https://morago-api.habsida.net/auth/register",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      phone: phone.replace(/\s+/g, ""),
-                      password,
-                      confirmPassword: password,
-                      role: getApiRole(),
-                    }),
-                  },
-                );
+                const data = await register({
+                  phone: phone.replace(/\s+/g, ""),
+                  password,
+                  confirmPassword: password,
+                  role: getApiRole(),
+                });
 
-                const data = await response.json();
-
-                if (!response.ok) {
-                  alert(data.error || "Registration failed");
-                  return;
-                }
-
-                localStorage.setItem("authToken", data.token);
+                localStorage.setItem("token", data.token);
                 localStorage.setItem("currentUser", JSON.stringify(data));
 
                 setShowSuccess(true);
               } catch (error) {
-                console.error(error);
-                alert("Something went wrong");
+                const errorMessage =
+                  error && typeof error === "object" && "message" in error
+                    ? error.message
+                    : "Registration failed";
+
+                alert(errorMessage);
               }
             }}
           >
