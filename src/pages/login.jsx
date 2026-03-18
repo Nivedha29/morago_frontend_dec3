@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
+
 /* ------------------------- LOGIN SCREEN ------------------------- */
 const LoginScreen = () => {
   const navigate = useNavigate();
