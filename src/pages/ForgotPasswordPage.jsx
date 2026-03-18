@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import { requestPasswordResetCode } from "../services/auth";
+
 import "./RegisterPage.css";
 import call from "../assets/call.svg";
 
@@ -94,35 +96,23 @@ const ForgotPasswordPage = () => {
             disabled={!isPhoneValid}
             onClick={async () => {
               try {
-                const response = await fetch(
-                  "https://morago-api.habsida.net/publicResetPassword/reset/request",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      phone: phone.replace(/\s+/g, ""),
-                    }),
-                  },
-                );
-
-                const data = await response.json().catch(() => ({}));
-
-                if (!response.ok) {
-                  alert(data.error || "Failed to request reset code");
-                  return;
-                }
+                await requestPasswordResetCode({
+                  phone: phone.replace(/\s+/g, ""),
+                });
 
                 navigate("/forgot-password/verify", {
                   state: {
-                    phone,
+                    phone: phone.replace(/\s+/g, ""),
                     role,
                   },
                 });
               } catch (error) {
-                console.error(error);
-                alert("Something went wrong");
+                const errorMessage =
+                  error && typeof error === "object" && "message" in error
+                    ? error.message
+                    : "Failed to request reset code";
+
+                alert(errorMessage);
               }
             }}
           >

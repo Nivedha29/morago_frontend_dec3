@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import { verifyPasswordResetCode } from "../services/auth";
 
 import "./VerificationCodePage.css";
 
@@ -153,41 +154,20 @@ const ForgotPasswordVerifyPage = () => {
             disabled={!isCodeComplete}
             onClick={async () => {
               try {
-                const response = await fetch(
-                  "https://morago-api.habsida.net/publicResetPassword/reset/verify",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      phone: phone.replace(/\s+/g, ""),
-                      code: code.join(""),
-                    }),
-                  },
-                );
+                const token = await verifyPasswordResetCode({
+                  phone: phone.replace(/\s+/g, ""),
+                  code: code.join(""),
+                });
 
-                const text = await response.text();
-
-                if (!response.ok) {
-                  let errorMessage = "Invalid or expired code";
-
-                  try {
-                    const errorData = JSON.parse(text);
-                    errorMessage = errorData.error || errorMessage;
-                  } catch {
-                    // keep default message
-                  }
-
-                  alert(errorMessage);
-                  return;
-                }
-
-                setResetToken(text);
+                setResetToken(token);
                 setShowSuccess(true);
               } catch (error) {
-                console.error(error);
-                alert("Something went wrong");
+                const errorMessage =
+                  error && typeof error === "object" && "message" in error
+                    ? error.message
+                    : "Invalid or expired code";
+
+                alert(errorMessage);
               }
             }}
           >
@@ -224,7 +204,7 @@ const ForgotPasswordVerifyPage = () => {
                   onClick={() =>
                     navigate("/forgot-password/new-password", {
                       state: {
-                        phone,
+                        phone: phone.replace(/\s+/g, ""),
                         role,
                         code: code.join(""),
                         resetToken,
