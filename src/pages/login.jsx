@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
 /* ------------------------- LOGIN SCREEN ------------------------- */
-const LoginScreen = ({ onOpenSignup }) => {
+const LoginScreen = () => {
+  const navigate = useNavigate();
   const [role, setRole] = useState("user");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ phone: "", password: "" });
   const [activeField, setActiveField] = useState(null);
 
-  const handleLogin = () => {
+  const isFormValid = phone.trim() !== "" && password.trim() !== "";
+
+  const handleLogin = async () => {
     const trimmedPhone = phone.replace(/\s+/g, "");
     const trimmedPassword = password;
 
@@ -20,12 +24,48 @@ const LoginScreen = ({ onOpenSignup }) => {
       phoneError = "Invalid number or password";
       passwordError = "Invalid number or password";
     } else {
-      const isCorrect =
-        trimmedPhone === "01077770000" && trimmedPassword === "admin1234!";
+      try {
+        const response = await fetch(
+          "https://morago-api.habsida.net/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              phone: trimmedPhone,
+              password: trimmedPassword,
+            }),
+          },
+        );
 
-      if (!isCorrect) {
-        phoneError = "Invalid number or password";
-        passwordError = "Invalid number or password";
+        const data = await response.json();
+
+        if (!response.ok) {
+          phoneError = data.error || "Invalid number or password";
+          passwordError = data.error || "Invalid number or password";
+        } else {
+          const selectedRole =
+            role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
+
+          if (data.roles !== selectedRole) {
+            phoneError = "Please select the correct account type";
+            passwordError = "Please select the correct account type";
+          } else {
+            localStorage.setItem("authToken", data.token);
+            localStorage.setItem("currentUser", JSON.stringify(data));
+
+            if (data.roles === "ROLE_TRANSLATOR") {
+              navigate("/translator-home");
+            } else {
+              navigate("/home");
+            }
+            return;
+          }
+        }
+      } catch (error) {
+        phoneError = "Something went wrong";
+        passwordError = "Something went wrong";
       }
     }
 
@@ -34,6 +74,7 @@ const LoginScreen = ({ onOpenSignup }) => {
 
   const handleKeypadClick = (digit) => {
     if (activeField === "phone") setPhone((prev) => prev + digit);
+    setErrors({ phone: "", password: "" });
   };
 
   return (
@@ -86,7 +127,10 @@ const LoginScreen = ({ onOpenSignup }) => {
               placeholder="Enter your phone number without dashes"
               value={phone}
               onFocus={() => setActiveField("phone")}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                setErrors({ phone: "", password: "" });
+              }}
             />
           </div>
 
@@ -106,7 +150,10 @@ const LoginScreen = ({ onOpenSignup }) => {
               placeholder="Enter your password"
               value={password}
               onFocus={() => setActiveField("password")}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrors({ phone: "", password: "" });
+              }}
             />
           </div>
 
@@ -114,15 +161,27 @@ const LoginScreen = ({ onOpenSignup }) => {
             <p className="field-error-text">Invalid number or password</p>
           )}
 
-          <button className="btn btn-login" onClick={handleLogin}>
+          <button
+            className={`btn btn-login ${!isFormValid ? "btn-disabled" : ""}`}
+            onClick={handleLogin}
+            disabled={!isFormValid}
+          >
             Log in
           </button>
 
-          <button className="btn btn-register" onClick={onOpenSignup}>
+          <button
+            className="btn btn-register"
+            onClick={() => navigate("/sign-up")}
+          >
             Register
           </button>
 
-          <button className="link-forgot">Forgot password</button>
+          <button
+            className="link-forgot"
+            onClick={() => navigate("/forgot-password")}
+          >
+            Forgot password
+          </button>
         </div>
       </div>
 
@@ -142,7 +201,7 @@ const LoginScreen = ({ onOpenSignup }) => {
               >
                 {key}
               </button>
-            )
+            ),
           )}
         </div>
       )}

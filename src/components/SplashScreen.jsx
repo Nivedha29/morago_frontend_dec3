@@ -1,7 +1,19 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
 /* ------------------------- SPLASH SCREEN ------------------------- */
 const SplashScreen = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/onboarding");
+    }, 2000); // 2 seconds splash
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+  
   return (
     <div className="screen splash-screen">
       <StatusBar />
