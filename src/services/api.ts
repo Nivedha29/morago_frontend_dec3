@@ -7,14 +7,20 @@ export interface ApiError {
   details?: unknown;
 }
 
+type BackendErrorResponse =
+  | {
+      error?: string;
+      message?: string;
+      code?: string;
+    }
+  | string;
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
-
-console.log("API BASE URL:", import.meta.env.VITE_API_BASE_URL);
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -28,16 +34,18 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError<{ error?: string; message?: string; code?: string }>) => {
+  (error: AxiosError<BackendErrorResponse>) => {
+    const data = error.response?.data;
+
     const formattedError: ApiError = {
       message:
-        error.response?.data?.error ||
-        error.response?.data?.message ||
+        (typeof data === "string" ? data : data?.error) ||
+        (typeof data === "string" ? undefined : data?.message) ||
         error.message ||
         "Something went wrong",
       status: error.response?.status ?? 500,
-      code: error.response?.data?.code,
-      details: error.response?.data,
+      code: typeof data === "string" ? undefined : data?.code,
+      details: data ?? null,
     };
 
     return Promise.reject(formattedError);
