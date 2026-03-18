@@ -31,17 +31,25 @@ const LoginScreen = () => {
           password: trimmedPassword,
         });
 
+        console.log("LOGIN SUCCESS DATA:", data);
+        console.log("SELECTED UI ROLE:", role);
+        console.log("BACKEND ROLES:", data.roles);
+
         const selectedRole =
           role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
 
-        if (data.roles !== selectedRole) {
+        const hasSelectedRole = Array.isArray(data.roles)
+          ? data.roles.includes(selectedRole)
+          : String(data.roles).includes(selectedRole);
+
+        if (!hasSelectedRole) {
           phoneError = "Please select the correct account type";
           passwordError = "Please select the correct account type";
         } else {
           localStorage.setItem("token", data.token);
           localStorage.setItem("currentUser", JSON.stringify(data));
 
-          if (data.roles === "ROLE_TRANSLATOR") {
+          if (selectedRole === "ROLE_TRANSLATOR") {
             navigate("/translator-home");
           } else {
             navigate("/home");

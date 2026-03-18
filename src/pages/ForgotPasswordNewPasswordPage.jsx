@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import { confirmPasswordReset } from "../services/auth";
+
 import "./RegisterPage.css";
 import lock from "../assets/lock.svg";
 
 const ForgotPasswordNewPasswordPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const phone = location.state?.phone || "";
-  const role = location.state?.role || "user";
-  const code = location.state?.code || "";
   const resetToken = location.state?.resetToken || "";
 
   const [form, setForm] = useState({
@@ -93,41 +92,20 @@ const ForgotPasswordNewPasswordPage = () => {
             disabled={!isFormValid}
             onClick={async () => {
               try {
-                const response = await fetch(
-                  "https://morago-api.habsida.net/publicResetPassword/reset/confirm",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      resetToken,
-                      newPassword: form.password,
-                    }),
-                  },
-                );
-
-                const text = await response.text();
-
-                if (!response.ok) {
-                  let errorMessage = "Failed to reset password";
-
-                  try {
-                    const errorData = JSON.parse(text);
-                    errorMessage = errorData.error || errorMessage;
-                  } catch {
-                    // keep default
-                  }
-
-                  alert(errorMessage);
-                  return;
-                }
+                await confirmPasswordReset({
+                  resetToken,
+                  newPassword: form.password,
+                });
 
                 alert("Password changed successfully");
                 navigate("/login");
               } catch (error) {
-                console.error(error);
-                alert("Something went wrong");
+                const errorMessage =
+                  error && typeof error === "object" && "message" in error
+                    ? error.message
+                    : "Failed to reset password";
+
+                alert(errorMessage);
               }
             }}
           >
