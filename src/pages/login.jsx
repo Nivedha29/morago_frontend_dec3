@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
-
+import { login } from "../services/auth";
 
 /* ------------------------- LOGIN SCREEN ------------------------- */
 const LoginScreen = () => {
@@ -26,47 +26,31 @@ const LoginScreen = () => {
       passwordError = "Invalid number or password";
     } else {
       try {
-        const response = await fetch(
-          "https://morago-api.habsida.net/auth/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              phone: trimmedPhone,
-              password: trimmedPassword,
-            }),
-          },
-        );
+        const data = await login({
+          phone: trimmedPhone,
+          password: trimmedPassword,
+        });
 
-        const data = await response.json();
+        const selectedRole =
+          role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
 
-        if (!response.ok) {
-          phoneError = data.error || "Invalid number or password";
-          passwordError = data.error || "Invalid number or password";
+        if (data.roles !== selectedRole) {
+          phoneError = "Please select the correct account type";
+          passwordError = "Please select the correct account type";
         } else {
-          const selectedRole =
-            role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("currentUser", JSON.stringify(data));
 
-          if (data.roles !== selectedRole) {
-            phoneError = "Please select the correct account type";
-            passwordError = "Please select the correct account type";
+          if (data.roles === "ROLE_TRANSLATOR") {
+            navigate("/translator-home");
           } else {
-            localStorage.setItem("authToken", data.token);
-            localStorage.setItem("currentUser", JSON.stringify(data));
-
-            if (data.roles === "ROLE_TRANSLATOR") {
-              navigate("/translator-home");
-            } else {
-              navigate("/home");
-            }
-            return;
+            navigate("/home");
           }
+          return;
         }
       } catch (error) {
-        phoneError = "Something went wrong";
-        passwordError = "Something went wrong";
+        phoneError = error?.message || "Something went wrong";
+        passwordError = error?.message || "Something went wrong";
       }
     }
 
@@ -159,7 +143,7 @@ const LoginScreen = () => {
           </div>
 
           {errors.password && (
-            <p className="field-error-text">Invalid number or password</p>
+            <p className="field-error-text">{errors.password}</p>
           )}
 
           <button
