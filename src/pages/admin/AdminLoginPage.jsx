@@ -32,7 +32,7 @@ const AdminLoginPage = () => {
 
     try {
       setIsLoading(true);
-
+      
       const data = await login({
         phone: trimmedPhone,
         password: trimmedPassword,
@@ -76,7 +76,7 @@ const AdminLoginPage = () => {
           <div className="admin-login-form">
             <input
               type="text"
-              placeholder="Email"
+              placeholder="Phone number"
               value={phone}
               onChange={(e) => {
                 setPhone(e.target.value);
