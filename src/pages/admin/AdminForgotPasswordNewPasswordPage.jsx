@@ -10,7 +10,6 @@ const AdminForgotPasswordNewPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const isFormValid = password.length >= 9 && confirmPassword.length >= 9;
 
   const handleSavePassword = async () => {
     const resetToken = sessionStorage.getItem("resetToken");
