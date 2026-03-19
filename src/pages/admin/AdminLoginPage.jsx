@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth";
+
 import "../../styles/AdminLoginPage.css";
+import AdminHeader from "../../components/admin/AdminHeader";
 
 const AdminLoginPage = () => {
   const navigate = useNavigate();
@@ -65,10 +67,7 @@ const AdminLoginPage = () => {
 
   return (
     <div className="admin-login-page">
-      <div className="admin-header">
-        <div className="admin-logo">morago</div>
-        <div className="admin-header-bar" />
-      </div>
+      <AdminHeader />
 
       <div className="admin-login-container">
         <div className="admin-login-card">
