@@ -14,7 +14,7 @@ const AdminForgotPasswordPage = () => {
           <input
             className="admin-forgot-input"
             type="text"
-            placeholder="Email"
+            placeholder="Phone Number"
           />
 
           <button

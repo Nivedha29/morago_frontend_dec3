@@ -1,21 +1,73 @@
 import AdminHeader from "../../components/admin/AdminHeader";
 import "../../styles/AdminForgotPassword.css";
 import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 
 const AdminForgotPasswordVerifyPage = () => {
   const navigate = useNavigate();
+  const [code, setCode] = useState(["", "", "", ""]);
+  const inputRefs = useRef([]);
+
+  const handleChange = (value, index) => {
+    if (!/^\d?$/.test(value)) return;
+
+    const updatedCode = [...code];
+    updatedCode[index] = value;
+    setCode(updatedCode);
+
+    if (value && index < code.length - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      if (code[index]) {
+        const updatedCode = [...code];
+        updatedCode[index] = "";
+        setCode(updatedCode);
+      } else if (index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    }
+  };
+
   return (
     <div className="admin-forgot-page">
       <AdminHeader />
+
       <div className="admin-forgot-container">
         <div className="admin-forgot-card">
-          <h1 className="admin-forgot-title">Verify code</h1>
+          <h1 className="admin-forgot-title">Verify Code</h1>
+
+          <div className="admin-code-inputs">
+            {code.map((digit, index) => (
+              <input
+                key={index}
+                ref={(el) => (inputRefs.current[index] = el)}
+                className="admin-code-box"
+                type="text"
+                inputMode="numeric"
+                maxLength={1}
+                value={digit}
+                onChange={(e) => handleChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+              />
+            ))}
+          </div>
 
           <button
-            className="admin-forgot-button"
+            className="admin-forgot-button primary"
             onClick={() => navigate("/admin/forgot-password/new-password")}
           >
-            Verify
+            Verify Code
+          </button>
+
+          <button
+            className="admin-forgot-back"
+            onClick={() => navigate("/admin/forgot-password")}
+          >
+            Back
           </button>
         </div>
       </div>
