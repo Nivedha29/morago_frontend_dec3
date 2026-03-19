@@ -105,6 +105,7 @@ const AdminForgotPasswordVerifyPage = () => {
 
           <button
             className="admin-forgot-back"
+            type="button"
             onClick={() => navigate("/admin/forgot-password")}
           >
             Back

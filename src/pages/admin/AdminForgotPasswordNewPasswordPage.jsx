@@ -2,11 +2,52 @@ import AdminHeader from "../../components/admin/AdminHeader";
 import "../../styles/AdminForgotPassword.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { confirmPasswordReset } from "../../services/auth";
 
 const AdminForgotPasswordNewPasswordPage = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSavePassword = async () => {
+    const resetToken = sessionStorage.getItem("resetToken");
+
+    if (!resetToken) {
+      setError("Missing reset token. Please start again.");
+      return;
+    }
+
+    if (!password || !confirmPassword) {
+      setError("Please fill in both password fields");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setError("");
+
+      await confirmPasswordReset({
+        resetToken,
+        newPassword: password,
+      });
+
+      sessionStorage.removeItem("resetPhone");
+      sessionStorage.removeItem("resetToken");
+
+      navigate("/admin/login");
+    } catch (error) {
+      setError(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="admin-forgot-page">
@@ -21,7 +62,10 @@ const AdminForgotPasswordNewPasswordPage = () => {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError("");
+            }}
           />
 
           <input
@@ -29,18 +73,26 @@ const AdminForgotPasswordNewPasswordPage = () => {
             type="password"
             placeholder="Repeat Password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              setError("");
+            }}
           />
+
+          {error && <p className="admin-forgot-error">{error}</p>}
 
           <button
             className="admin-forgot-button primary"
-            onClick={() => navigate("/admin/login")}
+            type="button"
+            disabled={isLoading}
+            onClick={handleSavePassword}
           >
-            Save
+            {isLoading ? "Saving..." : "Save"}
           </button>
 
           <button
             className="admin-forgot-back"
+            type="button"
             onClick={() => navigate("/admin/forgot-password/verify")}
           >
             Back
