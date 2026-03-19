@@ -25,54 +25,66 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
   return (
-    <div className="app-root">
-      <div className="phone-shell">
-        <Routes>
-      
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/translators" element={<AdminTranslatorPage />} />
-          <Route path="/admin/users" element={<AdminUserPage />} />
-          <Route path="/admin/themes" element={<AdminThemesPage />} />
-          <Route path="/admin/categories" element={<AdminCategoriesPage />} />
-         
-          <Route path="/" element={<SplashScreen />} />
-          <Route path="/onboarding" element={<OnboardingScreen />} />
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/sign-up" element={<SignupScreen />} />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute allowedRole="ROLE_USER">
-                <HomeScreen />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/translator-home"
-            element={
-              <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
-                <TranslatorHome />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/sign-up/user" element={<RegisterPage role="user" />} />
-          <Route
-            path="/sign-up/translator"
-            element={<RegisterPage role="translator" />}
-          />
-          <Route path="/verify" element={<VerificationCodePage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route
-            path="/forgot-password/verify"
-            element={<ForgotPasswordVerifyPage />}
-          />
-          <Route
-            path="/forgot-password/new-password"
-            element={<ForgotPasswordNewPasswordPage />}
-          />
-        </Routes>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/admin/login" element={<AdminLoginPage />} />
+      <Route path="/admin/translators" element={<AdminTranslatorPage />} />
+      <Route path="/admin/users" element={<AdminUserPage />} />
+      <Route path="/admin/themes" element={<AdminThemesPage />} />
+      <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+
+      <Route
+        path="*"
+        element={
+          <div className="app-root">
+            <div className="phone-shell">
+              <Routes>
+                <Route path="/" element={<SplashScreen />} />
+                <Route path="/onboarding" element={<OnboardingScreen />} />
+                <Route path="/login" element={<LoginScreen />} />
+                <Route path="/sign-up" element={<SignupScreen />} />
+                <Route
+                  path="/home"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_USER">
+                      <HomeScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/translator-home"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <TranslatorHome />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/sign-up/user"
+                  element={<RegisterPage role="user" />}
+                />
+                <Route
+                  path="/sign-up/translator"
+                  element={<RegisterPage role="translator" />}
+                />
+                <Route path="/verify" element={<VerificationCodePage />} />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
+                <Route
+                  path="/forgot-password/verify"
+                  element={<ForgotPasswordVerifyPage />}
+                />
+                <Route
+                  path="/forgot-password/new-password"
+                  element={<ForgotPasswordNewPasswordPage />}
+                />
+              </Routes>
+            </div>
+          </div>
+        }
+      />
+    </Routes>
   );
 };
 
