@@ -1,6 +1,14 @@
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
 
+/* ------------------------- Admin Page ------------------------- */
+
+import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
+import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
+import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
+import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
+
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
 import SignupScreen from "./pages/sign-up.jsx";
@@ -20,6 +28,13 @@ const App = () => {
     <div className="app-root">
       <div className="phone-shell">
         <Routes>
+      
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/translators" element={<AdminTranslatorPage />} />
+          <Route path="/admin/users" element={<AdminUserPage />} />
+          <Route path="/admin/themes" element={<AdminThemesPage />} />
+          <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+         
           <Route path="/" element={<SplashScreen />} />
           <Route path="/onboarding" element={<OnboardingScreen />} />
           <Route path="/login" element={<LoginScreen />} />
@@ -32,7 +47,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/translator-home"
             element={
@@ -41,7 +55,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
           <Route path="/sign-up/user" element={<RegisterPage role="user" />} />
           <Route
             path="/sign-up/translator"
