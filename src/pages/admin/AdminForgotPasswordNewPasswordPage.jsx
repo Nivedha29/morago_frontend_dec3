@@ -10,6 +10,7 @@ const AdminForgotPasswordNewPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const isFormValid = password.length >= 9 && confirmPassword.length >= 9;
 
   const handleSavePassword = async () => {
     const resetToken = sessionStorage.getItem("resetToken");
@@ -21,6 +22,11 @@ const AdminForgotPasswordNewPasswordPage = () => {
 
     if (!password || !confirmPassword) {
       setError("Please fill in both password fields");
+      return;
+    }
+
+    if (password.length < 9) {
+      setError("Password must be at least 9 characters");
       return;
     }
 
