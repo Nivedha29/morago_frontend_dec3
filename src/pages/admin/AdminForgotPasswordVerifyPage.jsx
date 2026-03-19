@@ -2,11 +2,14 @@ import AdminHeader from "../../components/admin/AdminHeader";
 import "../../styles/AdminForgotPassword.css";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { verifyPasswordResetCode } from "../../services/auth";
 
 const AdminForgotPasswordVerifyPage = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -14,9 +17,42 @@ const AdminForgotPasswordVerifyPage = () => {
     const updatedCode = [...code];
     updatedCode[index] = value;
     setCode(updatedCode);
+    setError("");
 
     if (value && index < code.length - 1) {
       inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleVerifyCode = async () => {
+    const phone = sessionStorage.getItem("resetPhone");
+    const joinedCode = code.join("");
+
+    if (!phone) {
+      setError("Missing phone number. Please start again.");
+      return;
+    }
+
+    if (joinedCode.length !== 4) {
+      setError("Enter the 4-digit code");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setError("");
+
+      const resetToken = await verifyPasswordResetCode({
+        phone,
+        code: joinedCode,
+      });
+
+      sessionStorage.setItem("resetToken", resetToken);
+      navigate("/admin/forgot-password/new-password");
+    } catch (error) {
+      setError(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,11 +92,15 @@ const AdminForgotPasswordVerifyPage = () => {
             ))}
           </div>
 
+          {error && <p className="admin-forgot-error">{error}</p>}
+
           <button
             className="admin-forgot-button primary"
-            onClick={() => navigate("/admin/forgot-password/new-password")}
+            type="button"
+            disabled={isLoading}
+            onClick={handleVerifyCode}
           >
-            Verify Code
+            {isLoading ? "Verifying..." : "Verify Code"}
           </button>
 
           <button
