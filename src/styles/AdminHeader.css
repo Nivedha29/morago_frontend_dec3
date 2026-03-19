@@ -1,0 +1,24 @@
+.admin-header {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.admin-logo-box {
+  justify-content: flex-start;
+  margin: 31px 100px;
+}
+
+.admin-logo-image {
+  width: 126px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.admin-header-bar {
+  flex: 1;
+  height: 100px;
+  background: #045f73;
+}
