@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/AdminPageShell.css";
+import AdminControls from "../../components/admin/AdminControls";
 
 const AdminPageShell = ({
   title,
@@ -18,6 +19,7 @@ const AdminPageShell = ({
           <span className="breadcrumb-section">{breadcrumbSection}</span>
           <span className="breadcrumb-separator">/</span>
           <span className="breadcrumb-page">{breadcrumbPage}</span>
+          <AdminControls />
         </div>
       </div>
 
