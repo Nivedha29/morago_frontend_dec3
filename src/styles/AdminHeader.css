@@ -7,7 +7,7 @@
 
 .admin-logo-box {
   justify-content: flex-start;
-  margin: 31px 100px;
+  margin: 31px 150px;
 }
 
 .admin-logo-image {
@@ -21,25 +21,30 @@
   flex: 1;
   height: 100px;
   background: #045f73;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 24px;
 }
 
 .admin-header-profile {
-  min-width: 128px;
-  height: 30px;
+  min-width: 200px;
+  height: 55px;
+  margin-right:35px;
   border: none;
-  border-radius: 8px;
   background: #ffffff;
   color: #111111;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 18px;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 16px;
   cursor: pointer;
 }
 
 .admin-header-profile-icon {
-  width: 22px;
-  height: 10px;
+  width: 35px;
+  height: 35px;
   object-fit: contain;
   display: block;
 }

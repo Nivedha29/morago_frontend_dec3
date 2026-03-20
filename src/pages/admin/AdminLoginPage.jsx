@@ -67,7 +67,7 @@ const AdminLoginPage = () => {
 
   return (
     <div className="admin-login-page">
-      <AdminHeader />
+      <AdminHeader showProfile={false} />
 
       <div className="admin-login-container">
         <div className="admin-login-card">
