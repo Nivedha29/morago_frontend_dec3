@@ -1,6 +1,7 @@
 import AdminHeader from "../../components/admin/AdminHeader";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
+import AdminTable from "../../components/admin/AdminTable";
 import "../../styles/AdminLayout.css";
 
 const AdminCategoriesPage = () => {
@@ -17,7 +18,7 @@ const AdminCategoriesPage = () => {
             breadcrumbSection="Translation topics"
             breadcrumbPage="Categories"
           >
-            <div>top controls go here</div>
+             <AdminTable />
           </AdminPageShell>
         </div>
       </div>

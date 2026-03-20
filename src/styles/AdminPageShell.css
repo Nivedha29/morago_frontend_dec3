@@ -56,3 +56,9 @@
 .breadcrumb-separator {
    color: #9a9a9a;
 }
+
+.admin-page-shell-body {
+  width: calc(100% + 96px);
+  margin-left: -48px;
+  margin-right: -48px;
+}
