@@ -4,6 +4,7 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
+import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
 import "../../styles/AdminLayout.css";
 
 import { getAdminTranslators } from "../../services/admin";
@@ -75,6 +76,12 @@ const AdminTranslatorPage = () => {
           </AdminPageShell>
         </div>
       </div>
+      {selectedTranslator && (
+        <TranslatorDetailModal
+          translator={selectedTranslator}
+          onClose={() => setSelectedTranslator(null)}
+        />
+      )}
     </div>
   );
 };
