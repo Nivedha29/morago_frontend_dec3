@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/AdminTable.css";
 import eyeIcon from "../../assets/eye.svg";
 
-const AdminTable = ({ translators = [] }) => {
+const AdminTable = ({ translators = [], onViewTranslator}) => {
   return (
     <div className="admin-table">
       <div className="admin-table-header">
@@ -89,7 +89,10 @@ const AdminTable = ({ translators = [] }) => {
 
           <div className="admin-table-cell admin-table-link">View</div>
 
-          <div className="admin-table-cell admin-table-action-cell">
+          <div
+            className="admin-table-cell admin-table-action-cell"
+            onClick={() => onViewTranslator && onViewTranslator(t)}
+          >
             <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
           </div>
         </div>

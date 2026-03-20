@@ -91,6 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.5;
 }
 
 .admin-table-eye-icon {
@@ -99,6 +100,7 @@
   object-fit: contain;
   display: block;
   filter: brightness(0);
+<<<<<<< HEAD
 }
 
 /* laptop screen */
@@ -173,4 +175,7 @@
     width: 18px;
     height: 18px;
   }
+=======
+  cursor: pointer;
+>>>>>>> a7844bc (Feat: wire translator row view action to selected translator state)
 }
