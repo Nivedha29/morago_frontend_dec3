@@ -22,16 +22,13 @@
 .admin-page-content {
   flex: 1;
   padding: 40px 48px;
-   display: flex;
+  display: flex;
   flex-direction: column;
 }
 
 .admin-page-footer {
   display: flex;
-  justify-content: center;   
-  margin-top: auto;         
+  justify-content: center;
+  margin-top: auto;
   padding: 24px 0;
 }
-
-
-
