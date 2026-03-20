@@ -2,6 +2,8 @@ import React from "react";
 import AdminHeader from "../../components/admin/AdminHeader";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
+import AdminTable from "../../components/admin/AdminTable";
+import AdminPagination from "../../components/admin/AdminPagination";
 import "../../styles/AdminLayout.css";
 
 const AdminTranslatorPage = () => {
@@ -18,7 +20,11 @@ const AdminTranslatorPage = () => {
             breadcrumbSection="Lists"
             breadcrumbPage="Translators"
           >
-            <div>top controls go here</div>
+            <AdminTable />
+
+            <div className="admin-page-footer">
+              <AdminPagination />
+            </div>
           </AdminPageShell>
         </div>
       </div>
