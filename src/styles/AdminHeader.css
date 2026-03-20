@@ -1,18 +1,13 @@
 .admin-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   display: flex;
   align-items: stretch;
   width: 100%;
   border-bottom: 1px solid #cfcfcf;
-  background: #ffffff;
 }
 
 .admin-logo-box {
   justify-content: flex-start;
   margin: 31px 150px;
-  flex-shrink: 0;
 }
 
 .admin-logo-image {
@@ -30,13 +25,12 @@
   align-items: center;
   justify-content: flex-end;
   padding-right: 24px;
-  min-width: 0;
 }
 
 .admin-header-profile {
   min-width: 200px;
   height: 55px;
-  margin-right: 35px;
+  margin-right:35px;
   border: none;
   background: #ffffff;
   color: #111111;
@@ -46,7 +40,6 @@
   gap: 20px;
   padding: 0 16px;
   cursor: pointer;
-  flex-shrink: 0;
 }
 
 .admin-header-profile-icon {
@@ -60,48 +53,4 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 1;
-}
-
-@media (max-width: 1440px) {
-  .admin-logo-box {
-    margin: 24px 96px;
-  }
-
-  .admin-header-profile {
-    min-width: 180px;
-    margin-right: 24px;
-    gap: 14px;
-  }
-}
-
-@media (max-width: 1280px) {
-  .admin-logo-box {
-    margin: 20px 78px;
-  }
-
-  .admin-logo-image {
-    width: 163px;
-  }
-
-  .admin-header-bar {
-    height: 88px;
-    padding-right: 16px;
-  }
-
-  .admin-header-profile {
-    min-width: 150px;
-    height: 46px;
-    margin-right: 16px;
-    gap: 10px;
-    padding: 0 12px;
-  }
-
-  .admin-header-profile-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .admin-header-profile-text {
-    font-size: 16px;
-  }
 }
