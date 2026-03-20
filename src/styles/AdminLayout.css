@@ -25,6 +25,7 @@
   flex: 1;
   min-width: 0;
   padding: 40px 48px;
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
 }
@@ -38,3 +39,6 @@
 
 
 
+=======
+}
+>>>>>>> c3c1088 (Create admin header with logo, navigation bar, and conditional profile button)
