@@ -6,7 +6,17 @@
 .admin-table-header,
 .admin-table-row {
   display: grid;
-  grid-template-columns: 44px 1.1fr 1fr 1.3fr 0.8fr 0.9fr 1.3fr 0.8fr 0.9fr 44px;
+  grid-template-columns:
+  44px
+  minmax(120px, 1.2fr)
+  minmax(140px, 1fr)
+  minmax(180px, 1.5fr)
+  minmax(80px, 0.8fr)
+  minmax(100px, 1fr)
+  minmax(140px, 1.2fr)
+  minmax(80px, 0.8fr)
+  minmax(80px, 0.8fr)
+  250px;
   align-items: center;
 }
 
@@ -75,12 +85,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 50px;
 }
 
 .admin-table-eye-icon {
-  width: 18px;
-  height: 18px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   display: block;
+  filter: brightness(0);
 }
