@@ -89,10 +89,14 @@ const AdminTranslatorPage = () => {
           </AdminPageShell>
         </div>
       </div>
-      {selectedTranslator && (
+
+      {selectedTranslatorDetail && (
         <TranslatorDetailModal
-          translator={selectedTranslator}
-          onClose={() => setSelectedTranslator(null)}
+          translator={selectedTranslatorDetail}
+          onClose={() => {
+            setSelectedTranslatorId(null);
+            setSelectedTranslatorDetail(null);
+          }}
         />
       )}
     </div>
