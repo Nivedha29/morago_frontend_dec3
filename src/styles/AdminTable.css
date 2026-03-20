@@ -1,154 +1,98 @@
-.morago-admin-table {
+.admin-table {
   width: 100%;
   margin-top: 8px;
-  overflow-x: auto;
 }
 
-.morago-admin-table__header,
-.morago-admin-table__row {
+.admin-table-header,
+.admin-table-row {
   display: grid;
   grid-template-columns:
-    100px minmax(90px, 1fr) minmax(110px, 1fr) minmax(140px, 1.2fr) minmax(110px, 1fr) minmax(85px, 0.8fr) minmax(110px, 1fr) minmax(70px, 0.7fr) minmax(70px, 0.7fr) 150px;
+  44px
+  minmax(120px, 1.2fr)
+  minmax(140px, 1fr)
+  minmax(180px, 1.5fr)
+  minmax(80px, 0.8fr)
+  minmax(100px, 1fr)
+  minmax(140px, 1.2fr)
+  minmax(80px, 0.8fr)
+  minmax(80px, 0.8fr)
+  250px;
   align-items: center;
-  min-width: 980px;
 }
 
-.morago-admin-table__header {
+.admin-table-header {
   min-height: 56px;
   background: #ffffff;
   border-radius: 4px 4px 0 0;
 }
 
-.morago-admin-table__row {
+.admin-table-row {
   min-height: 56px;
   background: #f3f3f3;
   border-bottom: 1px solid #eeeeee;
 }
 
-.morago-admin-table__row:hover {
+.admin-table-row:hover {
   background: #fafafa;
 }
 
-.morago-admin-table__cell {
-  padding: 0 10px;
+.admin-table-cell {
+  padding: 0 12px;
   font-size: 14px;
   color: #111111;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.morago-admin-table__checkbox-cell {
+.admin-table-checkbox-cell {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.morago-admin-table__checkbox {
+.admin-table-checkbox {
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
-.morago-admin-table__header-cell {
+.admin-table-header-cell {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   font-weight: 600;
 }
 
-.morago-admin-table__sort-arrow {
-  font-size: 13px;
+.admin-table-sort-arrow {
+  font-size: 15px;
   color: #444444;
   line-height: 1;
-  flex-shrink: 0;
 }
 
-.morago-admin-table__link {
+.admin-table-link {
+  color: #6c63ff;
   cursor: pointer;
 }
 
-.morago-admin-table__pill {
+.admin-table-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: #f1f1f1;
   border-radius: 20px;
-  font-size: 12px;
-  padding: 4px 8px;
+  font-size: 13px;
 }
 
-.morago-admin-table__action-cell {
+.admin-table-action-cell {
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.5;
 }
 
-.morago-admin-table__eye-icon {
-  width: 22px;
-  height: 22px;
+.admin-table-eye-icon {
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   display: block;
   filter: brightness(0);
   cursor: pointer;
-}
-
-/* laptop screen */
-@media (max-width: 1440px) {
-
-  .morago-admin-table__header,
-  .morago-admin-table__row {
-    grid-template-columns:
-      100px minmax(80px, 0.95fr) minmax(100px, 1fr) minmax(120px, 1.1fr) minmax(110px, 1fr) minmax(75px, 0.75fr) minmax(95px, 0.9fr) minmax(60px, 0.65fr) minmax(60px, 0.65fr) 150px;
-  }
-
-  .morago-admin-table__cell {
-    padding: 0 8px;
-    font-size: 13px;
-  }
-
-  .morago-admin-table__header-cell {
-    gap: 3px;
-  }
-
-  .morago-admin-table__sort-arrow {
-    font-size: 12px;
-  }
-
-  .morago-admin-table__eye-icon {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-/* smaller laptop */
-@media (max-width: 1280px) {
-
-  .morago-admin-table__header,
-  .morago-admin-table__row {
-    grid-template-columns:
-      36px minmax(100px, 1fr) minmax(110px, 1fr) minmax(140px, 1.2fr) minmax(100px, 1fr) minmax(90px, 0.8fr) minmax(120px, 1fr) minmax(80px, 0.7fr) minmax(80px, 0.7fr) 50px;
-  }
-
-  .morago-admin-table__cell {
-    padding: 0 8px;
-    font-size: 12px;
-  }
-
-  .morago-admin-table__header,
-  .morago-admin-table__row {
-    min-height: 52px;
-  }
-
-  .morago-admin-table__pill {
-    font-size: 11px;
-    padding: 3px 6px;
-  }
-
-  .morago-admin-table__eye-icon {
-    width: 18px;
-    height: 18px;
-  }
 }
