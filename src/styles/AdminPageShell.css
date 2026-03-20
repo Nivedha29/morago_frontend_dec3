@@ -1,0 +1,40 @@
+.admin-page-shell {
+   width: 100%;
+}
+
+.admin-page-shell-header {
+   margin-bottom: 24px;
+}
+
+.admin-page-shell-title {
+   font-size: 40px;
+   font-weight: 700;
+   line-height: 1.2;
+   color: #111111;
+   margin-top: 20px;
+}
+
+.admin-page-shell-breadcrumb {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+   font-size: 15px;
+   line-height: 1;
+   margin-top: 20px;
+   margin-left: 5px;
+}
+
+.breadcrumb-home,
+.breadcrumb-section {
+   color: #6c63ff;
+   font-weight: 400;
+}
+
+.breadcrumb-page {
+   color: #7a7a7a;
+   font-weight: 400;
+}
+
+.breadcrumb-separator {
+   color: #9a9a9a;
+}

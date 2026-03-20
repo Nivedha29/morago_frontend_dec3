@@ -15,5 +15,14 @@
   padding: 32px 40px;
 }
 
+.admin-page-wrapper {
+  display: flex;
+}
+
+.admin-page-content {
+  flex: 1;
+  padding: 40px 48px;
+}
+
 
 
