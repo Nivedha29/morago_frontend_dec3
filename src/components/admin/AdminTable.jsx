@@ -1,57 +1,100 @@
 import React from "react";
-import "../../styles/Admin/AdminTable.css";
+import "../../styles/AdminTable.css";
+import eyeIcon from "../../assets/eye.svg";
 
-const AdminTable = ({
-  data = [],
-  columns = [],
-  rowKey = "id",
-  tableClassName = "",
-}) => {
+const AdminTable = ({ translators = [], onViewTranslator}) => {
   return (
-    <div className={`morago-admin-table ${tableClassName}`.trim()}>
-      <div className="morago-admin-table__header">
-        {columns.map((column) => (
-          <div
-            key={column.key}
-            className={`morago-admin-table__cell ${
-              column.cellClassName || ""
-            } ${
-              column.headerClassName || "morago-admin-table__header-cell"
-            }`.trim()}
-          >
-            {React.isValidElement(column.header) ? (
-              column.header
-            ) : column.header ? (
-              <>
-                <span>{column.header}</span>
-                {!column.disableSortArrow && (
-                  <span className="morago-admin-table__sort-arrow">▾</span>
-                )}
-              </>
-            ) : null}
-          </div>
-        ))}
+    <div className="admin-table">
+      <div className="admin-table-header">
+        <div className="admin-table-cell admin-table-checkbox-cell">
+          <input type="checkbox" className="admin-table-checkbox" />
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Name</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Phone</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Email</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Topik</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Status</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Withdraw request</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Call</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-header-cell">
+          <span>Withdraw</span>
+          <span className="admin-table-sort-arrow">▾</span>
+        </div>
+
+        <div className="admin-table-cell admin-table-action-cell"></div>
       </div>
 
-      {data.map((row, index) => (
-        <div className="morago-admin-table__row" key={row[rowKey] ?? index}>
-          {columns.map((column) => {
-            const content = column.render
-              ? column.render(row)
-              : (row[column.key] ?? "-");
+      {translators.map((t) => (
+        <div className="admin-table-row" key={t.id}>
+          <div className="admin-table-cell admin-table-checkbox-cell">
+            <input type="checkbox" className="admin-table-checkbox" />
+          </div>
 
-            return (
-              <div
-                key={column.key}
-                className={`morago-admin-table__cell ${
-                  column.cellClassName || ""
-                } ${column.onClick ? "morago-admin-table__link" : ""}`.trim()}
-                onClick={column.onClick ? () => column.onClick(row) : undefined}
-              >
-                {content}
-              </div>
-            );
-          })}
+          <div className="admin-table-cell">
+            {t.firstName || t.lastName
+              ? `${t.firstName || ""} ${t.lastName || ""}`
+              : "-"}
+          </div>
+
+          <div className="admin-table-cell">{t.phone || "-"}</div>
+
+          <div className="admin-table-cell">{t.email || "-"}</div>
+
+          <div className="admin-table-cell">
+            {t.levelOfKorean ? `${t.levelOfKorean} level` : "-"}
+          </div>
+
+          <div className="admin-table-cell">
+            {t.isOnline ? "Online" : "Offline"}
+          </div>
+
+          <div className="admin-table-cell">
+            {t.hasWithdrawalRequest ? (
+              <span className="admin-table-pill">Request</span>
+            ) : (
+              "-"
+            )}
+          </div>
+
+          <div className="admin-table-cell admin-table-link">View</div>
+
+          <div className="admin-table-cell admin-table-link">View</div>
+
+          <div
+            className="admin-table-cell admin-table-action-cell"
+            onClick={() => onViewTranslator && onViewTranslator(t)}
+          >
+            <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+          </div>
         </div>
       ))}
     </div>
