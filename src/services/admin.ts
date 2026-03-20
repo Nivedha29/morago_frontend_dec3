@@ -48,3 +48,8 @@ export const getAdminTranslators = async (
 
   return response.data;
 };
+
+export const getTranslatorById = async (translatorId: number) => {
+  const response = await api.get(`/admin/translators/${translatorId}`);
+  return response.data;
+};
