@@ -25,7 +25,6 @@
   flex: 1;
   min-width: 0;
   padding: 40px 48px;
-<<<<<<< HEAD
   display: flex;
   flex-direction: column;
 }
@@ -36,9 +35,50 @@
   margin-top: auto;
   padding: 24px 0;
 }
+.admin-layout-page {
+  min-height: 100vh;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-layout-body {
+  flex: 1;
+  display: flex;
+}
+
+.admin-layout-content {
+  flex: 1;
+  padding: 32px 40px;
+}
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+.admin-page-wrapper {
+  display: flex;
+}
+
+.admin-page-content {
+  flex: 1;
+  padding: 40px 48px;
+   display: flex;
+  flex-direction: column;
+}
+
+.admin-page-footer {
+  display: flex;
+  justify-content: center;   
+  margin-top: auto;         
+  padding: 24px 0;
+}
 
 
 
 =======
-}
->>>>>>> c3c1088 (Create admin header with logo, navigation bar, and conditional profile button)
+
+
+>>>>>>> c5bb4e0 (Create admin header with logo, navigation bar, and conditional profile button)
+=======
+
+
+>>>>>>> c5bb4e0 (Create admin header with logo, navigation bar, and conditional profile button)
