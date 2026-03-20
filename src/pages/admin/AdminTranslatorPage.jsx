@@ -79,15 +79,23 @@ const AdminTranslatorPage = () => {
               />
             )}
 
-        <div className="admin-page-footer">
-          <AdminPagination
-            page={page}
-            setPage={setPage}
-            totalPages={totalPages}
-          />
+            <div className="admin-page-footer">
+              <AdminPagination
+                page={page}
+                setPage={setPage}
+                totalPages={totalPages}
+              />
+            </div>
+          </AdminPageShell>
         </div>
-      </AdminPageShell>
-    </AdminLayout>
+      </div>
+      {selectedTranslator && (
+        <TranslatorDetailModal
+          translator={selectedTranslator}
+          onClose={() => setSelectedTranslator(null)}
+        />
+      )}
+    </div>
   );
 };
 
