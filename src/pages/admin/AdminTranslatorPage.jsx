@@ -3,8 +3,6 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
-<<<<<<< HEAD
-=======
 import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
 import "../../styles/AdminLayout.css";
 
@@ -88,23 +86,8 @@ const AdminTranslatorPage = () => {
             totalPages={totalPages}
           />
         </div>
-<<<<<<< HEAD
       </AdminPageShell>
     </AdminLayout>
-=======
-      </div>
-
-      {selectedTranslatorDetail && (
-        <TranslatorDetailModal
-          translator={selectedTranslatorDetail}
-          onClose={() => {
-            setSelectedTranslatorId(null);
-            setSelectedTranslatorDetail(null);
-          }}
-        />
-      )}
-    </div>
->>>>>>> 76275a5 ( linked Modal to Icon)
   );
 };
 
