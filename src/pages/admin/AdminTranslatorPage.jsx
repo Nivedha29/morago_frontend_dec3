@@ -4,23 +4,18 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
-import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
-import { useNavigate } from "react-router-dom";
 import "../../styles/AdminLayout.css";
 
-import { getAdminTranslators, getTranslatorById } from "../../services/admin";
+import { getAdminTranslators } from "../../services/admin";
 
 const AdminTranslatorPage = () => {
   const [translators, setTranslators] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
-  const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
-  const [selectedTranslatorDetail, setSelectedTranslatorDetail] =
-    useState(null);
+  const [selectedTranslator, setSelectedTranslator] = useState(null);
 
   useEffect(() => {
     const fetchTranslators = async () => {
@@ -42,22 +37,6 @@ const AdminTranslatorPage = () => {
 
     fetchTranslators();
   }, [page]);
-
-  useEffect(() => {
-    const fetchTranslatorDetail = async () => {
-      if (!selectedTranslatorId) return;
-
-      try {
-        const data = await getTranslatorById(selectedTranslatorId);
-        setSelectedTranslatorDetail(data);
-      } catch (error) {
-        console.error("Failed to fetch translator detail:", error);
-      }
-    };
-
-    fetchTranslatorDetail();
-  }, [selectedTranslatorId]);
-
   return (
     <div>
       <AdminHeader />
@@ -82,17 +61,7 @@ const AdminTranslatorPage = () => {
             {!loading && !error && translators.length > 0 && (
               <AdminTable
                 translators={translators}
-                onViewTranslator={(translator) =>
-                  setSelectedTranslatorId(translator.id)
-                }
-                onViewCall={(translator) =>
-                  navigate(`/admin/translators/${translator.id}/call-history`)
-                }
-                onViewWithdraw={(translator) =>
-                  navigate(
-                    `/admin/translators/${translator.id}/withdraw-history`,
-                  )
-                }
+                onViewTranslator={setSelectedTranslator}
               />
             )}
 
@@ -106,16 +75,6 @@ const AdminTranslatorPage = () => {
           </AdminPageShell>
         </div>
       </div>
-
-      {selectedTranslatorDetail && (
-        <TranslatorDetailModal
-          translator={selectedTranslatorDetail}
-          onClose={() => {
-            setSelectedTranslatorId(null);
-            setSelectedTranslatorDetail(null);
-          }}
-        />
-      )}
     </div>
   );
 };
