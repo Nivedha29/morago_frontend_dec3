@@ -3,7 +3,25 @@
 }
 
 .admin-page-shell-header {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   gap: 32px;
    margin-bottom: 24px;
+}
+
+.admin-page-shell-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-page-shell-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  padding-top: 4px;
 }
 
 .admin-page-shell-title {

@@ -1,24 +1,37 @@
 import React from "react";
 import "../../styles/AdminControls.css";
+import searchIcon from "../../assets/SearchIcon.svg";
 
 const AdminControls = () => {
   return (
     <div className="admin-controls">
-      <input
-        type="text"
-        placeholder="Search..."
-        className="admin-controls-search"
-      />
+      <div className="admin-controls-search-wrapper">
+        <img
+          src={searchIcon}
+          alt="search"
+          className="admin-controls-search-icon"
+        />
 
-      <select className="admin-controls-filter">
-        <option>Filter</option>
-      </select>
+        <input
+          type="text"
+          placeholder="Search by name or company"
+          className="admin-controls-search"
+        />
+      </div>
 
-      <select className="admin-controls-action">
-        <option>Action</option>
-      </select>
+      <div className="admin-controls-row">
+        <select className="admin-controls-filter">
+          <option>Filter</option>
+        </select>
 
-      <button className="admin-controls-apply">Apply</button>
+        <select className="admin-controls-action">
+          <option>Choose action</option>
+        </select>
+
+        <button type="button" className="admin-controls-apply">
+          Apply
+        </button>
+      </div>
     </div>
   );
 };
