@@ -104,6 +104,7 @@ const AdminTranslatorPage = () => {
           />
         )}
 
+<<<<<<< HEAD
         {!loading && totalPages > 0 && (
           <div className="admin-page-footer">
             <AdminPagination
@@ -114,6 +115,33 @@ const AdminTranslatorPage = () => {
           </div>
         )}
       </AdminPageShell>
+=======
+            {!loading && !error && translators.length === 0 && (
+              <p>No translators found.</p>
+            )}
+
+            {!loading && !error && translators.length > 0 && (
+              <AdminTable
+                translators={translators}
+                onViewTranslator={(translator) =>
+                  navigate(
+                    `/admin/translators/${translator.id}/withdraw-history`,
+                  )
+                }
+              />
+            )}
+
+            <div className="admin-page-footer">
+              <AdminPagination
+                page={page}
+                setPage={setPage}
+                totalPages={totalPages}
+              />
+            </div>
+          </AdminPageShell>
+        </div>
+      </div>
+>>>>>>> 7f0ce96 ( Routing: Clicking View on Translotor Table routes to Withdraw History Page)
 
       {selectedTranslatorDetail && (
         <TranslatorDetailModal
