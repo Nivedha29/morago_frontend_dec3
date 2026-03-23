@@ -18,6 +18,7 @@ const AddTranslatorPage = () => {
             title="Add translator"
             breadcrumbSection="Lists"
             breadcrumbPage="Translators / Add translator"
+            showControls={false}
           >
             <div className="add-translator-page">
               <div className="add-translator-card">
@@ -28,7 +29,7 @@ const AddTranslatorPage = () => {
                         type="button"
                         className="add-translator-photo-button"
                       >
-                        ⤴
+                        ↑
                       </button>
                     </div>
 
