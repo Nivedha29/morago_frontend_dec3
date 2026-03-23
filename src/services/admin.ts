@@ -120,6 +120,13 @@ export interface GetWithdrawalHistoryParams {
   sortDirection?: "ASC" | "DESC";
 }
 
+export interface ApproveWithdrawalPayload {
+  fullName: string;
+  bankName: string;
+  bankAccount: string;
+  sum: number;
+}
+
 export const getAdminTranslators = async (
   params: GetAdminTranslatorsParams = {},
 ): Promise<TranslatorListResponse> => {
@@ -149,5 +156,13 @@ export const getWithdrawalHistoryByUserId = async (
     params,
   });
 
+  return response.data;
+};
+
+export const approveWithdrawalById = async (
+  id: number,
+  payload: ApproveWithdrawalPayload,
+) => {
+  const response = await api.put(`/admin/withdrawals/${id}`, payload);
   return response.data;
 };

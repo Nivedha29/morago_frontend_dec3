@@ -131,6 +131,8 @@ const TranslatorWithdrawTablePage = () => {
           sortBy: "id",
           sortDirection: "ASC",
         });
+        console.log("withdrawal history response:", data);
+        console.log("withdrawal content:", data.content);
 
         setWithdrawals(data.content || []);
         setTotalPages(data.totalPages || 0);
@@ -176,10 +178,21 @@ const TranslatorWithdrawTablePage = () => {
       header: "Withdraw request",
       cellClassName: "admin-table-link",
       render: (item) => item.status || "-",
-      onClick: (item) =>
+      onClick: (item) => {
+        console.log("clicked item:", item);
+
+        if (!item?.id) {
+          console.error("Withdrawal id is missing:", item);
+          return;
+        }
+
         navigate(
           `/admin/translators/${translatorId}/withdraw-history/${item.id}/approval`,
-        ),
+          {
+            state: { withdrawal: item },
+          },
+        );
+      },
     },
   ];
 
