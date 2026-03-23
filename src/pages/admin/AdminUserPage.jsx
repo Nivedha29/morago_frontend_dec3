@@ -57,8 +57,40 @@ const AdminUserPage = () => {
       >
         <AdminTable />
 
+<<<<<<< HEAD
         <div className="admin-page-footer">
           <AdminPagination />
+=======
+      <div className="admin-page-wrapper">
+        <AdminSidebar />
+
+        <div className="admin-page-content">
+          <AdminPageShell
+            title="Users list"
+            breadcrumbSection="Lists"
+            breadcrumbPage="Users"
+          >
+            {loading && <p>Loading users...</p>}
+
+            {!loading && error && <p>{error}</p>}
+
+            {!loading && !error && users.length === 0 && <p>No users found.</p>}
+
+            {!loading && !error && users.length > 0 && (
+              <div className="admin-table users-table">
+                <AdminTable data={users} columns={userColumns} />
+              </div>
+            )}
+
+            <div className="admin-page-footer">
+              <AdminPagination
+                page={page}
+                setPage={setPage}
+                totalPages={totalPages}
+              />
+            </div>
+          </AdminPageShell>
+>>>>>>> c2b2376 ( Style : Polished Styling)
         </div>
       </AdminPageShell>
     </AdminLayout>
