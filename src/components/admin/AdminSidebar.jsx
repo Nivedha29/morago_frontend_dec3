@@ -30,6 +30,18 @@ const AdminSidebar = () => {
     }
   };
 
+  const handleAddClick = () => {
+    if (location.pathname === "/admin/translators") {
+      navigate("/admin/translators/add");
+    } else if (location.pathname === "/admin/users") {
+      navigate("/admin/users/add");
+    } else if (location.pathname === "/admin/themes") {
+      navigate("/admin/themes/add");
+    } else if (location.pathname === "/admin/categories") {
+      navigate("/admin/categories/add");
+    }
+  };
+
   return (
     <aside className="admin-sidebar">
       <div className="sidebar-content">
