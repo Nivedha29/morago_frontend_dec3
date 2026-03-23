@@ -4,7 +4,11 @@ import { Routes, Route } from "react-router-dom";
 /* ------------------------- Admin Page ------------------------- */
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
+import AdminForgotPasswordPage from "./pages/admin/AdminForgotPasswordPage.jsx";
+import AdminForgotPasswordVerifyPage from "./pages/admin/AdminForgotPasswordVerifyPage.jsx";
+import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswordNewPasswordPage.jsx";
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -50,8 +54,13 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
+=======
+import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
+import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
+import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
+>>>>>>> d07e567 ( Added Initial Routing)
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
-
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -69,12 +78,24 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
   return (
-    /* ------------------------- ADMIN ------------------------- */
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
-
+      <Route
+        path="/admin/forgot-password"
+        element={<AdminForgotPasswordPage />}
+      />
+      <Route
+        path="/admin/forgot-password/verify"
+        element={<AdminForgotPasswordVerifyPage />}
+      />
+      <Route
+        path="/admin/forgot-password/new-password"
+        element={<AdminForgotPasswordNewPasswordPage />}
+      />
+      
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
+<<<<<<< HEAD
       <Route
         path="/admin/translators/:translatorId/withdraw"
         element={<TranslatorWithdrawPage />}
@@ -132,11 +153,11 @@ const App = () => {
 =======
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 
+=======
+      <Route path="/admin/users" element={<AdminUserPage />} />
+>>>>>>> d07e567 ( Added Initial Routing)
       <Route path="/admin/themes" element={<AdminThemesPage />} />
-      <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
-
-      {/* ------------------------- MOBILE APP ------------------------- */}
 
       <Route
         path="*"
