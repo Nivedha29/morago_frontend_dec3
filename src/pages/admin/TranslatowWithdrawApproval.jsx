@@ -4,10 +4,15 @@ import AdminHeader from "../../components/admin/AdminHeader";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import "../../styles/AdminLayout.css";
+<<<<<<< HEAD:src/pages/admin/TranslatorWithdrawPage.jsx
 import "../../styles/TranslatorWithdrawPage.css";
 /*import { approveWithdrawal } from "../../services/admin";*/
+=======
+import "../../styles/TranslatorWithdrawApproval.css";
+import { approveWithdrawal } from "../../services/admin";
+>>>>>>> b3f11f3 ( Feature : Added Skeleton and Initial Styling):src/pages/admin/TranslatowWithdrawApproval.jsx
 
-const TranslatorWithdrawPage = () => {
+const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -118,4 +123,4 @@ const TranslatorWithdrawPage = () => {
   );
 };
 
-export default TranslatorWithdrawPage;
+export default TranslatorWithdrawApproval;
