@@ -2,7 +2,11 @@ import React from "react";
 import "../../styles/AdminTable.css";
 import eyeIcon from "../../assets/eye.svg";
 
-const defaultTranslatorColumns = (onViewTranslator) => [
+const defaultTranslatorColumns = (
+  onViewTranslator,
+  onViewCall,
+  onViewWithdraw,
+) => [
   {
     key: "checkbox",
     header: <input type="checkbox" className="admin-table-checkbox" />,
@@ -53,13 +57,14 @@ const defaultTranslatorColumns = (onViewTranslator) => [
     key: "call",
     header: "Call",
     cellClassName: "admin-table-link",
+    onClick: (t) => onViewCall && onViewCall(t),
     render: () => "View >",
   },
   {
     key: "withdraw",
     header: "Withdraw",
     cellClassName: "admin-table-link",
-    onClick: (t) => onViewTranslator && onViewTranslator(t),
+    onClick: (t) => onViewWithdraw && onViewWithdraw(t),
     render: () => "View >",
   },
   {
@@ -80,10 +85,18 @@ const AdminTable = ({
   data,
   columns,
   onViewTranslator,
+  onViewCall,
+  onViewWithdraw,
   rowKey = "id",
 }) => {
   const tableData = data || translators;
-  const tableColumns = columns || defaultTranslatorColumns(onViewTranslator);
+  const tableColumns =
+    columns ||
+    defaultTranslatorColumns(
+      onViewTranslator,
+      onViewCall,
+      onViewWithdraw,
+    );
 
   return (
     <div className="admin-table">
