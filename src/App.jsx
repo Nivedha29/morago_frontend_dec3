@@ -19,7 +19,6 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
-import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -37,48 +36,26 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
   return (
-    /* ------------------------- ADMIN ------------------------- */
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
-
+      <Route
+        path="/admin/forgot-password"
+        element={<AdminForgotPasswordPage />}
+      />
+      <Route
+        path="/admin/forgot-password/verify"
+        element={<AdminForgotPasswordVerifyPage />}
+      />
+      <Route
+        path="/admin/forgot-password/new-password"
+        element={<AdminForgotPasswordNewPasswordPage />}
+      />
+      
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
-      <Route
-        path="/admin/translators/:translatorId/withdraw"
-        element={<TranslatorWithdrawPage />}
-      />
-      <Route
-        path="/admin/translators/:translatorId/withdraw-history"
-        element={<TranslatorWithdrawHistoryPage />}
-      />
-      <Route
-        path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
-        element={<TranslatorWithdrawApproval />}
-      />
-      <Route
-        path="/admin/translators/:id/call-history"
-        element={<TranslatorCallHistoryPage />}
-      />
-
       <Route path="/admin/users" element={<AdminUserPage />} />
-      <Route
-        path="/admin/users/:userId/call-history"
-        element={<AdminUserCallHistoryPage />}
-      />
-      <Route
-        path="/admin/users/:userId/deposit-history"
-        element={<UserDepositHistoryPage />}
-      />
-      <Route
-        path="/admin/users/:userId/charge/:depositId"
-        element={<UserChargePage />}
-      />
-      <Route path="/admin/users/add" element={<AddUserPage />} />
-
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
-
-      {/* ------------------------- MOBILE APP ------------------------- */}
 
       <Route
         path="*"
