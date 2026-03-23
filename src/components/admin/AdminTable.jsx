@@ -5,19 +5,16 @@ const AdminTable = ({
   data = [],
   columns = [],
   rowKey = "id",
-  tableClassName = "",
 }) => {
   return (
-    <div className={`morago-admin-table ${tableClassName}`.trim()}>
-      <div className="morago-admin-table__header">
-        {columns.map((column) => (
+    <div className="admin-table">
+      <div className="admin-table-header">
+        {tableColumns.map((column) => (
           <div
             key={column.key}
-            className={`morago-admin-table__cell ${
+            className={`admin-table-cell ${
               column.cellClassName || ""
-            } ${
-              column.headerClassName || "morago-admin-table__header-cell"
-            }`.trim()}
+            } ${column.headerClassName || "admin-table-header-cell"}`.trim()}
           >
             {React.isValidElement(column.header) ? (
               column.header
@@ -25,7 +22,7 @@ const AdminTable = ({
               <>
                 <span>{column.header}</span>
                 {!column.disableSortArrow && (
-                  <span className="morago-admin-table__sort-arrow">▾</span>
+                  <span className="admin-table-sort-arrow">▾</span>
                 )}
               </>
             ) : null}
@@ -33,9 +30,9 @@ const AdminTable = ({
         ))}
       </div>
 
-      {data.map((row, index) => (
-        <div className="morago-admin-table__row" key={row[rowKey] ?? index}>
-          {columns.map((column) => {
+      {tableData.map((row, index) => (
+        <div className="admin-table-row" key={row[rowKey] ?? index}>
+          {tableColumns.map((column) => {
             const content = column.render
               ? column.render(row)
               : (row[column.key] ?? "-");
@@ -58,7 +55,4 @@ const AdminTable = ({
   );
 };
 
-<<<<<<< HEAD
-export default AdminTable;
-=======
 export default AdminTable;
