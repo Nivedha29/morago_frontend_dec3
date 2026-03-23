@@ -1,5 +1,9 @@
 import api from "./api";
 
+///////////////////////////////////////////////////////////
+// TRANSLATORS
+///////////////////////////////////////////////////////////
+
 export interface Translator {
   id: number;
   firstName: string;
@@ -190,5 +194,56 @@ export const approveWithdrawalById = async (
   payload: ApproveWithdrawalPayload,
 ) => {
   const response = await api.put(`/admin/withdrawals/${id}`, payload);
+  return response.data;
+};
+
+///////////////////////////////////////////////////////////
+// CALL HISTORY
+///////////////////////////////////////////////////////////
+
+export interface CallHistoryItem {
+  date: string;
+  phone: string;
+  name: string;
+  imageUrl: string;
+  duration: number;
+  coins: number;
+  theme: string;
+  rating: string;
+  hasRequest: boolean;
+}
+
+export interface CallHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: CallHistoryItem[];
+}
+
+export interface GetCallHistoryParams {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export const getCallHistoryByUserId = async (
+  userId: number,
+  params: GetCallHistoryParams = {},
+): Promise<CallHistoryResponse> => {
+  const response = await api.get(`/admin/calls/history/${userId}`, {
+    params: {
+      page: 0,
+      size: 5,
+      sortBy: "id",
+      sortDirection: "ASC",
+      ...params,
+    },
+  });
+
   return response.data;
 };
