@@ -14,10 +14,6 @@ import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWith
 
 <<<<<<< HEAD
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
-import UserDetailModal from "./components/admin/UserDetailModal.jsx";
-import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
-
-
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 =======
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
@@ -48,29 +44,23 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
   return (
-    /* ------------------------- ADMIN ------------------------- */
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
-
+      <Route
+        path="/admin/forgot-password"
+        element={<AdminForgotPasswordPage />}
+      />
+      <Route
+        path="/admin/forgot-password/verify"
+        element={<AdminForgotPasswordVerifyPage />}
+      />
+      <Route
+        path="/admin/forgot-password/new-password"
+        element={<AdminForgotPasswordNewPasswordPage />}
+      />
+      
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
-      <Route
-        path="/admin/translators/:translatorId/withdraw"
-        element={<TranslatorWithdrawPage />}
-      />
-      <Route
-        path="/admin/translators/:translatorId/withdraw-history"
-        element={<TranslatorWithdrawHistoryPage />}
-      />
-      <Route
-        path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
-        element={<TranslatorWithdrawApproval />}
-      />
-      <Route
-        path="/admin/translators/:id/call-history"
-        element={<TranslatorCallHistoryPage />}
-      />
-
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route
         path="/admin/users/:userId/call-history"
@@ -95,8 +85,6 @@ const App = () => {
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
-
-      {/* ------------------------- MOBILE APP ------------------------- */}
 
       <Route
         path="*"
