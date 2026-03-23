@@ -1,36 +1,37 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AdminHeader from "../../components/admin/AdminHeader";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import "../../styles/AdminLayout.css";
 import "../../styles/TranslatorWithdrawApproval.css";
-
+import { approveWithdrawalById } from "../../services/admin";
 
 const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-
-  const [fullName, setFullName] = useState("Dmitrii Kim");
-  const [bankName, setBankName] = useState("Hana Bank");
-  const [bankAccount, setBankAccount] = useState("4400 9999 2313 23 05");
-  const [sum, setSum] = useState("20000");
+  const location = useLocation();
+  const withdrawal = location.state?.withdrawal;
+  const { translatorId, withdrawalId } = useParams();
+  const [fullName, setFullName] = useState(withdrawal?.fullName || "");
+  const [bankName, setBankName] = useState(withdrawal?.bankName || "");
+  const [bankAccount, setBankAccount] = useState(withdrawal?.bankAccount || "");
+  const [sum, setSum] = useState(withdrawal?.amount || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleApproveWithdrawal = async (e) => {
     e.preventDefault();
-
+    if (!withdrawalId) return;
     try {
       setIsSubmitting(true);
 
-      await approveWithdrawal(Number(id), {
+      await approveWithdrawalById(Number(withdrawalId), {
         fullName: fullName.trim(),
         bankName: bankName.trim(),
         bankAccount: bankAccount.trim(),
         sum: Number(sum),
       });
 
-      navigate("/admin/translators");
+      navigate(`/admin/translators/${translatorId}/withdraw-history`);
     } catch (error) {
       console.error("Failed to approve withdrawal:", error);
     } finally {
@@ -54,7 +55,10 @@ const TranslatorWithdrawApproval = () => {
           >
             <div className="withdraw-page">
               <div className="withdraw-card">
-                <form className="withdraw-form" onSubmit={handleApproveWithdrawal}>
+                <form
+                  className="withdraw-form"
+                  onSubmit={handleApproveWithdrawal}
+                >
                   <div className="withdraw-field">
                     <label>User Name</label>
                     <input
@@ -95,7 +99,11 @@ const TranslatorWithdrawApproval = () => {
                     <button
                       type="button"
                       className="btn-cancel"
-                      onClick={() => navigate("/admin/translators")}
+                      onClick={() =>
+                        navigate(
+                          `/admin/translators/${translatorId}/withdraw-history`,
+                        )
+                      }
                     >
                       Back
                     </button>
