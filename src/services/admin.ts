@@ -184,3 +184,11 @@ export const getActiveWithdrawalByUserId = async (
 
   return response.data;
 };
+
+export const approveWithdrawalById = async (
+  id: number,
+  payload: ApproveWithdrawalPayload,
+) => {
+  const response = await api.put(`/admin/withdrawals/${id}`, payload);
+  return response.data;
+};
