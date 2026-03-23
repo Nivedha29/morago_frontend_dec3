@@ -12,6 +12,7 @@ import AdminHeader from "../../components/admin/AdminHeader";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminPagination from "../../components/admin/AdminPagination";
+import AdminTable from "../../components/admin/AdminTable";
 import "../../styles/AdminLayout.css";
 >>>>>>> 7f0ce96 ( Routing: Clicking View on Translotor Table routes to Withdraw History Page)
 import "../../styles/TranslatorWithdrawTablePage.css";
@@ -111,7 +112,69 @@ const TranslatorWithdrawTablePage = () => {
   ];
 =======
   const [page, setPage] = useState(0);
->>>>>>> 7f0ce96 ( Routing: Clicking View on Translotor Table routes to Withdraw History Page)
+  const [withdrawals, setWithdrawals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
+    const fetchWithdrawalHistory = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const data = await getWithdrawalHistoryByUserId(Number(translatorId), {
+          page,
+          size: 5,
+          sortBy: "id",
+          sortDirection: "ASC",
+        });
+
+        setWithdrawals(data.content || []);
+        setTotalPages(data.totalPages || 0);
+      } catch (error) {
+        console.error("Failed to fetch withdrawal history:", error);
+        setError(error.message || "Failed to fetch withdrawal history");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (translatorId) {
+      fetchWithdrawalHistory();
+    }
+  }, [translatorId, page]);
+
+  const withdrawalColumns = [
+    {
+      key: "checkbox",
+      header: <input type="checkbox" className="admin-table-checkbox" />,
+      cellClassName: "admin-table-checkbox-cell",
+      headerClassName: "admin-table-checkbox-cell",
+      disableSortArrow: true,
+      render: () => <input type="checkbox" className="admin-table-checkbox" />,
+    },
+    {
+      key: "type",
+      header: "Withdraw",
+      render: () => "Withdraw",
+    },
+    {
+      key: "date",
+      header: "Date",
+      render: (item) => item.date || "-",
+    },
+    {
+      key: "amount",
+      header: "Coins",
+      render: (item) => item.amount ?? "-",
+    },
+    {
+      key: "status",
+      header: "Withdraw request",
+      render: (item) => item.status || "-",
+    },
+  ];
 
   return (
     <AdminLayout>
@@ -163,61 +226,23 @@ const TranslatorWithdrawTablePage = () => {
             breadcrumbSection="Lists"
             breadcrumbPage="Translators / Withdraw history"
           >
-            {/* TABLE */}
-            <div className="withdraw-table-wrapper">
-              <div className="withdraw-table">
-                {/* HEADER */}
-                <div className="withdraw-table-header">
-                  <div className="withdraw-cell checkbox">
-                    <input type="checkbox" />
-                  </div>
+            {loading && <p>Loading withdrawal history...</p>}
 
-                  <div className="withdraw-cell header">
-                    Withdraw <span>▾</span>
-                  </div>
+            {!loading && error && <p>{error}</p>}
 
-                  <div className="withdraw-cell header">
-                    Date <span>▾</span>
-                  </div>
+            {!loading && !error && (
+              <AdminTable data={withdrawals} columns={withdrawalColumns} />
+            )}
 
-                  <div className="withdraw-cell header">
-                    Coins <span>▾</span>
-                  </div>
-
-                  <div className="withdraw-cell header">
-                    Withdraw request <span>▾</span>
-                  </div>
-                </div>
-
-                {/* ROWS */}
-                {mockWithdrawHistory.map((item) => (
-                  <div className="withdraw-table-row" key={item.id}>
-                    <div className="withdraw-cell checkbox">
-                      <input type="checkbox" />
-                    </div>
-
-                    <div className="withdraw-cell">{item.type}</div>
-                    <div className="withdraw-cell">{item.date}</div>
-                    <div className="withdraw-cell">{item.coins}</div>
-                    <div className="withdraw-cell">{item.request}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* PAGINATION */}
             <div className="admin-page-footer">
               <AdminPagination
                 page={page}
                 setPage={setPage}
-                totalPages={3}
+                totalPages={totalPages}
               />
             </div>
 
-            {/* DEBUG */}
-            <p className="withdraw-debug">
-              Translator ID: {translatorId}
-            </p>
+            <p className="withdraw-debug">Translator ID: {translatorId}</p>
           </AdminPageShell>
         </div>
       </div>
