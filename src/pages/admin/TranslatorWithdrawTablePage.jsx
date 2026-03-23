@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import AdminHeader from "../../components/admin/AdminHeader";
 import AdminSidebar from "../../components/admin/AdminSidebar";
@@ -10,6 +11,7 @@ import "../../styles/TranslatorWithdrawTablePage.css";
 import { getWithdrawalHistoryByUserId } from "../../services/admin";
 
 const TranslatorWithdrawTablePage = () => {
+  const navigate = useNavigate();
   const { translatorId } = useParams();
   const [page, setPage] = useState(0);
   const [withdrawals, setWithdrawals] = useState([]);
@@ -72,7 +74,12 @@ const TranslatorWithdrawTablePage = () => {
     {
       key: "status",
       header: "Withdraw request",
+      cellClassName: "admin-table-link",
       render: (item) => item.status || "-",
+      onClick: (item) =>
+        navigate(
+          `/admin/translators/${translatorId}/withdraw-history/${item.id}/approval`,
+        ),
     },
   ];
 

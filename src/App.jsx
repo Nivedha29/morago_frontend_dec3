@@ -60,6 +60,10 @@ const App = () => {
         path="/admin/translators/:translatorId/withdraw-history"
         element={<TranslatorWithdrawTablePage />}
       />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history/:withdrawalId/approval"
+        element={<TranslatorWithdrawApproval />}
+      />
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
