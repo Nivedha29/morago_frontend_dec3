@@ -8,7 +8,7 @@ import {
   getTranslatorById,
 } from "../../services/admin";
 
-const TranslatorWithdrawPage = () => {
+const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();
   const { translatorId } = useParams();
 
