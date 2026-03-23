@@ -10,6 +10,7 @@ import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswor
 
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
+import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
@@ -44,6 +45,9 @@ const App = () => {
         path="/admin/forgot-password/new-password"
         element={<AdminForgotPasswordNewPasswordPage />}
       />
+      
+      <Route path="/admin/translators" element={<AdminTranslatorPage />} />
+      <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
