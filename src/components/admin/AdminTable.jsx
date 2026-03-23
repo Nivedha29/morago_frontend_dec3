@@ -82,6 +82,69 @@ const defaultTranslatorColumns = (
     ),
   },
 ];
+const defaultUserColumns = (onViewUser, onViewCall, onViewDeposit) => [
+  {
+    key: "checkbox",
+    header: <input type="checkbox" className="admin-table-checkbox" />,
+    cellClassName: "admin-table-checkbox-cell",
+    headerClassName: "admin-table-checkbox-cell",
+    disableSortArrow: true,
+    render: () => <input type="checkbox" className="admin-table-checkbox" />,
+  },
+  {
+    key: "name",
+    header: "Name",
+    render: (u) =>
+      u.firstName || u.lastName
+        ? `${u.firstName || ""} ${u.lastName || ""}`.trim()
+        : "-",
+  },
+  {
+    key: "phone",
+    header: "Phone",
+    render: (u) => u.phone || "-",
+  },
+  {
+    key: "balance",
+    header: "Balance",
+    render: (u) => u.balance ?? "-",
+  },
+  {
+    key: "depositRequest",
+    header: "Deposit request",
+    render: (u) =>
+      u.hasDepositRequest ? (
+        <span className="admin-table-pill">Request</span>
+      ) : (
+        "None"
+      ),
+  },
+  {
+    key: "call",
+    header: "Call",
+    cellClassName: "admin-table-link",
+    onClick: (u) => onViewCall && onViewCall(u),
+    render: () => "View >",
+  },
+  {
+    key: "deposit",
+    header: "Deposit",
+    cellClassName: "admin-table-link",
+    onClick: (u) => onViewDeposit && onViewDeposit(u),
+    render: () => "View >",
+  },
+  {
+    key: "action",
+    header: "",
+    cellClassName: "admin-table-action-cell",
+    headerClassName: "admin-table-action-cell",
+    disableSortArrow: true,
+    onClick: (u) => onViewUser && onViewUser(u),
+    render: () => (
+      <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+    ),
+  },
+];
 
 const AdminTable = ({
   translators = [],
@@ -152,3 +215,4 @@ const AdminTable = ({
 };
 
 export default AdminTable;
+export { defaultUserColumns };
