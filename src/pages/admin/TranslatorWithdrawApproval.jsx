@@ -9,8 +9,12 @@ import "../../styles/TranslatorWithdrawPage.css";
 /*import { approveWithdrawal } from "../../services/admin";*/
 =======
 import "../../styles/TranslatorWithdrawApproval.css";
+<<<<<<< HEAD:src/pages/admin/TranslatowWithdrawApproval.jsx
 import { approveWithdrawal } from "../../services/admin";
 >>>>>>> b3f11f3 ( Feature : Added Skeleton and Initial Styling):src/pages/admin/TranslatowWithdrawApproval.jsx
+=======
+
+>>>>>>> d956887 (Admin: Add Withdraw Approval routing and navigation from Withdraw History table):src/pages/admin/TranslatorWithdrawApproval.jsx
 
 const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();

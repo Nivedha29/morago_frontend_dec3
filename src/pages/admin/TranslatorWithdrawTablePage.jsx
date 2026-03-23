@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
@@ -36,6 +37,7 @@ const mockWithdrawHistory = [
 ];
 
 const TranslatorWithdrawTablePage = () => {
+  const navigate = useNavigate();
   const { translatorId } = useParams();
 <<<<<<< HEAD
 
@@ -172,7 +174,12 @@ const TranslatorWithdrawTablePage = () => {
     {
       key: "status",
       header: "Withdraw request",
+      cellClassName: "admin-table-link",
       render: (item) => item.status || "-",
+      onClick: (item) =>
+        navigate(
+          `/admin/translators/${translatorId}/withdraw-history/${item.id}/approval`,
+        ),
     },
   ];
 
