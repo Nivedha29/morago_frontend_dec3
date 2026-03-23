@@ -4,20 +4,15 @@ import { Routes, Route } from "react-router-dom";
 /* ------------------------- Admin Page ------------------------- */
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
+import AdminForgotPasswordPage from "./pages/admin/AdminForgotPasswordPage.jsx";
+import AdminForgotPasswordVerifyPage from "./pages/admin/AdminForgotPasswordVerifyPage.jsx";
+import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswordNewPasswordPage.jsx";
 
-import AdminTranslatorPage from "./pages/admin/TranslatorPages/AdminTranslatorPage.jsx";
-import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.jsx";
-import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
-import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
-import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
-
-import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
-import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
-import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
-import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
-import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
-
-import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
+import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
+import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
+import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
+import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
 import SplashScreen from "./components/SplashScreen.jsx";
@@ -50,9 +45,13 @@ const App = () => {
         path="/admin/forgot-password/new-password"
         element={<AdminForgotPasswordNewPasswordPage />}
       />
-      
+
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history"
+        element={<TranslatorWithdrawTablePage />}
+      />
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
