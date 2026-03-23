@@ -83,6 +83,12 @@ const AdminTranslatorPage = () => {
               <AdminTable
                 translators={translators}
                 onViewTranslator={(translator) =>
+                  setSelectedTranslatorId(translator.id)
+                }
+                onViewCall={(translator) =>
+                  navigate(`/admin/translators/${translator.id}/call-history`)
+                }
+                onViewWithdraw={(translator) =>
                   navigate(
                     `/admin/translators/${translator.id}/withdraw-history`,
                   )
