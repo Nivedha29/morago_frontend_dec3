@@ -5,7 +5,7 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import "../../styles/AdminLayout.css";
 import "../../styles/TranslatorWithdrawApproval.css";
-import { approveWithdrawal } from "../../services/admin";
+
 
 const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();
