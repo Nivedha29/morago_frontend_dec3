@@ -7,6 +7,7 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
+import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
@@ -33,6 +34,10 @@ const App = () => {
       
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history"
+        element={<TranslatorWithdrawTablePage />}
+      />
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
