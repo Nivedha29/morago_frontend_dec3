@@ -72,7 +72,9 @@ const AdminUserPage = () => {
             {!loading && !error && users.length === 0 && <p>No users found.</p>}
 
             {!loading && !error && users.length > 0 && (
-              <AdminTable data={users} columns={userColumns} />
+              <div className="admin-table users-table">
+                <AdminTable data={users} columns={userColumns} />
+              </div>
             )}
 
             <div className="admin-page-footer">
