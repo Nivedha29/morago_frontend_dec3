@@ -1,16 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import "../../styles/Admin/AdminPageShell.css";
+import "../../styles/AdminPageShell.css";
+import AdminControls from "../../components/admin/AdminControls";
+import AdminTable from "..//../components/admin/AdminTable";
 
 const AdminPageShell = ({
   title,
-  breadcrumbs = [],
+  breadcrumbSection,
+  breadcrumbPage,
   children,
   showControls = true,
-  controls = null,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <section className="admin-page-shell">
       <div className="admin-page-shell-header">
@@ -18,29 +17,18 @@ const AdminPageShell = ({
           <h1 className="admin-page-shell-title">{title}</h1>
 
           <div className="admin-page-shell-breadcrumb">
-            <span className="admin-breadcrumb-home">Home</span>
-
-            {breadcrumbs.map((crumb, index) => (
-              <React.Fragment key={`${crumb.label}-${index}`}>
-                <span className="admin-breadcrumb-separator">/</span>
-
-                {crumb.path ? (
-                  <span
-                    className="admin-breadcrumb-link"
-                    onClick={() => navigate(crumb.path)}
-                  >
-                    {crumb.label}
-                  </span>
-                ) : (
-                  <span className="admin-breadcrumb-page">{crumb.label}</span>
-                )}
-              </React.Fragment>
-            ))}
+            <span className="breadcrumb-home">Home</span>
+            <span className="breadcrumb-separator">/</span>
+            <span className="breadcrumb-section">{breadcrumbSection}</span>
+            <span className="breadcrumb-separator">/</span>
+            <span className="breadcrumb-page">{breadcrumbPage}</span>
           </div>
         </div>
 
-        {showControls && controls && (
-          <div className="admin-page-shell-right">{controls}</div>
+        {showControls && (
+          <div className="admin-page-shell-right">
+            <AdminControls />
+          </div>
         )}
       </div>
 
