@@ -1,32 +1,30 @@
 .admin-sidebar {
   width: 428px;
-  flex-shrink: 0;
   height: calc(100vh - 100px);
+  position: sticky;
+  top: 100px;
   background: #ffffff;
   border-right: 1px solid #d9d9d9;
   display: flex;
   flex-direction: column;
-  position: sticky;
-  top: 100px;
+  justify-content: space-between;
 }
 
-.admin-sidebar-content {
+.sidebar-content {
   padding: 60px 0 0;
-  flex: 1;
-  overflow-y: auto;
 }
 
-.admin-sidebar-section {
+.sidebar-section {
   padding: 0 0 28px;
   border-bottom: 1px solid #ececec;
 }
 
-.admin-sidebar-section+.admin-sidebar-section {
+.sidebar-section+.sidebar-section {
   margin-top: 40px;
   border-bottom: none;
 }
 
-.admin-sidebar-title-row {
+.sidebar-title-row {
   width: 100%;
   display: flex;
   align-items: center;
@@ -39,7 +37,7 @@
   text-align: left;
 }
 
-.admin-sidebar-title-arrow {
+.sidebar-title-arrow {
   font-size: 30px;
   color: #444444;
   line-height: 1;
@@ -48,11 +46,11 @@
   flex-shrink: 0;
 }
 
-.admin-sidebar-title-arrow.open {
+.sidebar-title-arrow.open {
   transform: rotate(0deg);
 }
 
-.admin-sidebar-title {
+.sidebar-title {
   font-size: 18px;
   font-weight: 700;
   line-height: 1.2;
@@ -60,12 +58,12 @@
   margin: 0;
 }
 
-.admin-sidebar-items {
+.sidebar-items {
   display: flex;
   flex-direction: column;
 }
 
-.admin-sidebar-item {
+.sidebar-item {
   height: 38px;
   display: flex;
   align-items: center;
@@ -75,29 +73,25 @@
   color: #2a2a2a;
   cursor: pointer;
   transition: background 0.2s ease;
-  text-decoration: none;
-  min-width: 0;
 }
 
-.admin-sidebar-item:hover {
+.sidebar-item:hover {
   background: #f5f8fc;
 }
 
-.admin-sidebar-item.active {
+.sidebar-item.active {
   background: #eef3fb;
 }
 
-.admin-sidebar-footer {
+.sidebar-footer {
   padding: 50px 50px;
   border-top: 1px solid #d9d9d9;
   display: flex;
   align-items: center;
   gap: 14px;
-  background: #ffffff;
-  flex-shrink: 0;
 }
 
-.admin-sidebar-add-button {
+.sidebar-add-button {
   flex: 1;
   height: 42px;
   background: #111111;
@@ -111,17 +105,16 @@
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
-  min-width: 0;
 }
 
-.admin-sidebar-add-icon {
+.sidebar-add-icon {
   width: 30px;
   height: 30px;
   object-fit: contain;
   display: block;
 }
 
-.admin-sidebar-settings-button {
+.sidebar-settings-button {
   width: 45px;
   height: 45px;
   border: none;
@@ -132,81 +125,11 @@
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  flex-shrink: 0;
 }
 
-.admin-sidebar-settings-icon {
+.sidebar-settings-icon {
   width: 30px;
   height: 30px;
   object-fit: contain;
   display: block;
-}
-
-/* laptop */
-@media (max-width: 1440px) {
-  .admin-sidebar {
-    width: 320px;
-  }
-
-  .admin-sidebar-title-row {
-    padding: 0 24px;
-  }
-
-  .admin-sidebar-item {
-    padding: 0 44px;
-    font-size: 15px;
-  }
-
-  .admin-sidebar-footer {
-    padding: 32px 24px;
-  }
-}
-
-/* smaller laptop */
-@media (max-width: 1280px) {
-  .admin-sidebar {
-    width: 321px;
-  }
-
-  .admin-sidebar-content {
-    padding: 40px 0 0;
-  }
-
-  .admin-sidebar-section+.admin-sidebar-section {
-    margin-top: 28px;
-  }
-
-  .admin-sidebar-title {
-    font-size: 16px;
-  }
-
-  .admin-sidebar-title-row {
-    padding: 0 20px;
-  }
-
-  .admin-sidebar-item {
-    padding: 0 28px;
-    font-size: 14px;
-  }
-
-  .admin-sidebar-footer {
-    padding: 20px;
-    gap: 10px;
-  }
-
-  .admin-sidebar-add-button {
-    font-size: 13px;
-    gap: 8px;
-  }
-
-  .admin-sidebar-add-icon,
-  .admin-sidebar-settings-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .admin-sidebar-settings-button {
-    width: 40px;
-    height: 40px;
-  }
 }
