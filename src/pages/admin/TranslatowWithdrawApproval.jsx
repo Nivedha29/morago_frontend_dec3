@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
+<<<<<<< HEAD:src/pages/admin/TranslatorWithdrawPage.jsx
 import "../../styles/TranslatorWithdrawPage.css";
 import {
   getActiveWithdrawalByUserId,
   getTranslatorById,
 } from "../../services/admin";
+=======
+import "../../styles/AdminLayout.css";
+import "../../styles/TranslatorWithdrawApproval.css";
+import { approveWithdrawal } from "../../services/admin";
+>>>>>>> b3f11f3 ( Feature : Added Skeleton and Initial Styling):src/pages/admin/TranslatowWithdrawApproval.jsx
 
-const TranslatorWithdrawPage = () => {
+const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();
   const { translatorId } = useParams();
 
@@ -143,4 +149,8 @@ const TranslatorWithdrawPage = () => {
   );
 };
 
+<<<<<<< HEAD:src/pages/admin/TranslatorWithdrawPage.jsx
 export default TranslatorWithdrawPage;
+=======
+export default TranslatorWithdrawApproval;
+>>>>>>> b3f11f3 ( Feature : Added Skeleton and Initial Styling):src/pages/admin/TranslatowWithdrawApproval.jsx
