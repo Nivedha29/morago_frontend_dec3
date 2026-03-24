@@ -53,6 +53,7 @@ const AddUserPage = () => {
             title="Users list"
             breadcrumbSection="Lists"
             breadcrumbPage="Users / Add User"
+            showControls={false}
           >
             <div className="add-user-card">
               <div className="add-user-upload-row">
@@ -74,7 +75,7 @@ const AddUserPage = () => {
                       className="add-user-preview-image"
                     />
                   ) : (
-                    <span className="add-user-upload-icon">⇧</span>
+                    <span className="add-user-upload-icon">↑</span>
                   )}
                 </div>
 
