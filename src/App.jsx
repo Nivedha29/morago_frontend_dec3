@@ -11,14 +11,15 @@ import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswor
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
 import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
+import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
+
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
-<<<<<<< HEAD
-=======
 import UserDetailModal from "./components/admin/UserDetailModal.jsx";
 import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+import UserDepositHistoryPage from "./pages/admin/UserDepositHistoryPage.jsx";
+import UserChargePage from "./pages/admin/UserChargePage.jsx";
 
-
->>>>>>> 2f684c9 ( Style: Polished Styling and Routing)
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
@@ -59,17 +60,30 @@ const App = () => {
         path="/admin/translators/:translatorId/withdraw-history"
         element={<TranslatorWithdrawTablePage />}
       />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history/:withdrawalId/approval"
+        element={<TranslatorWithdrawApproval />}
+      />
+      <Route
+        path="/admin/translators/:id/call-history"
+        element={<TranslatorCallHistoryPage />}
+      />
+
       <Route path="/admin/users" element={<AdminUserPage />} />
-<<<<<<< HEAD
-=======
       <Route path="/admin/users/:userId" element={<UserDetailModal />} />
       <Route
         path="/admin/users/:userId/call-history"
         element={<UserCallHistoryPage />}
       />
+      <Route
+        path="/admin/users/:userId/deposit-history"
+        element={<UserDepositHistoryPage />}
+      />
+      <Route
+        path="/admin/users/:userId/deposit-history/:depositId/charge"
+        element={<UserChargePage />}
+      />
 
-
->>>>>>> 2f684c9 ( Style: Polished Styling and Routing)
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
