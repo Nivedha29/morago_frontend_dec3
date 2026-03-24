@@ -18,18 +18,18 @@ export interface CategoryItem {
 export interface CategoryListResponse {
   totalElements: number;
   totalPages: number;
-  size: number;
-  content: CategoryItem[];
   number: number;
+  size: number;
   first: boolean;
   last: boolean;
-  numberOfElements: number;
   empty: boolean;
+  numberOfElements: number;
+  content: CategoryItem[];
 }
 
 export interface GetAdminCategoriesParams {
-  isActive?: boolean;
   keyword?: string;
+  isActive?: boolean;
   page?: number;
   size?: number;
   sortBy?: string;
@@ -44,7 +44,7 @@ export interface CategoryDetailResponse {
 }
 
 export const getAdminCategories = async (
-  params?: GetAdminCategoriesParams,
+  params: GetAdminCategoriesParams = {},
 ): Promise<CategoryListResponse> => {
   const response = await api.get<CategoryListResponse>(ADMIN_CATEGORIES_BASE, {
 =======
