@@ -45,14 +45,7 @@
 .user-call-history-table .admin-table-row {
   display: grid;
   grid-template-columns:
-    44px
-    minmax(180px, 1.5fr)
-    minmax(170px, 1.2fr)
-    minmax(100px, 0.8fr)
-    minmax(90px, 0.7fr)
-    minmax(180px, 1.4fr)
-    minmax(130px, 1fr)
-    minmax(100px, 0.8fr);
+    44px minmax(180px, 1.5fr) minmax(170px, 1.2fr) minmax(100px, 0.8fr) minmax(90px, 0.7fr) minmax(180px, 1.4fr) minmax(130px, 1fr) minmax(100px, 0.8fr);
   align-items: center;
 }
 
@@ -64,4 +57,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.user-deposit-history-table .admin-table-header,
+.user-deposit-history-table .admin-table-row {
+  display: grid;
+  grid-template-columns:
+    44px minmax(140px, 1.2fr) minmax(170px, 1.2fr) minmax(120px, 1fr) minmax(180px, 1.4fr);
+  align-items: center;
+}
+
+.user-deposit-history-table .admin-table-row {
+  min-height: 56px;
+}
+
+.themes-table .admin-table-header,
+.themes-table .admin-table-row {
+  display: grid;
+  grid-template-columns:
+    44px minmax(140px, 1.4fr) minmax(140px, 1.2fr) minmax(100px, 0.9fr) minmax(140px, 1.2fr) 250px;
+  align-items: center;
+}
+
+.themes-table .admin-table-row {
+  min-height: 50px;
+}
+
+.admin-table-file-link {
+  font-size: 12px;
+  color: #6b7280;
+  text-decoration: underline;
 }
