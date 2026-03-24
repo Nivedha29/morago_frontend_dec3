@@ -80,3 +80,28 @@ export const createAdminTheme = async (
   const response = await api.post("/admin/themes", payload);
   return response.data;
 };
+
+///////////////////////////////////////////////////////////
+// Uploading File
+///////////////////////////////////////////////////////////
+
+export interface UploadFileResponse {
+  id: number;
+  name?: string;
+  url?: string;
+}
+
+export const uploadAdminFile = async (
+  file: File,
+): Promise<UploadFileResponse> => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await api.post("/admin/files/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
+};
