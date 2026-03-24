@@ -38,10 +38,16 @@ export interface GetAdminThemesParams {
 }
 
 export const getAdminThemes = async (
-  params?: GetAdminThemesParams,
+  params: GetAdminThemesParams = {},
 ): Promise<ThemeListResponse> => {
   const response = await api.get("/admin/themes", {
-    params,
+    params: {
+      page: 0,
+      size: 10,
+      sortBy: "id",
+      sortDirection: "ASC",
+      ...params,
+    },
   });
 
   return response.data;
