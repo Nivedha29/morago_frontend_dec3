@@ -14,6 +14,10 @@ import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWith
 
 <<<<<<< HEAD
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import UserDetailModal from "./components/admin/UserDetailModal.jsx";
+import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+
+
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 =======
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
@@ -58,9 +62,22 @@ const App = () => {
         path="/admin/forgot-password/new-password"
         element={<AdminForgotPasswordNewPasswordPage />}
       />
-      
+
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history"
+        element={<TranslatorWithdrawTablePage />}
+      />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history/:withdrawalId/approval"
+        element={<TranslatorWithdrawApproval />}
+      />
+      <Route
+        path="/admin/translators/:id/call-history"
+        element={<TranslatorCallHistoryPage />}
+      />
+
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route
         path="/admin/users/:userId/call-history"
