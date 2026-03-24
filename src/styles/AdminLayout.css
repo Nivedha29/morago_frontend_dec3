@@ -65,3 +65,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.user-deposit-history-table .admin-table-header,
+.user-deposit-history-table .admin-table-row {
+  display: grid;
+  grid-template-columns:
+    44px
+    minmax(140px, 1.2fr)
+    minmax(170px, 1.2fr)
+    minmax(120px, 1fr)
+    minmax(180px, 1.4fr);
+  align-items: center;
+}
+
+.user-deposit-history-table .admin-table-row {
+  min-height: 56px;
+}
