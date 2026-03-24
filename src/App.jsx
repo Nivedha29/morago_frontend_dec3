@@ -12,6 +12,13 @@ import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
 import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+<<<<<<< HEAD
+=======
+import UserDetailModal from "./components/admin/UserDetailModal.jsx";
+import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+
+
+>>>>>>> 2f684c9 ( Style: Polished Styling and Routing)
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
@@ -53,6 +60,16 @@ const App = () => {
         element={<TranslatorWithdrawTablePage />}
       />
       <Route path="/admin/users" element={<AdminUserPage />} />
+<<<<<<< HEAD
+=======
+      <Route path="/admin/users/:userId" element={<UserDetailModal />} />
+      <Route
+        path="/admin/users/:userId/call-history"
+        element={<UserCallHistoryPage />}
+      />
+
+
+>>>>>>> 2f684c9 ( Style: Polished Styling and Routing)
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
