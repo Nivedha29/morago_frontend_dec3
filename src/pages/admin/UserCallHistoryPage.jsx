@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getAdminUserCallHistory } from "../../services/admin";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getAdminUserCallHistory } from "../../services/adminUser";
+import AdminHeader from "../../components/admin/AdminHeader";
+import AdminSidebar from "../../components/admin/AdminSidebar";
+import AdminPageShell from "../../components/admin/AdminPageShell";
+import AdminPagination from "../../components/admin/AdminPagination";
+import AdminTable from "../../components/admin/AdminTable";
 import "../../styles/AdminLayout.css";
 
 const UserCallHistoryPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userId } = useParams();
+
+  const selectedUserName = location.state?.userName || "User";
 
   const [calls, setCalls] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,8 +31,6 @@ const UserCallHistoryPage = () => {
           userId: Number(userId),
           page,
           size: 5,
-          sortBy: "date",
-          sortDirection: "DESC",
         });
 
         setCalls(data.content || []);
@@ -41,81 +47,98 @@ const UserCallHistoryPage = () => {
     }
   }, [userId, page]);
 
+  const callHistoryColumns = [
+    {
+      key: "checkbox",
+      header: <input type="checkbox" className="admin-table-checkbox" />,
+      cellClassName: "admin-table-checkbox-cell",
+      headerClassName: "admin-table-checkbox-cell",
+      disableSortArrow: true,
+      render: () => <input type="checkbox" className="admin-table-checkbox" />,
+    },
+    {
+      key: "name",
+      header: "Call",
+      render: (call) => call.name || call.phone || "-",
+    },
+    {
+      key: "date",
+      header: "Date",
+      render: (call) => call.date || "-",
+    },
+    {
+      key: "duration",
+      header: "Duration",
+      render: (call) => (call.duration ? `${call.duration} min` : "-"),
+    },
+    {
+      key: "coins",
+      header: "Coins",
+      render: (call) => call.coins ?? "-",
+    },
+    {
+      key: "theme",
+      header: "Theme",
+      render: (call) => call.theme || "-",
+    },
+    {
+      key: "hasRequest",
+      header: "Deposit request",
+      render: (call) => (call.hasRequest ? "Yes" : "None"),
+    },
+    {
+      key: "rating",
+      header: "Rating",
+      render: (call) => {
+        const rating = Number(call.rating);
+
+        if (!rating) return "-";
+
+        return "★".repeat(Math.round(rating));
+      },
+    },
+  ];
+
   return (
-    <div className="admin-page">
-      <div className="admin-page-header">
-        <div>
-          <h1 className="admin-page-title">Call history</h1>
-          <p className="admin-page-breadcrumb">
-            Home / Lists / Users / History
-          </p>
-        </div>
-      </div>
+    <div>
+      <AdminHeader />
 
-      <div className="admin-table-wrapper">
-        <div className="admin-table-header admin-user-call-history-grid">
-          <div>Call</div>
-          <div>Date</div>
-          <div>Duration</div>
-          <div>Coins</div>
-          <div>Theme</div>
-          <div>Deposit request</div>
-          <div>Rating</div>
-        </div>
+      <div className="admin-page-wrapper">
+        <AdminSidebar />
 
-        {loading ? (
-          <div className="admin-table-state">Loading...</div>
-        ) : error ? (
-          <div className="admin-table-state error">{error}</div>
-        ) : calls.length === 0 ? (
-          <div className="admin-table-state">No call history found.</div>
-        ) : (
-          calls.map((call, index) => (
-            <div
-              key={`${call.date}-${call.phone}-${index}`}
-              className="admin-table-row admin-user-call-history-grid"
-            >
-              <div>{call.name || call.phone || "-"}</div>
-              <div>{call.date || "-"}</div>
-              <div>{call.duration ? `${call.duration} min` : "-"}</div>
-              <div>{call.coins ?? "-"}</div>
-              <div>{call.theme || "-"}</div>
-              <div>{call.hasRequest ? "Yes" : "None"}</div>
-              <div>{call.rating || "-"}</div>
+        <div className="admin-page-content">
+          <AdminPageShell
+            title={`Call history ${selectedUserName}`}
+            breadcrumbSection="Lists"
+            breadcrumbPage="Users / History"
+          >
+            {loading && <p>Loading call history...</p>}
+            {!loading && error && <p>{error}</p>}
+            {!loading && !error && calls.length === 0 && (
+              <p>No call history found.</p>
+            )}
+
+            {!loading && !error && calls.length > 0 && (
+              <div className="admin-table user-call-history-table">
+                <AdminTable
+                  data={calls}
+                  columns={callHistoryColumns}
+                  selectable={true}
+                />
+              </div>
+            )}
+
+            <div className="admin-page-footer">
+              <AdminPagination
+                page={page}
+                setPage={setPage}
+                totalPages={totalPages}
+              />
             </div>
-          ))
-        )}
+
+          </AdminPageShell>
+        </div>
       </div>
-
-      <div className="admin-pagination">
-        <button
-          type="button"
-          disabled={page === 0}
-          onClick={() => setPage((prev) => prev - 1)}
-        >
-          Prev
-        </button>
-
-        <span>
-          {page + 1} / {totalPages || 1}
-        </span>
-
-        <button
-          type="button"
-          disabled={page + 1 >= totalPages}
-          onClick={() => setPage((prev) => prev + 1)}
-        >
-          Next
-        </button>
-      </div>
-
-      <button
-        type="button"
-        className="admin-back-button"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
     </div>
   );
 };

@@ -104,7 +104,7 @@ export const getAdminUserCallHistory = async ({
   userId,
   page = 0,
   size = 5,
-  sortBy = "date",
+  sortBy = "id",
   sortDirection = "DESC",
 }: GetUserCallHistoryParams): Promise<UserCallHistoryResponse> => {
   const response = await api.get(`/admin/calls/history/${userId}`, {
