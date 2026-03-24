@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 
+<<<<<<< HEAD
 import AdminTranslatorPage from "./pages/admin/TranslatorPages/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.jsx";
 import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
@@ -20,6 +21,20 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
+=======
+import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
+import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
+import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
+import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
+
+import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import UserDetailModal from "./components/admin/UserDetailModal.jsx";
+import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+
+
+import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
+>>>>>>> e87b76b ( Style: Polished Styling and Routing)
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
 
@@ -50,11 +65,15 @@ const App = () => {
         element={<TranslatorWithdrawPage />}
       />
       <Route
+<<<<<<< HEAD
         path="/admin/translators/:translatorId/withdraw-history"
         element={<TranslatorWithdrawHistoryPage />}
       />
       <Route
         path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
+=======
+        path="/admin/translators/:translatorId/withdraw-history/:withdrawalId/approval"
+>>>>>>> e87b76b ( Style: Polished Styling and Routing)
         element={<TranslatorWithdrawApproval />}
       />
       <Route
@@ -63,6 +82,7 @@ const App = () => {
       />
 
       <Route path="/admin/users" element={<AdminUserPage />} />
+<<<<<<< HEAD
       <Route
         path="/admin/users/:userId/call-history"
         element={<AdminUserCallHistoryPage />}
@@ -76,6 +96,14 @@ const App = () => {
         element={<UserChargePage />}
       />
       <Route path="/admin/users/add" element={<AddUserPage />} />
+=======
+      <Route path="/admin/users/:userId" element={<UserDetailModal />} />
+      <Route
+        path="/admin/users/:userId/call-history"
+        element={<UserCallHistoryPage />}
+      />
+
+>>>>>>> e87b76b ( Style: Polished Styling and Routing)
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
