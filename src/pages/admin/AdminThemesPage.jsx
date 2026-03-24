@@ -4,8 +4,9 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminPagination from "../../components/admin/AdminPagination";
 import AdminTable from "../../components/admin/AdminTable";
+import ThemeDetailModal from "../../components/admin/ThemeDetailModal";
 import eyeIcon from "../../assets/eye.svg";
-import { getAdminThemes } from "../../services/adminThemes.ts";
+import { getAdminThemes, getThemeById } from "../../services/adminThemes.ts";
 import "../../styles/AdminLayout.css";
 
 const AdminThemesPage = () => {
@@ -14,6 +15,35 @@ const AdminThemesPage = () => {
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [selectedTheme, setSelectedTheme] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState("");
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+  const handleOpenThemeDetail = async (theme) => {
+    try {
+      setIsDetailModalOpen(true);
+      setDetailLoading(true);
+      setDetailError("");
+      setSelectedTheme(null);
+
+      const data = await getAdminThemeById(theme.id);
+      setSelectedTheme(data);
+    } catch (error) {
+      console.error("Failed to fetch theme detail:", error);
+      setDetailError(error.message || "Failed to fetch theme details");
+    } finally {
+      setDetailLoading(false);
+    }
+  };
+
+  const handleCloseThemeDetail = () => {
+    setIsDetailModalOpen(false);
+    setSelectedTheme(null);
+    setDetailError("");
+    setDetailLoading(false);
+  };
 
   useEffect(() => {
     const fetchThemes = async () => {
@@ -88,9 +118,7 @@ const AdminThemesPage = () => {
       cellClassName: "admin-table-action-cell",
       headerClassName: "admin-table-action-cell",
       disableSortArrow: true,
-      onClick: (theme) => {
-        console.log("View theme:", theme);
-      },
+      onClick: (theme) => handleOpenThemeDetail(theme),
       render: () => (
         <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
       ),
@@ -129,6 +157,14 @@ const AdminThemesPage = () => {
                 totalPages={totalPages}
               />
             </div>
+            {isDetailModalOpen && (
+              <ThemeDetailModal
+                theme={selectedTheme}
+                loading={detailLoading}
+                error={detailError}
+                onClose={handleCloseThemeDetail}
+              />
+            )}
           </AdminPageShell>
         </div>
       </div>
