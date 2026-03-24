@@ -20,12 +20,24 @@ const UserChargePage = () => {
   const [error, setError] = useState("");
 
   const handleConfirmDeposit = async () => {
+    const numericSum = Number(sum);
+
+    if (!sum || Number.isNaN(numericSum)) {
+      setError("Please enter a valid amount.");
+      return;
+    }
+
+    if (numericSum <= 0) {
+      setError("Amount must be greater than 0.");
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
 
       await approveAdminUserDeposit(Number(depositId), {
-        sum: Number(sum),
+        sum: numericSum,
       });
 
       navigate(`/admin/users/${userId}/deposit-history`, {
@@ -82,8 +94,15 @@ const UserChargePage = () => {
                   </span>
                   <input
                     type="number"
+                    min="1"
                     value={sum}
-                    onChange={(e) => setSum(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      if (value === "" || Number(value) >= 0) {
+                        setSum(value);
+                      }
+                    }}
                     className="user-charge-input"
                   />
                 </label>
