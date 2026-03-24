@@ -22,6 +22,7 @@ const AddThemePage = () => {
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     name: "",
@@ -52,9 +53,16 @@ const AddThemePage = () => {
         });
 
         setCategories(data.content || []);
-      } catch (err) {
-        console.error("Failed to fetch categories:", err);
-        setError(err.message || "Failed to load categories.");
+      } catch (error) {
+        console.error(error);
+
+        const message = error?.response?.data?.error || error?.message;
+
+        if (message && message.toLowerCase().includes("duplicate")) {
+          setError("Theme name already exists.");
+        } else {
+          setError("Failed to create theme. Please try again.");
+        }
       } finally {
         setLoadingCategories(false);
       }
@@ -73,6 +81,11 @@ const AddThemePage = () => {
 
     setSelectedFile(file);
     setPreviewImage(URL.createObjectURL(file));
+
+    setErrors((prev) => ({
+      ...prev,
+      icon: "",
+    }));
   };
 
   const handleChange = (event) => {
@@ -82,26 +95,54 @@ const AddThemePage = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
-  const handleSave = async () => {
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!selectedFile) {
+      newErrors.icon = "Field is required";
+    }
+
     if (!formData.name.trim()) {
-      setError("Theme name is required.");
-      return;
+      newErrors.name = "Field is required";
     }
 
     if (!formData.categoryId) {
-      setError("Category is required.");
-      return;
+      newErrors.categoryId = "Field is required";
+    }
+
+    if (!formData.title.trim()) {
+      newErrors.title = "Field is required";
+    }
+
+    if (!formData.titleEn.trim()) {
+      newErrors.titleEn = "Field is required";
+    }
+
+    if (!formData.titleRu.trim()) {
+      newErrors.titleRu = "Field is required";
     }
 
     if (!formData.price || Number(formData.price) <= 0) {
-      setError("Price must be greater than 0.");
-      return;
+      newErrors.price = "Field is required";
     }
 
     if (!formData.nightPrice || Number(formData.nightPrice) <= 0) {
-      setError("Night price must be greater than 0.");
+      newErrors.nightPrice = "Field is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSave = async () => {
+    if (!validateForm()) {
       return;
     }
 
@@ -111,9 +152,9 @@ const AddThemePage = () => {
 
       const createdTheme = await createAdminTheme({
         name: formData.name,
-        title: formData.title || formData.name,
-        titleEn: formData.titleEn || formData.name,
-        titleRu: formData.titleRu || formData.name,
+        title: formData.title,
+        titleEn: formData.titleEn,
+        titleRu: formData.titleRu,
         description: formData.description || "",
         descriptionEn: formData.descriptionEn || "",
         descriptionRu: formData.descriptionRu || "",
@@ -130,9 +171,16 @@ const AddThemePage = () => {
       }
 
       navigate("/admin/themes");
-    } catch (err) {
-      console.error("Failed to create theme:", err);
-      setError(err.message || "Failed to create theme.");
+    } catch (error) {
+      console.error(error);
+
+      const message = error?.response?.data?.error || error?.message;
+
+      if (message && message.toLowerCase().includes("duplicate")) {
+        setError("Theme name already exists.");
+      } else {
+        setError("Failed to create theme. Please try again.");
+      }
     } finally {
       setSaving(false);
     }
@@ -186,6 +234,13 @@ const AddThemePage = () => {
                 onChange={handleImageChange}
               />
 
+              <p className="add-theme-helper-text">
+                Icon file will be uploaded after the theme is created.
+              </p>
+              {errors.icon && (
+                <p className="add-theme-field-error">{errors.icon}</p>
+              )}
+
               <div className="add-theme-form-grid">
                 <div className="add-theme-field">
                   <label className="add-theme-label">Themes name</label>
@@ -197,6 +252,9 @@ const AddThemePage = () => {
                     className="add-theme-input"
                     placeholder="Themes name"
                   />
+                  {errors.name && (
+                    <p className="add-theme-field-error">{errors.name}</p>
+                  )}
                 </div>
 
                 <div className="add-theme-field add-theme-category-field">
@@ -217,6 +275,9 @@ const AddThemePage = () => {
                       </option>
                     ))}
                   </select>
+                  {errors.categoryId && (
+                    <p className="add-theme-field-error">{errors.categoryId}</p>
+                  )}
                 </div>
 
                 <div className="add-theme-row-three">
@@ -230,6 +291,9 @@ const AddThemePage = () => {
                       className="add-theme-input"
                       placeholder="Default title"
                     />
+                    {errors.title && (
+                      <p className="add-theme-field-error">{errors.title}</p>
+                    )}
                   </div>
 
                   <div className="add-theme-field">
@@ -242,6 +306,9 @@ const AddThemePage = () => {
                       className="add-theme-input"
                       placeholder="English title"
                     />
+                    {errors.titleEn && (
+                      <p className="add-theme-field-error">{errors.titleEn}</p>
+                    )}
                   </div>
 
                   <div className="add-theme-field">
@@ -254,6 +321,9 @@ const AddThemePage = () => {
                       className="add-theme-input"
                       placeholder="Russian title"
                     />
+                    {errors.titleRu && (
+                      <p className="add-theme-field-error">{errors.titleRu}</p>
+                    )}
                   </div>
                 </div>
 
@@ -303,6 +373,9 @@ const AddThemePage = () => {
                       className="add-theme-input"
                       placeholder="15000"
                     />
+                    {errors.price && (
+                      <p className="add-theme-field-error">{errors.price}</p>
+                    )}
                   </div>
 
                   <div className="add-theme-field">
@@ -315,6 +388,11 @@ const AddThemePage = () => {
                       className="add-theme-input"
                       placeholder="18000"
                     />
+                    {errors.nightPrice && (
+                      <p className="add-theme-field-error">
+                        {errors.nightPrice}
+                      </p>
+                    )}
                   </div>
 
                   <div className="add-theme-field add-theme-flags-field">
@@ -343,7 +421,7 @@ const AddThemePage = () => {
                 </div>
               </div>
 
-              {error && <p className="add-theme-error-text">{error}</p>}
+              {error && <div className="admin-form-error">{error}</div>}
             </div>
 
             <div className="add-theme-actions">
