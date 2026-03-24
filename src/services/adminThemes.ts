@@ -48,3 +48,35 @@ export const getAdminThemes = async (
 
   return response.data;
 };
+
+export const getAdminThemeById = async (id: number): Promise<ThemeItem> => {
+  const response = await api.get(`/admin/themes/${id}`);
+  return response.data;
+};
+
+///////////////////////////////////////////////////////////
+// Create Themes
+///////////////////////////////////////////////////////////
+
+export interface CreateThemePayload {
+  name: string;
+  title: string;
+  titleEn: string;
+  titleRu: string;
+  description: string;
+  descriptionEn: string;
+  descriptionRu: string;
+  price: number;
+  nightPrice: number;
+  isPopular: boolean;
+  isActive: boolean;
+  iconId: number;
+  categoryId: number;
+}
+
+export const createAdminTheme = async (
+  payload: CreateThemePayload,
+): Promise<ThemeItem> => {
+  const response = await api.post("/admin/themes", payload);
+  return response.data;
+};
