@@ -88,7 +88,13 @@ const AdminUserPage = () => {
       });
     },
     (user) => {
-      navigate(`/admin/users/${user.id}/deposit-history`);
+      navigate(`/admin/users/${user.id}/deposit-history`, {
+        state: {
+          userName:
+            `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
+            user.phone,
+        },
+      });
     },
   );
 

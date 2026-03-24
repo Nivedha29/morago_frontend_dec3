@@ -17,6 +17,8 @@ import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import UserDetailModal from "./components/admin/UserDetailModal.jsx";
 import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+import UserDepositHistoryPage from "./pages/admin/UserDepositHistoryPage.jsx";
+
 
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
@@ -74,7 +76,10 @@ const App = () => {
         path="/admin/users/:userId/call-history"
         element={<UserCallHistoryPage />}
       />
-
+      <Route
+        path="/admin/users/:userId/deposit-history"
+        element={<UserDepositHistoryPage />}
+      />
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />

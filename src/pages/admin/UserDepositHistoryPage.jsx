@@ -95,7 +95,7 @@ const UserDepositHistoryPage = () => {
 
         <div className="admin-page-content">
           <AdminPageShell
-            title={`Deposit history [${selectedUserName}]`}
+            title={`Deposit history ${selectedUserName}`}
             breadcrumbSection="Lists"
             breadcrumbPage="Users / Deposit history"
           >
