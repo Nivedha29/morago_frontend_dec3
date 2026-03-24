@@ -1,0 +1,151 @@
+.add-theme-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 18px auto 0;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 28px 32px 32px;
+}
+
+.add-theme-upload-row {
+  display: flex;
+  gap: 0;
+  margin-bottom: 14px;
+}
+
+.add-theme-upload-box {
+  width: 112px;
+  height: 110px;
+  background: #f3f3f3;
+  border-radius: 2px 0 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.add-theme-upload-placeholder {
+  flex: 1;
+  height: 110px;
+  background: #f3f3f3;
+  border-radius: 0 2px 2px 0;
+}
+
+.add-theme-upload-icon {
+  font-size: 28px;
+  color: #222;
+  line-height: 1;
+}
+
+.add-theme-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.add-theme-hidden-input {
+  display: none;
+}
+
+.add-theme-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.add-theme-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.add-theme-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2d2d2d;
+}
+
+.add-theme-input,
+.add-theme-textarea {
+  width: 100%;
+  border: 1px solid #cfd7e3;
+  border-radius: 3px;
+  background: #ffffff;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #333;
+  outline: none;
+}
+
+.add-theme-input {
+  height: 34px;
+}
+
+.add-theme-textarea {
+  min-height: 86px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.add-theme-input::placeholder,
+.add-theme-textarea::placeholder {
+  color: #9ea7b3;
+}
+
+.add-theme-category-field {
+  max-width: 240px;
+}
+
+.add-theme-row-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.add-theme-flags-field {
+  justify-content: flex-start;
+}
+
+.add-theme-flag-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #333;
+  margin-top: 2px;
+}
+
+.add-theme-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.add-theme-cancel-btn,
+.add-theme-save-btn {
+  min-width: 116px;
+  height: 38px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.add-theme-cancel-btn {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.add-theme-save-btn {
+  background: #1d1d1d;
+  color: #ffffff;
+}
+
+.add-theme-error-text {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #d14343;
+}

@@ -75,22 +75,30 @@ export interface CategoryListResponse {
   content: CategoryItem[];
 }
 
-export interface CategoryItem {
-  id: number;
-  name: string;
-  isActive: boolean;
+export interface GetAdminCategoriesParams {
+  isActive?: boolean;
+  keyword?: string;
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
 }
 
-export interface CategoryListResponse {
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number;
-  first: boolean;
-  last: boolean;
-  empty: boolean;
-  content: CategoryItem[];
-}
+export const getAdminCategories = async (
+  params: GetAdminCategoriesParams = {},
+): Promise<CategoryListResponse> => {
+  const response = await api.get("/admin/categories", {
+    params: {
+      page: 0,
+      size: 50,
+      sortBy: "id",
+      sortDirection: "ASC",
+      ...params,
+    },
+  });
+
+  return response.data;
+};
 
 export interface CreateThemePayload {
   name: string;
