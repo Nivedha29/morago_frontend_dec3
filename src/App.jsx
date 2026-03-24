@@ -58,6 +58,10 @@ import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import UserDetailModal from "./components/admin/UserDetailModal.jsx";
+import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+
+
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 >>>>>>> d07e567 ( Added Initial Routing)
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
