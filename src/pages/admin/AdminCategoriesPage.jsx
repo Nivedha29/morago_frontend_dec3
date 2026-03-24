@@ -7,7 +7,11 @@ import AdminTable, {
 } from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
 import "../../styles/AdminLayout.css";
-import { getAdminCategories } from "../../services/adminCategory";
+import {
+  getAdminCategories,
+  getAdminCategoryById,
+} from "../../services/adminCategory";
+import CategoryDetailModal from "../../components/admin/CategoryDetailModal";
 
 const AdminCategoryPage = () => {
   const [categories, setCategories] = useState([]);
@@ -15,6 +19,35 @@ const AdminCategoryPage = () => {
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState("");
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+  const handleOpenCategoryDetail = async (category) => {
+    try {
+      setIsDetailModalOpen(true);
+      setDetailLoading(true);
+      setDetailError("");
+      setSelectedCategory(null);
+
+      const data = await getAdminCategoryById(category.id);
+      setSelectedCategory(data);
+    } catch (error) {
+      console.error("Failed to fetch category detail:", error);
+      setDetailError(error.message || "Failed to fetch category details");
+    } finally {
+      setDetailLoading(false);
+    }
+  };
+
+  const handleCloseCategoryDetail = () => {
+    setIsDetailModalOpen(false);
+    setSelectedCategory(null);
+    setDetailError("");
+    setDetailLoading(false);
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -38,7 +71,7 @@ const AdminCategoryPage = () => {
   }, [page]);
 
   const categoryColumns = defaultCategoryColumns((category) => {
-    console.log("Open category detail:", category.id);
+    handleOpenCategoryDetail(category);
   });
 
   return (
@@ -75,6 +108,14 @@ const AdminCategoryPage = () => {
                 totalPages={totalPages}
               />
             </div>
+            {isDetailModalOpen && (
+              <CategoryDetailModal
+                category={selectedCategory}
+                loading={detailLoading}
+                error={detailError}
+                onClose={handleCloseCategoryDetail}
+              />
+            )}
           </AdminPageShell>
         </div>
       </div>
