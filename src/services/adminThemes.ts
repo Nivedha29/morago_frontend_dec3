@@ -52,3 +52,8 @@ export const getAdminThemes = async (
 
   return response.data;
 };
+
+export const getAdminThemeById = async (id: number): Promise<ThemeItem> => {
+  const response = await api.get(`/admin/themes/${id}`);
+  return response.data;
+};
