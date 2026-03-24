@@ -6,7 +6,7 @@ import AdminPagination from "../../components/admin/AdminPagination";
 import AdminTable from "../../components/admin/AdminTable";
 import ThemeDetailModal from "../../components/admin/ThemeDetailModal";
 import eyeIcon from "../../assets/eye.svg";
-import { getAdminThemes, getThemeById } from "../../services/adminThemes.ts";
+import { getAdminThemes, getAdminThemeById } from "../../services/adminThemes.ts";
 import "../../styles/AdminLayout.css";
 
 const AdminThemesPage = () => {
