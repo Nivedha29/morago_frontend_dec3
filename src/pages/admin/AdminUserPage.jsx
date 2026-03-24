@@ -6,9 +6,11 @@ import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable, {
   defaultUserColumns,
 } from "../../components/admin/AdminTable";
+import UserDetailModal from "../../components/admin/UserDetailModal";
+
 import AdminPagination from "../../components/admin/AdminPagination";
 import "../../styles/AdminLayout.css";
-import { getAdminUsers } from "../../services/adminUser";
+import { getAdminUsers, getAdminUserById } from "../../services/adminUser";
 
 const AdminUserPage = () => {
   const navigate = useNavigate();
@@ -18,6 +20,38 @@ const AdminUserPage = () => {
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState("");
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+  const handleUserCallHistory = (user) => {
+    navigate(`/admin/users/${user.id}/call-history`);
+  };
+
+  const handleOpenUserDetail = async (user) => {
+    try {
+      setIsDetailModalOpen(true);
+      setDetailLoading(true);
+      setDetailError("");
+      setSelectedUser(null);
+
+      const data = await getAdminUserById(user.id);
+      setSelectedUser(data);
+    } catch (error) {
+      console.error("Failed to fetch user detail:", error);
+      setDetailError(error.message || "Failed to fetch user details");
+    } finally {
+      setDetailLoading(false);
+    }
+  };
+
+  const handleCloseUserDetail = () => {
+    setIsDetailModalOpen(false);
+    setSelectedUser(null);
+    setDetailError("");
+    setDetailLoading(false);
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -42,10 +76,16 @@ const AdminUserPage = () => {
 
   const userColumns = defaultUserColumns(
     (user) => {
-      console.log("Open user detail:", user.id);
+      handleOpenUserDetail(user);
     },
     (user) => {
-      navigate(`/admin/users/${user.id}/call-history`);
+      navigate(`/admin/users/${user.id}/call-history`, {
+        state: {
+          userName:
+            `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
+            user.phone,
+        },
+      });
     },
     (user) => {
       navigate(`/admin/users/${user.id}/deposit-history`);
@@ -73,7 +113,11 @@ const AdminUserPage = () => {
 
             {!loading && !error && users.length > 0 && (
               <div className="admin-table users-table">
-                <AdminTable data={users} columns={userColumns} />
+                <AdminTable
+                  data={users}
+                  columns={userColumns}
+                  onUserCallClick={handleUserCallHistory}
+                />
               </div>
             )}
 
@@ -84,6 +128,14 @@ const AdminUserPage = () => {
                 totalPages={totalPages}
               />
             </div>
+            {isDetailModalOpen && (
+              <UserDetailModal
+                user={selectedUser}
+                loading={detailLoading}
+                error={detailError}
+                onClose={handleCloseUserDetail}
+              />
+            )}
           </AdminPageShell>
         </div>
       </div>
