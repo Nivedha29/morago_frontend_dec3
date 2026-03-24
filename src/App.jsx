@@ -21,6 +21,7 @@ import UserDepositHistoryPage from "./pages/admin/UserDepositHistoryPage.jsx";
 import UserChargePage from "./pages/admin/UserChargePage.jsx";
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
+import AddThemePage from "./pages/admin/AddThemePage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
 import SplashScreen from "./components/SplashScreen.jsx";
@@ -85,6 +86,7 @@ const App = () => {
       />
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
+      <Route path="/admin/themes/add" element={<AddThemePage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
       <Route
