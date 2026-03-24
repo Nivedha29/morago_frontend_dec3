@@ -58,4 +58,36 @@ const AdminTable = ({
   );
 };
 
+export const defaultCategoryColumns = (onViewCategory) => [
+  {
+    key: "checkbox",
+    header: <input type="checkbox" className="admin-table-checkbox" />,
+    cellClassName: "admin-table-checkbox-cell",
+    headerClassName: "admin-table-checkbox-cell",
+    disableSortArrow: true,
+    render: () => <input type="checkbox" className="admin-table-checkbox" />,
+  },
+  {
+    key: "name",
+    header: "Categories",
+    render: (category) => category.name || "-",
+  },
+  {
+    key: "status",
+    header: "Status",
+    render: (category) => (category.isActive ? "Active" : "Inactive"),
+  },
+  {
+    key: "action",
+    header: "",
+    cellClassName: "admin-table-action-cell",
+    headerClassName: "admin-table-action-cell",
+    disableSortArrow: true,
+    onClick: (category) => onViewCategory && onViewCategory(category),
+    render: () => (
+      <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+    ),
+  },
+];
+
 export default AdminTable;
