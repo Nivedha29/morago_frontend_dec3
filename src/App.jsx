@@ -30,6 +30,7 @@ import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
+import AdminAddCategoryPage from "./pages/admin/AdminAddCategoryPage";
 
 
 import SplashScreen from "./components/SplashScreen.jsx";
@@ -102,6 +103,7 @@ const App = () => {
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+      <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
 
       <Route
         path="*"
