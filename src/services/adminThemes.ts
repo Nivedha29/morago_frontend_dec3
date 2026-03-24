@@ -58,6 +58,40 @@ export const getAdminThemeById = async (id: number): Promise<ThemeItem> => {
 // Create Themes
 ///////////////////////////////////////////////////////////
 
+export interface CategoryItem {
+  id: number;
+  name: string;
+  isActive: boolean;
+}
+
+export interface CategoryListResponse {
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: CategoryItem[];
+}
+
+export interface CategoryItem {
+  id: number;
+  name: string;
+  isActive: boolean;
+}
+
+export interface CategoryListResponse {
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: CategoryItem[];
+}
+
 export interface CreateThemePayload {
   name: string;
   title: string;
@@ -81,23 +115,14 @@ export const createAdminTheme = async (
   return response.data;
 };
 
-///////////////////////////////////////////////////////////
-// Uploading File
-///////////////////////////////////////////////////////////
-
-export interface UploadFileResponse {
-  id: number;
-  name?: string;
-  url?: string;
-}
-
-export const uploadAdminFile = async (
+export const uploadAdminThemeIcon = async (
+  themeId: number,
   file: File,
-): Promise<UploadFileResponse> => {
+): Promise<ThemeItem> => {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("icon", file);
 
-  const response = await api.post("/admin/files/upload", formData, {
+  const response = await api.post(`/admin/themes/${themeId}/icon`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
