@@ -23,13 +23,13 @@
 
 .user-detail-modal-close {
    position: absolute;
-   top: 14px;
-   right: 16px;
+   top: 20px;
+   right: 25px;
    border: none;
    background: transparent;
-   font-size: 24px;
+   font-size: 45px;
    line-height: 1;
-   color: #9a9a9a;
+   color: #0a0a0a;
    cursor: pointer;
 }
 
@@ -37,7 +37,10 @@
    display: flex;
    align-items: flex-start;
    justify-content: space-between;
+   margin-top: 25px;
+   margin-right: 23px;
    margin-bottom: 18px;
+   background-color: #b7b6b6;
 }
 
 .user-detail-modal-avatar {
@@ -45,6 +48,7 @@
    height: 150px;
    background: #d9d9d9;
    flex-shrink: 0;
+   margin:15px;
 }
 
 .user-detail-modal-edit-btn {
@@ -59,6 +63,7 @@
    padding: 10px 16px;
    border-radius: 4px;
    cursor: pointer;
+   margin: 15px;
 }
 
 .user-detail-modal-content {
