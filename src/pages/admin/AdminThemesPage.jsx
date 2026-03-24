@@ -4,6 +4,7 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminPagination from "../../components/admin/AdminPagination";
 import AdminTable from "../../components/admin/AdminTable";
+import eyeIcon from "../../assets/eye.svg";
 import { getAdminThemes } from "../../services/adminThemes.ts";
 import "../../styles/AdminLayout.css";
 
@@ -87,7 +88,12 @@ const AdminThemesPage = () => {
       cellClassName: "admin-table-action-cell",
       headerClassName: "admin-table-action-cell",
       disableSortArrow: true,
-      render: () => "◉",
+      onClick: (theme) => {
+        console.log("View theme:", theme);
+      },
+      render: () => (
+        <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+      ),
     },
   ];
 
@@ -106,7 +112,9 @@ const AdminThemesPage = () => {
           >
             {loading && <p>Loading themes...</p>}
             {!loading && error && <p>{error}</p>}
-            {!loading && !error && themes.length === 0 && <p>No themes found.</p>}
+            {!loading && !error && themes.length === 0 && (
+              <p>No themes found.</p>
+            )}
 
             {!loading && !error && themes.length > 0 && (
               <div className="admin-table themes-table">
