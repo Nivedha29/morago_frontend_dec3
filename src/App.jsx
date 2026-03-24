@@ -19,6 +19,7 @@ import UserDetailModal from "./components/admin/UserDetailModal.jsx";
 import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
 import UserDepositHistoryPage from "./pages/admin/UserDepositHistoryPage.jsx";
 import UserChargePage from "./pages/admin/UserChargePage.jsx";
+import AddUserPage from "./pages/admin/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
@@ -83,6 +84,7 @@ const App = () => {
         path="/admin/users/:userId/deposit-history/:depositId/charge"
         element={<UserChargePage />}
       />
+      <Route path="/admin/users/add" element={<AddUserPage />} />
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
