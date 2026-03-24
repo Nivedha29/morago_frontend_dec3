@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAdminUserCallHistory } from "../../services/admin";
-import "../../styles/AdminPages.css";
+import "../../styles/AdminLayout.css";
 
 const UserCallHistoryPage = () => {
   const navigate = useNavigate();
