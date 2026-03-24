@@ -17,7 +17,12 @@ import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import UserDetailModal from "./components/admin/UserDetailModal.jsx";
 import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
+<<<<<<< HEAD
 
+=======
+import UserDepositHistoryPage from "./pages/admin/UserDepositHistoryPage.jsx";
+import UserChargePage from "./pages/admin/UserChargePage.jsx";
+>>>>>>> 3c2e042 (Routing: Routed Charge Page, from Deposit History Page)
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
@@ -74,7 +79,18 @@ const App = () => {
         path="/admin/users/:userId/call-history"
         element={<UserCallHistoryPage />}
       />
+<<<<<<< HEAD
 
+=======
+      <Route
+        path="/admin/users/:userId/deposit-history"
+        element={<UserDepositHistoryPage />}
+      />
+      <Route
+        path="/admin/users/:userId/deposit-history/:depositId/charge"
+        element={<UserChargePage />}
+      />
+>>>>>>> 3c2e042 (Routing: Routed Charge Page, from Deposit History Page)
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
