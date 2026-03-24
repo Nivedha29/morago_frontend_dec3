@@ -42,3 +42,16 @@ export const getAdminCategories = async (
 
   return response.data;
 };
+
+export interface CategoryDetailResponse {
+  id: number;
+  name: string;
+  isActive: boolean;
+}
+
+export const getAdminCategoryById = async (
+  id: number,
+): Promise<CategoryDetailResponse> => {
+  const response = await api.get(`/admin/categories/${id}`);
+  return response.data;
+};
