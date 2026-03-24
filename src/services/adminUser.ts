@@ -118,3 +118,68 @@ export const getAdminUserCallHistory = async ({
 
   return response.data;
 };
+
+///////////////////////////////////////////////////////////
+// Deposit History
+///////////////////////////////////////////////////////////
+
+export interface UserDepositHistoryItem {
+  id: number;
+  date: string;
+  amount: number;
+  status: "PENDING" | "COMPLETED" | "FAILED" | string;
+}
+
+export interface UserDepositHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: UserDepositHistoryItem[];
+}
+
+export interface GetUserDepositHistoryParams {
+  userId: number;
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export const getAdminUserDepositHistory = async ({
+  userId,
+  page = 0,
+  size = 5,
+  sortBy = "id",
+  sortDirection = "DESC",
+}: GetUserDepositHistoryParams): Promise<UserDepositHistoryResponse> => {
+  const response = await api.get(`/admin/deposits/history/${userId}`, {
+    params: {
+      page,
+      size,
+      sortBy,
+      sortDirection,
+    },
+  });
+
+  return response.data;
+};
+
+///////////////////////////////////////////////////////////
+// Deposit Charge
+///////////////////////////////////////////////////////////
+
+export interface ApproveUserDepositPayload {
+  sum: number;
+}
+
+export const approveAdminUserDeposit = async (
+  depositId: number,
+  payload: ApproveUserDepositPayload,
+) => {
+  const response = await api.put(`/admin/deposits/${depositId}`, payload);
+  return response.data;
+};
