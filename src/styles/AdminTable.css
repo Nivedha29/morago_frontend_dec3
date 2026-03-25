@@ -7,16 +7,16 @@
 .admin-table-row {
   display: grid;
   grid-template-columns:
-  44px
-  minmax(120px, 1.2fr)
-  minmax(140px, 1fr)
-  minmax(180px, 1.5fr)
-  minmax(80px, 0.8fr)
-  minmax(100px, 1fr)
-  minmax(140px, 1.2fr)
-  minmax(80px, 0.8fr)
-  minmax(80px, 0.8fr)
-  250px;
+    100px
+    minmax(90px, 1fr)
+    minmax(110px, 1fr)
+    minmax(140px, 1.2fr)
+    minmax(70px, 0.7fr)
+    minmax(85px, 0.8fr)
+    minmax(110px, 1fr)
+    minmax(70px, 0.7fr)
+    minmax(70px, 0.7fr)
+    150px;
   align-items: center;
 }
 
@@ -37,9 +37,13 @@
 }
 
 .admin-table-cell {
-  padding: 0 12px;
+  padding: 0 10px;
   font-size: 14px;
   color: #111111;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .admin-table-checkbox-cell {
@@ -57,14 +61,15 @@
 .admin-table-header-cell {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-weight: 600;
 }
 
 .admin-table-sort-arrow {
-  font-size: 15px;
+  font-size: 13px;
   color: #444444;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .admin-table-link {
@@ -78,7 +83,8 @@
   justify-content: center;
   background: #f1f1f1;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 12px;
+  padding: 4px 8px;
 }
 
 .admin-table-action-cell {
@@ -88,9 +94,83 @@
 }
 
 .admin-table-eye-icon {
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
   display: block;
   filter: brightness(0);
+}
+
+/* laptop screen */
+@media (max-width: 1440px) {
+  .admin-table-header,
+  .admin-table-row {
+    grid-template-columns:
+      100px
+      minmax(80px, 0.95fr)
+      minmax(100px, 1fr)
+      minmax(120px, 1.1fr)
+      minmax(60px, 0.65fr)
+      minmax(75px, 0.75fr)
+      minmax(95px, 0.9fr)
+      minmax(60px, 0.65fr)
+      minmax(60px, 0.65fr)
+      150px;
+  }
+
+  .admin-table-cell {
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  .admin-table-header-cell {
+    gap: 3px;
+  }
+
+  .admin-table-sort-arrow {
+    font-size: 12px;
+  }
+
+  .admin-table-eye-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* smaller laptop */
+@media (max-width: 1280px) {
+  .admin-table-header,
+  .admin-table-row {
+    grid-template-columns:
+      28px
+      minmax(70px, 0.9fr)
+      minmax(90px, 0.95fr)
+      minmax(110px, 1fr)
+      minmax(55px, 0.6fr)
+      minmax(70px, 0.7fr)
+      minmax(85px, 0.85fr)
+      minmax(55px, 0.6fr)
+      minmax(55px, 0.6fr)
+      70px;
+  }
+
+  .admin-table-cell {
+    padding: 0 6px;
+    font-size: 12px;
+  }
+
+  .admin-table-header,
+  .admin-table-row {
+    min-height: 52px;
+  }
+
+  .admin-table-pill {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  .admin-table-eye-icon {
+    width: 18px;
+    height: 18px;
+  }
 }
