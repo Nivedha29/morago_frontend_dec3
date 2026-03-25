@@ -25,7 +25,6 @@
   flex: 1;
   min-width: 0;
   padding: 40px 48px;
-<<<<<<< HEAD
   display: flex;
   flex-direction: column;
 }
@@ -35,6 +34,4 @@
   justify-content: center;
   margin-top: auto;
   padding: 24px 0;
-=======
->>>>>>> 5382e2a (Admin: fix layout after rebase (sidebar/content alignment))
 }
