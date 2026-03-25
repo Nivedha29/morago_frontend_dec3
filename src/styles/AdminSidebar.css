@@ -1,11 +1,6 @@
 .admin-sidebar {
-<<<<<<< HEAD
-  width: 427px;
-  min-width: 320px;
-=======
   width: 428px;
   min-width: 428px;
->>>>>>> 5382e2a (Admin: fix layout after rebase (sidebar/content alignment))
   flex-shrink: 0;
   min-height: calc(100vh - 100px);
   background: #ffffff;
