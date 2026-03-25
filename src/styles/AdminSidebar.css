@@ -1,5 +1,7 @@
 .admin-sidebar {
   width: 428px;
+  min-width: 428px;
+  flex-shrink: 0;
   min-height: calc(100vh - 100px);
   background: #ffffff;
   border-right: 1px solid #d9d9d9;
