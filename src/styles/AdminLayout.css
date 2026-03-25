@@ -15,7 +15,6 @@
   padding: 32px 40px;
 }
 
-<<<<<<< HEAD
 .admin-page-wrapper {
   display: flex;
   align-items: stretch;
@@ -26,6 +25,7 @@
   flex: 1;
   min-width: 0;
   padding: 40px 48px;
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
 }
@@ -43,3 +43,6 @@
 
 
 >>>>>>> c5bb4e0 (Create admin header with logo, navigation bar, and conditional profile button)
+=======
+}
+>>>>>>> 5382e2a (Admin: fix layout after rebase (sidebar/content alignment))
