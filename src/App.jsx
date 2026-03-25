@@ -4,9 +4,6 @@ import { Routes, Route } from "react-router-dom";
 /* ------------------------- Admin Page ------------------------- */
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
-import AdminForgotPasswordPage from "./pages/admin/AdminForgotPasswordPage.jsx";
-import AdminForgotPasswordVerifyPage from "./pages/admin/AdminForgotPasswordVerifyPage.jsx";
-import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswordNewPasswordPage.jsx";
 
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
@@ -31,18 +28,6 @@ const App = () => {
   return (
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
-      <Route
-        path="/admin/forgot-password"
-        element={<AdminForgotPasswordPage />}
-      />
-      <Route
-        path="/admin/forgot-password/verify"
-        element={<AdminForgotPasswordVerifyPage />}
-      />
-      <Route
-        path="/admin/forgot-password/new-password"
-        element={<AdminForgotPasswordNewPasswordPage />}
-      />
       
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/users" element={<AdminUserPage />} />

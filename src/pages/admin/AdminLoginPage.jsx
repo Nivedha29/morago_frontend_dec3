@@ -109,13 +109,6 @@ const AdminLoginPage = () => {
               {isLoading ? "Logging in..." : "Login"}
             </button>
 
-            <button
-              type="button"
-              className="admin-forgot-button"
-              onClick={() => navigate("/admin/forgot-password")}
-            >
-              Forgot Password?
-            </button>
           </div>
         </div>
       </div>
