@@ -1,31 +1,23 @@
-.admin-header {
+.admin-layout-page {
+  min-height: 100vh;
+  background: #f8f8f8;
   display: flex;
-  align-items: stretch;
-  width: 100%;
-  border-bottom: 1px solid #cfcfcf;
+  flex-direction: column;
 }
 
-.admin-logo-box {
-  justify-content: flex-start;
-  margin: 31px 100px;
-}
-
-.admin-logo-image {
-  width: 126px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
-
-.admin-header-bar {
+.admin-layout-body {
   flex: 1;
-  height: 100px;
-  background: #045f73;
+  display: flex;
+}
+
+.admin-layout-content {
+  flex: 1;
+  padding: 32px 40px;
 }
 
 .admin-header-profile {
   min-width: 128px;
-  height: 30px;
+  height: 44px;
   border: none;
   border-radius: 8px;
   background: #ffffff;

@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 /* ------------------------- Admin Page ------------------------- */
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
+
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
@@ -27,6 +28,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
+      
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />

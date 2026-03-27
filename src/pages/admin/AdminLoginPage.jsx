@@ -32,7 +32,7 @@ const AdminLoginPage = () => {
 
     try {
       setIsLoading(true);
-      
+
       const data = await login({
         phone: trimmedPhone,
         password: trimmedPassword,
@@ -109,9 +109,6 @@ const AdminLoginPage = () => {
               {isLoading ? "Logging in..." : "Login"}
             </button>
 
-            <button type="button" className="admin-forgot-button">
-              Forgot Password?
-            </button>
           </div>
         </div>
       </div>
