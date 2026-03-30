@@ -1,7 +1,6 @@
 import React from "react";
 import "../../styles/AdminPageShell.css";
 import AdminControls from "../../components/admin/AdminControls";
-import AdminTable from "..//../components/admin/AdminTable";
 
 const AdminPageShell = ({
   title,

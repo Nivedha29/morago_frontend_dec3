@@ -1,34 +1,24 @@
-import AdminHeader from "../../components/admin/AdminHeader";
-import AdminSidebar from "../../components/admin/AdminSidebar";
+import React from "react";
+import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
-import "../../styles/AdminLayout.css";
 
 const AdminCategoriesPage = () => {
   return (
-    <div>
-      <AdminHeader />
+   <AdminLayout>
+      <AdminPageShell
+        title="Categories list"
+        breadcrumbSection="Lists"
+        breadcrumbPage="Categories"
+      >
+        <AdminTable />
 
-      <div className="admin-page-wrapper">
-        <AdminSidebar />
-
-        <div className="admin-page-content">
-          <AdminPageShell
-            title="Categories"
-            breadcrumbSection="Translation topics"
-            breadcrumbPage="Categories"
-          >
-            <AdminTable />
-
-            <div className="admin-page-footer">
-              <AdminPagination />
-            </div>
-            
-          </AdminPageShell>
+        <div className="admin-page-footer">
+          <AdminPagination />
         </div>
-      </div>
-    </div>
+      </AdminPageShell>
+    </AdminLayout>
   );
 };
 

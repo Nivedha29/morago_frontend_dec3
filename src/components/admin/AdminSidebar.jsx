@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import "../../styles/AdminSidebar.css";
 import sideBarProfile from "../../assets/SideBarProfile.svg";
 import sideBarGear from "../../assets/SideBarGear.svg";
-import { useNavigate, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const AdminSidebar = () => {
   const [isListsOpen, setIsListsOpen] = useState(true);
   const [isTopicsOpen, setIsTopicsOpen] = useState(true);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isActive = (path) => location.pathname === path;
 
   return (
     <aside className="admin-sidebar">
@@ -30,19 +27,23 @@ const AdminSidebar = () => {
 
           {isListsOpen && (
             <div className="sidebar-items">
-              <div
-                className={`sidebar-item ${isActive("/admin/users") ? "active" : ""}`}
-                onClick={() => navigate("/admin/users")}
+              <NavLink
+                to="/admin/users"
+                className={({ isActive }) =>
+                  `sidebar-item ${isActive ? "active" : ""}`
+                }
               >
                 User
-              </div>
+              </NavLink>
 
-              <div
-                className={`sidebar-item ${isActive("/admin/translators") ? "active" : ""}`}
-                onClick={() => navigate("/admin/translators")}
+              <NavLink
+                to="/admin/translators"
+                className={({ isActive }) =>
+                  `sidebar-item ${isActive ? "active" : ""}`
+                }
               >
                 Translator
-              </div>
+              </NavLink>
             </div>
           )}
         </div>
@@ -63,19 +64,23 @@ const AdminSidebar = () => {
 
           {isTopicsOpen && (
             <div className="sidebar-items">
-              <div
-                className={`sidebar-item ${isActive("/admin/themes") ? "active" : ""}`}
-                onClick={() => navigate("/admin/themes")}
+              <NavLink
+                to="/admin/themes"
+                className={({ isActive }) =>
+                  `sidebar-item ${isActive ? "active" : ""}`
+                }
               >
                 Themes
-              </div>
+              </NavLink>
 
-              <div
-                className={`sidebar-item ${isActive("/admin/categories") ? "active" : ""}`}
-                onClick={() => navigate("/admin/categories")}
+              <NavLink
+                to="/admin/categories"
+                className={({ isActive }) =>
+                  `sidebar-item ${isActive ? "active" : ""}`
+                }
               >
                 Categories
-              </div>
+              </NavLink>
             </div>
           )}
         </div>

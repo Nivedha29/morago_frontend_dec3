@@ -11,12 +11,14 @@
    justify-content: space-between;
    gap: 32px;
    margin-bottom: 24px;
+   flex-wrap: wrap; 
 }
 
 .admin-page-shell-left {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0; 
 }
 
 .admin-page-shell-right {
@@ -43,6 +45,7 @@
    line-height: 1;
    margin-top: 20px;
    margin-left: 5px;
+   flex-wrap: wrap; 
 }
 
 .breadcrumb-home,
@@ -67,4 +70,38 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+/* ✅ laptop */
+@media (max-width: 1440px) {
+  .admin-page-shell-title {
+    font-size: 34px;
+  }
+
+  .admin-page-shell-header {
+    gap: 24px;
+  }
+}
+
+/* ✅ smaller laptop */
+@media (max-width: 1280px) {
+  .admin-page-shell-title {
+    font-size: 28px;
+  }
+
+  .admin-page-shell-header {
+    flex-direction: column; 
+    align-items: flex-start;
+  }
+
+  .admin-page-shell-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .admin-page-shell-body {
+    width: calc(100% + 64px);
+    margin-left: -35px;
+    margin-right: -50px;
+  }
 }
