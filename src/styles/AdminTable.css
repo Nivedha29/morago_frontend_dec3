@@ -1,0 +1,180 @@
+.admin-table {
+  width: 100%;
+  margin-top: 8px;
+  overflow-x: auto;
+}
+
+.admin-table-header,
+.admin-table-row {
+  display: grid;
+  grid-template-columns:
+    100px
+    minmax(90px, 1fr)
+    minmax(110px, 1fr)
+    minmax(140px, 1.2fr)
+    minmax(70px, 0.7fr)
+    minmax(85px, 0.8fr)
+    minmax(110px, 1fr)
+    minmax(70px, 0.7fr)
+    minmax(70px, 0.7fr)
+    150px;
+  align-items: center;
+  min-width: 980px;
+}
+
+.admin-table-header {
+  min-height: 56px;
+  background: #ffffff;
+  border-radius: 4px 4px 0 0;
+}
+
+.admin-table-row {
+  min-height: 56px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.admin-table-row:hover {
+  background: #fafafa;
+}
+
+.admin-table-cell {
+  padding: 0 10px;
+  font-size: 14px;
+  color: #111111;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-table-checkbox-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-table-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.admin-table-header-cell {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.admin-table-sort-arrow {
+  font-size: 13px;
+  color: #444444;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.admin-table-link {
+  color: #6c63ff;
+  cursor: pointer;
+}
+
+.admin-table-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  border-radius: 20px;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.admin-table-action-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+.admin-table-eye-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0);
+}
+
+/* laptop screen */
+@media (max-width: 1440px) {
+  .admin-table-header,
+  .admin-table-row {
+    grid-template-columns:
+      90px
+      minmax(80px, 0.95fr)
+      minmax(100px, 1fr)
+      minmax(120px, 1.1fr)
+      minmax(60px, 0.65fr)
+      minmax(75px, 0.75fr)
+      minmax(95px, 0.9fr)
+      minmax(60px, 0.65fr)
+      minmax(60px, 0.65fr)
+      120px;
+    min-width: 900px;
+  }
+
+  .admin-table-cell {
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  .admin-table-header-cell {
+    gap: 3px;
+  }
+
+  .admin-table-sort-arrow {
+    font-size: 12px;
+  }
+
+  .admin-table-eye-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* smaller laptop */
+@media (max-width: 1280px) {
+  .admin-table-header,
+  .admin-table-row {
+    grid-template-columns:
+      40px
+      minmax(60px, 0.9fr)
+      minmax(70px, 0.95fr)
+      minmax(90px, 1fr)
+      minmax(45px, 0.6fr)
+      minmax(60px, 0.7fr)
+      minmax(70px, 0.85fr)
+      minmax(45px, 0.6fr)
+      minmax(45px, 0.6fr)
+      40px;
+    min-width: 580px;
+  }
+
+  .admin-table-cell {
+    padding: 0 4px;
+    font-size: 12px;
+  }
+
+  .admin-table-header,
+  .admin-table-row {
+    min-height: 52px;
+  }
+
+  .admin-table-pill {
+    font-size: 11px;
+  }
+
+  .admin-table-eye-icon {
+    width: 18px;
+    height: 18px;
+  }
+}

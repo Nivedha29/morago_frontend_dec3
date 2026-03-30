@@ -1,4 +1,8 @@
-import axios, { AxiosError } from "axios";
+import axios, {
+  AxiosError,
+  InternalAxiosRequestConfig,
+  AxiosHeaders,
+} from "axios";
 
 export interface ApiError {
   message: string;
@@ -22,11 +26,30 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+const PUBLIC_ROUTES = [
+  "/auth/login",
+  "/auth/register",
+  "/publicResetPassword/reset/request",
+  "/publicResetPassword/reset/verify",
+  "/publicResetPassword/reset/confirm",
+];
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  const token = localStorage.getItem("token");
+  const requestUrl = config.url ?? "";
+  const isPublicRoute = PUBLIC_ROUTES.some((route) =>
+    requestUrl.includes(route),
+  );
+
+  if (!isPublicRoute && token) {
+    if (config.headers instanceof AxiosHeaders) {
+      config.headers.set("Authorization", `Bearer ${token}`);
+    } else {
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
   }
 
   return config;
