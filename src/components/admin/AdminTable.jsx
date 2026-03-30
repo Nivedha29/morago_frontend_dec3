@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/AdminTable.css";
 import eyeIcon from "../../assets/eye.svg";
 
-const AdminTable = () => {
+const AdminTable = ({ translators = [] }) => {
   return (
     <div className="admin-table">
       <div className="admin-table-header">
@@ -53,43 +53,47 @@ const AdminTable = () => {
         <div className="admin-table-cell admin-table-action-cell"></div>
       </div>
 
-      <div className="admin-table-row">
-        <div className="admin-table-cell admin-table-checkbox-cell">
-          <input type="checkbox" className="admin-table-checkbox" />
-        </div>
+      {translators.map((t) => (
+        <div className="admin-table-row" key={t.id}>
+          <div className="admin-table-cell admin-table-checkbox-cell">
+            <input type="checkbox" className="admin-table-checkbox" />
+          </div>
 
-        <div className="admin-table-cell">Name 1</div>
-        <div className="admin-table-cell">010 1234 5678</div>
-        <div className="admin-table-cell">user@mail.com</div>
-        <div className="admin-table-cell">5 level</div>
-        <div className="admin-table-cell">Verified</div>
-        <div className="admin-table-cell">
-          <span className="admin-table-pill">Request</span>
-        </div>
-        <div className="admin-table-cell admin-table-link">View</div>
-        <div className="admin-table-cell admin-table-link">View</div>
-        <div className="admin-table-cell admin-table-action-cell">
-          <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
-        </div>
-      </div>
+          <div className="admin-table-cell">
+            {t.firstName || t.lastName
+              ? `${t.firstName || ""} ${t.lastName || ""}`
+              : "-"}
+          </div>
 
-      <div className="admin-table-row">
-        <div className="admin-table-cell admin-table-checkbox-cell">
-          <input type="checkbox" className="admin-table-checkbox" />
-        </div>
+          <div className="admin-table-cell">{t.phone || "-"}</div>
 
-        <div className="admin-table-cell">Name 2</div>
-        <div className="admin-table-cell">010 9876 5432</div>
-        <div className="admin-table-cell">user2@mail.com</div>
-        <div className="admin-table-cell">3 level</div>
-        <div className="admin-table-cell">Unverified</div>
-        <div className="admin-table-cell">None</div>
-        <div className="admin-table-cell admin-table-link">View</div>
-        <div className="admin-table-cell admin-table-link">View</div>
-        <div className="admin-table-cell admin-table-action-cell">
-          <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+          <div className="admin-table-cell">{t.email || "-"}</div>
+
+          <div className="admin-table-cell">
+            {t.levelOfKorean ? `${t.levelOfKorean} level` : "-"}
+          </div>
+
+          <div className="admin-table-cell">
+            {t.isOnline ? "Online" : "Offline"}
+          </div>
+
+          <div className="admin-table-cell">
+            {t.hasWithdrawalRequest ? (
+              <span className="admin-table-pill">Request</span>
+            ) : (
+              "-"
+            )}
+          </div>
+
+          <div className="admin-table-cell admin-table-link">View</div>
+
+          <div className="admin-table-cell admin-table-link">View</div>
+
+          <div className="admin-table-cell admin-table-action-cell">
+            <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
