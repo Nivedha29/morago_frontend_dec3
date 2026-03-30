@@ -60,7 +60,7 @@
 
 @media (max-width: 1440px) {
   .admin-logo-box {
-    margin: 24px 80px;
+    margin: 24px 96px;
   }
 
   .admin-header-profile {
@@ -72,7 +72,7 @@
 
 @media (max-width: 1280px) {
   .admin-logo-box {
-    margin: 20px 40px;
+    margin: 20px 78px;
   }
 
   .admin-logo-image {
