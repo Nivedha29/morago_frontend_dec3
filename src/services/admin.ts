@@ -37,13 +37,7 @@ export const getAdminTranslators = async (
   params: GetAdminTranslatorsParams = {},
 ): Promise<TranslatorListResponse> => {
   const response = await api.get("/admin/translators", {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params: params,
   });
 
   return response.data;

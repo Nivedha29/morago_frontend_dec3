@@ -10,6 +10,7 @@ const AdminTranslatorPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
+  const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
@@ -18,20 +19,25 @@ const AdminTranslatorPage = () => {
         setLoading(true);
         setError("");
 
-        const data = await getAdminTranslators({ page });
+        const data = await getAdminTranslators({
+          page,
+          size,
+          sortBy: "id",
+          sortDirection: "ASC",
+        });
 
         setTranslators(data.content || []);
         setTotalPages(data.totalPages || 0);
-      } catch (error) {
-        console.error("Failed to fetch translators:", error);
-        setError(error.message || "Failed to fetch translators");
+      } catch (err) {
+        console.error("Failed to fetch translators:", err);
+        setError(err.message || "Failed to fetch translators");
       } finally {
         setLoading(false);
       }
     };
 
     fetchTranslators();
-  }, [page]);
+  }, [page, size]);
 
   return (
     <AdminLayout>
@@ -52,13 +58,15 @@ const AdminTranslatorPage = () => {
           <AdminTable translators={translators} />
         )}
 
-        <div className="admin-page-footer">
-          <AdminPagination
-            page={page}
-            setPage={setPage}
-            totalPages={totalPages}
-          />
-        </div>
+        {!loading && totalPages > 0 && (
+          <div className="admin-page-footer">
+            <AdminPagination
+              page={page}
+              setPage={setPage}
+              totalPages={totalPages}
+            />
+          </div>
+        )}
       </AdminPageShell>
     </AdminLayout>
   );
