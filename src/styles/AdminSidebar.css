@@ -140,7 +140,7 @@
 /* laptop */
 @media (max-width: 1440px) {
   .admin-sidebar {
-    width: 200px;
+    width: 320px;
   }
 
   .sidebar-title-row {
@@ -160,7 +160,7 @@
 /* smaller laptop */
 @media (max-width: 1280px) {
   .admin-sidebar {
-    width: 100px;
+    width: 321px;
   }
 
   .sidebar-content {
