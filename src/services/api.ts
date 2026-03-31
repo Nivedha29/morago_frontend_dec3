@@ -45,10 +45,8 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     if (config.headers instanceof AxiosHeaders) {
       config.headers.set("Authorization", `Bearer ${token}`);
     } else {
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${token}`,
-      };
+      config.headers = new AxiosHeaders(config.headers);
+      config.headers.set("Authorization", `Bearer ${token}`);
     }
   }
 
