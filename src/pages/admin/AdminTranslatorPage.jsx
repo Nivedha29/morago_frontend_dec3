@@ -1,13 +1,10 @@
-import React, { useEffect, useState }, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
 import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
-import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
 import "../../styles/AdminLayout.css";
-
-import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
 import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
@@ -19,8 +16,7 @@ const AdminTranslatorPage = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
-  const [selectedTranslatorDetail, setSelectedTranslatorDetail] =
-    useState(null);
+  const [selectedTranslatorDetail, setSelectedTranslatorDetail] = useState(null);
 
   useEffect(() => {
     const fetchTranslators = async () => {
@@ -73,25 +69,23 @@ const AdminTranslatorPage = () => {
           <p>No translators found.</p>
         )}
 
-            {!loading && !error && translators.length > 0 && (
-              <AdminTable
-                translators={translators}
-                onViewTranslator={(translator) =>
-                  setSelectedTranslatorId(translator.id)
-                }
-              />
-            )}
+        {!loading && !error && translators.length > 0 && (
+          <AdminTable
+            translators={translators}
+            onViewTranslator={(translator) =>
+              setSelectedTranslatorId(translator.id)
+            }
+          />
+        )}
 
-            <div className="admin-page-footer">
-              <AdminPagination
-                page={page}
-                setPage={setPage}
-                totalPages={totalPages}
-              />
-            </div>
-          </AdminPageShell>
+        <div className="admin-page-footer">
+          <AdminPagination
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
+          />
         </div>
-      </div>
+      </AdminPageShell>
 
       {selectedTranslatorDetail && (
         <TranslatorDetailModal
@@ -102,17 +96,7 @@ const AdminTranslatorPage = () => {
           }}
         />
       )}
-
-      {selectedTranslatorDetail && (
-        <TranslatorDetailModal
-          translator={selectedTranslatorDetail}
-          onClose={() => {
-            setSelectedTranslatorId(null);
-            setSelectedTranslatorDetail(null);
-          }}
-        />
-      )}
-    </div>
+    </AdminLayout>
   );
 };
 
