@@ -60,6 +60,21 @@ const AdminTranslatorPage = () => {
     fetchTranslatorDetail();
   }, [selectedTranslatorId]);
 
+  useEffect(() => {
+    const fetchTranslatorDetail = async () => {
+      if (!selectedTranslatorId) return;
+
+      try {
+        const data = await getTranslatorById(selectedTranslatorId);
+        setSelectedTranslatorDetail(data);
+      } catch (error) {
+        console.error("Failed to fetch translator detail:", error);
+      }
+    };
+
+    fetchTranslatorDetail();
+  }, [selectedTranslatorId]);
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -94,6 +109,16 @@ const AdminTranslatorPage = () => {
           </div>
         )}
       </AdminPageShell>
+
+      {selectedTranslatorDetail && (
+        <TranslatorDetailModal
+          translator={selectedTranslatorDetail}
+          onClose={() => {
+            setSelectedTranslatorId(null);
+            setSelectedTranslatorDetail(null);
+          }}
+        />
+      )}
     </AdminLayout>
   );
 };
