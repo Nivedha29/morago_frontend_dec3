@@ -113,7 +113,7 @@
   object-fit: contain;
   display: block;
   filter: brightness(0);
-<<<<<<< HEAD
+  cursor: pointer;
 }
 
 /* laptop screen */
@@ -157,20 +157,20 @@
   .admin-table-header,
   .admin-table-row {
     grid-template-columns:
-      28px
-      minmax(70px, 0.9fr)
-      minmax(90px, 0.95fr)
+      36px
+      minmax(100px, 1fr)
       minmax(110px, 1fr)
-      minmax(55px, 0.6fr)
-      minmax(70px, 0.7fr)
-      minmax(85px, 0.85fr)
-      minmax(55px, 0.6fr)
-      minmax(55px, 0.6fr)
-      70px;
+      minmax(140px, 1.2fr)
+      minmax(80px, 0.8fr)
+      minmax(90px, 0.8fr)
+      minmax(120px, 1fr)
+      minmax(80px, 0.7fr)
+      minmax(80px, 0.7fr)
+      50px;
   }
 
   .admin-table-cell {
-    padding: 0 6px;
+    padding: 0 8px;
     font-size: 12px;
   }
 
@@ -188,7 +188,8 @@
     width: 18px;
     height: 18px;
   }
-=======
-  cursor: pointer;
->>>>>>> a7844bc (Feat: wire translator row view action to selected translator state)
+
+  .admin-table-wrapper {
+  overflow-x: auto;
+}
 }
