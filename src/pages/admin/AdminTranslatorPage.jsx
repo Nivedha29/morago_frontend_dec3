@@ -17,8 +17,7 @@ const AdminTranslatorPage = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
-  const [selectedTranslatorDetail, setSelectedTranslatorDetail] =
-    useState(null);
+  const [selectedTranslatorDetail, setSelectedTranslatorDetail] = useState(null);
 
   useEffect(() => {
     const fetchTranslators = async () => {
@@ -76,14 +75,14 @@ const AdminTranslatorPage = () => {
           <p>No translators found.</p>
         )}
 
-            {!loading && !error && translators.length > 0 && (
-              <AdminTable
-                translators={translators}
-                onViewTranslator={(translator) =>
-                  setSelectedTranslatorId(translator.id)
-                }
-              />
-            )}
+        {!loading && !error && translators.length > 0 && (
+          <AdminTable
+            translators={translators}
+            onViewTranslator={(translator) =>
+              setSelectedTranslatorId(translator.id)
+            }
+          />
+        )}
 
         {!loading && totalPages > 0 && (
           <div className="admin-page-footer">
