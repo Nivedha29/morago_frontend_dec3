@@ -26,6 +26,7 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
   return (
+    /* ------------------------- ADMIN ------------------------- */
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
       
@@ -33,6 +34,8 @@ const App = () => {
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+
+    /* ------------------------- MOBILE APP ------------------------- */
 
       <Route
         path="*"
