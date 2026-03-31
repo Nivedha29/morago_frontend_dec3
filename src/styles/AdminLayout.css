@@ -52,8 +52,6 @@
   padding: 32px 40px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .admin-page-wrapper {
   display: flex;
   align-items: stretch;
@@ -64,4 +62,19 @@
   flex: 1;
   min-width: 0;
   padding: 40px 48px;
+}
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+html {
+  scrollbar-width: none;
+}
+
+
+body {
+  -ms-overflow-style: none;
 }
