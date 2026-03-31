@@ -56,10 +56,13 @@
 <<<<<<< HEAD
 .admin-page-wrapper {
   display: flex;
+  align-items: stretch;
+  min-height: calc(100vh - 100px);
 }
 
 .admin-page-content {
   flex: 1;
+  min-width: 0;
   padding: 40px 48px;
    display: flex;
   flex-direction: column;

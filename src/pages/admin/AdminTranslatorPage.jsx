@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState }, { useEffect, useState } from "react";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
@@ -6,7 +6,10 @@ import AdminPagination from "../../components/admin/AdminPagination";
 <<<<<<< HEAD
 =======
 import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
+import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
 import "../../styles/AdminLayout.css";
+
+import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
 import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
@@ -93,6 +96,16 @@ const AdminTranslatorPage = () => {
     </AdminLayout>
 =======
       </div>
+
+      {selectedTranslatorDetail && (
+        <TranslatorDetailModal
+          translator={selectedTranslatorDetail}
+          onClose={() => {
+            setSelectedTranslatorId(null);
+            setSelectedTranslatorDetail(null);
+          }}
+        />
+      )}
 
       {selectedTranslatorDetail && (
         <TranslatorDetailModal

@@ -18,6 +18,17 @@
     minmax(70px, 0.7fr)
     minmax(70px, 0.7fr)
     150px;
+  grid-template-columns:
+    100px
+    minmax(90px, 1fr)
+    minmax(110px, 1fr)
+    minmax(140px, 1.2fr)
+    minmax(70px, 0.7fr)
+    minmax(85px, 0.8fr)
+    minmax(110px, 1fr)
+    minmax(70px, 0.7fr)
+    minmax(70px, 0.7fr)
+    150px;
   align-items: center;
   min-width: 980px;
 }
