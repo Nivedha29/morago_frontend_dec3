@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
@@ -20,6 +20,37 @@ const AddTranslatorPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTopikOpen, setIsTopikOpen] = useState(false);
+  const [birthDate, setBirthDate] = useState("");
+  const topikRef = useRef(null);
+  const langRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (topikRef.current && !topikRef.current.contains(event.target)) {
+        setIsTopikOpen(false);
+      }
+
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setIsLangOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!errorMessage) return;
+
+    const timer = setTimeout(() => {
+      setErrorMessage("");
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
 
   const handleArrowClick = () => {
     fileInputRef.current?.click();
@@ -39,6 +70,21 @@ const AddTranslatorPage = () => {
       return;
     }
 
+    if (password.length < 9) {
+      setErrorMessage("Password must be at least 9 characters");
+      return;
+    }
+
+    if (!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)) {
+      setErrorMessage("Password must contain letters and numbers");
+      return;
+    }
+
+    if (!/^\d{11}$/.test(phone)) {
+      setErrorMessage("Phone number must be 11 digits");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
@@ -54,10 +100,14 @@ const AddTranslatorPage = () => {
       });
 
       navigate("/admin/translators");
-    } catch (error) {
-      setErrorMessage(
-        error?.response?.data?.error || "Failed to create translator",
-      );
+    } catch (apiError) {
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to create translator";
+
+      setErrorMessage(backendMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -150,14 +200,18 @@ const AddTranslatorPage = () => {
               <div className="add-translator-row">
                 <div className="add-translator-field">
                   <label>Birth</label>
-                  <input type="text" placeholder="None" />
+                  <input
+                    type="date"
+                    value={birthDate}
+                    onChange={(e) => setBirthDate(e.target.value)}
+                  />
                 </div>
               </div>
 
               <div className="add-translator-row">
                 <div className="add-translator-field">
                   <label>TOPIK</label>
-                  <div className="custom-dropdown">
+                  <div className="custom-dropdown" ref={topikRef}>
                     <button
                       type="button"
                       className="custom-dropdown-trigger"
@@ -205,7 +259,7 @@ const AddTranslatorPage = () => {
                 <div className="add-translator-field">
                   <label>Language</label>
 
-                  <div className="custom-dropdown">
+                  <div className="custom-dropdown" ref={langRef}>
                     <button
                       type="button"
                       className="custom-dropdown-trigger"
