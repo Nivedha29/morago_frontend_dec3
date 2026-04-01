@@ -2,20 +2,23 @@ import React, { useState } from "react";
 import "../../styles/AdminSidebar.css";
 import sideBarProfile from "../../assets/SideBarProfile.svg";
 import sideBarGear from "../../assets/SideBarGear.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const AdminSidebar = () => {
   const [isListsOpen, setIsListsOpen] = useState(true);
   const [isTopicsOpen, setIsTopicsOpen] = useState(true);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleAddClick = () => {
-    if (location.pathname === "/admin/translators") {
+    if (location.pathname.startsWith("/admin/translators")) {
       navigate("/admin/translators/add");
-    } else if (location.pathname === "/admin/users") {
+    } else if (location.pathname.startsWith("/admin/users")) {
       navigate("/admin/users/add");
-    } else if (location.pathname === "/admin/themes") {
+    } else if (location.pathname.startsWith("/admin/themes")) {
       navigate("/admin/themes/add");
-    } else if (location.pathname === "/admin/categories") {
+    } else if (location.pathname.startsWith("/admin/categories")) {
       navigate("/admin/categories/add");
     }
   };
