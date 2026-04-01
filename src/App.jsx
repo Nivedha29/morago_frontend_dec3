@@ -35,7 +35,7 @@ const App = () => {
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
-    /* ------------------------- MOBILE APP ------------------------- */
+   {/* ------------------------- MOBILE APP ------------------------- */}
 
       <Route
         path="*"
