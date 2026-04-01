@@ -65,16 +65,11 @@
 }
 
 
-::-webkit-scrollbar {
+.admin-page-content::-webkit-scrollbar {
   display: none;
 }
 
-
-html {
+.admin-page-content {
   scrollbar-width: none;
-}
-
-
-body {
   -ms-overflow-style: none;
 }
