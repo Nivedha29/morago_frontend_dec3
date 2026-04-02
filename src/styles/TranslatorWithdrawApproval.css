@@ -56,3 +56,9 @@
   border: none;
   cursor: pointer;
 }
+
+.withdraw-error-message {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #dc2626;
+}

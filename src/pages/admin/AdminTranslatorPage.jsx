@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
 import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
-import { useNavigate } from "react-router-dom";
 import "../../styles/AdminLayout.css";
-
 import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
 const AdminTranslatorPage = () => {
   const [translators, setTranslators] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
@@ -21,6 +19,8 @@ const AdminTranslatorPage = () => {
   const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
   const [selectedTranslatorDetail, setSelectedTranslatorDetail] =
     useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTranslators = async () => {
@@ -59,6 +59,7 @@ const AdminTranslatorPage = () => {
     const fetchTranslatorDetail = async () => {
       if (!selectedTranslatorId) return;
 
+
       try {
         const data = await getTranslatorById(selectedTranslatorId);
         setSelectedTranslatorDetail(data);
@@ -96,11 +97,15 @@ const AdminTranslatorPage = () => {
         {!loading && !error && translators.length > 0 && (
           <AdminTable
             translators={translators}
-            onViewTranslator={(translator) =>
-              navigate(
-                    `/admin/translators/${translator.id}/withdraw-history`,
-                  )
+            onViewWithdrawRequest={(translator) => {
+              navigate(`/admin/translators/${translator.id}/withdraw`);
+            }}
+            onViewWithdrawHistory={(translator) =>
+              navigate(`/admin/translators/${translator.id}/withdraw-history`)
             }
+            onViewTranslator={(translator) => {
+              setSelectedTranslatorId(translator.id);
+            }}
           />
         )}
 

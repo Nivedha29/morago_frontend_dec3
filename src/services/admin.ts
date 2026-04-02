@@ -127,6 +127,15 @@ export interface ApproveWithdrawalPayload {
   sum: number;
 }
 
+export interface ActiveWithdrawalResponse {
+  id: number;
+  accountNumber: string;
+  accountHolder: string;
+  nameOfBank: string;
+  sum: number;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+}
+
 export const getAdminTranslators = async (
   params: GetAdminTranslatorsParams = {},
 ): Promise<TranslatorListResponse> => {
@@ -162,7 +171,16 @@ export const getWithdrawalHistoryByUserId = async (
 export const approveWithdrawalById = async (
   id: number,
   payload: ApproveWithdrawalPayload,
-) => {
-  const response = await api.put(`/admin/withdrawals/${id}`, payload);
+): Promise<void> => {
+  await api.put(`/admin/withdrawals/${id}`, payload);
+};
+
+export const getActiveWithdrawalByUserId = async (
+  userId: number,
+): Promise<ActiveWithdrawalResponse> => {
+  const response = await api.get("/admin/withdrawals", {
+    params: { userId },
+  });
+
   return response.data;
 };

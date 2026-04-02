@@ -11,9 +11,10 @@ const TranslatorWithdrawApproval = () => {
   const { translatorId, withdrawalId } = useParams();
 
   const withdrawal = location.state?.withdrawal;
+  const translatorName = location.state?.translatorName || "";
   const backPath = `/admin/translators/${translatorId}/withdraw`;
 
-  const [fullName, setFullName] = useState(withdrawal?.accountHolder || "");
+  const [fullName, setFullName] = useState(translatorName);
   const [bankName, setBankName] = useState(withdrawal?.nameOfBank || "");
   const [bankAccount, setBankAccount] = useState(
     withdrawal?.accountNumber || "",

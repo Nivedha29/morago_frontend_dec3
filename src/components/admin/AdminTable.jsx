@@ -2,7 +2,11 @@ import React from "react";
 import "../../styles/AdminTable.css";
 import eyeIcon from "../../assets/eye.svg";
 
-const defaultTranslatorColumns = (onViewTranslator) => [
+const defaultTranslatorColumns = (
+  onViewWithdrawRequest,
+  onViewWithdrawHistory,
+  onViewTranslator,
+) => [
   {
     key: "checkbox",
     header: <input type="checkbox" className="admin-table-checkbox" />,
@@ -42,12 +46,14 @@ const defaultTranslatorColumns = (onViewTranslator) => [
   {
     key: "withdrawRequest",
     header: "Withdraw request",
+    cellClassName: "admin-table-link",
     render: (t) =>
       t.hasWithdrawalRequest ? (
         <span className="admin-table-pill">Request</span>
       ) : (
         "-"
       ),
+    onClick: (t) => onViewWithdrawRequest && onViewWithdrawRequest(t),
   },
   {
     key: "call",
@@ -59,7 +65,7 @@ const defaultTranslatorColumns = (onViewTranslator) => [
     key: "withdraw",
     header: "Withdraw",
     cellClassName: "admin-table-link",
-    onClick: (t) => onViewTranslator && onViewTranslator(t),
+    onClick: (t) => onViewWithdrawHistory && onViewWithdrawHistory(t),
     render: () => "View >",
   },
   {
@@ -79,11 +85,19 @@ const AdminTable = ({
   translators = [],
   data,
   columns,
+  onViewWithdrawRequest,
+  onViewWithdrawHistory,
   onViewTranslator,
   rowKey = "id",
 }) => {
   const tableData = data || translators;
-  const tableColumns = columns || defaultTranslatorColumns(onViewTranslator);
+  const tableColumns =
+    columns ||
+    defaultTranslatorColumns(
+      onViewWithdrawRequest,
+      onViewWithdrawHistory,
+      onViewTranslator,
+    );
 
   return (
     <div className="admin-table">

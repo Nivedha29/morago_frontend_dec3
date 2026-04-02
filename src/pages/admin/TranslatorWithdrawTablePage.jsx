@@ -102,7 +102,9 @@ const TranslatorWithdrawTablePage = () => {
 
         {!loading && !error && (
           <>
-            <AdminTable data={withdrawals} columns={withdrawalColumns} />
+            <div className="translator-withdraw-table">
+              <AdminTable data={withdrawals} columns={withdrawalColumns} />
+            </div>
 
             {withdrawals.length === 0 && (
               <div className="withdraw-empty-state">
