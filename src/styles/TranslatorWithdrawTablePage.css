@@ -1,5 +1,50 @@
-.withdraw-debug {
-  margin-top: 12px;
-  font-size: 12px;
-  color: #9ca3af;
+.withdraw-empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  min-height: 240px;
+
+  font-size: 16px;
+  color: #0b0b0b;
+
+  background: #faf6f6;
+  border-radius: 8px;
+}
+
+.translator-withdraw-table .admin-table-header,
+.translator-withdraw-table .admin-table-row {
+  grid-template-columns:
+    44px minmax(120px, 1fr) minmax(160px, 1.2fr) minmax(100px, 0.9fr) minmax(180px, 1.3fr);
+}
+
+
+@media (max-width: 1440px) {
+  .withdraw-empty-state {
+    min-height: 200px;
+    font-size: 15px;
+  }
+
+  .translator-withdraw-table .admin-table-header,
+  .translator-withdraw-table .admin-table-row {
+    grid-template-columns:
+      40px minmax(110px, 1fr) minmax(140px, 1.1fr) minmax(90px, 0.85fr) minmax(160px, 1.2fr);
+  }
+}
+
+
+@media (max-width: 1280px) {
+  .withdraw-empty-state {
+    min-height: 180px;
+    font-size: 14px;
+    padding: 0 12px;
+    text-align: center;
+  }
+
+  .translator-withdraw-table .admin-table-header,
+  .translator-withdraw-table .admin-table-row {
+    grid-template-columns:
+      36px minmax(100px, 1fr) minmax(130px, 1.1fr) minmax(80px, 0.8fr) minmax(150px, 1.15fr);
+  }
 }

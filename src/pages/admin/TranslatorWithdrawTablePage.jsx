@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AdminHeader from "../../components/admin/AdminHeader";
-import AdminSidebar from "../../components/admin/AdminSidebar";
+import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminPagination from "../../components/admin/AdminPagination";
 import AdminTable from "../../components/admin/AdminTable";
-import "../../styles/AdminLayout.css";
 import "../../styles/TranslatorWithdrawTablePage.css";
 import { getWithdrawalHistoryByUserId } from "../../services/admin";
 
 const TranslatorWithdrawTablePage = () => {
   const { translatorId } = useParams();
+
   const [page, setPage] = useState(0);
   const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +18,8 @@ const TranslatorWithdrawTablePage = () => {
 
   useEffect(() => {
     const fetchWithdrawalHistory = async () => {
+      if (!translatorId) return;
+
       try {
         setLoading(true);
         setError("");
@@ -32,17 +33,22 @@ const TranslatorWithdrawTablePage = () => {
 
         setWithdrawals(data.content || []);
         setTotalPages(data.totalPages || 0);
-      } catch (error) {
-        console.error("Failed to fetch withdrawal history:", error);
-        setError(error.message || "Failed to fetch withdrawal history");
+      } catch (apiError) {
+        console.error("Failed to fetch withdrawal history:", apiError);
+
+        const backendMessage =
+          apiError?.message ||
+          apiError?.details?.error ||
+          apiError?.details?.message ||
+          "Failed to fetch withdrawal history";
+
+        setError(backendMessage);
       } finally {
         setLoading(false);
       }
     };
 
-    if (translatorId) {
-      fetchWithdrawalHistory();
-    }
+    fetchWithdrawalHistory();
   }, [translatorId, page]);
 
   const withdrawalColumns = [
@@ -77,39 +83,47 @@ const TranslatorWithdrawTablePage = () => {
   ];
 
   return (
-    <div>
-      <AdminHeader />
+    <AdminLayout>
+      <AdminPageShell
+        title="Withdraw history"
+        breadcrumbSection="Lists"
+        breadcrumbPage="Translators / Withdraw history"
+      >
+        {loading && (
+          <div className="withdraw-empty-state">
+            Loading withdrawal history...
+          </div>
+        )}
 
-      <div className="admin-page-wrapper">
-        <AdminSidebar />
+        {!loading && error && (
+          <div className="withdraw-empty-state">{error}</div>
+        )}
 
-        <div className="admin-page-content">
-          <AdminPageShell
-            title="Withdraw history"
-            breadcrumbSection="Lists"
-            breadcrumbPage="Translators / Withdraw history"
-          >
-            {loading && <p>Loading withdrawal history...</p>}
-
-            {!loading && error && <p>{error}</p>}
-
-            {!loading && !error && (
+        {!loading && !error && (
+          <>
+            <div className="translator-withdraw-table">
               <AdminTable data={withdrawals} columns={withdrawalColumns} />
-            )}
-
-            <div className="admin-page-footer">
-              <AdminPagination
-                page={page}
-                setPage={setPage}
-                totalPages={totalPages}
-              />
             </div>
 
-            <p className="withdraw-debug">Translator ID: {translatorId}</p>
-          </AdminPageShell>
-        </div>
-      </div>
-    </div>
+            {withdrawals.length === 0 && (
+              <div className="withdraw-empty-state">
+                No withdrawal history found
+              </div>
+            )}
+
+            {totalPages > 0 && (
+              <div className="admin-page-footer">
+                <AdminPagination
+                  page={page}
+                  setPage={setPage}
+                  totalPages={totalPages}
+                />
+              </div>
+            )}
+          </>
+        )}
+      </AdminPageShell>
+    </AdminLayout>
   );
 };
 
