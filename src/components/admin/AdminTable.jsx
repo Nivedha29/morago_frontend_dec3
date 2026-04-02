@@ -2,7 +2,6 @@ import React from "react";
 import "../../styles/AdminTable.css";
 import eyeIcon from "../../assets/eye.svg";
 
-<<<<<<< HEAD
 const defaultTranslatorColumns = (onViewTranslator) => [
   {
     key: "checkbox",
@@ -86,9 +85,6 @@ const AdminTable = ({
   const tableData = data || translators;
   const tableColumns = columns || defaultTranslatorColumns(onViewTranslator);
 
-=======
-const AdminTable = ({ translators = [], onViewTranslator }) => {
->>>>>>> 7f0ce96 ( Routing: Clicking View on Translotor Table routes to Withdraw History Page)
   return (
     <div className="admin-table">
       <div className="admin-table-header">
@@ -118,65 +114,19 @@ const AdminTable = ({ translators = [], onViewTranslator }) => {
           {tableColumns.map((column) => {
             const content = column.render
               ? column.render(row)
-              : row[column.key] ?? "-";
+              : (row[column.key] ?? "-");
 
-<<<<<<< HEAD
             return (
               <div
                 key={column.key}
                 className={`admin-table-cell ${column.cellClassName || ""}`.trim()}
-                onClick={
-                  column.onClick ? () => column.onClick(row) : undefined
-                }
+                onClick={column.onClick ? () => column.onClick(row) : undefined}
                 style={column.onClick ? { cursor: "pointer" } : undefined}
               >
                 {content}
               </div>
             );
           })}
-=======
-          <div className="admin-table-cell">
-            {t.firstName || t.lastName
-              ? `${t.firstName || ""} ${t.lastName || ""}`
-              : "-"}
-          </div>
-
-          <div className="admin-table-cell">{t.phone || "-"}</div>
-
-          <div className="admin-table-cell">{t.email || "-"}</div>
-
-          <div className="admin-table-cell">
-            {t.levelOfKorean ? `${t.levelOfKorean} level` : "-"}
-          </div>
-
-          <div className="admin-table-cell">
-            {t.isOnline ? "Online" : "Offline"}
-          </div>
-
-          <div className="admin-table-cell">
-            {t.hasWithdrawalRequest ? (
-              <span className="admin-table-pill">Request</span>
-            ) : (
-              "-"
-            )}
-          </div>
-
-          <div className="admin-table-cell admin-table-link">View</div>
-
-          <div
-            className="admin-table-cell admin-table-link"
-            onClick={() => onViewTranslator && onViewTranslator(t)}
-          >
-            View
-          </div>
-
-          <div
-            className="admin-table-cell admin-table-action-cell"
-            onClick={() => onViewTranslator && onViewTranslator(t)}
-          >
-            <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
-          </div>
->>>>>>> 7f0ce96 ( Routing: Clicking View on Translotor Table routes to Withdraw History Page)
         </div>
       ))}
     </div>
