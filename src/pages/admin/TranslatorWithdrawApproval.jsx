@@ -11,9 +11,9 @@ const TranslatorWithdrawApproval = () => {
   const { translatorId, withdrawalId } = useParams();
 
   const withdrawal = location.state?.withdrawal;
+  const translatorName = location.state?.translatorName || "";
   const backPath = `/admin/translators/${translatorId}/withdraw`;
 
-  const [fullName, setFullName] = useState(withdrawal?.accountHolder || "");
   const [bankName, setBankName] = useState(withdrawal?.nameOfBank || "");
   const [bankAccount, setBankAccount] = useState(
     withdrawal?.accountNumber || "",
@@ -31,8 +31,23 @@ const TranslatorWithdrawApproval = () => {
       return;
     }
 
-    if (!fullName.trim() || !bankName.trim() || !bankAccount.trim() || !sum) {
-      setErrorMessage("All fields are required");
+    if (!withdrawal?.accountHolder) {
+      setErrorMessage("Withdrawal owner is missing");
+      return;
+    }
+
+    if (!bankName.trim()) {
+      setErrorMessage("Bank name is required");
+      return;
+    }
+
+    if (!bankAccount.trim()) {
+      setErrorMessage("Bank account is required");
+      return;
+    }
+
+    if (!sum) {
+      setErrorMessage("Withdrawal amount is required");
       return;
     }
 
@@ -45,7 +60,7 @@ const TranslatorWithdrawApproval = () => {
       setIsSubmitting(true);
 
       await approveWithdrawalById(Number(withdrawalId), {
-        fullName: fullName.trim(),
+        fullName: withdrawal.accountHolder,
         bankName: bankName.trim(),
         bankAccount: bankAccount.trim(),
         sum: Number(sum),
@@ -70,7 +85,7 @@ const TranslatorWithdrawApproval = () => {
   return (
     <AdminLayout>
       <AdminPageShell
-        title="Withdraw"
+        title="Withdraw Approval"
         breadcrumbSection="Lists"
         breadcrumbPage="Translators / Withdraw"
         showControls={false}
@@ -80,10 +95,15 @@ const TranslatorWithdrawApproval = () => {
             <form className="withdraw-form" onSubmit={handleApproveWithdrawal}>
               <div className="withdraw-field">
                 <label>User Name</label>
+                <input type="text" value={translatorName || "-"} readOnly />
+              </div>
+
+              <div className="withdraw-field">
+                <label>Withdrawal Owner</label>
                 <input
                   type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  value={withdrawal?.accountHolder || ""}
+                  readOnly
                 />
               </div>
 

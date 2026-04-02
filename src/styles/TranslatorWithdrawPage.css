@@ -4,6 +4,16 @@
    padding: 24px 0;
 }
 
+.withdraw-empty-state {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 300px;
+   font-size: 16px;
+   color: #6b7280;
+   text-align: center;
+}
+
 .withdraw-card {
    width: 100%;
    max-width: 720px;
@@ -68,6 +78,11 @@
 }
 
 @media (max-width: 1440px) {
+   .withdraw-empty-state {
+      min-height: 240px;
+      font-size: 15px;
+   }
+
    .withdraw-card {
       max-width: 680px;
       padding: 28px;
@@ -75,6 +90,12 @@
 }
 
 @media (max-width: 1280px) {
+   .withdraw-empty-state {
+      min-height: 200px;
+      font-size: 14px;
+      padding: 0 16px;
+   }
+
    .withdraw-card {
       max-width: 620px;
       padding: 24px;

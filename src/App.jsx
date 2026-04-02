@@ -7,7 +7,7 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
-import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
+import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorWithdrawHistoryPage.jsx";
 import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
@@ -42,7 +42,7 @@ const App = () => {
       />
       <Route
         path="/admin/translators/:translatorId/withdraw-history"
-        element={<TranslatorWithdrawTablePage />}
+        element={<TranslatorWithdrawHistoryPage />}
       />
       <Route
         path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"

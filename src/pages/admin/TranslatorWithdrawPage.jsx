@@ -61,12 +61,18 @@ const TranslatorWithdrawPage = () => {
         breadcrumbPage="Translators / Withdraw"
         showControls={false}
       >
-        {loading && <p>Loading withdrawal...</p>}
+        {loading && (
+          <div className="withdraw-empty-state">Loading withdrawal...</div>
+        )}
 
-        {!loading && error && <p>{error}</p>}
+        {!loading && error && (
+          <div className="withdraw-empty-state">{error}</div>
+        )}
 
         {!loading && !error && !withdrawal && (
-          <p>No active withdrawal found.</p>
+          <div className="withdraw-empty-state">
+            No withdrawal history found
+          </div>
         )}
 
         {!loading && !error && withdrawal && (

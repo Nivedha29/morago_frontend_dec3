@@ -4,10 +4,10 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminPagination from "../../components/admin/AdminPagination";
 import AdminTable from "../../components/admin/AdminTable";
-import "../../styles/TranslatorWithdrawTablePage.css";
+import "../../styles/TranslatorWithdrawHistoryPage.css";
 import { getWithdrawalHistoryByUserId } from "../../services/admin";
 
-const TranslatorWithdrawTablePage = () => {
+const TranslatorWithdrawHistoryPage = () => {
   const { translatorId } = useParams();
 
   const [page, setPage] = useState(0);
@@ -85,7 +85,7 @@ const TranslatorWithdrawTablePage = () => {
   return (
     <AdminLayout>
       <AdminPageShell
-        title="Withdraw history"
+        title="Withdraw History"
         breadcrumbSection="Lists"
         breadcrumbPage="Translators / Withdraw history"
         showControls={false}
@@ -128,4 +128,4 @@ const TranslatorWithdrawTablePage = () => {
   );
 };
 
-export default TranslatorWithdrawTablePage;
+export default TranslatorWithdrawHistoryPage;
