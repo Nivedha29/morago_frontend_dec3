@@ -1,8 +1,12 @@
 .admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
   align-items: stretch;
   width: 100%;
   border-bottom: 1px solid #cfcfcf;
+  background: #ffffff;
 }
 
 .admin-logo-box {

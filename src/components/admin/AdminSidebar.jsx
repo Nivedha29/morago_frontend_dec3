@@ -2,11 +2,26 @@ import React, { useState } from "react";
 import "../../styles/AdminSidebar.css";
 import sideBarProfile from "../../assets/SideBarProfile.svg";
 import sideBarGear from "../../assets/SideBarGear.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const AdminSidebar = () => {
   const [isListsOpen, setIsListsOpen] = useState(true);
   const [isTopicsOpen, setIsTopicsOpen] = useState(true);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleAddClick = () => {
+    if (location.pathname.startsWith("/admin/translators")) {
+      navigate("/admin/translators/add");
+    } else if (location.pathname.startsWith("/admin/users")) {
+      navigate("/admin/users/add");
+    } else if (location.pathname.startsWith("/admin/themes")) {
+      navigate("/admin/themes/add");
+    } else if (location.pathname.startsWith("/admin/categories")) {
+      navigate("/admin/categories/add");
+    }
+  };
 
   return (
     <aside className="admin-sidebar">
@@ -87,7 +102,11 @@ const AdminSidebar = () => {
       </div>
 
       <div className="sidebar-footer">
-        <button type="button" className="sidebar-add-button">
+        <button
+          type="button"
+          className="sidebar-add-button"
+          onClick={handleAddClick}
+        >
           <img src={sideBarProfile} alt="" className="sidebar-add-icon" />
           <span>Add</span>
         </button>

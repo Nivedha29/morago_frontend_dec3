@@ -1,16 +1,19 @@
 .admin-sidebar {
   width: 428px;
   flex-shrink: 0;
-  min-height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
   background: #ffffff;
   border-right: 1px solid #d9d9d9;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
 }
+
 .sidebar-content {
   padding: 60px 0 0;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .sidebar-section {
@@ -18,7 +21,7 @@
   border-bottom: 1px solid #ececec;
 }
 
-.sidebar-section + .sidebar-section {
+.sidebar-section+.sidebar-section {
   margin-top: 40px;
   border-bottom: none;
 }
@@ -90,6 +93,8 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  background: #ffffff;
+  flex-shrink: 0;
 }
 
 .sidebar-add-button {
@@ -167,7 +172,7 @@
     padding: 40px 0 0;
   }
 
-  .sidebar-section + .sidebar-section {
+  .sidebar-section+.sidebar-section {
     margin-top: 28px;
   }
 

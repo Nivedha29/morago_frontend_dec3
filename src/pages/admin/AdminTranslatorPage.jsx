@@ -17,7 +17,8 @@ const AdminTranslatorPage = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
-  const [selectedTranslatorDetail, setSelectedTranslatorDetail] = useState(null);
+  const [selectedTranslatorDetail, setSelectedTranslatorDetail] =
+    useState(null);
 
   useEffect(() => {
     const fetchTranslators = async () => {
@@ -34,9 +35,16 @@ const AdminTranslatorPage = () => {
 
         setTranslators(data.content || []);
         setTotalPages(data.totalPages || 0);
-      } catch (err) {
-        console.error("Failed to fetch translators:", err);
-        setError(err.message || "Failed to fetch translators");
+      } catch (apiError) {
+        console.error("Failed to fetch translators:", apiError);
+
+        const backendMessage =
+          apiError?.message ||
+          apiError?.details?.error ||
+          apiError?.details?.message ||
+          "Failed to fetch translators";
+
+        setError(backendMessage);
       } finally {
         setLoading(false);
       }
@@ -52,8 +60,16 @@ const AdminTranslatorPage = () => {
       try {
         const data = await getTranslatorById(selectedTranslatorId);
         setSelectedTranslatorDetail(data);
-      } catch (error) {
-        console.error("Failed to fetch translator detail:", error);
+      } catch (apiError) {
+        console.error("Failed to fetch translator detail:", apiError);
+
+        const backendMessage =
+          apiError?.message ||
+          apiError?.details?.error ||
+          apiError?.details?.message ||
+          "Failed to fetch translator detail";
+
+        setError(backendMessage);
       }
     };
 
