@@ -18,6 +18,17 @@
     minmax(70px, 0.7fr)
     minmax(70px, 0.7fr)
     150px;
+  grid-template-columns:
+    100px
+    minmax(90px, 1fr)
+    minmax(110px, 1fr)
+    minmax(140px, 1.2fr)
+    minmax(70px, 0.7fr)
+    minmax(85px, 0.8fr)
+    minmax(110px, 1fr)
+    minmax(70px, 0.7fr)
+    minmax(70px, 0.7fr)
+    150px;
   align-items: center;
   min-width: 980px;
 }
@@ -102,6 +113,7 @@
   object-fit: contain;
   display: block;
   filter: brightness(0);
+  cursor: pointer;
 }
 
 /* laptop screen */
@@ -109,7 +121,7 @@
   .admin-table-header,
   .admin-table-row {
     grid-template-columns:
-      90px
+      100px
       minmax(80px, 0.95fr)
       minmax(100px, 1fr)
       minmax(120px, 1.1fr)
@@ -118,8 +130,7 @@
       minmax(95px, 0.9fr)
       minmax(60px, 0.65fr)
       minmax(60px, 0.65fr)
-      120px;
-    min-width: 900px;
+      150px;
   }
 
   .admin-table-cell {
@@ -146,21 +157,20 @@
   .admin-table-header,
   .admin-table-row {
     grid-template-columns:
-      40px
-      minmax(60px, 0.9fr)
-      minmax(70px, 0.95fr)
-      minmax(90px, 1fr)
-      minmax(45px, 0.6fr)
-      minmax(60px, 0.7fr)
-      minmax(70px, 0.85fr)
-      minmax(45px, 0.6fr)
-      minmax(45px, 0.6fr)
-      40px;
-    min-width: 580px;
+      36px
+      minmax(100px, 1fr)
+      minmax(110px, 1fr)
+      minmax(140px, 1.2fr)
+      minmax(80px, 0.8fr)
+      minmax(90px, 0.8fr)
+      minmax(120px, 1fr)
+      minmax(80px, 0.7fr)
+      minmax(80px, 0.7fr)
+      50px;
   }
 
   .admin-table-cell {
-    padding: 0 4px;
+    padding: 0 8px;
     font-size: 12px;
   }
 
@@ -171,10 +181,15 @@
 
   .admin-table-pill {
     font-size: 11px;
+    padding: 3px 6px;
   }
 
   .admin-table-eye-icon {
     width: 18px;
     height: 18px;
   }
+
+  .admin-table-wrapper {
+  overflow-x: auto;
+}
 }

@@ -3,7 +3,10 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
-import { getAdminTranslators } from "../../services/admin";
+import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
+import "../../styles/AdminLayout.css";
+
+import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
 const AdminTranslatorPage = () => {
   const [translators, setTranslators] = useState([]);
@@ -12,6 +15,9 @@ const AdminTranslatorPage = () => {
   const [page, setPage] = useState(0);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
+  const [selectedTranslatorDetail, setSelectedTranslatorDetail] = useState(null);
 
   useEffect(() => {
     const fetchTranslators = async () => {
@@ -39,6 +45,21 @@ const AdminTranslatorPage = () => {
     fetchTranslators();
   }, [page, size]);
 
+  useEffect(() => {
+    const fetchTranslatorDetail = async () => {
+      if (!selectedTranslatorId) return;
+
+      try {
+        const data = await getTranslatorById(selectedTranslatorId);
+        setSelectedTranslatorDetail(data);
+      } catch (error) {
+        console.error("Failed to fetch translator detail:", error);
+      }
+    };
+
+    fetchTranslatorDetail();
+  }, [selectedTranslatorId]);
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -55,7 +76,12 @@ const AdminTranslatorPage = () => {
         )}
 
         {!loading && !error && translators.length > 0 && (
-          <AdminTable translators={translators} />
+          <AdminTable
+            translators={translators}
+            onViewTranslator={(translator) =>
+              setSelectedTranslatorId(translator.id)
+            }
+          />
         )}
 
         {!loading && totalPages > 0 && (
@@ -68,6 +94,16 @@ const AdminTranslatorPage = () => {
           </div>
         )}
       </AdminPageShell>
+
+      {selectedTranslatorDetail && (
+        <TranslatorDetailModal
+          translator={selectedTranslatorDetail}
+          onClose={() => {
+            setSelectedTranslatorId(null);
+            setSelectedTranslatorDetail(null);
+          }}
+        />
+      )}
     </AdminLayout>
   );
 };

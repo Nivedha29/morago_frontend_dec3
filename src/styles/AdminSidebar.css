@@ -1,6 +1,5 @@
 .admin-sidebar {
-  width: 427px;
-  min-width: 320px;
+  width: 428px;
   flex-shrink: 0;
   min-height: calc(100vh - 100px);
   background: #ffffff;
@@ -141,7 +140,7 @@
 /* laptop */
 @media (max-width: 1440px) {
   .admin-sidebar {
-    width: 200px;
+    width: 320px;
   }
 
   .sidebar-title-row {
@@ -161,7 +160,7 @@
 /* smaller laptop */
 @media (max-width: 1280px) {
   .admin-sidebar {
-    width: 100px;
+    width: 321px;
   }
 
   .sidebar-content {
