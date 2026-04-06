@@ -91,13 +91,13 @@ const TranslatorWithdrawHistoryPage = () => {
         showControls={false}
       >
         {loading && (
-          <div className="withdraw-empty-state">
+          <div className="translator-withdraw-empty-state">
             Loading withdrawal history...
           </div>
         )}
 
         {!loading && error && (
-          <div className="withdraw-empty-state">{error}</div>
+          <div className="translator-withdraw-empty-state">{error}</div>
         )}
 
         {!loading && !error && (
@@ -107,7 +107,7 @@ const TranslatorWithdrawHistoryPage = () => {
             </div>
 
             {withdrawals.length === 0 && (
-              <div className="withdraw-empty-state">
+              <div className="translator-withdraw-empty-state">
                 No withdrawal history found
               </div>
             )}

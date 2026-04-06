@@ -1,15 +1,23 @@
-
 .translator-withdraw-table .admin-table-header,
 .translator-withdraw-table .admin-table-row {
   grid-template-columns:
     44px minmax(120px, 1fr) minmax(160px, 1.2fr) minmax(100px, 0.9fr) minmax(180px, 1.3fr);
 }
 
+.translator-withdraw-empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 20px;
+  color: #6b7280;
+  text-align: center;
+}
 
 @media (max-width: 1440px) {
-  .withdraw-empty-state {
+  .translator-withdraw-empty-state {
     min-height: 200px;
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .translator-withdraw-table .admin-table-header,
@@ -19,9 +27,8 @@
   }
 }
 
-
 @media (max-width: 1280px) {
-  .withdraw-empty-state {
+  .translator-withdraw-empty-state {
     min-height: 180px;
     font-size: 14px;
     padding: 0 12px;

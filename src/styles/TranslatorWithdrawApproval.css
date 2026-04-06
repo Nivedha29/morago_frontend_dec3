@@ -1,8 +1,8 @@
-.withdraw-page {
+.withdraw-approval-page {
   padding: 32px;
 }
 
-.withdraw-card {
+.withdraw-approval-card {
   max-width: 600px;
   margin: 0 auto;
   background: #ffffff;
@@ -11,45 +11,45 @@
   padding: 28px;
 }
 
-.withdraw-form {
+.withdraw-approval-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.withdraw-field {
+.withdraw-approval-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.withdraw-field label {
+.withdraw-approval-field label {
   font-size: 12px;
   font-weight: 500;
 }
 
-.withdraw-field input {
+.withdraw-approval-field input {
   height: 40px;
   border: 1px solid #cfd7e3;
   border-radius: 4px;
   padding: 0 12px;
 }
 
-.withdraw-actions {
+.withdraw-approval-actions {
   display: flex;
   justify-content: center;
   gap: 12px;
   margin-top: 20px;
 }
 
-.btn-cancel {
+.withdraw-approval-btn-cancel {
   background: #eee;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
 }
 
-.btn-submit {
+.withdraw-approval-btn-submit {
   background: #111;
   color: white;
   padding: 10px 20px;
@@ -57,7 +57,7 @@
   cursor: pointer;
 }
 
-.withdraw-error-message {
+.withdraw-approval-error-message {
   margin-top: 12px;
   font-size: 14px;
   color: #dc2626;
@@ -65,26 +65,26 @@
 
 /* 1440 */
 @media (max-width: 1440px) {
-  .withdraw-page {
+  .withdraw-approval-page {
     padding: 32px 24px;
   }
 
-  .withdraw-card {
+  .withdraw-approval-card {
     width: 100%;
   }
 }
 
 /* 1280 */
 @media (max-width: 1280px) {
-  .withdraw-page {
+  .withdraw-approval-page {
     padding: 24px 16px;
   }
 
-  .withdraw-card {
+  .withdraw-approval-card {
     width: 100%;
   }
 
-  .withdraw-actions {
+  .withdraw-approval-actions {
     flex-wrap: wrap;
   }
 }

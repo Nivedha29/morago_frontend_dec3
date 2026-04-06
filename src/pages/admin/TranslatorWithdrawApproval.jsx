@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageShell from "../../components/admin/AdminPageShell";
@@ -10,7 +10,7 @@ const TranslatorWithdrawApproval = () => {
   const location = useLocation();
   const { translatorId, withdrawalId } = useParams();
 
-  const withdrawal = location.state?.withdrawal;
+  const withdrawal = location.state?.withdrawal || null;
   const translatorName = location.state?.translatorName || "";
   const backPath = `/admin/translators/${translatorId}/withdraw`;
 
@@ -21,6 +21,10 @@ const TranslatorWithdrawApproval = () => {
   const [sum, setSum] = useState(withdrawal?.sum ? String(withdrawal.sum) : "");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  console.log("Approval page rendered");
+  console.log("location.state:", location.state);
+  console.log("params:", { translatorId, withdrawalId });
 
   const handleApproveWithdrawal = async (e) => {
     e.preventDefault();
@@ -82,6 +86,19 @@ const TranslatorWithdrawApproval = () => {
     }
   };
 
+  useEffect(() => {
+    if (!withdrawal) {
+      alert(
+        "Withdrawal data is missing. Please access this page from Withdraw History.",
+      );
+      navigate(backPath);
+    }
+  }, [withdrawal, navigate, backPath]);
+
+  if (!withdrawal) {
+    return null;
+  }
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -90,15 +107,18 @@ const TranslatorWithdrawApproval = () => {
         breadcrumbPage="Translators / Withdraw"
         showControls={false}
       >
-        <div className="withdraw-page">
-          <div className="withdraw-card">
-            <form className="withdraw-form" onSubmit={handleApproveWithdrawal}>
-              <div className="withdraw-field">
+        <div className="withdraw-approval-page">
+          <div className="withdraw-approval-card">
+            <form
+              className="withdraw-approval-form"
+              onSubmit={handleApproveWithdrawal}
+            >
+              <div className="withdraw-approval-field">
                 <label>User Name</label>
                 <input type="text" value={translatorName || "-"} readOnly />
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-approval-field">
                 <label>Withdrawal Owner</label>
                 <input
                   type="text"
@@ -107,7 +127,7 @@ const TranslatorWithdrawApproval = () => {
                 />
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-approval-field">
                 <label>Bank Name</label>
                 <input
                   type="text"
@@ -116,7 +136,7 @@ const TranslatorWithdrawApproval = () => {
                 />
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-approval-field">
                 <label>Bank Account</label>
                 <input
                   type="text"
@@ -125,7 +145,7 @@ const TranslatorWithdrawApproval = () => {
                 />
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-approval-field">
                 <label>Withdrawal Amount</label>
                 <input
                   type="number"
@@ -136,13 +156,15 @@ const TranslatorWithdrawApproval = () => {
               </div>
 
               {errorMessage && (
-                <p className="withdraw-error-message">{errorMessage}</p>
+                <p className="withdraw-approval-error-message">
+                  {errorMessage}
+                </p>
               )}
 
-              <div className="withdraw-actions">
+              <div className="withdraw-approval-actions">
                 <button
                   type="button"
-                  className="btn-cancel"
+                  className="withdraw-approval-btn-cancel"
                   onClick={() => navigate(backPath)}
                   disabled={isSubmitting}
                 >
@@ -151,7 +173,7 @@ const TranslatorWithdrawApproval = () => {
 
                 <button
                   type="submit"
-                  className="btn-submit"
+                  className="withdraw-approval-btn-submit"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Processing..." : "Transfer completed"}

@@ -16,11 +16,11 @@ const AdminPageShell = ({
           <h1 className="admin-page-shell-title">{title}</h1>
 
           <div className="admin-page-shell-breadcrumb">
-            <span className="breadcrumb-home">Home</span>
-            <span className="breadcrumb-separator">/</span>
-            <span className="breadcrumb-section">{breadcrumbSection}</span>
-            <span className="breadcrumb-separator">/</span>
-            <span className="breadcrumb-page">{breadcrumbPage}</span>
+            <span className="admin-breadcrumb-home">Home</span>
+            <span className="admin-breadcrumb-separator">/</span>
+            <span className="admin-breadcrumb-section">{breadcrumbSection}</span>
+            <span className="admin-breadcrumb-separator">/</span>
+            <span className="admin-breadcrumb-page">{breadcrumbPage}</span>
           </div>
         </div>
 

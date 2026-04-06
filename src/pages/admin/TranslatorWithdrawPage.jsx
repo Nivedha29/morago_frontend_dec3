@@ -62,56 +62,56 @@ const TranslatorWithdrawPage = () => {
         showControls={false}
       >
         {loading && (
-          <div className="withdraw-empty-state">Loading withdrawal...</div>
+          <div className="withdraw-page-empty-state">Loading withdrawal...</div>
         )}
 
         {!loading && error && (
-          <div className="withdraw-empty-state">{error}</div>
+          <div className="withdraw-page-empty-state">{error}</div>
         )}
 
         {!loading && !error && !withdrawal && (
-          <div className="withdraw-empty-state">
+          <div className="withdraw-page-empty-state">
             No withdrawal history found
           </div>
         )}
 
         {!loading && !error && withdrawal && (
           <div className="withdraw-page">
-            <div className="withdraw-card">
-              <div className="withdraw-field">
+            <div className="withdraw-page-card">
+              <div className="withdraw-page-field">
                 <label>User Name</label>
                 <p>{translatorName || "-"}</p>
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-page-field">
                 <label>Account Holder</label>
                 <p>{withdrawal.accountHolder || "-"}</p>
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-page-field">
                 <label>Bank Name</label>
                 <p>{withdrawal.nameOfBank || "-"}</p>
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-page-field">
                 <label>Bank Account</label>
                 <p>{withdrawal.accountNumber || "-"}</p>
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-page-field">
                 <label>Withdrawal Amount</label>
                 <p>{withdrawal.sum ?? "-"}</p>
               </div>
 
-              <div className="withdraw-field">
+              <div className="withdraw-page-field">
                 <label>Status</label>
                 <p>{withdrawal.status || "-"}</p>
               </div>
 
-              <div className="withdraw-actions">
+              <div className="withdraw-page-actions">
                 <button
                   type="button"
-                  className="btn-cancel"
+                  className="withdraw-page-btn-cancel"
                   onClick={() => navigate("/admin/translators")}
                 >
                   Back
@@ -119,7 +119,7 @@ const TranslatorWithdrawPage = () => {
 
                 <button
                   type="button"
-                  className="btn-submit"
+                  className="withdraw-page-btn-submit"
                   onClick={() =>
                     navigate(
                       `/admin/translators/${translatorId}/withdraw/${withdrawal.id}/approval`,
