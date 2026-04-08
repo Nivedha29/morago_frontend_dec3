@@ -172,13 +172,6 @@ export const getWithdrawalHistoryByUserId = async (
   return response.data;
 };
 
-export const approveWithdrawalById = async (
-  id: number,
-  payload: ApproveWithdrawalPayload,
-): Promise<void> => {
-  await api.put(`/admin/withdrawals/${id}`, payload);
-};
-
 export const getActiveWithdrawalByUserId = async (
   userId: number,
 ): Promise<ActiveWithdrawalResponse> => {
@@ -192,9 +185,8 @@ export const getActiveWithdrawalByUserId = async (
 export const approveWithdrawalById = async (
   id: number,
   payload: ApproveWithdrawalPayload,
-) => {
-  const response = await api.put(`/admin/withdrawals/${id}`, payload);
-  return response.data;
+): Promise<void> => {
+  await api.put(`/admin/withdrawals/${id}`, payload);
 };
 
 ///////////////////////////////////////////////////////////
@@ -236,13 +228,7 @@ export const getCallHistoryByUserId = async (
   params: GetCallHistoryParams = {},
 ): Promise<CallHistoryResponse> => {
   const response = await api.get(`/admin/calls/history/${userId}`, {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params,
   });
 
   return response.data;

@@ -4,6 +4,7 @@ import eyeIcon from "../../assets/eye.svg";
 
 const defaultTranslatorColumns = (
   onViewWithdrawRequest,
+  onViewCall,
   onViewWithdrawHistory,
   onViewTranslator,
 ) => [
@@ -98,6 +99,7 @@ const AdminTable = ({
     columns ||
     defaultTranslatorColumns(
       onViewWithdrawRequest,
+      onViewCall,
       onViewWithdrawHistory,
       onViewTranslator,
     );
