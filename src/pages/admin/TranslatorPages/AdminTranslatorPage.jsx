@@ -6,6 +6,7 @@ import AdminTable from "../../../components/admin/AdminTable";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import TranslatorDetailModal from "../../../components/admin/TranslatorDetailModal";
 import "../../../styles/AdminLayout.css";
+import { defaultTranslatorColumns } from "../../../components/admin/DefaultTranslatorColumns";
 import {
   getAdminTranslators,
   getTranslatorById,
@@ -81,6 +82,21 @@ const AdminTranslatorPage = () => {
     fetchTranslatorDetail();
   }, [selectedTranslatorId]);
 
+  const translatorColumns = defaultTranslatorColumns(
+    (translator) => {
+      navigate(`/admin/translators/${translator.id}/withdraw`);
+    },
+    (translator) => {
+      navigate(`/admin/translators/${translator.id}/call-history`);
+    },
+    (translator) => {
+      navigate(`/admin/translators/${translator.id}/withdraw-history`);
+    },
+    (translator) => {
+      setSelectedTranslatorId(translator.id);
+    },
+  );
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -98,19 +114,8 @@ const AdminTranslatorPage = () => {
 
         {!loading && !error && translators.length > 0 && (
           <AdminTable
-            translators={translators}
-            onViewWithdrawRequest={(translator) => {
-              navigate(`/admin/translators/${translator.id}/withdraw`);
-            }}
-            onViewCall={(translator) =>
-              navigate(`/admin/translators/${translator.id}/call-history`)
-            }
-            onViewWithdrawHistory={(translator) =>
-              navigate(`/admin/translators/${translator.id}/withdraw-history`)
-            }
-            onViewTranslator={(translator) => {
-              setSelectedTranslatorId(translator.id);
-            }}
+            data={translators}
+            columns={translatorColumns}
             tableClassName="admin-translator-table"
           />
         )}
