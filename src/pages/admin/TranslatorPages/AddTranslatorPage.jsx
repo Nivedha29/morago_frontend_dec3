@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AdminPageShell from "../../components/admin/AdminPageShell";
-import { createTranslator } from "../../services/admin";
-import "../../styles/AddTranslatorPage.css";
+import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminPageShell from "../../../components/admin/AdminPageShell";
+import { createTranslator } from "../../../services/admin";
+import "../../../styles/AddTranslatorPage.css";
 
 const AddTranslatorPage = () => {
   const navigate = useNavigate();

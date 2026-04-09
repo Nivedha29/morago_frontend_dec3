@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AdminPageShell from "../../components/admin/AdminPageShell";
-import "../../styles/TranslatorWithdrawApproval.css";
-import { approveWithdrawalById } from "../../services/admin";
+import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminPageShell from "../../../components/admin/AdminPageShell";
+import "../../../styles/TranslatorWithdrawApproval.css";
+import { approveWithdrawalById } from "../../../services/admin";
 
 const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AdminPageShell from "../../components/admin/AdminPageShell";
-import AdminPagination from "../../components/admin/AdminPagination";
-import AdminTable from "../../components/admin/AdminTable";
-import "../../styles/TranslatorWithdrawHistoryPage.css";
-import { getWithdrawalHistoryByUserId } from "../../services/admin";
+import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminPageShell from "../../../components/admin/AdminPageShell";
+import AdminPagination from "../../../components/admin/AdminPagination";
+import AdminTable from "../../../components/admin/AdminTable";
+import "../../../styles/TranslatorWithdrawHistoryPage.css";
+import { getWithdrawalHistoryByUserId } from "../../../services/admin";
 
 const TranslatorWithdrawHistoryPage = () => {
   const { translatorId } = useParams();

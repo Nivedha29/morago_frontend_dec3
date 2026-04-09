@@ -83,15 +83,15 @@
 }
 
 .translator-modal-btn-arrow {
-  font-size: 20px;
-  font-weight: 700;
+   font-size: 20px;
+   font-weight: 700;
 }
 
 .translator-modal-btn-icon {
    width: 23px;
    height: 23px;
    object-fit: contain;
-   margin-left:33px;
+   margin-left: 33px;
 }
 
 .translator-modal-grid {
