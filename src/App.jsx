@@ -7,9 +7,12 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
+import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorWithdrawHistoryPage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
+import TranslatorWithdrawPage from "./pages/admin/TranslatorWithdrawPage.jsx";
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -30,14 +33,26 @@ const App = () => {
     /* ------------------------- ADMIN ------------------------- */
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
-      
+
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
+      <Route
+        path="/admin/translators/:translatorId/withdraw"
+        element={<TranslatorWithdrawPage />}
+      />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history"
+        element={<TranslatorWithdrawHistoryPage />}
+      />
+      <Route
+        path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
+        element={<TranslatorWithdrawApproval />}
+      />
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
-   {/* ------------------------- MOBILE APP ------------------------- */}
+      {/* ------------------------- MOBILE APP ------------------------- */}
 
       <Route
         path="*"

@@ -25,27 +25,27 @@ const AdminSidebar = () => {
 
   return (
     <aside className="admin-sidebar">
-      <div className="sidebar-content">
-        <div className="sidebar-section">
+      <div className="admin-sidebar-content">
+        <div className="admin-sidebar-section">
           <button
             type="button"
-            className="sidebar-title-row"
+            className="admin-sidebar-title-row"
             onClick={() => setIsListsOpen((prev) => !prev)}
           >
             <span
-              className={`sidebar-title-arrow ${isListsOpen ? "open" : ""}`}
+              className={`admin-sidebar-title-arrow ${isListsOpen ? "open" : ""}`}
             >
               ▾
             </span>
-            <span className="sidebar-title">Lists</span>
+            <span className="admin-sidebar-title">Lists</span>
           </button>
 
           {isListsOpen && (
-            <div className="sidebar-items">
+            <div className="admin-sidebar-items">
               <NavLink
                 to="/admin/users"
                 className={({ isActive }) =>
-                  `sidebar-item ${isActive ? "active" : ""}`
+                  `admin-sidebar-item ${isActive ? "active" : ""}`
                 }
               >
                 User
@@ -54,7 +54,7 @@ const AdminSidebar = () => {
               <NavLink
                 to="/admin/translators"
                 className={({ isActive }) =>
-                  `sidebar-item ${isActive ? "active" : ""}`
+                  `admin-sidebar-item ${isActive ? "active" : ""}`
                 }
               >
                 Translator
@@ -63,26 +63,26 @@ const AdminSidebar = () => {
           )}
         </div>
 
-        <div className="sidebar-section">
+        <div className="admin-sidebar-section">
           <button
             type="button"
-            className="sidebar-title-row"
+            className="admin-sidebar-title-row"
             onClick={() => setIsTopicsOpen((prev) => !prev)}
           >
             <span
-              className={`sidebar-title-arrow ${isTopicsOpen ? "open" : ""}`}
+              className={`admin-sidebar-title-arrow ${isTopicsOpen ? "open" : ""}`}
             >
               ▾
             </span>
-            <span className="sidebar-title">Translation topics</span>
+            <span className="admin-sidebar-title">Translation topics</span>
           </button>
 
           {isTopicsOpen && (
-            <div className="sidebar-items">
+            <div className="admin-sidebar-items">
               <NavLink
                 to="/admin/themes"
                 className={({ isActive }) =>
-                  `sidebar-item ${isActive ? "active" : ""}`
+                  `admin-sidebar-item ${isActive ? "active" : ""}`
                 }
               >
                 Themes
@@ -91,7 +91,7 @@ const AdminSidebar = () => {
               <NavLink
                 to="/admin/categories"
                 className={({ isActive }) =>
-                  `sidebar-item ${isActive ? "active" : ""}`
+                  `admin-sidebar-item ${isActive ? "active" : ""}`
                 }
               >
                 Categories
@@ -101,21 +101,21 @@ const AdminSidebar = () => {
         </div>
       </div>
 
-      <div className="sidebar-footer">
+      <div className="admin-sidebar-footer">
         <button
           type="button"
-          className="sidebar-add-button"
+          className="admin-sidebar-add-button"
           onClick={handleAddClick}
         >
-          <img src={sideBarProfile} alt="" className="sidebar-add-icon" />
+          <img src={sideBarProfile} alt="" className="admin-sidebar-add-icon" />
           <span>Add</span>
         </button>
 
-        <button type="button" className="sidebar-settings-button">
+        <button type="button" className="admin-sidebar-settings-button">
           <img
             src={sideBarGear}
             alt="Settings"
-            className="sidebar-settings-icon"
+            className="admin-sidebar-settings-icon"
           />
         </button>
       </div>

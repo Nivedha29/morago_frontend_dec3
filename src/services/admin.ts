@@ -77,6 +77,65 @@ export interface TranslatorDetailResponse {
   averageRating: number;
 }
 
+export interface WithdrawalHistoryItem {
+  id: number;
+  date: string;
+  amount: number;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+}
+
+export interface PageableSort {
+  sorted: boolean;
+  empty: boolean;
+  unsorted: boolean;
+}
+
+export interface PageableInfo {
+  paged: boolean;
+  pageNumber: number;
+  pageSize: number;
+  offset: number;
+  sort: PageableSort;
+  unpaged: boolean;
+}
+
+export interface WithdrawalHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  pageable: PageableInfo;
+  size: number;
+  content: WithdrawalHistoryItem[];
+  number: number;
+  sort: PageableSort;
+  first: boolean;
+  last: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
+
+export interface GetWithdrawalHistoryParams {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export interface ApproveWithdrawalPayload {
+  fullName: string;
+  bankName: string;
+  bankAccount: string;
+  sum: number;
+}
+
+export interface ActiveWithdrawalResponse {
+  id: number;
+  accountNumber: string;
+  accountHolder: string;
+  nameOfBank: string;
+  sum: number;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+}
+
 export const getAdminTranslators = async (
   params: GetAdminTranslatorsParams = {},
 ): Promise<TranslatorListResponse> => {
@@ -95,5 +154,33 @@ export const createTranslator = async (
   payload: CreateTranslatorPayload,
 ): Promise<TranslatorDetailResponse> => {
   const response = await api.post("/admin/translators", payload);
+  return response.data;
+};
+
+export const getWithdrawalHistoryByUserId = async (
+  userId: number,
+  params: GetWithdrawalHistoryParams = {},
+): Promise<WithdrawalHistoryResponse> => {
+  const response = await api.get(`/admin/withdrawals/history/${userId}`, {
+    params,
+  });
+
+  return response.data;
+};
+
+export const approveWithdrawalById = async (
+  id: number,
+  payload: ApproveWithdrawalPayload,
+): Promise<void> => {
+  await api.put(`/admin/withdrawals/${id}`, payload);
+};
+
+export const getActiveWithdrawalByUserId = async (
+  userId: number,
+): Promise<ActiveWithdrawalResponse> => {
+  const response = await api.get("/admin/withdrawals", {
+    params: { userId },
+  });
+
   return response.data;
 };
