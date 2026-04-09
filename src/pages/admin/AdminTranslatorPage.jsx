@@ -5,7 +5,6 @@ import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminTable from "../../components/admin/AdminTable";
 import AdminPagination from "../../components/admin/AdminPagination";
 import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
-import { useNavigate } from "react-router-dom";
 import "../../styles/AdminLayout.css";
 import { getAdminTranslators, getTranslatorById } from "../../services/admin";
 
