@@ -1,218 +1,102 @@
 import React from "react";
-import "../../styles/AdminTable.css";
-import eyeIcon from "../../assets/eye.svg";
+import statusIcon from "../../assets/SideBarGear.svg";
+import defaultAvatar from "../../assets/avatar.svg";
+import "../../styles/TranslatorDetailModal.css";
 
-const defaultTranslatorColumns = (
-  onViewWithdrawRequest,
-  onViewCall,
-  onViewWithdrawHistory,
-  onViewTranslator,
-) => [
-  {
-    key: "checkbox",
-    header: <input type="checkbox" className="admin-table-checkbox" />,
-    cellClassName: "admin-table-checkbox-cell",
-    headerClassName: "admin-table-checkbox-cell",
-    disableSortArrow: true,
-    render: () => <input type="checkbox" className="admin-table-checkbox" />,
-  },
-  {
-    key: "name",
-    header: "Name",
-    render: (t) =>
-      t.firstName || t.lastName
-        ? `${t.firstName || ""} ${t.lastName || ""}`.trim()
-        : "-",
-  },
-  {
-    key: "phone",
-    header: "Phone",
-    render: (t) => t.phone || "-",
-  },
-  {
-    key: "email",
-    header: "Email",
-    render: (t) => t.email || "-",
-  },
-  {
-    key: "topik",
-    header: "Topik",
-    render: (t) => (t.levelOfKorean ? `${t.levelOfKorean} level` : "-"),
-  },
-  {
-    key: "status",
-    header: "Status",
-    render: (t) => (t.isOnline ? "Online" : "Offline"),
-  },
-  {
-    key: "withdrawRequest",
-    header: "Withdraw request",
-    cellClassName: "admin-table-link",
-    render: (t) =>
-      t.hasWithdrawalRequest ? (
-        <span className="admin-table-pill">Request</span>
-      ) : (
-        "-"
-      ),
-    onClick: (t) => onViewWithdrawRequest && onViewWithdrawRequest(t),
-  },
-  {
-    key: "call",
-    header: "Call",
-    cellClassName: "admin-table-link",
-    onClick: (t) => onViewCall && onViewCall(t),
-    render: () => "View >",
-  },
-  {
-    key: "withdraw",
-    header: "Withdraw",
-    cellClassName: "admin-table-link",
-    onClick: (t) => onViewWithdrawHistory && onViewWithdrawHistory(t),
-    render: () => "View >",
-  },
-  {
-    key: "action",
-    header: "",
-    cellClassName: "admin-table-action-cell",
-    headerClassName: "admin-table-action-cell",
-    disableSortArrow: true,
-    onClick: (t) => onViewTranslator && onViewTranslator(t),
-    render: () => (
-      <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
-    ),
-  },
-];
-const defaultUserColumns = (onViewUser, onViewCall, onViewDeposit) => [
-  {
-    key: "checkbox",
-    header: <input type="checkbox" className="admin-table-checkbox" />,
-    cellClassName: "admin-table-checkbox-cell",
-    headerClassName: "admin-table-checkbox-cell",
-    disableSortArrow: true,
-    render: () => <input type="checkbox" className="admin-table-checkbox" />,
-  },
-  {
-    key: "name",
-    header: "Name",
-    render: (u) =>
-      u.firstName || u.lastName
-        ? `${u.firstName || ""} ${u.lastName || ""}`.trim()
-        : "-",
-  },
-  {
-    key: "phone",
-    header: "Phone",
-    render: (u) => u.phone || "-",
-  },
-  {
-    key: "balance",
-    header: "Balance",
-    render: (u) => u.balance ?? "-",
-  },
-  {
-    key: "depositRequest",
-    header: "Deposit request",
-    render: (u) =>
-      u.hasDepositRequest ? (
-        <span className="admin-table-pill">Request</span>
-      ) : (
-        "None"
-      ),
-  },
-  {
-    key: "call",
-    header: "Call",
-    cellClassName: "admin-table-link",
-    onClick: (u) => onViewCall && onViewCall(u),
-    render: () => "View >",
-  },
-  {
-    key: "deposit",
-    header: "Deposit",
-    cellClassName: "admin-table-link",
-    onClick: (u) => onViewDeposit && onViewDeposit(u),
-    render: () => "View >",
-  },
-  {
-    key: "action",
-    header: "",
-    cellClassName: "admin-table-action-cell",
-    headerClassName: "admin-table-action-cell",
-    disableSortArrow: true,
-    onClick: (u) => onViewUser && onViewUser(u),
-    render: () => (
-      <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
-    ),
-  },
-];
-
-const AdminTable = ({
-  translators = [],
-  data,
-  columns,
-  onViewWithdrawRequest,
-  onViewWithdrawHistory,
-  onViewTranslator,
-  onViewCall,
-  rowKey = "id",
-}) => {
-  const tableData = data || translators;
-  const tableColumns =
-    columns ||
-    defaultTranslatorColumns(
-      onViewWithdrawRequest,
-      onViewCall,
-      onViewWithdrawHistory,
-      onViewTranslator,
-    );
+const TranslatorDetailModal = ({ translator, onClose }) => {
+  if (!translator) return null;
 
   return (
-    <div className="admin-table">
-      <div className="admin-table-header">
-        {tableColumns.map((column) => (
-          <div
-            key={column.key}
-            className={`admin-table-cell ${
-              column.cellClassName || ""
-            } ${column.headerClassName || "admin-table-header-cell"}`.trim()}
-          >
-            {React.isValidElement(column.header) ? (
-              column.header
-            ) : column.header ? (
-              <>
-                <span>{column.header}</span>
-                {!column.disableSortArrow && (
-                  <span className="admin-table-sort-arrow">▾</span>
-                )}
-              </>
-            ) : null}
+    <div className="translator-modal-overlay" onClick={onClose}>
+      <div className="translator-modal" onClick={(e) => e.stopPropagation()}>
+        <button
+          type="button"
+          className="translator-modal-close"
+          onClick={onClose}
+        >
+          ×
+        </button>
+
+        <div className="translator-modal-body">
+          <div className="translator-modal-top">
+            <img
+              alt="avatar"
+              className="translator-modal-avatar"
+              src={defaultAvatar}
+            />
+
+            <div className="translator-modal-actions">
+              <button type="button" className="translator-modal-btn">
+                <span>Edit account</span>
+                <span className="translator-modal-btn-arrow">→</span>
+              </button>
+
+              <button type="button" className="translator-modal-btn">
+                Status
+                <img
+                  src={statusIcon}
+                  alt="status"
+                  className="translator-modal-btn-icon"
+                />
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
 
-      {tableData.map((row, index) => (
-        <div className="admin-table-row" key={row[rowKey] ?? index}>
-          {tableColumns.map((column) => {
-            const content = column.render
-              ? column.render(row)
-              : (row[column.key] ?? "-");
+          <h3 className="translator-modal-name">
+            {translator.firstName || translator.lastName
+              ? `${translator.firstName || ""} ${translator.lastName || ""}`.trim()
+              : "-"}
+          </h3>
 
-            return (
-              <div
-                key={column.key}
-                className={`admin-table-cell ${column.cellClassName || ""}`.trim()}
-                onClick={column.onClick ? () => column.onClick(row) : undefined}
-                style={column.onClick ? { cursor: "pointer" } : undefined}
-              >
-                {content}
-              </div>
-            );
-          })}
+          <div className="translator-modal-grid">
+            <div>
+              <p className="translator-modal-section-title">Translations:</p>
+              <p className="translator-modal-text">
+                {translator.themes && translator.themes.length > 0
+                  ? translator.themes
+                      .map(
+                        (theme) => theme.titleEn || theme.title || theme.name,
+                      )
+                      .join(", ")
+                  : "-"}
+              </p>
+
+              <p className="translator-modal-section-title">Language:</p>
+              <p className="translator-modal-text">
+                {translator.languages && translator.languages.length > 0
+                  ? translator.languages
+                      .map((language) => language.titleEn || language.name)
+                      .join(", ")
+                  : "-"}
+              </p>
+            </div>
+
+            <div>
+              <p>
+                <strong>Phone:</strong> {translator.phone || "-"}
+              </p>
+              <p>
+                <strong>Email:</strong> {translator.email || "-"}
+              </p>
+              <p>
+                <strong>TOPIK:</strong>{" "}
+                {translator.levelOfKorean
+                  ? `Level ${translator.levelOfKorean}`
+                  : "-"}
+              </p>
+              <p>
+                <strong>Birth:</strong> {translator.dateOfBirth || "-"}
+              </p>
+              <p>
+                <strong>Status:</strong>{" "}
+                {translator.isOnline ? "Online" : "Offline"}
+              </p>
+            </div>
+          </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 };
 
-export default AdminTable;
-export { defaultUserColumns };
+export default TranslatorDetailModal;
