@@ -91,7 +91,6 @@ const AdminTable = ({
   onViewWithdrawHistory,
   onViewTranslator,
   onViewCall,
-  onViewWithdraw,
   rowKey = "id",
 }) => {
   const tableData = data || translators;

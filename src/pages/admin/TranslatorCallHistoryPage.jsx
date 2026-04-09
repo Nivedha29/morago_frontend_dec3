@@ -163,7 +163,7 @@ const TranslatorCallHistoryPage = () => {
               </div>
             )}
 
-            {!loading && totalPages > 0 && (
+            {totalPages > 0 && (
               <div className="admin-page-footer">
                 <AdminPagination
                   page={page}
