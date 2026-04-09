@@ -108,7 +108,6 @@ const AdminLoginPage = () => {
             >
               {isLoading ? "Logging in..." : "Login"}
             </button>
-
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AdminPageShell from "../../components/admin/AdminPageShell";
-import AdminPagination from "../../components/admin/AdminPagination";
-import "../../styles/TranslatorCallHistoryPage.css";
+import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminPageShell from "../../../components/admin/AdminPageShell";
+import AdminPagination from "../../../components/admin/AdminPagination";
+import "../../../styles/TranslatorCallHistoryPage.css";
 import {
   getCallHistoryByUserId,
   getTranslatorById,
-} from "../../services/admin";
+} from "../../../services/admin";
 
 const TranslatorCallHistoryPage = () => {
   const { id } = useParams();
