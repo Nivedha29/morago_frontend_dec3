@@ -5,7 +5,8 @@ import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminTable from "../../../components/admin/AdminTable";
 import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
 import AdminPagination from "../../../components/admin/AdminPagination";
-import { getAdminUsers } from "../../../services/adminUser";
+import UserDetailModal from "../../../components/admin/UserDetailModal";
+import { getAdminUsers, getAdminUserById } from "../../../services/adminUser";
 
 const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
@@ -14,6 +15,12 @@ const AdminUserPage = () => {
   const [page, setPage] = useState(0);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userDetailLoading, setUserDetailLoading] = useState(false);
+  const [userDetailError, setUserDetailError] = useState("");
 
   const navigate = useNavigate();
 
@@ -50,9 +57,52 @@ const AdminUserPage = () => {
     fetchUsers();
   }, [page, size]);
 
+  useEffect(() => {
+    const fetchUserDetail = async () => {
+      if (!selectedUserId || !isUserModalOpen) return;
+
+      try {
+        setUserDetailLoading(true);
+        setUserDetailError("");
+        setSelectedUser(null);
+
+        const data = await getAdminUserById(selectedUserId);
+        setSelectedUser(data);
+      } catch (apiError) {
+        console.error("Failed to fetch user details:", apiError);
+
+        const backendMessage =
+          apiError?.message ||
+          apiError?.details?.error ||
+          apiError?.details?.message ||
+          "Failed to fetch user details";
+
+        setUserDetailError(backendMessage);
+      } finally {
+        setUserDetailLoading(false);
+      }
+    };
+
+    fetchUserDetail();
+  }, [selectedUserId, isUserModalOpen]);
+
+  const handleOpenUserModal = (user) => {
+    setSelectedUserId(user.id);
+    setIsUserModalOpen(true);
+    setUserDetailLoading(true);
+  };
+
+  const handleCloseUserModal = () => {
+    setIsUserModalOpen(false);
+    setSelectedUserId(null);
+    setSelectedUser(null);
+    setUserDetailError("");
+    setUserDetailLoading(false);
+  };
+
   const userColumns = defaultUserColumns(
     (user) => {
-      console.log("Open user detail:", user.id);
+      handleOpenUserModal(user);
     },
     (user) => {
       navigate(`/admin/users/${user.id}/call-history`);
@@ -103,6 +153,15 @@ const AdminUserPage = () => {
               totalPages={totalPages}
             />
           </div>
+        )}
+
+        {isUserModalOpen && (
+          <UserDetailModal
+            user={selectedUser}
+            loading={userDetailLoading}
+            error={userDetailError}
+            onClose={handleCloseUserModal}
+          />
         )}
       </AdminPageShell>
     </AdminLayout>
