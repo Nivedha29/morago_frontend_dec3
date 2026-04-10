@@ -63,28 +63,36 @@ const TranslatorWithdrawHistoryPage = () => {
         showControls={false}
       >
         {loading && (
-          <div className="translator-withdraw-empty-state">
-            Loading withdrawal history...
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">
+              Loading withdrawal history...
+            </div>
           </div>
         )}
 
         {!loading && error && (
-          <div className="translator-withdraw-empty-state">{error}</div>
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">{error}</div>
+          </div>
         )}
 
         {!loading && !error && (
           <>
-            <div className="translator-withdraw-table">
-              <AdminTable
-                data={withdrawals}
-                columns={withdrawalColumns}
-                tableClassName="admin-translator-withdraw-history-table"
-              />
-            </div>
+            {withdrawals.length > 0 && (
+              <div className="translator-withdraw-table">
+                <AdminTable
+                  data={withdrawals}
+                  columns={withdrawalColumns}
+                  tableClassName="admin-translator-withdraw-history-table"
+                />
+              </div>
+            )}
 
             {withdrawals.length === 0 && (
-              <div className="translator-withdraw-empty-state">
-                No withdrawal history found
+              <div className="admin-empty-wrapper">
+                <div className="admin-empty-state">
+                  No withdrawal history found
+                </div>
               </div>
             )}
 

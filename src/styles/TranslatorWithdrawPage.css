@@ -4,16 +4,6 @@
   padding: 24px 0;
 }
 
-.withdraw-page-empty-state {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 400px);
-  font-size: 20px;
-  color: #6b7280;
-  text-align: center;
-}
-
 .withdraw-page-card {
   width: 100%;
   max-width: 720px;

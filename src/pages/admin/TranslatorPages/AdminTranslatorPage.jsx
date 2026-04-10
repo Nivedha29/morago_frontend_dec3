@@ -5,7 +5,6 @@ import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminTable from "../../../components/admin/AdminTable";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import TranslatorDetailModal from "../../../components/admin/TranslatorDetailModal";
-import "../../../styles/AdminLayout.css";
 import { defaultTranslatorColumns } from "../../../components/admin/DefaultTranslatorColumns";
 import {
   getAdminTranslators,
@@ -104,12 +103,22 @@ const AdminTranslatorPage = () => {
         breadcrumbSection="Lists"
         breadcrumbPage="Translators"
       >
-        {loading && <p>Loading translators...</p>}
+        {loading && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Loading translators...</div>
+          </div>
+        )}
 
-        {!loading && error && <p>{error}</p>}
+        {!loading && error && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">{error}</div>
+          </div>
+        )}
 
         {!loading && !error && translators.length === 0 && (
-          <p>No translators found.</p>
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No translators found.</div>
+          </div>
         )}
 
         {!loading && !error && translators.length > 0 && (

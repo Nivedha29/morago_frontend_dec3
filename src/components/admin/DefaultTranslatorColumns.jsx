@@ -9,11 +9,13 @@ const defaultTranslatorColumns = (
 ) => [
   {
     key: "checkbox",
-    header: <input type="checkbox" className="admin-table-checkbox" />,
-    cellClassName: "admin-table-checkbox-cell",
-    headerClassName: "admin-table-checkbox-cell",
+    header: <input type="checkbox" className="morago-admin-table__checkbox" />,
+    cellClassName: "morago-admin-table__checkbox-cell",
+    headerClassName: "morago-admin-table__checkbox-cell",
     disableSortArrow: true,
-    render: () => <input type="checkbox" className="admin-table-checkbox" />,
+    render: () => (
+      <input type="checkbox" className="morago-admin-table__checkbox" />
+    ),
   },
   {
     key: "name",
@@ -47,10 +49,10 @@ const defaultTranslatorColumns = (
   {
     key: "withdrawRequest",
     header: "Withdraw request",
-    cellClassName: "admin-table-link",
+    cellClassName: "morago-admin-table__link",
     render: (translator) =>
       translator.hasWithdrawalRequest ? (
-        <span className="admin-table-pill">Request</span>
+        <span className="morago-admin-table__pill">Request</span>
       ) : (
         "-"
       ),
@@ -60,14 +62,14 @@ const defaultTranslatorColumns = (
   {
     key: "call",
     header: "Call",
-    cellClassName: "admin-table-link",
+    cellClassName: "morago-admin-table__link",
     onClick: (translator) => onViewCall && onViewCall(translator),
     render: () => "View >",
   },
   {
     key: "withdraw",
     header: "Withdraw",
-    cellClassName: "admin-table-link",
+    cellClassName: "morago-admin-table__link",
     onClick: (translator) =>
       onViewWithdrawHistory && onViewWithdrawHistory(translator),
     render: () => "View >",
@@ -75,12 +77,12 @@ const defaultTranslatorColumns = (
   {
     key: "action",
     header: "",
-    cellClassName: "admin-table-action-cell",
-    headerClassName: "admin-table-action-cell",
+    cellClassName: "morago-admin-table__action-cell",
+    headerClassName: "morago-admin-table__action-cell",
     disableSortArrow: true,
     onClick: (translator) => onViewTranslator && onViewTranslator(translator),
     render: () => (
-      <img src={eyeIcon} alt="view" className="admin-table-eye-icon" />
+      <img src={eyeIcon} alt="view" className="morago-admin-table__eye-icon" />
     ),
   },
 ];
@@ -88,11 +90,13 @@ const defaultTranslatorColumns = (
 const translatorWithdrawHistoryColumns = () => [
   {
     key: "checkbox",
-    header: <input type="checkbox" className="admin-table-checkbox" />,
-    cellClassName: "admin-table-checkbox-cell",
-    headerClassName: "admin-table-checkbox-cell",
+    header: <input type="checkbox" className="morago-admin-table__checkbox" />,
+    cellClassName: "morago-admin-table__checkbox-cell",
+    headerClassName: "morago-admin-table__checkbox-cell",
     disableSortArrow: true,
-    render: () => <input type="checkbox" className="admin-table-checkbox" />,
+    render: () => (
+      <input type="checkbox" className="morago-admin-table__checkbox" />
+    ),
   },
   {
     key: "type",
@@ -116,4 +120,56 @@ const translatorWithdrawHistoryColumns = () => [
   },
 ];
 
-export { defaultTranslatorColumns, translatorWithdrawHistoryColumns };
+const callHistoryColumns = () => [
+  {
+    key: "checkbox",
+    header: <input type="checkbox" className="morago-admin-table__checkbox" />,
+    cellClassName: "morago-admin-table__checkbox-cell",
+    headerClassName: "morago-admin-table__checkbox-cell",
+    disableSortArrow: true,
+    render: () => (
+      <input type="checkbox" className="morago-admin-table__checkbox" />
+    ),
+  },
+  {
+    key: "call",
+    header: "Call",
+    render: (item) => item.name || item.phone || "-",
+  },
+  {
+    key: "date",
+    header: "Date",
+    render: (item) => item.date || "-",
+  },
+  {
+    key: "duration",
+    header: "Duration",
+    render: (item) => (item.duration ? `${item.duration} min` : "-"),
+  },
+  {
+    key: "coins",
+    header: "Coins",
+    render: (item) => (item.coins ? `+ ${item.coins}` : "-"),
+  },
+  {
+    key: "theme",
+    header: "Theme",
+    render: (item) => item.theme || "-",
+  },
+  {
+    key: "withdraw",
+    header: "Withdraw request",
+    render: (item) => (item.hasRequest ? "Request" : "None"),
+  },
+  {
+    key: "rating",
+    header: "Rating",
+    render: (item) => item.rating || "-",
+  },
+];
+
+export {
+  defaultTranslatorColumns,
+  translatorWithdrawHistoryColumns,
+  callHistoryColumns,
+};

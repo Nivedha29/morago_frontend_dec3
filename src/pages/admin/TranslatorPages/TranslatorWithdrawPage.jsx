@@ -31,7 +31,11 @@ const TranslatorWithdrawPage = () => {
         ]);
 
         const fullName =
-          `${translatorData.firstName || ""} ${translatorData.lastName || ""}`.trim();
+          `${translatorData.firstName || ""} ${
+            translatorData.lastName || ""
+          }`.trim() ||
+          translatorData.phone ||
+          "-";
 
         setWithdrawal(withdrawalData);
         setTranslatorName(fullName);
@@ -62,16 +66,20 @@ const TranslatorWithdrawPage = () => {
         showControls={false}
       >
         {loading && (
-          <div className="withdraw-page-empty-state">Loading withdrawal...</div>
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Loading withdrawal...</div>
+          </div>
         )}
 
         {!loading && error && (
-          <div className="withdraw-page-empty-state">{error}</div>
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">{error}</div>
+          </div>
         )}
 
         {!loading && !error && !withdrawal && (
-          <div className="withdraw-page-empty-state">
-            No withdrawal history found
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No withdrawal history found</div>
           </div>
         )}
 
