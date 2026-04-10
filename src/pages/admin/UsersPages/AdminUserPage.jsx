@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
-import AdminTable, {
-  defaultUserColumns,
-} from "../../../components/admin/AdminTable";
+import AdminTable from "../../../components/admin/AdminTable";
+import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
 import AdminPagination from "../../../components/admin/AdminPagination";
-import "../../../styles/AdminLayout.css";
 import { getAdminUsers } from "../../../services/adminUser";
 
 const AdminUserPage = () => {
@@ -71,14 +69,30 @@ const AdminUserPage = () => {
         breadcrumbSection="Lists"
         breadcrumbPage="Users"
       >
-        {loading && <p>Loading users...</p>}
+        {loading && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Loading users...</div>
+          </div>
+        )}
 
-        {!loading && error && <p>{error}</p>}
+        {!loading && error && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">{error}</div>
+          </div>
+        )}
 
-        {!loading && !error && users.length === 0 && <p>No users found.</p>}
+        {!loading && !error && users.length === 0 && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No users found.</div>
+          </div>
+        )}
 
         {!loading && !error && users.length > 0 && (
-          <AdminTable users={users} columns={userColumns} />
+          <AdminTable
+            data={users}
+            columns={userColumns}
+            tableClassName="admin-user-table"
+          />
         )}
 
         {!loading && totalPages > 0 && (

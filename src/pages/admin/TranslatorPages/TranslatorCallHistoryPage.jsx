@@ -3,7 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
+import AdminTable from "../../../components/admin/AdminTable";
+import { callHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
 import "../../../styles/TranslatorCallHistoryPage.css";
+
 import {
   getCallHistoryByUserId,
   getTranslatorById,
@@ -89,77 +92,35 @@ const TranslatorCallHistoryPage = () => {
   return (
     <AdminLayout>
       <AdminPageShell
-        title={`Call history ${translatorName ? `${translatorName}` : ""}`}
+        title={`Call history ${translatorName ? translatorName : ""}`}
         breadcrumbSection="Lists"
         breadcrumbPage="Translators / Call history"
       >
         {loading && (
-          <div className="translator-call-history-empty-state">
-            Loading call history...
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Loading call history...</div>
           </div>
         )}
 
         {!loading && error && (
-          <div className="translator-call-history-empty-state">{error}</div>
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">{error}</div>
+          </div>
         )}
 
         {!loading && !error && (
           <>
-            <div className="translator-call-history-table">
-              <div className="call-history-table">
-                <div className="call-history-header">
-                  <div className="call-history-cell checkbox-cell">
-                    <input type="checkbox" />
-                  </div>
-                  <div className="call-history-cell">Call</div>
-                  <div className="call-history-cell">Date</div>
-                  <div className="call-history-cell">Duration</div>
-                  <div className="call-history-cell">Coins</div>
-                  <div className="call-history-cell">Theme</div>
-                  <div className="call-history-cell">Withdraw request</div>
-                  <div className="call-history-cell">Rating</div>
-                </div>
-
-                {callHistory.map((item, index) => (
-                  <div
-                    className="call-history-row"
-                    key={`${item.date}-${index}`}
-                  >
-                    <div className="call-history-cell checkbox-cell">
-                      <input type="checkbox" />
-                    </div>
-
-                    <div className="call-history-cell">
-                      {item.name || item.phone || "-"}
-                    </div>
-
-                    <div className="call-history-cell">{item.date || "-"}</div>
-
-                    <div className="call-history-cell">
-                      {item.duration ? `${item.duration} min` : "-"}
-                    </div>
-
-                    <div className="call-history-cell">
-                      {item.coins ? `+ ${item.coins}` : "-"}
-                    </div>
-
-                    <div className="call-history-cell">{item.theme || "-"}</div>
-
-                    <div className="call-history-cell">
-                      {item.hasRequest ? "Request" : "None"}
-                    </div>
-
-                    <div className="call-history-cell">
-                      {item.rating || "-"}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {callHistory.length > 0 && (
+              <AdminTable
+                data={callHistory}
+                columns={callHistoryColumns()}
+                tableClassName="admin-call-history-table"
+              />
+            )}
 
             {callHistory.length === 0 && (
-              <div className="translator-call-history-empty-state">
-                No call history found
+              <div className="admin-empty-wrapper">
+                <div className="admin-empty-state">No call history found</div>
               </div>
             )}
 

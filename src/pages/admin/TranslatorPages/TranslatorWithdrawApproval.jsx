@@ -22,10 +22,6 @@ const TranslatorWithdrawApproval = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  console.log("Approval page rendered");
-  console.log("location.state:", location.state);
-  console.log("params:", { translatorId, withdrawalId });
-
   const handleApproveWithdrawal = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -96,7 +92,20 @@ const TranslatorWithdrawApproval = () => {
   }, [withdrawal, navigate, backPath]);
 
   if (!withdrawal) {
-    return null;
+    return (
+      <AdminLayout>
+        <AdminPageShell
+          title="Withdraw Approval"
+          breadcrumbSection="Lists"
+          breadcrumbPage="Translators / Withdraw"
+          showControls={false}
+        >
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Withdrawal data is missing</div>
+          </div>
+        </AdminPageShell>
+      </AdminLayout>
+    );
   }
 
   return (
