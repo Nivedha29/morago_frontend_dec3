@@ -37,47 +37,84 @@ export interface GetAdminTranslatorsParams {
   sortDirection?: "ASC" | "DESC";
 }
 
-export const getAdminTranslators = async (
-  params: GetAdminTranslatorsParams = {},
-): Promise<TranslatorListResponse> => {
-  const response = await api.get("/admin/translators", {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
-  });
+export interface CreateTranslatorPayload {
+  password: string;
+  confirmPassword: string;
+  phone: string;
+}
 
-  return response.data;
-};
+export interface Language {
+  id: number;
+  name: string;
+  titleEn: string;
+  titleRu: string;
+}
 
-export const getTranslatorById = async (translatorId: number) => {
-  const response = await api.get(`/admin/translators/${translatorId}`);
-  return response.data;
-};
+export interface Theme {
+  id: number;
+  name: string;
+  title: string;
+  titleEn: string;
+  titleRu: string;
+  description: string;
+  descriptionEn: string;
+  descriptionRu: string;
+  isActive: boolean;
+  iconId: number;
+  categoryId: number;
+  isPopular: boolean;
+  iconUrl: string;
+}
 
-///////////////////////////////////////////////////////////
-// WITHDRAWALS
-///////////////////////////////////////////////////////////
+export interface TranslatorDetailResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  isOnline: boolean;
+  levelOfKorean: number;
+  dateOfBirth: string;
+  hasWithdrawalRequest: boolean;
+  languages: Language[];
+  themes: Theme[];
+  averageRating: number;
+}
 
 export interface WithdrawalHistoryItem {
   id: number;
   date: string;
   amount: number;
-  status: "PENDING" | "APPROVED" | "REJECTED" | string;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+}
+
+export interface PageableSort {
+  sorted: boolean;
+  empty: boolean;
+  unsorted: boolean;
+}
+
+export interface PageableInfo {
+  paged: boolean;
+  pageNumber: number;
+  pageSize: number;
+  offset: number;
+  sort: PageableSort;
+  unpaged: boolean;
 }
 
 export interface WithdrawalHistoryResponse {
   totalElements: number;
   totalPages: number;
-  number: number;
+  pageable: PageableInfo;
   size: number;
+  content: WithdrawalHistoryItem[];
+  number: number;
+  sort: PageableSort;
   first: boolean;
   last: boolean;
+  numberOfElements: number;
   empty: boolean;
-  content: WithdrawalHistoryItem[];
 }
 
 export interface GetWithdrawalHistoryParams {
@@ -94,18 +131,52 @@ export interface ApproveWithdrawalPayload {
   sum: number;
 }
 
+export interface ActiveWithdrawalResponse {
+  id: number;
+  accountNumber: string;
+  accountHolder: string;
+  nameOfBank: string;
+  sum: number;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+}
+
+export const getAdminTranslators = async (
+  params: GetAdminTranslatorsParams = {},
+): Promise<TranslatorListResponse> => {
+  const response = await api.get("/admin/translators", { params });
+  return response.data;
+};
+
+export const getTranslatorById = async (
+  translatorId: number,
+): Promise<TranslatorDetailResponse> => {
+  const response = await api.get(`/admin/translators/${translatorId}`);
+  return response.data;
+};
+
+export const createTranslator = async (
+  payload: CreateTranslatorPayload,
+): Promise<TranslatorDetailResponse> => {
+  const response = await api.post("/admin/translators", payload);
+  return response.data;
+};
+
 export const getWithdrawalHistoryByUserId = async (
   userId: number,
   params: GetWithdrawalHistoryParams = {},
 ): Promise<WithdrawalHistoryResponse> => {
   const response = await api.get(`/admin/withdrawals/history/${userId}`, {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params,
+  });
+
+  return response.data;
+};
+
+export const getActiveWithdrawalByUserId = async (
+  userId: number,
+): Promise<ActiveWithdrawalResponse> => {
+  const response = await api.get("/admin/withdrawals", {
+    params: { userId },
   });
 
   return response.data;
@@ -114,9 +185,8 @@ export const getWithdrawalHistoryByUserId = async (
 export const approveWithdrawalById = async (
   id: number,
   payload: ApproveWithdrawalPayload,
-) => {
-  const response = await api.put(`/admin/withdrawals/${id}`, payload);
-  return response.data;
+): Promise<void> => {
+  await api.put(`/admin/withdrawals/${id}`, payload);
 };
 
 ///////////////////////////////////////////////////////////
@@ -158,13 +228,7 @@ export const getCallHistoryByUserId = async (
   params: GetCallHistoryParams = {},
 ): Promise<CallHistoryResponse> => {
   const response = await api.get(`/admin/calls/history/${userId}`, {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params,
   });
 
   return response.data;
