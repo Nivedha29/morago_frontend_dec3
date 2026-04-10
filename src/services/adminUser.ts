@@ -35,16 +35,10 @@ export interface GetAdminUsersParams {
 }
 
 export const getAdminUsers = async (
-  params: GetAdminUsersParams = {},
+  params?: GetAdminUsersParams,
 ): Promise<UserListResponse> => {
   const response = await api.get("/admin/users", {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params,
   });
 
   return response.data;
