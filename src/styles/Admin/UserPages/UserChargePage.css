@@ -1,0 +1,156 @@
+/* existing (unchanged) */
+.user-charge-card {
+  width: 100%;
+  max-width: 520px;
+  min-height: 320px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fff;
+  padding: 40px 32px;
+  margin: 24px auto 0;
+}
+
+.user-charge-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.user-charge-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #222;
+}
+
+.user-charge-input {
+  height: 40px;
+  border: 1px solid #cfd6df;
+  border-radius: 4px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.user-charge-help {
+  font-size: 11px;
+  color: #8a8f98;
+  margin-top: -4px;
+}
+
+.user-charge-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.user-charge-back-btn,
+.user-charge-confirm-btn {
+  min-width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-charge-back-btn {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.user-charge-confirm-btn {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+.user-charge-error {
+  color: #d14343;
+  font-size: 13px;
+}
+
+.user-charge-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #222;
+}
+
+.user-charge-field input {
+  height: 40px;
+  border: 1px solid #cfd6df;
+  border-radius: 4px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.user-charge-help-text {
+  font-size: 11px;
+  color: #8a8f98;
+  margin-top: -4px;
+}
+
+.user-charge-error-message {
+  color: #d14343;
+  font-size: 13px;
+}
+
+.user-charge-btn-cancel,
+.user-charge-btn-submit {
+  min-width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-charge-btn-cancel {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.user-charge-btn-submit {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+/* -------------------- 1440 -------------------- */
+
+@media (max-width: 1440px) {
+  .user-charge-card {
+    padding: 36px 28px;
+    max-width: 480px;
+  }
+
+  .user-charge-form {
+    gap: 16px;
+  }
+
+  .user-charge-actions {
+    gap: 14px;
+  }
+}
+
+/* -------------------- 1280 -------------------- */
+
+@media (max-width: 1280px) {
+  .user-charge-card {
+    padding: 32px 24px;
+    max-width: 440px;
+  }
+
+  .user-charge-form {
+    gap: 14px;
+  }
+
+  .user-charge-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .user-charge-btn-cancel,
+  .user-charge-btn-submit {
+    width: 100%;
+  }
+}

@@ -59,6 +59,22 @@ const UserDepositHistoryPage = () => {
     fetchDepositHistory();
   }, [userId, page, navigate]);
 
+  const handleOpenChargePage = (deposit) => {
+    if (!userId || Number.isNaN(Number(userId))) {
+      navigate("/admin/users");
+      return;
+    }
+
+    navigate(`/admin/users/${userId}/charge/${deposit.id}`, {
+      state: {
+        userName: selectedUserName,
+        amount: deposit.amount,
+      },
+    });
+  };
+
+  const depositColumns = userDepositHistoryColumns(handleOpenChargePage);
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -67,28 +83,25 @@ const UserDepositHistoryPage = () => {
         breadcrumbPage="Users / Deposit history"
         showControls={false}
       >
-        {/* Loading */}
         {loading && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading deposit history...</div>
           </div>
         )}
 
-        {/* Error */}
         {!loading && error && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {/* Content */}
         {!loading && !error && (
           <>
             {deposits.length > 0 && (
               <div className="user-deposit-history-table-wrapper">
                 <AdminTable
                   data={deposits}
-                  columns={userDepositHistoryColumns}
+                  columns={depositColumns}
                   tableClassName="user-deposit-history-table"
                 />
               </div>
