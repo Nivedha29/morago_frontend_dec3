@@ -115,7 +115,14 @@ const AdminUserPage = () => {
       });
     },
     (user) => {
-      navigate(`/admin/users/${user.id}/deposit-history`);
+      const fullName =
+        user.firstName || user.lastName
+          ? `${user.firstName || ""} ${user.lastName || ""}`.trim()
+          : user.phone || "User";
+
+      navigate(`/admin/users/${user.id}/deposit-history`, {
+        state: { userName: fullName },
+      });
     },
   );
 

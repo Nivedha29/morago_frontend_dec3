@@ -35,16 +35,10 @@ export interface GetAdminUsersParams {
 }
 
 export const getAdminUsers = async (
-  params: GetAdminUsersParams = {},
+  params?: GetAdminUsersParams,
 ): Promise<UserListResponse> => {
   const response = await api.get("/admin/users", {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params,
   });
 
   return response.data;
@@ -67,8 +61,9 @@ export const getAdminUserById = async (
 };
 
 ///////////////////////////////////////////////////////////
-// Call History
+// USER CALL HISTORY
 ///////////////////////////////////////////////////////////
+
 export interface UserCallHistoryItem {
   date: string;
   phone: string;
@@ -92,35 +87,26 @@ export interface UserCallHistoryResponse {
   content: UserCallHistoryItem[];
 }
 
-export interface GetUserCallHistoryParams {
-  userId: number;
+export interface GetAdminUserCallHistoryParams {
   page?: number;
   size?: number;
   sortBy?: string;
   sortDirection?: "ASC" | "DESC";
 }
 
-export const getAdminUserCallHistory = async ({
-  userId,
-  page = 0,
-  size = 5,
-  sortBy = "id",
-  sortDirection = "DESC",
-}: GetUserCallHistoryParams): Promise<UserCallHistoryResponse> => {
+export const getAdminUserCallHistory = async (
+  userId: number,
+  params?: GetAdminUserCallHistoryParams,
+): Promise<UserCallHistoryResponse> => {
   const response = await api.get(`/admin/calls/history/${userId}`, {
-    params: {
-      page,
-      size,
-      sortBy,
-      sortDirection,
-    },
+    params,
   });
 
   return response.data;
 };
 
 ///////////////////////////////////////////////////////////
-// Deposit History
+// USER DEPOSIT HISTORY
 ///////////////////////////////////////////////////////////
 
 export interface UserDepositHistoryItem {
@@ -141,28 +127,19 @@ export interface UserDepositHistoryResponse {
   content: UserDepositHistoryItem[];
 }
 
-export interface GetUserDepositHistoryParams {
-  userId: number;
+export interface GetAdminUserDepositHistoryParams {
   page?: number;
   size?: number;
   sortBy?: string;
   sortDirection?: "ASC" | "DESC";
 }
 
-export const getAdminUserDepositHistory = async ({
-  userId,
-  page = 0,
-  size = 5,
-  sortBy = "id",
-  sortDirection = "DESC",
-}: GetUserDepositHistoryParams): Promise<UserDepositHistoryResponse> => {
+export const getAdminUserDepositHistory = async (
+  userId: number,
+  params?: GetAdminUserDepositHistoryParams,
+): Promise<UserDepositHistoryResponse> => {
   const response = await api.get(`/admin/deposits/history/${userId}`, {
-    params: {
-      page,
-      size,
-      sortBy,
-      sortDirection,
-    },
+    params,
   });
 
   return response.data;

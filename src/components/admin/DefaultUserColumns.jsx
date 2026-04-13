@@ -67,7 +67,6 @@ const defaultUserColumns = (onViewUser, onViewCall, onViewDeposit) => [
   },
 ];
 
-
 const userCallHistoryColumns = [
   {
     key: "checkbox",
@@ -120,4 +119,49 @@ const userCallHistoryColumns = [
   },
 ];
 
-export { defaultUserColumns, userCallHistoryColumns };
+const userDepositHistoryColumns = [
+  {
+    key: "checkbox",
+    header: <input type="checkbox" className="morago-admin-table__checkbox" />,
+    cellClassName: "morago-admin-table__checkbox-cell",
+    headerClassName: "morago-admin-table__checkbox-cell",
+    disableSortArrow: true,
+    render: () => (
+      <input type="checkbox" className="morago-admin-table__checkbox" />
+    ),
+  },
+  {
+    key: "deposit",
+    header: "Deposit",
+    render: () => "Deposit",
+  },
+  {
+    key: "date",
+    header: "Date",
+    render: (deposit) => deposit.date || "-",
+  },
+  {
+    key: "amount",
+    header: "Coins",
+    render: (deposit) =>
+      deposit.amount !== null && deposit.amount !== undefined
+        ? `+ ${deposit.amount.toLocaleString()}`
+        : "-",
+  },
+  {
+    key: "status",
+    header: "Deposit request",
+    render: (deposit) => {
+      if (deposit.status === "COMPLETED") return "Transfer completed";
+      if (deposit.status === "PENDING") return "Request";
+      if (deposit.status === "FAILED") return "Failed";
+      return deposit.status || "-";
+    },
+  },
+];
+
+export {
+  defaultUserColumns,
+  userCallHistoryColumns,
+  userDepositHistoryColumns,
+};
