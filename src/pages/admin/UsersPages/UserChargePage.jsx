@@ -11,41 +11,39 @@ const UserChargePage = () => {
   const { userId, depositId } = useParams();
 
   const selectedUserName = location.state?.userName || "User";
-  const initialAmount = location.state?.amount
-    ? String(location.state.amount)
-    : "";
+  const initialAmount =
+    location.state?.amount !== undefined && location.state?.amount !== null
+      ? String(location.state.amount)
+      : "";
   const phone = location.state?.phone || "-";
 
   const backPath = userId
     ? `/admin/users/${userId}/deposit-history`
     : "/admin/users";
 
+  const isInvalidAccess =
+    !userId ||
+    Number.isNaN(Number(userId)) ||
+    !depositId ||
+    Number.isNaN(Number(depositId)) ||
+    location.state?.amount === undefined;
+
   const [sum, setSum] = useState(initialAmount);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (
-      !userId ||
-      Number.isNaN(Number(userId)) ||
-      !depositId ||
-      Number.isNaN(Number(depositId))
-    ) {
+    if (isInvalidAccess) {
       navigate("/admin/users");
     }
-  }, [userId, depositId, navigate]);
+  }, [isInvalidAccess, navigate]);
 
   const handleApproveDeposit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
 
-    if (!userId || Number.isNaN(Number(userId))) {
+    if (isInvalidAccess) {
       navigate("/admin/users");
-      return;
-    }
-
-    if (!depositId || Number.isNaN(Number(depositId))) {
-      setErrorMessage("Deposit ID is missing");
       return;
     }
 
@@ -86,12 +84,7 @@ const UserChargePage = () => {
     }
   };
 
-  if (
-    !userId ||
-    Number.isNaN(Number(userId)) ||
-    !depositId ||
-    Number.isNaN(Number(depositId))
-  ) {
+  if (isInvalidAccess) {
     return (
       <AdminLayout>
         <AdminPageShell
@@ -101,7 +94,9 @@ const UserChargePage = () => {
           showControls={false}
         >
           <div className="admin-empty-wrapper">
-            <div className="admin-empty-state">Deposit data is missing</div>
+            <div className="admin-empty-state">
+              Invalid access. Please return to Users page.
+            </div>
           </div>
         </AdminPageShell>
       </AdminLayout>
@@ -140,6 +135,7 @@ const UserChargePage = () => {
                   value={sum}
                   onChange={(e) => {
                     const value = e.target.value;
+
                     if (value === "" || Number(value) >= 0) {
                       setSum(value);
                     }
