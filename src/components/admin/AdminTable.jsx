@@ -4,6 +4,7 @@ import eyeIcon from "../../assets/eye.svg";
 
 const defaultTranslatorColumns = (
   onViewWithdrawRequest,
+  onViewCall,
   onViewWithdrawHistory,
   onViewTranslator,
 ) => [
@@ -59,6 +60,7 @@ const defaultTranslatorColumns = (
     key: "call",
     header: "Call",
     cellClassName: "admin-table-link",
+    onClick: (t) => onViewCall && onViewCall(t),
     render: () => "View >",
   },
   {
@@ -88,6 +90,7 @@ const AdminTable = ({
   onViewWithdrawRequest,
   onViewWithdrawHistory,
   onViewTranslator,
+  onViewCall,
   rowKey = "id",
 }) => {
   const tableData = data || translators;
@@ -95,6 +98,7 @@ const AdminTable = ({
     columns ||
     defaultTranslatorColumns(
       onViewWithdrawRequest,
+      onViewCall,
       onViewWithdrawHistory,
       onViewTranslator,
     );

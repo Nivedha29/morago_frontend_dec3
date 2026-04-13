@@ -59,7 +59,6 @@ const AdminTranslatorPage = () => {
     const fetchTranslatorDetail = async () => {
       if (!selectedTranslatorId) return;
 
-
       try {
         const data = await getTranslatorById(selectedTranslatorId);
         setSelectedTranslatorDetail(data);
@@ -100,6 +99,9 @@ const AdminTranslatorPage = () => {
             onViewWithdrawRequest={(translator) => {
               navigate(`/admin/translators/${translator.id}/withdraw`);
             }}
+            onViewCall={(translator) =>
+              navigate(`/admin/translators/${translator.id}/call-history`)
+            }
             onViewWithdrawHistory={(translator) =>
               navigate(`/admin/translators/${translator.id}/withdraw-history`)
             }

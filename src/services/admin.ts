@@ -1,5 +1,9 @@
 import api from "./api";
 
+///////////////////////////////////////////////////////////
+// TRANSLATORS
+///////////////////////////////////////////////////////////
+
 export interface Translator {
   id: number;
   firstName: string;
@@ -168,6 +172,16 @@ export const getWithdrawalHistoryByUserId = async (
   return response.data;
 };
 
+export const getActiveWithdrawalByUserId = async (
+  userId: number,
+): Promise<ActiveWithdrawalResponse> => {
+  const response = await api.get("/admin/withdrawals", {
+    params: { userId },
+  });
+
+  return response.data;
+};
+
 export const approveWithdrawalById = async (
   id: number,
   payload: ApproveWithdrawalPayload,
@@ -175,11 +189,46 @@ export const approveWithdrawalById = async (
   await api.put(`/admin/withdrawals/${id}`, payload);
 };
 
-export const getActiveWithdrawalByUserId = async (
+///////////////////////////////////////////////////////////
+// CALL HISTORY
+///////////////////////////////////////////////////////////
+
+export interface CallHistoryItem {
+  date: string;
+  phone: string;
+  name: string;
+  imageUrl: string;
+  duration: number;
+  coins: number;
+  theme: string;
+  rating: string;
+  hasRequest: boolean;
+}
+
+export interface CallHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: CallHistoryItem[];
+}
+
+export interface GetCallHistoryParams {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export const getCallHistoryByUserId = async (
   userId: number,
-): Promise<ActiveWithdrawalResponse> => {
-  const response = await api.get("/admin/withdrawals", {
-    params: { userId },
+  params: GetCallHistoryParams = {},
+): Promise<CallHistoryResponse> => {
+  const response = await api.get(`/admin/calls/history/${userId}`, {
+    params,
   });
 
   return response.data;
