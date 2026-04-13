@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AdminPageShell from "../../components/admin/AdminPageShell";
-import AdminTable from "../../components/admin/AdminTable";
-import AdminPagination from "../../components/admin/AdminPagination";
-import TranslatorDetailModal from "../../components/admin/TranslatorDetailModal";
-import "../../styles/AdminLayout.css";
-import { getAdminTranslators, getTranslatorById } from "../../services/admin";
+import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminPageShell from "../../../components/admin/AdminPageShell";
+import AdminTable from "../../../components/admin/AdminTable";
+import AdminPagination from "../../../components/admin/AdminPagination";
+import TranslatorDetailModal from "../../../components/admin/TranslatorDetailModal";
+import { defaultTranslatorColumns } from "../../../components/admin/DefaultTranslatorColumns";
+import {
+  getAdminTranslators,
+  getTranslatorById,
+} from "../../../services/admin";
 
 const AdminTranslatorPage = () => {
   const [translators, setTranslators] = useState([]);
@@ -78,6 +81,21 @@ const AdminTranslatorPage = () => {
     fetchTranslatorDetail();
   }, [selectedTranslatorId]);
 
+  const translatorColumns = defaultTranslatorColumns(
+    (translator) => {
+      navigate(`/admin/translators/${translator.id}/withdraw`);
+    },
+    (translator) => {
+      navigate(`/admin/translators/${translator.id}/call-history`);
+    },
+    (translator) => {
+      navigate(`/admin/translators/${translator.id}/withdraw-history`);
+    },
+    (translator) => {
+      setSelectedTranslatorId(translator.id);
+    },
+  );
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -85,29 +103,29 @@ const AdminTranslatorPage = () => {
         breadcrumbSection="Lists"
         breadcrumbPage="Translators"
       >
-        {loading && <p>Loading translators...</p>}
+        {loading && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Loading translators...</div>
+          </div>
+        )}
 
-        {!loading && error && <p>{error}</p>}
+        {!loading && error && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">{error}</div>
+          </div>
+        )}
 
         {!loading && !error && translators.length === 0 && (
-          <p>No translators found.</p>
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No translators found.</div>
+          </div>
         )}
 
         {!loading && !error && translators.length > 0 && (
           <AdminTable
-            translators={translators}
-            onViewWithdrawRequest={(translator) => {
-              navigate(`/admin/translators/${translator.id}/withdraw`);
-            }}
-            onViewCall={(translator) =>
-              navigate(`/admin/translators/${translator.id}/call-history`)
-            }
-            onViewWithdrawHistory={(translator) =>
-              navigate(`/admin/translators/${translator.id}/withdraw-history`)
-            }
-            onViewTranslator={(translator) => {
-              setSelectedTranslatorId(translator.id);
-            }}
+            data={translators}
+            columns={translatorColumns}
+            tableClassName="admin-translator-table"
           />
         )}
 

@@ -47,8 +47,8 @@
   outline: none;
 }
 
-.admin-input + .admin-input,
-.admin-error + .admin-input {
+.admin-input+.admin-input,
+.admin-error+.admin-input {
   margin-top: 12px;
 }
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AdminPageShell from "../../components/admin/AdminPageShell";
-import "../../styles/TranslatorWithdrawApproval.css";
-import { approveWithdrawalById } from "../../services/admin";
+import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminPageShell from "../../../components/admin/AdminPageShell";
+import "../../../styles/TranslatorWithdrawApproval.css";
+import { approveWithdrawalById } from "../../../services/admin";
 
 const TranslatorWithdrawApproval = () => {
   const navigate = useNavigate();
@@ -21,10 +21,6 @@ const TranslatorWithdrawApproval = () => {
   const [sum, setSum] = useState(withdrawal?.sum ? String(withdrawal.sum) : "");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  console.log("Approval page rendered");
-  console.log("location.state:", location.state);
-  console.log("params:", { translatorId, withdrawalId });
 
   const handleApproveWithdrawal = async (e) => {
     e.preventDefault();
@@ -96,7 +92,20 @@ const TranslatorWithdrawApproval = () => {
   }, [withdrawal, navigate, backPath]);
 
   if (!withdrawal) {
-    return null;
+    return (
+      <AdminLayout>
+        <AdminPageShell
+          title="Withdraw Approval"
+          breadcrumbSection="Lists"
+          breadcrumbPage="Translators / Withdraw"
+          showControls={false}
+        >
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">Withdrawal data is missing</div>
+          </div>
+        </AdminPageShell>
+      </AdminLayout>
+    );
   }
 
   return (
