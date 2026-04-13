@@ -67,4 +67,57 @@ const defaultUserColumns = (onViewUser, onViewCall, onViewDeposit) => [
   },
 ];
 
-export { defaultUserColumns };
+
+const userCallHistoryColumns = [
+  {
+    key: "checkbox",
+    header: <input type="checkbox" className="morago-admin-table__checkbox" />,
+    cellClassName: "morago-admin-table__checkbox-cell",
+    headerClassName: "morago-admin-table__checkbox-cell",
+    disableSortArrow: true,
+    render: () => (
+      <input type="checkbox" className="morago-admin-table__checkbox" />
+    ),
+  },
+  {
+    key: "name",
+    header: "Call",
+    render: (call) => call.name || call.phone || "-",
+  },
+  {
+    key: "date",
+    header: "Date",
+    render: (call) => call.date || "-",
+  },
+  {
+    key: "duration",
+    header: "Duration",
+    render: (call) => (call.duration ? `${call.duration} min` : "-"),
+  },
+  {
+    key: "coins",
+    header: "Coins",
+    render: (call) => call.coins ?? "-",
+  },
+  {
+    key: "theme",
+    header: "Theme",
+    render: (call) => call.theme || "-",
+  },
+  {
+    key: "hasRequest",
+    header: "Deposit request",
+    render: (call) => (call.hasRequest ? "Yes" : "None"),
+  },
+  {
+    key: "rating",
+    header: "Rating",
+    render: (call) => {
+      const rating = Number(call.rating);
+      if (!rating) return "-";
+      return "★".repeat(Math.round(rating));
+    },
+  },
+];
+
+export { defaultUserColumns, userCallHistoryColumns };

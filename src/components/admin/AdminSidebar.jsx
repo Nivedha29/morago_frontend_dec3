@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/AdminSidebar.css";
+import "../../styles/Admin/AdminSidebar.css";
 import sideBarProfile from "../../assets/SideBarProfile.svg";
 import sideBarGear from "../../assets/SideBarGear.svg";
 import { useNavigate, useLocation } from "react-router-dom";

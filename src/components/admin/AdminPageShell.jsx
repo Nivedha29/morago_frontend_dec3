@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/AdminPageShell.css";
+import "../../styles/Admin/AdminPageShell.css";
 import AdminControls from "../../components/admin/AdminControls";
 
 const AdminPageShell = ({

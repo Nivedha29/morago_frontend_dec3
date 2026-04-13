@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
-import "../../../styles/TranslatorWithdrawPage.css";
+import "../../../styles/Admin/TranslatorPages/TranslatorWithdrawPage.css";
 import {
   getActiveWithdrawalByUserId,
   getTranslatorById,

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/AdminControls.css";
+import "../../styles/Admin/AdminControls.css";
 import searchIcon from "../../assets/SearchIcon.svg";
 
 const AdminControls = () => {

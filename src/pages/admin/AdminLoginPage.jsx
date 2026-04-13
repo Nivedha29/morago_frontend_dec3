@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth";
 
-import "../../styles/AdminLoginPage.css";
+import "../../styles/Admin/AdminLoginPage.css";
 import AdminHeader from "../../components/admin/AdminHeader";
 
 const AdminLoginPage = () => {

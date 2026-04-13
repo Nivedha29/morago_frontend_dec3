@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/AdminHeader.css";
+import "../../styles/Admin/AdminHeader.css";
 import moragoLogo from "../../assets/MoragoLogo.svg";
 import adminUserIcon from "../../assets/master.svg";
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import { createTranslator } from "../../../services/admin";
-import "../../../styles/AddTranslatorPage.css";
+import "../../../styles/Admin/TranslatorPages/AddTranslatorPage.css";
 
 const AddTranslatorPage = () => {
   const navigate = useNavigate();

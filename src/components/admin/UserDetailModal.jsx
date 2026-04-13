@@ -1,6 +1,6 @@
 import React from "react";
 import defaultAvatar from "../../assets/avatar.svg";
-import "../../styles/UserDetailModal.css";
+import "../../styles/Admin/UserPages/UserDetailModal.css";
 
 const UserDetailModal = ({ user, loading, error, onClose }) => {
   if (!loading && !error && !user) return null;
