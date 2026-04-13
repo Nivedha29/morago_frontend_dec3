@@ -43,3 +43,19 @@ export const getAdminUsers = async (
 
   return response.data;
 };
+
+export interface UserDetailResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  balance: number;
+  hasDepositRequest: boolean;
+}
+
+export const getAdminUserById = async (
+  id: number,
+): Promise<UserDetailResponse> => {
+  const response = await api.get(`/admin/users/${id}`);
+  return response.data;
+};
