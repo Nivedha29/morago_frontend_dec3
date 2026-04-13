@@ -10,9 +10,10 @@ import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswor
 
 import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
-import TranslatorWithdrawTablePage from "./pages/admin/TranslatorWithdrawTablePage.jsx";
+import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorWithdrawHistoryPage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
+import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
 import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
-import UserDetailModal from "./components/admin/UserDetailModal.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
@@ -50,17 +51,6 @@ const App = () => {
       <Route
         path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
         element={<TranslatorWithdrawApproval />}
-      />
-      <Route
-        path="/admin/translators/:id/call-history"
-        element={<TranslatorCallHistoryPage />}
-      />
-
-      <Route path="/admin/translators" element={<AdminTranslatorPage />} />
-      <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
-      <Route
-        path="/admin/translators/:translatorId/withdraw-history"
-        element={<TranslatorWithdrawTablePage />}
       />
       <Route
         path="/admin/translators/:id/call-history"
