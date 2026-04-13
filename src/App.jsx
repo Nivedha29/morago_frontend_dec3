@@ -4,16 +4,13 @@ import { Routes, Route } from "react-router-dom";
 /* ------------------------- Admin Page ------------------------- */
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
-import AdminForgotPasswordPage from "./pages/admin/AdminForgotPasswordPage.jsx";
-import AdminForgotPasswordVerifyPage from "./pages/admin/AdminForgotPasswordVerifyPage.jsx";
-import AdminForgotPasswordNewPasswordPage from "./pages/admin/AdminForgotPasswordNewPasswordPage.jsx";
 
-import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
-import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
-import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorWithdrawHistoryPage.jsx";
-import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
-import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
-import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
+import AdminTranslatorPage from "./pages/admin/TranslatorPages/AdminTranslatorPage.jsx";
+import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.jsx";
+import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
+import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
+import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
