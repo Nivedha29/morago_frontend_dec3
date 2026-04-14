@@ -9,16 +9,23 @@ const AdminSidebar = () => {
   const [isTopicsOpen, setIsTopicsOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const isActive = (path) => location.pathname === path;
+
+  const isUsersSection = location.pathname.startsWith("/admin/users");
+  const isTranslatorsSection =
+    location.pathname.startsWith("/admin/translators");
+  const isThemesSection = location.pathname.startsWith("/admin/themes");
+  const isCategoriesSection = location.pathname.startsWith("/admin/categories");
+
+  const isActive = (path) => location.pathname.startsWith(path);
 
   const handleAddClick = () => {
-    if (location.pathname === "/admin/translators") {
+    if (isTranslatorsSection) {
       navigate("/admin/translators/add");
-    } else if (location.pathname === "/admin/users") {
+    } else if (isUsersSection) {
       navigate("/admin/users/add");
-    } else if (location.pathname === "/admin/themes") {
+    } else if (isThemesSection) {
       navigate("/admin/themes/add");
-    } else if (location.pathname === "/admin/categories") {
+    } else if (isCategoriesSection) {
       navigate("/admin/categories/add");
     }
   };

@@ -67,9 +67,12 @@ const AddUserPage = () => {
     <AdminLayout>
       <AdminPageShell
         title="Add User"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Users / Add User"
         showControls={false}
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Users", path: "/admin/users" },
+          { label: "Add User" },
+        ]}
       >
         <div className="add-user-page">
           <div className="add-user-card">
