@@ -121,7 +121,10 @@ const AdminUserPage = () => {
           : user.phone || "User";
 
       navigate(`/admin/users/${user.id}/deposit-history`, {
-        state: { userName: fullName },
+        state: {
+          userName: fullName,
+          phone: user.phone || "-",
+        },
       });
     },
   );

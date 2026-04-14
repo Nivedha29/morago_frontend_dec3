@@ -151,8 +151,12 @@ const userDepositHistoryColumns = (onCharge) => [
   {
     key: "status",
     header: "Deposit request",
-    cellClassName: "morago-admin-table__link",
-    onClick: (deposit) => onCharge && onCharge(deposit),
+    cellClassName: (deposit) =>
+      deposit.status === "PENDING" ? "morago-admin-table__link" : "",
+    onClick: (deposit) => {
+      if (deposit.status !== "PENDING") return;
+      onCharge && onCharge(deposit);
+    },
     render: (deposit) => {
       if (deposit.status === "COMPLETED") return "Transfer completed";
       if (deposit.status === "PENDING") return "Request";

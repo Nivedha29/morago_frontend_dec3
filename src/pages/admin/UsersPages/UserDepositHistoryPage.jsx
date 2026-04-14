@@ -15,6 +15,7 @@ const UserDepositHistoryPage = () => {
 
   const selectedUserName = location.state?.userName || "User";
 
+  const selectedUserPhone = location.state?.phone || "-";
   const [deposits, setDeposits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -68,6 +69,7 @@ const UserDepositHistoryPage = () => {
     navigate(`/admin/users/${userId}/charge/${deposit.id}`, {
       state: {
         userName: selectedUserName,
+        phone: selectedUserPhone,
         amount: deposit.amount,
       },
     });
