@@ -59,3 +59,48 @@ export const getAdminUserById = async (
   const response = await api.get(`/admin/users/${id}`);
   return response.data;
 };
+
+///////////////////////////////////////////////////////////
+// USER CALL HISTORY
+///////////////////////////////////////////////////////////
+
+export interface UserCallHistoryItem {
+  date: string;
+  phone: string;
+  name: string;
+  imageUrl: string;
+  duration: number;
+  coins: number;
+  theme: string;
+  rating: string;
+  hasRequest: boolean;
+}
+
+export interface UserCallHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: UserCallHistoryItem[];
+}
+
+export interface GetAdminUserCallHistoryParams {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export const getAdminUserCallHistory = async (
+  userId: number,
+  params?: GetAdminUserCallHistoryParams,
+): Promise<UserCallHistoryResponse> => {
+  const response = await api.get(`/admin/calls/history/${userId}`, {
+    params,
+  });
+
+  return response.data;
+};

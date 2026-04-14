@@ -1,56 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getAdminUserCallHistory } from "../../../services/adminUser";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
-import { callHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
-import "../../../styles/Admin/TranslatorPages/TranslatorCallHistoryPage.css";
+import { userCallHistoryColumns } from "../../../components/admin/DefaultUserColumns";
+import "../../../styles/Admin/UserPages/UserCallHistoryPage.css";
 
-import {
-  getCallHistoryByUserId,
-  getTranslatorById,
-} from "../../../services/admin";
-
-const TranslatorCallHistoryPage = () => {
-  const { id } = useParams();
+const UserCallHistoryPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { userId } = useParams();
 
-  const [callHistory, setCallHistory] = useState([]);
-  const [translatorName, setTranslatorName] = useState("");
+  const selectedUserName = location.state?.userName || "User";
+
+  const [calls, setCalls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    const fetchTranslator = async () => {
-      if (!id || Number.isNaN(Number(id))) {
-        navigate("/admin/translators");
-        return;
-      }
-
-      try {
-        const data = await getTranslatorById(Number(id));
-
-        const fullName =
-          data.firstName || data.lastName
-            ? `${data.firstName || ""} ${data.lastName || ""}`.trim()
-            : data.phone || "Unknown";
-
-        setTranslatorName(fullName);
-      } catch (apiError) {
-        console.error("Failed to fetch translator name:", apiError);
-      }
-    };
-
-    fetchTranslator();
-  }, [id, navigate]);
-
-  useEffect(() => {
     const fetchCallHistory = async () => {
-      if (!id || Number.isNaN(Number(id))) {
-        navigate("/admin/translators");
+      if (!userId || Number.isNaN(Number(userId))) {
+        navigate("/admin/users");
         return;
       }
 
@@ -58,67 +32,66 @@ const TranslatorCallHistoryPage = () => {
         setLoading(true);
         setError("");
 
-        const data = await getCallHistoryByUserId(Number(id), {
+        const data = await getAdminUserCallHistory(Number(userId), {
           page,
           size: 5,
           sortBy: "id",
           sortDirection: "ASC",
         });
 
-        setCallHistory(data.content || []);
+        setCalls(data.content || []);
         setTotalPages(data.totalPages || 0);
       } catch (apiError) {
-        console.error("Failed to fetch call history:", apiError);
+        console.error("Failed to fetch user call history:", apiError);
 
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
           apiError?.details?.message ||
-          "Failed to fetch call history";
+          "Failed to load call history.";
 
-        setError(
-          backendMessage.includes("getNameWithInitials")
-            ? "Failed to load call history due to missing user data."
-            : backendMessage,
-        );
+        setError(backendMessage);
       } finally {
         setLoading(false);
       }
     };
 
     fetchCallHistory();
-  }, [id, page, navigate]);
+  }, [userId, page, navigate]);
 
   return (
     <AdminLayout>
       <AdminPageShell
-        title={`Call history ${translatorName ? translatorName : ""}`}
+        title={`Call history ${selectedUserName}`}
         breadcrumbSection="Lists"
-        breadcrumbPage="Translators / Call history"
+        breadcrumbPage="Users / Call history"
       >
+        {/* Loading */}
         {loading && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading call history...</div>
           </div>
         )}
 
+        {/* Error */}
         {!loading && error && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
+        {/* Content */}
         {!loading && !error && (
           <>
-            {callHistory.length > 0 && (
+            {calls.length > 0 && (
               <AdminTable
-                data={callHistory}
-                columns={callHistoryColumns()}
-                tableClassName="admin-call-history-table"
+                data={calls}
+                columns={userCallHistoryColumns}
+                tableClassName="user-call-history-table"
               />
             )}
 
-            {callHistory.length === 0 && (
+            {calls.length === 0 && (
               <div className="admin-empty-wrapper">
                 <div className="admin-empty-state">No call history found</div>
               </div>
@@ -140,4 +113,4 @@ const TranslatorCallHistoryPage = () => {
   );
 };
 
-export default TranslatorCallHistoryPage;
+export default UserCallHistoryPage;

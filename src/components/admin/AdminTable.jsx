@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/AdminTable.css";
+import "../../styles/Admin/AdminTable.css";
 
 const AdminTable = ({
   data = [],

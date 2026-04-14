@@ -4,7 +4,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
-import "../../../styles/TranslatorWithdrawHistoryPage.css";
+import "../../../styles/Admin/TranslatorPages/TranslatorWithdrawHistoryPage.css";
 import { getWithdrawalHistoryByUserId } from "../../../services/admin";
 import { translatorWithdrawHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
 

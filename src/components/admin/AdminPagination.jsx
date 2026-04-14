@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/AdminPagination.css";
+import "../../styles/Admin/AdminPagination.css";
 
 const AdminPagination = ({ page, setPage, totalPages }) => {
   const maxVisiblePages = 5;

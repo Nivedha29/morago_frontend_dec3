@@ -10,7 +10,10 @@ import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.j
 import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
 import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
 import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
+
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
+import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
+
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
@@ -54,6 +57,10 @@ const App = () => {
         element={<TranslatorCallHistoryPage />}
       />
       <Route path="/admin/users" element={<AdminUserPage />} />
+      <Route
+        path="/admin/users/:userId/call-history"
+        element={<AdminUserCallHistoryPage />}
+      />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 

@@ -105,7 +105,14 @@ const AdminUserPage = () => {
       handleOpenUserModal(user);
     },
     (user) => {
-      navigate(`/admin/users/${user.id}/call-history`);
+      const fullName =
+        user.firstName || user.lastName
+          ? `${user.firstName || ""} ${user.lastName || ""}`.trim()
+          : user.phone || "User";
+
+      navigate(`/admin/users/${user.id}/call-history`, {
+        state: { userName: fullName },
+      });
     },
     (user) => {
       navigate(`/admin/users/${user.id}/deposit-history`);
