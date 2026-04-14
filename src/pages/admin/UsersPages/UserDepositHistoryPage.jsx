@@ -33,7 +33,7 @@ const UserDepositHistoryPage = () => {
       try {
         setError("");
 
-        if (deposits.length === 0) {
+        if (page === 0) {
           setLoading(true);
         } else {
           setIsFetching(true);

@@ -58,7 +58,7 @@ const TranslatorCallHistoryPage = () => {
       try {
         setError("");
 
-        if (callHistory.length === 0) {
+        if (page === 0) {
           setLoading(true);
         } else {
           setIsFetching(true);
