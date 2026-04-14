@@ -36,11 +36,10 @@ const LoginScreen = () => {
         console.log("BACKEND ROLES:", data.roles);
 
         const selectedRole =
-          role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
+  role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
 
-        const hasSelectedRole = Array.isArray(data.roles)
-          ? data.roles.includes(selectedRole)
-          : String(data.roles).includes(selectedRole);
+const userRoles = Array.isArray(data.roles) ? data.roles : [data.roles];
+const hasSelectedRole = userRoles.includes(selectedRole);
 
         if (!hasSelectedRole) {
           phoneError = "Please select the correct account type";

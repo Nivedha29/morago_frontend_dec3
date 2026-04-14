@@ -9,7 +9,7 @@ export interface AuthResponse {
   phone: string;
   firstName: string;
   lastName: string;
-  roles: UserRole;
+  roles: UserRole | UserRole[];
   imageUrl: string;
   levelOfKorean: number;
   dateOfBirth: string;
