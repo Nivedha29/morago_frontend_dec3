@@ -108,9 +108,16 @@ const UserChargePage = () => {
       <AdminLayout>
         <AdminPageShell
           title="Charge"
-          breadcrumbSection="Lists"
-          breadcrumbPage="Users / Deposit history"
           showControls={false}
+          breadcrumbs={[
+            { label: "Lists" },
+            { label: "Users", path: "/admin/users" },
+            {
+              label: "Deposit History",
+              path: `/admin/users/${userId}/deposit-history`,
+            },
+            { label: "Charge" },
+          ]}
         >
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">
@@ -126,9 +133,16 @@ const UserChargePage = () => {
     <AdminLayout>
       <AdminPageShell
         title={`Charge ${selectedUserName}`}
-        breadcrumbSection="Lists"
-        breadcrumbPage="Users / Deposit history"
         showControls={false}
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Users", path: "/admin/users" },
+          {
+            label: "Deposit History",
+            path: `/admin/users/${userId}/deposit-history`,
+          },
+          { label: "Charge" },
+        ]}
       >
         <div className="user-charge-page">
           <div className="user-charge-card">

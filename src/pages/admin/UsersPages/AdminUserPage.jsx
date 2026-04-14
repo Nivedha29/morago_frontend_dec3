@@ -11,6 +11,7 @@ import { getAdminUsers, getAdminUserById } from "../../../services/adminUser";
 const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [size] = useState(5);
@@ -27,8 +28,13 @@ const AdminUserPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setLoading(true);
         setError("");
+
+        if (users.length === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
 
         const data = await getAdminUsers({
           page,
@@ -51,6 +57,7 @@ const AdminUserPage = () => {
         setError(backendMessage);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
@@ -133,42 +140,43 @@ const AdminUserPage = () => {
     <AdminLayout>
       <AdminPageShell
         title="Users list"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Users"
+        breadcrumbs={[{ label: "Lists" }, { label: "Users" }]}
       >
-        {loading && (
+        {loading && users.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading users...</div>
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && error && users.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {!loading && !error && users.length === 0 && (
+        {users.length > 0 && (
+          <>
+            <AdminTable
+              data={users}
+              columns={userColumns}
+              tableClassName="admin-user-table"
+            />
+
+            {totalPages > 0 && (
+              <div className="admin-page-footer">
+                <AdminPagination
+                  page={page}
+                  setPage={setPage}
+                  totalPages={totalPages}
+                />
+              </div>
+            )}
+          </>
+        )}
+
+        {!loading && !isFetching && !error && users.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">No users found.</div>
-          </div>
-        )}
-
-        {!loading && !error && users.length > 0 && (
-          <AdminTable
-            data={users}
-            columns={userColumns}
-            tableClassName="admin-user-table"
-          />
-        )}
-
-        {!loading && totalPages > 0 && (
-          <div className="admin-page-footer">
-            <AdminPagination
-              page={page}
-              setPage={setPage}
-              totalPages={totalPages}
-            />
           </div>
         )}
 

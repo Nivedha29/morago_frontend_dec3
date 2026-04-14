@@ -14,10 +14,11 @@ const UserDepositHistoryPage = () => {
   const { userId } = useParams();
 
   const selectedUserName = location.state?.userName || "User";
-
   const selectedUserPhone = location.state?.phone || "-";
+
   const [deposits, setDeposits] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -30,8 +31,13 @@ const UserDepositHistoryPage = () => {
       }
 
       try {
-        setLoading(true);
         setError("");
+
+        if (deposits.length === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
 
         const data = await getAdminUserDepositHistory(Number(userId), {
           page,
@@ -54,6 +60,7 @@ const UserDepositHistoryPage = () => {
         setError(backendMessage);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
@@ -81,41 +88,34 @@ const UserDepositHistoryPage = () => {
     <AdminLayout>
       <AdminPageShell
         title={`Deposit history ${selectedUserName}`}
-        breadcrumbSection="Lists"
-        breadcrumbPage="Users / Deposit history"
         showControls={false}
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Users", path: "/admin/users" },
+          { label: "Deposit History" },
+        ]}
       >
-        {loading && (
+        {loading && deposits.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading deposit history...</div>
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && error && deposits.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {!loading && !error && (
+        {deposits.length > 0 && (
           <>
-            {deposits.length > 0 && (
-              <div className="user-deposit-history-table-wrapper">
-                <AdminTable
-                  data={deposits}
-                  columns={depositColumns}
-                  tableClassName="user-deposit-history-table"
-                />
-              </div>
-            )}
-
-            {deposits.length === 0 && (
-              <div className="admin-empty-wrapper">
-                <div className="admin-empty-state">
-                  No deposit history found
-                </div>
-              </div>
-            )}
+            <div className="user-deposit-history-table-wrapper">
+              <AdminTable
+                data={deposits}
+                columns={depositColumns}
+                tableClassName="user-deposit-history-table"
+              />
+            </div>
 
             {totalPages > 0 && (
               <div className="admin-page-footer">
@@ -127,6 +127,12 @@ const UserDepositHistoryPage = () => {
               </div>
             )}
           </>
+        )}
+
+        {!loading && !isFetching && !error && deposits.length === 0 && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No deposit history found</div>
+          </div>
         )}
       </AdminPageShell>
     </AdminLayout>
