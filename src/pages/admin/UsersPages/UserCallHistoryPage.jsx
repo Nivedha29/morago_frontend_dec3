@@ -5,6 +5,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
+import AdminControls from "../../../components/admin/AdminControls";
 import { userCallHistoryColumns } from "../../../components/admin/DefaultUserColumns";
 import "../../../styles/Admin/UserPages/UserCallHistoryPage.css";
 
@@ -66,6 +67,22 @@ const UserCallHistoryPage = () => {
     fetchCallHistory();
   }, [userId, page, navigate]);
 
+  const handleControlsApply = ({ action }) => {
+    if (action === "show-all") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+    }
+  };
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -75,6 +92,14 @@ const UserCallHistoryPage = () => {
           { label: "Users", path: "/admin/users" },
           { label: "Call History" },
         ]}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[]}
+            disableSearch={true}
+            onApply={handleControlsApply}
+          />
+        }
       >
         {loading && calls.length === 0 && (
           <div className="admin-empty-wrapper">

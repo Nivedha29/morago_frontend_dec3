@@ -4,6 +4,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminTable from "../../../components/admin/AdminTable";
 import AdminPagination from "../../../components/admin/AdminPagination";
+import AdminControls from "../../../components/admin/AdminControls";
 import TranslatorDetailModal from "../../../components/admin/TranslatorDetailModal";
 import { defaultTranslatorColumns } from "../../../components/admin/DefaultTranslatorColumns";
 import {
@@ -19,6 +20,10 @@ const AdminTranslatorPage = () => {
   const [page, setPage] = useState(0);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [keyword, setKeyword] = useState("");
+  const [isActive, setIsActive] = useState(undefined);
+  const [hasWithdrawal, setHasWithdrawal] = useState(undefined);
 
   const [selectedTranslatorId, setSelectedTranslatorId] = useState(null);
   const [selectedTranslatorDetail, setSelectedTranslatorDetail] =
@@ -38,6 +43,9 @@ const AdminTranslatorPage = () => {
         }
 
         const data = await getAdminTranslators({
+          keyword,
+          isActive,
+          hasWithdrawal,
           page,
           size,
           sortBy: "id",
@@ -63,7 +71,7 @@ const AdminTranslatorPage = () => {
     };
 
     fetchTranslators();
-  }, [page, size]);
+  }, [keyword, isActive, hasWithdrawal, page, size]);
 
   useEffect(() => {
     const fetchTranslatorDetail = async () => {
@@ -103,11 +111,70 @@ const AdminTranslatorPage = () => {
     },
   );
 
+  const handleControlsApply = ({ search, filter, action }) => {
+    // ✅ NEW ACTIONS
+
+    if (action === "show-all") {
+      setPage(0);
+      setKeyword("");
+      setIsActive(undefined);
+      setHasWithdrawal(undefined);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+      return;
+    }
+
+    // ✅ SEARCH
+    if (search !== undefined) {
+      setPage(0);
+      setKeyword(search);
+    }
+
+    // ✅ FILTER
+    if (filter === "active") {
+      setPage(0);
+      setIsActive(true);
+      setHasWithdrawal(undefined);
+    } else if (filter === "inactive") {
+      setPage(0);
+      setIsActive(false);
+      setHasWithdrawal(undefined);
+    } else if (filter === "has-withdrawal") {
+      setPage(0);
+      setIsActive(undefined);
+      setHasWithdrawal(true);
+    } else if (filter === "no-withdrawal") {
+      setPage(0);
+      setIsActive(undefined);
+      setHasWithdrawal(false);
+    }
+  };
+
   return (
     <AdminLayout>
       <AdminPageShell
         title="Translators list"
         breadcrumbs={[{ label: "Lists" }, { label: "Translators" }]}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Has withdrawal", value: "has-withdrawal" },
+              { label: "No withdrawal", value: "no-withdrawal" },
+            ]}
+            onApply={handleControlsApply}
+          />
+        }
       >
         {loading && translators.length === 0 && (
           <div className="admin-empty-wrapper">
