@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { approveAdminUserDeposit } from "../../../services/adminUser";
+import {
+  approveAdminUserDeposit,
+  getAdminUserById,
+} from "../../../services/adminUser";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import "../../../styles/Admin/UserPages/UserChargePage.css";
@@ -15,7 +18,7 @@ const UserChargePage = () => {
     location.state?.amount !== undefined && location.state?.amount !== null
       ? String(location.state.amount)
       : "";
-  const phone = location.state?.phone || "-";
+  const [phone, setPhone] = useState(location.state?.phone || "");
 
   const backPath = userId
     ? `/admin/users/${userId}/deposit-history`
@@ -37,6 +40,22 @@ const UserChargePage = () => {
       navigate("/admin/users");
     }
   }, [isInvalidAccess, navigate]);
+
+  useEffect(() => {
+    const fetchUserPhone = async () => {
+      if (phone || !userId || Number.isNaN(Number(userId))) return;
+
+      try {
+        const userData = await getAdminUserById(Number(userId));
+        setPhone(userData?.phone || "-");
+      } catch (apiError) {
+        console.error("Failed to fetch user phone:", apiError);
+        setPhone("-");
+      }
+    };
+
+    fetchUserPhone();
+  }, [phone, userId]);
 
   const handleApproveDeposit = async (e) => {
     e.preventDefault();
@@ -121,7 +140,7 @@ const UserChargePage = () => {
 
               <div className="user-charge-field">
                 <label>Phone</label>
-                <input type="text" value={phone} readOnly />
+                <input type="text" value={phone || "-"} readOnly />
               </div>
 
               <div className="user-charge-field">
