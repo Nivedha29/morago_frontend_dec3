@@ -104,3 +104,43 @@ export const getAdminUserCallHistory = async (
 
   return response.data;
 };
+
+///////////////////////////////////////////////////////////
+// USER DEPOSIT HISTORY
+///////////////////////////////////////////////////////////
+
+export interface UserDepositHistoryItem {
+  id: number;
+  date: string;
+  amount: number;
+  status: "PENDING" | "COMPLETED" | "FAILED" | string;
+}
+
+export interface UserDepositHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+  content: UserDepositHistoryItem[];
+}
+
+export interface GetAdminUserDepositHistoryParams {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export const getAdminUserDepositHistory = async (
+  userId: number,
+  params?: GetAdminUserDepositHistoryParams,
+): Promise<UserDepositHistoryResponse> => {
+  const response = await api.get(`/admin/deposits/history/${userId}`, {
+    params,
+  });
+
+  return response.data;
+};

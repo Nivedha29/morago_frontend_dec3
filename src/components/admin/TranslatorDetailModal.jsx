@@ -1,7 +1,7 @@
 import React from "react";
 import statusIcon from "../../assets/SideBarGear.svg";
 import defaultAvatar from "../../assets/avatar.svg";
-import "../../styles/Admin/TranslatorPages/TranslatorDetailModal.css"
+import "../../styles/Admin/TranslatorPages/TranslatorDetailModal.css";
 
 const TranslatorDetailModal = ({ translator, onClose }) => {
   if (!translator) return null;
