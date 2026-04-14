@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Admin/AdminPageShell.css";
-import AdminControls from "../../components/admin/AdminControls";
 
 const AdminPageShell = ({
   title,
   breadcrumbs = [],
   children,
   showControls = true,
+  controls = null,
 }) => {
   const navigate = useNavigate();
 
@@ -39,10 +39,8 @@ const AdminPageShell = ({
           </div>
         </div>
 
-        {showControls && (
-          <div className="admin-page-shell-right">
-            <AdminControls />
-          </div>
+        {showControls && controls && (
+          <div className="admin-page-shell-right">{controls}</div>
         )}
       </div>
 

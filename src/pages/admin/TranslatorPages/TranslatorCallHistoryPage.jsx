@@ -4,6 +4,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
+import AdminControls from "../../../components/admin/AdminControls";
 import { callHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
 import "../../../styles/Admin/TranslatorPages/TranslatorCallHistoryPage.css";
 
@@ -96,6 +97,22 @@ const TranslatorCallHistoryPage = () => {
     fetchCallHistory();
   }, [id, page, navigate]);
 
+  const handleControlsApply = ({ action }) => {
+    if (action === "show-all") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+    }
+  };
+
   return (
     <AdminLayout>
       <AdminPageShell
@@ -105,6 +122,14 @@ const TranslatorCallHistoryPage = () => {
           { label: "Translators", path: "/admin/translators" },
           { label: "Call history" },
         ]}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[]}
+            disableSearch={true}
+            onApply={handleControlsApply}
+          />
+        }
       >
         {loading && callHistory.length === 0 && (
           <div className="admin-empty-wrapper">

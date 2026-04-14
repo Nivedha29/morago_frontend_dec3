@@ -82,6 +82,22 @@
   margin-right: 50px;
 }
 
+/* disabled search state */
+.admin-controls-search:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.admin-controls-search:disabled::placeholder {
+  color: #bbb;
+}
+
+
+.admin-controls-search-wrapper-disabled .admin-controls-search-icon {
+  opacity: 0.4;
+}
+
 /* laptop */
 @media (max-width: 1440px) {
   .admin-controls-search-wrapper {

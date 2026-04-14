@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminTable from "../../../components/admin/AdminTable";
-import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
 import AdminPagination from "../../../components/admin/AdminPagination";
+import AdminControls from "../../../components/admin/AdminControls";
 import UserDetailModal from "../../../components/admin/UserDetailModal";
+import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
 import { getAdminUsers, getAdminUserById } from "../../../services/adminUser";
 
 const AdminUserPage = () => {
@@ -16,6 +17,10 @@ const AdminUserPage = () => {
   const [page, setPage] = useState(0);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [keyword, setKeyword] = useState("");
+  const [isDebtor, setIsDebtor] = useState(undefined);
+  const [hasDeposit, setHasDeposit] = useState(undefined);
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -37,6 +42,9 @@ const AdminUserPage = () => {
         }
 
         const data = await getAdminUsers({
+          keyword,
+          isDebtor,
+          hasDeposit,
           page,
           size,
           sortBy: "id",
@@ -62,7 +70,7 @@ const AdminUserPage = () => {
     };
 
     fetchUsers();
-  }, [page, size]);
+  }, [keyword, isDebtor, hasDeposit, page, size]);
 
   useEffect(() => {
     const fetchUserDetail = async () => {
@@ -136,11 +144,69 @@ const AdminUserPage = () => {
     },
   );
 
+  const handleControlsApply = ({ search, filter, action }) => {
+    // ACTIONS
+    if (action === "show-all") {
+      setPage(0);
+      setKeyword("");
+      setIsDebtor(undefined);
+      setHasDeposit(undefined);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+      return;
+    }
+
+    // SEARCH
+    if (search !== undefined) {
+      setPage(0);
+      setKeyword(search);
+    }
+
+    // FILTER
+    if (filter === "debtor") {
+      setPage(0);
+      setIsDebtor(true);
+      setHasDeposit(undefined);
+    } else if (filter === "not-debtor") {
+      setPage(0);
+      setIsDebtor(false);
+      setHasDeposit(undefined);
+    } else if (filter === "has-deposit") {
+      setPage(0);
+      setIsDebtor(undefined);
+      setHasDeposit(true);
+    } else if (filter === "no-deposit") {
+      setPage(0);
+      setIsDebtor(undefined);
+      setHasDeposit(false);
+    }
+  };
+
   return (
     <AdminLayout>
       <AdminPageShell
         title="Users list"
         breadcrumbs={[{ label: "Lists" }, { label: "Users" }]}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[
+              { label: "Debtor", value: "debtor" },
+              { label: "Not debtor", value: "not-debtor" },
+              { label: "Has deposit", value: "has-deposit" },
+              { label: "No deposit", value: "no-deposit" },
+            ]}
+            onApply={handleControlsApply}
+          />
+        }
       >
         {loading && users.length === 0 && (
           <div className="admin-empty-wrapper">

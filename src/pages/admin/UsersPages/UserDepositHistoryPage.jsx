@@ -5,6 +5,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
+import AdminControls from "../../../components/admin/AdminControls";
 import { userDepositHistoryColumns } from "../../../components/admin/DefaultUserColumns";
 import "../../../styles/Admin/UserPages/UserDepositHistoryPage.css";
 
@@ -82,13 +83,36 @@ const UserDepositHistoryPage = () => {
     });
   };
 
+  const handleControlsApply = ({ action }) => {
+    if (action === "show-all") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+    }
+  };
+
   const depositColumns = userDepositHistoryColumns(handleOpenChargePage);
 
   return (
     <AdminLayout>
       <AdminPageShell
         title={`Deposit history ${selectedUserName}`}
-        showControls={false}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[]}
+            disableSearch={true}
+            onApply={handleControlsApply}
+          />
+        }
         breadcrumbs={[
           { label: "Lists" },
           { label: "Users", path: "/admin/users" },

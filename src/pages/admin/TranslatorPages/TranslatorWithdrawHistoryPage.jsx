@@ -4,6 +4,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
+import AdminControls from "../../../components/admin/AdminControls";
 import "../../../styles/Admin/TranslatorPages/TranslatorWithdrawHistoryPage.css";
 import { getWithdrawalHistoryByUserId } from "../../../services/admin";
 import { translatorWithdrawHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
@@ -59,13 +60,36 @@ const TranslatorWithdrawHistoryPage = () => {
     fetchWithdrawalHistory();
   }, [translatorId, page]);
 
+  const handleControlsApply = ({ action }) => {
+    if (action === "show-all") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+    }
+  };
+
   const withdrawalColumns = translatorWithdrawHistoryColumns();
 
   return (
     <AdminLayout>
       <AdminPageShell
         title="Withdraw History"
-        showControls={false}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[]}
+            disableSearch={true}
+            onApply={handleControlsApply}
+          />
+        }
         breadcrumbs={[
           { label: "Lists" },
           { label: "Translators", path: "/admin/translators" },
