@@ -32,7 +32,7 @@ const UserCallHistoryPage = () => {
       try {
         setError("");
 
-        if (calls.length === 0) {
+        if (page === 0) {
           setLoading(true);
         } else {
           setIsFetching(true);

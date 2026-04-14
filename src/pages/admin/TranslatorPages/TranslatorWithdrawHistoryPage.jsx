@@ -25,7 +25,7 @@ const TranslatorWithdrawHistoryPage = () => {
       try {
         setError("");
 
-        if (withdrawals.length === 0) {
+        if (page === 0) {
           setLoading(true);
         } else {
           setIsFetching(true);

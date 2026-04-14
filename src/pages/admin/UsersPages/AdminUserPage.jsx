@@ -30,7 +30,7 @@ const AdminUserPage = () => {
       try {
         setError("");
 
-        if (users.length === 0) {
+        if (page === 0) {
           setLoading(true);
         } else {
           setIsFetching(true);
