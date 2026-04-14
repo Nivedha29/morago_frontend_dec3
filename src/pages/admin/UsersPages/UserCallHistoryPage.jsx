@@ -17,6 +17,7 @@ const UserCallHistoryPage = () => {
 
   const [calls, setCalls] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -29,8 +30,13 @@ const UserCallHistoryPage = () => {
       }
 
       try {
-        setLoading(true);
         setError("");
+
+        if (calls.length === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
 
         const data = await getAdminUserCallHistory(Number(userId), {
           page,
@@ -53,6 +59,7 @@ const UserCallHistoryPage = () => {
         setError(backendMessage);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
@@ -63,39 +70,31 @@ const UserCallHistoryPage = () => {
     <AdminLayout>
       <AdminPageShell
         title={`Call history ${selectedUserName}`}
-        breadcrumbSection="Lists"
-        breadcrumbPage="Users / Call history"
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Users", path: "/admin/users" },
+          { label: "Call History" },
+        ]}
       >
-        {/* Loading */}
-        {loading && (
+        {loading && calls.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading call history...</div>
           </div>
         )}
 
-        {/* Error */}
-        {!loading && error && (
+        {!loading && error && calls.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {/* Content */}
-        {!loading && !error && (
+        {calls.length > 0 && (
           <>
-            {calls.length > 0 && (
-              <AdminTable
-                data={calls}
-                columns={userCallHistoryColumns}
-                tableClassName="user-call-history-table"
-              />
-            )}
-
-            {calls.length === 0 && (
-              <div className="admin-empty-wrapper">
-                <div className="admin-empty-state">No call history found</div>
-              </div>
-            )}
+            <AdminTable
+              data={calls}
+              columns={userCallHistoryColumns}
+              tableClassName="user-call-history-table"
+            />
 
             {totalPages > 0 && (
               <div className="admin-page-footer">
@@ -107,6 +106,12 @@ const UserCallHistoryPage = () => {
               </div>
             )}
           </>
+        )}
+
+        {!loading && !isFetching && !error && calls.length === 0 && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No call history found</div>
+          </div>
         )}
       </AdminPageShell>
     </AdminLayout>

@@ -61,9 +61,12 @@ const TranslatorWithdrawPage = () => {
     <AdminLayout>
       <AdminPageShell
         title="Withdraw"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Translators / Withdraw"
         showControls={false}
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Translators", path: "/admin/translators" },
+          { label: "Withdraw" },
+        ]}
       >
         {loading && (
           <div className="admin-empty-wrapper">

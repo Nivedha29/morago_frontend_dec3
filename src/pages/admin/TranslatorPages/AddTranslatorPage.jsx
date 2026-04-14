@@ -117,9 +117,12 @@ const AddTranslatorPage = () => {
     <AdminLayout>
       <AdminPageShell
         title="Add translator"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Translators / Add translator"
         showControls={false}
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Translators", path: "/admin/translators" },
+          { label: "Add translator" },
+        ]}
       >
         <div className="add-translator-page">
           <div className="add-translator-card">
@@ -219,7 +222,9 @@ const AddTranslatorPage = () => {
                     >
                       <span>{topikLevel || "Level"}</span>
                       <span
-                        className={`custom-dropdown-arrow ${isTopikOpen ? "open" : ""}`}
+                        className={`custom-dropdown-arrow ${
+                          isTopikOpen ? "open" : ""
+                        }`}
                       >
                         ▾
                       </span>
@@ -271,7 +276,9 @@ const AddTranslatorPage = () => {
                           : "Select languages"}
                       </span>
                       <span
-                        className={`custom-dropdown-arrow ${isLangOpen ? "open" : ""}`}
+                        className={`custom-dropdown-arrow ${
+                          isLangOpen ? "open" : ""
+                        }`}
                       >
                         ▾
                       </span>

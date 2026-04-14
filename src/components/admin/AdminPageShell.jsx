@@ -1,14 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Admin/AdminPageShell.css";
 import AdminControls from "../../components/admin/AdminControls";
 
 const AdminPageShell = ({
   title,
-  breadcrumbSection,
-  breadcrumbPage,
+  breadcrumbs = [],
   children,
   showControls = true,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <section className="admin-page-shell">
       <div className="admin-page-shell-header">
@@ -17,12 +19,23 @@ const AdminPageShell = ({
 
           <div className="admin-page-shell-breadcrumb">
             <span className="admin-breadcrumb-home">Home</span>
-            <span className="admin-breadcrumb-separator">/</span>
-            <span className="admin-breadcrumb-section">
-              {breadcrumbSection}
-            </span>
-            <span className="admin-breadcrumb-separator">/</span>
-            <span className="admin-breadcrumb-page">{breadcrumbPage}</span>
+
+            {breadcrumbs.map((crumb, index) => (
+              <React.Fragment key={`${crumb.label}-${index}`}>
+                <span className="admin-breadcrumb-separator">/</span>
+
+                {crumb.path ? (
+                  <span
+                    className="admin-breadcrumb-link"
+                    onClick={() => navigate(crumb.path)}
+                  >
+                    {crumb.label}
+                  </span>
+                ) : (
+                  <span className="admin-breadcrumb-page">{crumb.label}</span>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
 

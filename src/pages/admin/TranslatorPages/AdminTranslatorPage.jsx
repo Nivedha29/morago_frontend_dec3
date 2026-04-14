@@ -14,6 +14,7 @@ import {
 const AdminTranslatorPage = () => {
   const [translators, setTranslators] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [size] = useState(5);
@@ -28,8 +29,13 @@ const AdminTranslatorPage = () => {
   useEffect(() => {
     const fetchTranslators = async () => {
       try {
-        setLoading(true);
         setError("");
+
+        if (translators.length === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
 
         const data = await getAdminTranslators({
           page,
@@ -52,6 +58,7 @@ const AdminTranslatorPage = () => {
         setError(backendMessage);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
@@ -100,42 +107,43 @@ const AdminTranslatorPage = () => {
     <AdminLayout>
       <AdminPageShell
         title="Translators list"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Translators"
+        breadcrumbs={[{ label: "Lists" }, { label: "Translators" }]}
       >
-        {loading && (
+        {loading && translators.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading translators...</div>
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && error && translators.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {!loading && !error && translators.length === 0 && (
+        {translators.length > 0 && (
+          <>
+            <AdminTable
+              data={translators}
+              columns={translatorColumns}
+              tableClassName="admin-translator-table"
+            />
+
+            {totalPages > 0 && (
+              <div className="admin-page-footer">
+                <AdminPagination
+                  page={page}
+                  setPage={setPage}
+                  totalPages={totalPages}
+                />
+              </div>
+            )}
+          </>
+        )}
+
+        {!loading && !isFetching && !error && translators.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">No translators found.</div>
-          </div>
-        )}
-
-        {!loading && !error && translators.length > 0 && (
-          <AdminTable
-            data={translators}
-            columns={translatorColumns}
-            tableClassName="admin-translator-table"
-          />
-        )}
-
-        {!loading && totalPages > 0 && (
-          <div className="admin-page-footer">
-            <AdminPagination
-              page={page}
-              setPage={setPage}
-              totalPages={totalPages}
-            />
           </div>
         )}
       </AdminPageShell>
