@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import "../../styles/AdminTable.css";
 import eyeIcon from "../../assets/eye.svg";
 
@@ -80,20 +81,33 @@ const AdminTable = ({
   data,
   columns,
   onViewTranslator,
+=======
+import "../../styles/Admin/AdminTable.css";
+
+const AdminTable = ({
+  data = [],
+  columns = [],
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
   rowKey = "id",
+  tableClassName = "",
 }) => {
+<<<<<<< HEAD
   const tableData = data || translators;
   const tableColumns = columns || defaultTranslatorColumns(onViewTranslator);
 
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
   return (
-    <div className="admin-table">
-      <div className="admin-table-header">
-        {tableColumns.map((column) => (
+    <div className={`morago-admin-table ${tableClassName}`.trim()}>
+      <div className="morago-admin-table__header">
+        {columns.map((column) => (
           <div
             key={column.key}
-            className={`admin-table-cell ${
+            className={`morago-admin-table__cell ${
               column.cellClassName || ""
-            } ${column.headerClassName || "admin-table-header-cell"}`.trim()}
+            } ${
+              column.headerClassName || "morago-admin-table__header-cell"
+            }`.trim()}
           >
             {React.isValidElement(column.header) ? (
               column.header
@@ -101,7 +115,7 @@ const AdminTable = ({
               <>
                 <span>{column.header}</span>
                 {!column.disableSortArrow && (
-                  <span className="admin-table-sort-arrow">▾</span>
+                  <span className="morago-admin-table__sort-arrow">▾</span>
                 )}
               </>
             ) : null}
@@ -109,9 +123,9 @@ const AdminTable = ({
         ))}
       </div>
 
-      {tableData.map((row, index) => (
-        <div className="admin-table-row" key={row[rowKey] ?? index}>
-          {tableColumns.map((column) => {
+      {data.map((row, index) => (
+        <div className="morago-admin-table__row" key={row[rowKey] ?? index}>
+          {columns.map((column) => {
             const content = column.render
               ? column.render(row)
               : row[column.key] ?? "-";
@@ -119,11 +133,18 @@ const AdminTable = ({
             return (
               <div
                 key={column.key}
+<<<<<<< HEAD
                 className={`admin-table-cell ${column.cellClassName || ""}`.trim()}
                 onClick={
                   column.onClick ? () => column.onClick(row) : undefined
                 }
                 style={column.onClick ? { cursor: "pointer" } : undefined}
+=======
+                className={`morago-admin-table__cell ${
+                  column.cellClassName || ""
+                } ${column.onClick ? "morago-admin-table__link" : ""}`.trim()}
+                onClick={column.onClick ? () => column.onClick(row) : undefined}
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
               >
                 {content}
               </div>
@@ -135,4 +156,8 @@ const AdminTable = ({
   );
 };
 
+<<<<<<< HEAD
 export default AdminTable;
+=======
+export default AdminTable;
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
