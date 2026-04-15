@@ -58,4 +58,7 @@ const AdminTable = ({
   );
 };
 
+<<<<<<< HEAD
+export default AdminTable;
+=======
 export default AdminTable;

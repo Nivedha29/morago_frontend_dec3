@@ -1,5 +1,12 @@
 import api from "./api";
 
+<<<<<<< HEAD
+=======
+///////////////////////////////////////////////////////////
+// Categories
+///////////////////////////////////////////////////////////
+
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 const ADMIN_CATEGORIES_BASE = "/admin/categories";
 
 export interface CategoryItem {
@@ -29,6 +36,7 @@ export interface GetAdminCategoriesParams {
   sortDirection?: "ASC" | "DESC";
 }
 
+<<<<<<< HEAD
 export interface CategoryDetailResponse {
   id: number;
   name: string;
@@ -39,11 +47,18 @@ export const getAdminCategories = async (
   params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
   const response = await api.get<CategoryListResponse>(ADMIN_CATEGORIES_BASE, {
+=======
+export const getAdminCategories = async (
+  params?: GetAdminCategoriesParams,
+): Promise<CategoryListResponse> => {
+  const response = await api.get(ADMIN_CATEGORIES_BASE, {
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
     params,
   });
 
   return response.data;
 };
+<<<<<<< HEAD
 
 export const getAdminCategoryById = async (
   id: number,
@@ -54,3 +69,5 @@ export const getAdminCategoryById = async (
 
   return response.data;
 };
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
