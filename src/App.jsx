@@ -17,7 +17,7 @@ import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryP
 import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
 import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
-import AdminThemesPage from "./pages/ThemesPages/AdminThemesPage.jsx";
+import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
 
