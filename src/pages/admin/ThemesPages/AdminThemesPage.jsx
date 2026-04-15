@@ -4,8 +4,12 @@ import AdminPageShell from "../../../components/admin/AdminPageShell.jsx";
 import AdminTable from "../../../components/admin/AdminTable.jsx";
 import AdminPagination from "../../../components/admin/AdminPagination.jsx";
 import AdminControls from "../../../components/admin/AdminControls.jsx";
+import ThemeDetailModal from "../../../components/admin/ThemeDetailModal.jsx";
 import { defaultThemeColumns } from "../../../components/admin/DefaultThemeColumns.jsx";
-import { getAdminThemes } from "../../../services/adminThemes.ts";
+import {
+  getAdminThemes,
+  getAdminThemeById,
+} from "../../../services/adminThemes.ts";
 
 const AdminThemesPage = () => {
   const [themes, setThemes] = useState([]);
@@ -18,6 +22,12 @@ const AdminThemesPage = () => {
 
   const [keyword, setKeyword] = useState("");
   const [isActive, setIsActive] = useState(undefined);
+
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+  const [selectedThemeId, setSelectedThemeId] = useState(null);
+  const [selectedTheme, setSelectedTheme] = useState(null);
+  const [themeDetailLoading, setThemeDetailLoading] = useState(false);
+  const [themeDetailError, setThemeDetailError] = useState("");
 
   useEffect(() => {
     const fetchThemes = async () => {
@@ -60,6 +70,49 @@ const AdminThemesPage = () => {
     fetchThemes();
   }, [keyword, isActive, page, size]);
 
+  useEffect(() => {
+    const fetchThemeDetail = async () => {
+      if (!selectedThemeId || !isThemeModalOpen) return;
+
+      try {
+        setThemeDetailLoading(true);
+        setThemeDetailError("");
+        setSelectedTheme(null);
+
+        const data = await getAdminThemeById(selectedThemeId);
+        setSelectedTheme(data);
+      } catch (apiError) {
+        console.error("Failed to fetch theme details:", apiError);
+
+        const backendMessage =
+          apiError?.message ||
+          apiError?.details?.error ||
+          apiError?.details?.message ||
+          "Failed to fetch theme details";
+
+        setThemeDetailError(backendMessage);
+      } finally {
+        setThemeDetailLoading(false);
+      }
+    };
+
+    fetchThemeDetail();
+  }, [selectedThemeId, isThemeModalOpen]);
+
+  const handleOpenThemeModal = (theme) => {
+    setSelectedThemeId(theme.id);
+    setIsThemeModalOpen(true);
+    setThemeDetailLoading(true);
+  };
+
+  const handleCloseThemeModal = () => {
+    setIsThemeModalOpen(false);
+    setSelectedThemeId(null);
+    setSelectedTheme(null);
+    setThemeDetailError("");
+    setThemeDetailLoading(false);
+  };
+
   const handleControlsApply = ({ search, filter, action }) => {
     if (action === "show-all") {
       setPage(0);
@@ -93,7 +146,7 @@ const AdminThemesPage = () => {
   };
 
   const themeColumns = defaultThemeColumns((theme) => {
-    console.log("View theme:", theme);
+    handleOpenThemeModal(theme);
   });
 
   return (
@@ -148,6 +201,15 @@ const AdminThemesPage = () => {
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">No themes found.</div>
           </div>
+        )}
+
+        {isThemeModalOpen && (
+          <ThemeDetailModal
+            theme={selectedTheme}
+            loading={themeDetailLoading}
+            error={themeDetailError}
+            onClose={handleCloseThemeModal}
+          />
         )}
       </AdminPageShell>
     </AdminLayout>

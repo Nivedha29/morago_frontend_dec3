@@ -1,74 +1,89 @@
 import React from "react";
-import "../../styles/ThemeDetailModal.css";
 import eyeIcon from "../../assets/eye.svg";
+import "../../styles/Admin/ThemesPages/ThemeDetailModal.css"
 
 const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
   if (!theme && !loading && !error) return null;
 
   return (
-    <div className="theme-modal-overlay" onClick={onClose}>
-      <div className="theme-modal" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="theme-modal-close" onClick={onClose}>
+    <div className="morago-theme-detail-modal__overlay" onClick={onClose}>
+      <div
+        className="morago-theme-detail-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="morago-theme-detail-modal__close"
+          onClick={onClose}
+        >
           ×
         </button>
 
         {loading ? (
-          <p className="theme-modal-state">Loading...</p>
+          <p className="morago-theme-detail-modal__state">Loading...</p>
         ) : error ? (
-          <p className="theme-modal-state error">{error}</p>
+          <p className="morago-theme-detail-modal__state morago-theme-detail-modal__state--error">
+            {error}
+          </p>
         ) : (
           <>
-            <div className="theme-modal-top">
-              <div className="theme-modal-image-wrap">
+            <div className="morago-theme-detail-modal__top">
+              <div className="morago-theme-detail-modal__image-wrap">
                 {theme?.iconUrl ? (
                   <img
                     src={theme.iconUrl}
                     alt={theme.title || theme.name}
-                    className="theme-modal-image"
+                    className="morago-theme-detail-modal__image"
                   />
                 ) : (
-                  <div className="theme-modal-image-placeholder">
+                  <div className="morago-theme-detail-modal__image-placeholder">
                     <img
                       src={eyeIcon}
                       alt="theme"
-                      className="theme-modal-placeholder-icon"
+                      className="morago-theme-detail-modal__placeholder-icon"
                     />
                   </div>
                 )}
               </div>
 
-              <div className="theme-modal-banner" />
+              <div className="morago-theme-detail-modal__banner" />
 
-              <div className="theme-modal-actions">
-                <button type="button" className="theme-modal-action-btn">
+              <div className="morago-theme-detail-modal__actions">
+                <button
+                  type="button"
+                  className="morago-theme-detail-modal__action-btn"
+                >
                   Edit <span>→</span>
                 </button>
 
-                <button type="button" className="theme-modal-action-btn">
+                <button
+                  type="button"
+                  className="morago-theme-detail-modal__action-btn"
+                >
                   Status <span>⚙</span>
                 </button>
               </div>
             </div>
 
-            <div className="theme-modal-info">
-              <div className="theme-modal-info-left">
-                <p className="theme-modal-label">Theme name</p>
-                <p className="theme-modal-value">
+            <div className="morago-theme-detail-modal__info">
+              <div className="morago-theme-detail-modal__info-left">
+                <p className="morago-theme-detail-modal__label">Theme name</p>
+                <p className="morago-theme-detail-modal__value">
                   {theme?.title || theme?.name || "-"}
                 </p>
               </div>
 
-              <div className="theme-modal-info-right">
-                <div className="theme-modal-info-block">
-                  <p className="theme-modal-label">Category:</p>
-                  <p className="theme-modal-subvalue">
+              <div className="morago-theme-detail-modal__info-right">
+                <div className="morago-theme-detail-modal__info-block">
+                  <p className="morago-theme-detail-modal__label">Category:</p>
+                  <p className="morago-theme-detail-modal__subvalue">
                     {theme?.categoryId ?? "-"}
                   </p>
                 </div>
 
-                <div className="theme-modal-info-block">
-                  <p className="theme-modal-label">Status:</p>
-                  <p className="theme-modal-subvalue">
+                <div className="morago-theme-detail-modal__info-block">
+                  <p className="morago-theme-detail-modal__label">Status:</p>
+                  <p className="morago-theme-detail-modal__subvalue">
                     {theme?.isActive ? "Active" : "Inactive"}
                   </p>
                 </div>
