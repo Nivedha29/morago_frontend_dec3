@@ -1,157 +1,76 @@
-import React, { useEffect, useState } from "react";
-import AdminLayout from "../../components/admin/AdminLayout.jsx";
-import AdminPageShell from "../../components/admin/AdminPageShell.jsx";
-import AdminTable from "../../components/admin/AdminTable.jsx";
-import AdminPagination from "../../components/admin/AdminPagination.jsx";
-import AdminControls from "../../components/admin/AdminControls.jsx";
-import { defaultThemeColumns } from "../../components/admin/DefaultThemeColumns.jsx";
-import { getAdminThemes } from "../../services/adminThemes.ts";
+import React from "react";
+import defaultAvatar from "../../assets/avatar.svg";
+import "../../styles/Admin/UserPages/UserDetailModal.css";
 
-const AdminThemesPage = () => {
-  const [themes, setThemes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState("");
-  const [page, setPage] = useState(0);
-  const [size] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
-
-  const [keyword, setKeyword] = useState("");
-  const [isActive, setIsActive] = useState(undefined);
-
-  useEffect(() => {
-    const fetchThemes = async () => {
-      try {
-        setError("");
-
-        if (page === 0) {
-          setLoading(true);
-        } else {
-          setIsFetching(true);
-        }
-
-        const data = await getAdminThemes({
-          keyword,
-          isActive,
-          page,
-          size,
-          sortBy: "id",
-          sortDirection: "ASC",
-        });
-
-        setThemes(data.content || []);
-        setTotalPages(data.totalPages || 0);
-      } catch (apiError) {
-        console.error("Failed to fetch themes:", apiError);
-
-        const backendMessage =
-          apiError?.message ||
-          apiError?.details?.error ||
-          apiError?.details?.message ||
-          "Failed to fetch themes";
-
-        setError(backendMessage);
-      } finally {
-        setLoading(false);
-        setIsFetching(false);
-      }
-    };
-
-    fetchThemes();
-  }, [keyword, isActive, page, size]);
-
-  const handleControlsApply = ({ search, filter, action }) => {
-    if (action === "show-all") {
-      setPage(0);
-      setKeyword("");
-      setIsActive(undefined);
-      return;
-    }
-
-    if (action === "first-page") {
-      setPage(0);
-      return;
-    }
-
-    if (action === "last-page") {
-      setPage(Math.max(0, totalPages - 1));
-      return;
-    }
-
-    if (search !== undefined) {
-      setPage(0);
-      setKeyword(search);
-    }
-
-    if (filter === "active") {
-      setPage(0);
-      setIsActive(true);
-    } else if (filter === "inactive") {
-      setPage(0);
-      setIsActive(false);
-    }
-  };
-
-  const themeColumns = defaultThemeColumns((theme) => {
-    console.log("View theme:", theme);
-  });
+const UserDetailModal = ({ user, loading, error, onClose }) => {
+  if (!loading && !error && !user) return null;
 
   return (
-    <AdminLayout>
-      <AdminPageShell
-        title="Themes"
-        breadcrumbs={[{ label: "Translation topics" }, { label: "Themes" }]}
-        showControls
-        controls={
-          <AdminControls
-            filterOptions={[
-              { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-            ]}
-            onApply={handleControlsApply}
-          />
-        }
-      >
-        {loading && themes.length === 0 && (
-          <div className="admin-empty-wrapper">
-            <div className="admin-empty-state">Loading themes...</div>
-          </div>
-        )}
+    <div className="user-modal-overlay" onClick={onClose}>
+      <div className="user-modal" onClick={(e) => e.stopPropagation()}>
+        <button type="button" className="user-modal-close" onClick={onClose}>
+          ×
+        </button>
 
-        {!loading && error && themes.length === 0 && (
-          <div className="admin-empty-wrapper">
-            <div className="admin-empty-state">{error}</div>
-          </div>
-        )}
-
-        {themes.length > 0 && (
-          <>
-            <AdminTable
-              data={themes}
-              columns={themeColumns}
-              tableClassName="admin-themes-table"
+        <div className="user-modal-body">
+          <div className="user-modal-top">
+            <img
+              alt="avatar"
+              className="user-modal-avatar"
+              src={defaultAvatar}
             />
 
-            {totalPages > 0 && (
-              <div className="admin-page-footer">
-                <AdminPagination
-                  page={page}
-                  setPage={setPage}
-                  totalPages={totalPages}
-                />
-              </div>
-            )}
-          </>
-        )}
-
-        {!loading && !isFetching && !error && themes.length === 0 && (
-          <div className="admin-empty-wrapper">
-            <div className="admin-empty-state">No themes found.</div>
+            <div className="user-modal-actions">
+              <button type="button" className="user-modal-btn">
+                <span>Edit account</span>
+                <span className="user-modal-btn-arrow">→</span>
+              </button>
+            </div>
           </div>
-        )}
-      </AdminPageShell>
-    </AdminLayout>
+
+          {loading && (
+            <p className="user-modal-state">Loading user details...</p>
+          )}
+
+          {!loading && error && (
+            <p className="user-modal-state user-modal-error">{error}</p>
+          )}
+
+          {!loading && !error && user && (
+            <div className="user-modal-info">
+              <div className="user-modal-left">
+                <h3 className="user-modal-name">
+                  {user.firstName || user.lastName
+                    ? `${user.firstName || ""} ${user.lastName || ""}`.trim()
+                    : "-"}
+                </h3>
+              </div>
+
+              <div className="user-modal-right">
+                <p>
+                  <strong>Phone:</strong> {user.phone || "-"}
+                </p>
+
+                <p>
+                  <strong>Deposit Request:</strong>{" "}
+                  {user.hasDepositRequest ? "Yes" : "No"}
+                </p>
+
+                <p>
+                  <strong>Coins:</strong> {user.balance ?? 0}
+                </p>
+
+                <button type="button" className="user-modal-charge-btn">
+                  <span className="user-modal-charge-icon">$</span>
+                  Charge <span>›</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default AdminThemesPage;
+export default UserDetailModal;

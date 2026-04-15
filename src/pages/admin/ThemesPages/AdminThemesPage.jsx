@@ -17,7 +17,7 @@ const AdminThemesPage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
-  const [size] = useState(10);
+  const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
 
   const [keyword, setKeyword] = useState("");
