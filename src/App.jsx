@@ -6,12 +6,16 @@ import { Routes, Route } from "react-router-dom";
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 import AdminTranslatorPage from "./pages/admin/TranslatorPages/AdminTranslatorPage.jsx";
 import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.jsx";
 import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
 import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
 import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
+<<<<<<< HEAD
 
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
@@ -35,6 +39,17 @@ import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 >>>>>>> e87b76b ( Style: Polished Styling and Routing)
+=======
+
+import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
+import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
+import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
+import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
+import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
+
+import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
+import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
 
@@ -66,14 +81,20 @@ const App = () => {
       />
       <Route
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
         path="/admin/translators/:translatorId/withdraw-history"
         element={<TranslatorWithdrawHistoryPage />}
       />
       <Route
         path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
+<<<<<<< HEAD
 =======
         path="/admin/translators/:translatorId/withdraw-history/:withdrawalId/approval"
 >>>>>>> e87b76b ( Style: Polished Styling and Routing)
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
         element={<TranslatorWithdrawApproval />}
       />
       <Route
@@ -83,6 +104,9 @@ const App = () => {
 
       <Route path="/admin/users" element={<AdminUserPage />} />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
       <Route
         path="/admin/users/:userId/call-history"
         element={<AdminUserCallHistoryPage />}
@@ -96,6 +120,7 @@ const App = () => {
         element={<UserChargePage />}
       />
       <Route path="/admin/users/add" element={<AddUserPage />} />
+<<<<<<< HEAD
 =======
       <Route path="/admin/users/:userId" element={<UserDetailModal />} />
       <Route
@@ -104,6 +129,8 @@ const App = () => {
       />
 
 >>>>>>> e87b76b ( Style: Polished Styling and Routing)
+=======
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />

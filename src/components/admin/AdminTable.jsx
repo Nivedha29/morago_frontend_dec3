@@ -58,4 +58,8 @@ const AdminTable = ({
   );
 };
 
+<<<<<<< HEAD
 export default AdminTable;
+=======
+export default AdminTable;
+>>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
