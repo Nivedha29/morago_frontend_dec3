@@ -6,7 +6,7 @@ import AdminPagination from "../../components/admin/AdminPagination";
 
 const AdminCategoriesPage = () => {
   return (
-   <AdminLayout>
+    <AdminLayout>
       <AdminPageShell
         title="Categories list"
         breadcrumbSection="Lists"

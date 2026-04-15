@@ -18,7 +18,7 @@ export interface ThemeItem {
 
 export interface ThemeListResponse {
   content: ThemeItem[];
-  page: number;
+  number: number;
   size: number;
   totalElements: number;
   totalPages: number;
@@ -33,73 +33,6 @@ export interface GetAdminThemesParams {
   sortDirection?: "ASC" | "DESC";
 }
 
-export const getAdminThemes = async (
-  params: GetAdminThemesParams = {},
-): Promise<ThemeListResponse> => {
-  const response = await api.get("/admin/themes", {
-    params: {
-      page: 0,
-      size: 10,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
-  });
-
-  return response.data;
-};
-
-export const getAdminThemeById = async (id: number): Promise<ThemeItem> => {
-  const response = await api.get(`/admin/themes/${id}`);
-  return response.data;
-};
-
-///////////////////////////////////////////////////////////
-// Create Themes
-///////////////////////////////////////////////////////////
-
-export interface CategoryItem {
-  id: number;
-  name: string;
-  isActive: boolean;
-}
-
-export interface CategoryListResponse {
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number;
-  first: boolean;
-  last: boolean;
-  empty: boolean;
-  content: CategoryItem[];
-}
-
-export interface GetAdminCategoriesParams {
-  isActive?: boolean;
-  keyword?: string;
-  page?: number;
-  size?: number;
-  sortBy?: string;
-  sortDirection?: "ASC" | "DESC";
-}
-
-export const getAdminCategories = async (
-  params: GetAdminCategoriesParams = {},
-): Promise<CategoryListResponse> => {
-  const response = await api.get("/admin/categories", {
-    params: {
-      page: 0,
-      size: 50,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
-  });
-
-  return response.data;
-};
-
 export interface CreateThemePayload {
   name: string;
   title: string;
@@ -108,18 +41,30 @@ export interface CreateThemePayload {
   description: string;
   descriptionEn: string;
   descriptionRu: string;
-  price: number;
-  nightPrice: number;
-  isPopular: boolean;
   isActive: boolean;
-  iconId: number;
   categoryId: number;
+  isPopular: boolean;
 }
+
+export const getAdminThemes = async (
+  params?: GetAdminThemesParams,
+): Promise<ThemeListResponse> => {
+  const response = await api.get(ADMIN_THEMES_BASE, {
+    params,
+  });
+
+  return response.data;
+};
+
+export const getAdminThemeById = async (id: number): Promise<ThemeItem> => {
+  const response = await api.get(`${ADMIN_THEMES_BASE}/${id}`);
+  return response.data;
+};
 
 export const createAdminTheme = async (
   payload: CreateThemePayload,
 ): Promise<ThemeItem> => {
-  const response = await api.post("/admin/themes", payload);
+  const response = await api.post(ADMIN_THEMES_BASE, payload);
   return response.data;
 };
 
@@ -130,11 +75,15 @@ export const uploadAdminThemeIcon = async (
   const formData = new FormData();
   formData.append("icon", file);
 
-  const response = await api.post(`/admin/themes/${themeId}/icon`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
+  const response = await api.post(
+    `${ADMIN_THEMES_BASE}/${themeId}/icon`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     },
-  });
+  );
 
   return response.data;
 };
