@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import AdminLayout from "../../components/admin/AdminLayout.jsx";
-import AdminPageShell from "../../components/admin/AdminPageShell.jsx";
-import AdminTable from "../../components/admin/AdminTable.jsx";
-import AdminPagination from "../../components/admin/AdminPagination.jsx";
-import AdminControls from "../../components/admin/AdminControls.jsx";
-import { defaultThemeColumns } from "../../components/admin/DefaultThemeColumns.jsx";
-import { getAdminThemes } from "../../services/adminThemes.ts";
+import AdminLayout from "../../../components/admin/AdminLayout.jsx";
+import AdminPageShell from "../../../components/admin/AdminPageShell.jsx";
+import AdminTable from "../../../components/admin/AdminTable.jsx";
+import AdminPagination from "../../../components/admin/AdminPagination.jsx";
+import AdminControls from "../../../components/admin/AdminControls.jsx";
+import { defaultThemeColumns } from "../../../components/admin/DefaultThemeColumns.jsx";
+import { getAdminThemes } from "../../../services/adminThemes.ts";
 
 const AdminThemesPage = () => {
   const [themes, setThemes] = useState([]);
