@@ -31,16 +31,10 @@ export interface GetAdminUsersParams {
 }
 
 export const getAdminUsers = async (
-  params: GetAdminUsersParams = {},
+  params?: GetAdminUsersParams,
 ): Promise<UserListResponse> => {
   const response = await api.get("/admin/users", {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+    params,
   });
 
   return response.data;
@@ -62,6 +56,13 @@ export const getAdminUserById = async (
   return response.data;
 };
 
+<<<<<<< HEAD
+=======
+///////////////////////////////////////////////////////////
+// USER CALL HISTORY
+///////////////////////////////////////////////////////////
+
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 export interface UserCallHistoryItem {
   date: string;
   phone: string;
@@ -103,6 +104,13 @@ export const getAdminUserCallHistory = async (
   return response.data;
 };
 
+<<<<<<< HEAD
+=======
+///////////////////////////////////////////////////////////
+// USER DEPOSIT HISTORY
+///////////////////////////////////////////////////////////
+
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 export interface UserDepositHistoryItem {
   id: number;
   date: string;
@@ -139,6 +147,13 @@ export const getAdminUserDepositHistory = async (
   return response.data;
 };
 
+<<<<<<< HEAD
+=======
+///////////////////////////////////////////////////////////
+// USER DEPOSIT CHARGE
+///////////////////////////////////////////////////////////
+
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 export interface ApproveUserDepositPayload {
   sum: number;
 }
@@ -150,6 +165,13 @@ export const approveAdminUserDeposit = async (
   await api.put(`/admin/deposits/${depositId}`, payload);
 };
 
+<<<<<<< HEAD
+=======
+///////////////////////////////////////////////////////////
+// CREATE USER
+///////////////////////////////////////////////////////////
+
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 export interface CreateAdminUserPayload {
   password: string;
   confirmPassword: string;

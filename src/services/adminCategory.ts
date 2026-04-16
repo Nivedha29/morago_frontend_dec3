@@ -1,9 +1,12 @@
 import api from "./api";
 
+<<<<<<< HEAD
 ///////////////////////////////////////////////////////////
 // Categories
 ///////////////////////////////////////////////////////////
 
+=======
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 const ADMIN_CATEGORIES_BASE = "/admin/categories";
 
 export interface CategoryItem {
@@ -15,18 +18,18 @@ export interface CategoryItem {
 export interface CategoryListResponse {
   totalElements: number;
   totalPages: number;
-  number: number;
   size: number;
+  content: CategoryItem[];
+  number: number;
   first: boolean;
   last: boolean;
-  empty: boolean;
   numberOfElements: number;
-  content: CategoryItem[];
+  empty: boolean;
 }
 
 export interface GetAdminCategoriesParams {
-  keyword?: string;
   isActive?: boolean;
+  keyword?: string;
   page?: number;
   size?: number;
   sortBy?: string;
@@ -51,17 +54,21 @@ export const getAdminCategories = async (
   params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
   const response = await api.get<CategoryListResponse>(ADMIN_CATEGORIES_BASE, {
+<<<<<<< HEAD
 =======
 export const getAdminCategories = async (
   params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
   const response = await api.get(ADMIN_CATEGORIES_BASE, {
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
+=======
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
     params,
   });
 
   return response.data;
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 export const getAdminCategoryById = async (
@@ -75,3 +82,5 @@ export const getAdminCategoryById = async (
 };
 =======
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
+=======
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
