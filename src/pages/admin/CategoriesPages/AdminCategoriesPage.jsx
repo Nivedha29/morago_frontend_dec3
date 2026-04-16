@@ -4,8 +4,12 @@ import AdminPageShell from "../../../components/admin/AdminPageShell.jsx";
 import AdminTable from "../../../components/admin/AdminTable.jsx";
 import AdminPagination from "../../../components/admin/AdminPagination.jsx";
 import AdminControls from "../../../components/admin/AdminControls.jsx";
+import CategoryDetailModal from "../../../components/admin/CategoryDetailModal.jsx";
 import { defaultCategoryColumns } from "../../../components/admin/DefaultCategoryColumns.jsx";
-import { getAdminCategories } from "../../../services/adminCategory";
+import {
+  getAdminCategories,
+  getAdminCategoryById,
+} from "../../../services/adminCategory";
 
 const AdminCategoryPage = () => {
   const [categories, setCategories] = useState([]);
@@ -18,6 +22,12 @@ const AdminCategoryPage = () => {
 
   const [keyword, setKeyword] = useState("");
   const [isActive, setIsActive] = useState(undefined);
+
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categoryDetailLoading, setCategoryDetailLoading] = useState(false);
+  const [categoryDetailError, setCategoryDetailError] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -60,8 +70,47 @@ const AdminCategoryPage = () => {
     fetchCategories();
   }, [keyword, isActive, page, size]);
 
+  useEffect(() => {
+    const fetchCategoryDetail = async () => {
+      if (!selectedCategoryId || !isCategoryModalOpen) return;
+
+      try {
+        setCategoryDetailLoading(true);
+        setCategoryDetailError("");
+        setSelectedCategory(null);
+
+        const data = await getAdminCategoryById(selectedCategoryId);
+        setSelectedCategory(data);
+      } catch (apiError) {
+        console.error("Failed to fetch category details:", apiError);
+
+        const backendMessage =
+          apiError?.message ||
+          apiError?.details?.error ||
+          apiError?.details?.message ||
+          "Failed to fetch category details";
+
+        setCategoryDetailError(backendMessage);
+      } finally {
+        setCategoryDetailLoading(false);
+      }
+    };
+
+    fetchCategoryDetail();
+  }, [selectedCategoryId, isCategoryModalOpen]);
+
   const handleOpenCategoryDetail = (category) => {
-    console.log("Open category detail:", category.id);
+    setSelectedCategoryId(category.id);
+    setIsCategoryModalOpen(true);
+    setCategoryDetailLoading(true);
+  };
+
+  const handleCloseCategoryModal = () => {
+    setIsCategoryModalOpen(false);
+    setSelectedCategoryId(null);
+    setSelectedCategory(null);
+    setCategoryDetailError("");
+    setCategoryDetailLoading(false);
   };
 
   const handleControlsApply = ({ search, filter, action }) => {
@@ -158,6 +207,15 @@ const AdminCategoryPage = () => {
               No categories found.
             </div>
           </div>
+        )}
+
+        {isCategoryModalOpen && (
+          <CategoryDetailModal
+            category={selectedCategory}
+            loading={categoryDetailLoading}
+            error={categoryDetailError}
+            onClose={handleCloseCategoryModal}
+          />
         )}
       </AdminPageShell>
     </AdminLayout>
