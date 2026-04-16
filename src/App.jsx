@@ -15,6 +15,7 @@ import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
 import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
 import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
+import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
@@ -72,6 +73,8 @@ const App = () => {
         path="/admin/users/:userId/charge/:depositId"
         element={<UserChargePage />}
       />
+      <Route path="/admin/users/add" element={<AddUserPage />} />
+
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />

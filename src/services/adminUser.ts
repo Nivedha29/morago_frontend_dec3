@@ -159,3 +159,29 @@ export const approveAdminUserDeposit = async (
 ): Promise<void> => {
   await api.put(`/admin/deposits/${depositId}`, payload);
 };
+
+///////////////////////////////////////////////////////////
+// CREATE USER
+///////////////////////////////////////////////////////////
+
+export interface CreateAdminUserPayload {
+  password: string;
+  confirmPassword: string;
+  phone: string;
+}
+
+export interface CreateAdminUserResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  balance: number;
+  hasDepositRequest: boolean;
+}
+
+export const createAdminUser = async (
+  payload: CreateAdminUserPayload,
+): Promise<CreateAdminUserResponse> => {
+  const response = await api.post("/admin/users", payload);
+  return response.data;
+};
