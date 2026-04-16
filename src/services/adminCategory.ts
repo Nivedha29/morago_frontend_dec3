@@ -1,5 +1,7 @@
 import api from "./api";
 
+const ADMIN_CATEGORIES_BASE = "/admin/categories";
+
 export interface CategoryItem {
   id: number;
   name: string;
@@ -9,18 +11,18 @@ export interface CategoryItem {
 export interface CategoryListResponse {
   totalElements: number;
   totalPages: number;
-  number: number;
   size: number;
+  content: CategoryItem[];
+  number: number;
   first: boolean;
   last: boolean;
-  empty: boolean;
   numberOfElements: number;
-  content: CategoryItem[];
+  empty: boolean;
 }
 
 export interface GetAdminCategoriesParams {
-  keyword?: string;
   isActive?: boolean;
+  keyword?: string;
   page?: number;
   size?: number;
   sortBy?: string;
@@ -28,16 +30,10 @@ export interface GetAdminCategoriesParams {
 }
 
 export const getAdminCategories = async (
-  params: GetAdminCategoriesParams = {},
+  params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
-  const response = await api.get("/admin/categories", {
-    params: {
-      page: 0,
-      size: 5,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
+  const response = await api.get<CategoryListResponse>(ADMIN_CATEGORIES_BASE, {
+    params,
   });
 
   return response.data;
