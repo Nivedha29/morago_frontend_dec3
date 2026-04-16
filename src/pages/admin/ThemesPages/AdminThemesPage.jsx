@@ -10,7 +10,6 @@ import {
   getAdminThemes,
   getAdminThemeById,
 } from "../../../services/adminThemes.ts";
-
 import { getAdminCategoryById } from "../../../services/adminCategory.ts";
 
 const AdminThemesPage = () => {
@@ -51,7 +50,32 @@ const AdminThemesPage = () => {
           sortDirection: "ASC",
         });
 
-        setThemes(data.content || []);
+        const themesWithCategoryNames = await Promise.all(
+          (data.content || []).map(async (theme) => {
+            if (theme.categoryId === null || theme.categoryId === undefined) {
+              return {
+                ...theme,
+                categoryName: "-",
+              };
+            }
+
+            try {
+              const categoryData = await getAdminCategoryById(theme.categoryId);
+
+              return {
+                ...theme,
+                categoryName: categoryData.name || "-",
+              };
+            } catch {
+              return {
+                ...theme,
+                categoryName: "-",
+              };
+            }
+          }),
+        );
+
+        setThemes(themesWithCategoryNames);
         setTotalPages(data.totalPages || 0);
       } catch (apiError) {
         console.error("Failed to fetch themes:", apiError);
@@ -83,17 +107,20 @@ const AdminThemesPage = () => {
 
         const themeData = await getAdminThemeById(selectedThemeId);
 
-let categoryName = "-";
+        let categoryName = "-";
 
-if (themeData.categoryId) {
-  const categoryData = await getAdminCategoryById(themeData.categoryId);
-  categoryName = categoryData.name || "-";
-}
+        if (
+          themeData.categoryId !== null &&
+          themeData.categoryId !== undefined
+        ) {
+          const categoryData = await getAdminCategoryById(themeData.categoryId);
+          categoryName = categoryData.name || "-";
+        }
 
-setSelectedTheme({
-  ...themeData,
-  categoryName,
-});
+        setSelectedTheme({
+          ...themeData,
+          categoryName,
+        });
       } catch (apiError) {
         console.error("Failed to fetch theme details:", apiError);
 
