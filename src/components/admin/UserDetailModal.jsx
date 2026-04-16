@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import defaultAvatar from "../../assets/avatar.svg";
 import "../../styles/Admin/UserPages/UserDetailModal.css";
 
 const UserDetailModal = ({ user, loading, error, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!loading && !error && !user) return null;
 
   return (
     <div className="user-modal-overlay" onClick={onClose}>
       <div className="user-modal" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="user-modal-close" onClick={onClose}>
+        <button
+          type="button"
+          className="user-modal-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
           ×
         </button>
 

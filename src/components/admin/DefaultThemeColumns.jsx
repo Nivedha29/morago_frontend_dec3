@@ -20,7 +20,7 @@ const defaultThemeColumns = (onViewTheme) => [
   {
     key: "themeCategory",
     header: "Categories",
-    render: () => "Choose...",
+    render: () => "-",
   },
   {
     key: "themeStatus",

@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import eyeIcon from "../../assets/eye.svg";
-import "../../styles/Admin/ThemesPages/ThemeDetailModal.css"
+import "../../styles/Admin/ThemesPages/ThemeDetailModal.css";
 
 const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!theme && !loading && !error) return null;
+
+  const categoryName = theme?.categoryName || "-";
 
   return (
     <div className="morago-theme-detail-modal__overlay" onClick={onClose}>
@@ -15,6 +31,7 @@ const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
           type="button"
           className="morago-theme-detail-modal__close"
           onClick={onClose}
+          aria-label="Close"
         >
           ×
         </button>
@@ -77,7 +94,7 @@ const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
                 <div className="morago-theme-detail-modal__info-block">
                   <p className="morago-theme-detail-modal__label">Category:</p>
                   <p className="morago-theme-detail-modal__subvalue">
-                    {theme?.categoryId ?? "-"}
+                    {categoryName}
                   </p>
                 </div>
 

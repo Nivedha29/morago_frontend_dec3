@@ -95,7 +95,6 @@
   cursor: pointer;
 }
 
-/* laptop screen */
 @media (max-width: 1440px) {
 
   .morago-admin-table__header,
@@ -123,7 +122,6 @@
   }
 }
 
-/* smaller laptop */
 @media (max-width: 1280px) {
 
   .morago-admin-table__header,

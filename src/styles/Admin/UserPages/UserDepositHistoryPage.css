@@ -1,11 +1,11 @@
-/* base table */
+
 .user-deposit-history-table .morago-admin-table__header,
 .user-deposit-history-table .morago-admin-table__row {
    grid-template-columns:
       44px minmax(120px, 1fr) minmax(160px, 1.2fr) minmax(100px, 0.9fr) minmax(180px, 1.3fr);
 }
 
-/* optional spacing (matches your other tables) */
+
 .user-deposit-history-table .morago-admin-table__cell {
    padding: 0 12px;
 }
@@ -14,7 +14,7 @@
    justify-content: center;
 }
 
-/* -------------------- 1440 -------------------- */
+
 @media (max-width: 1440px) {
 
    .user-deposit-history-table .morago-admin-table__header,
@@ -24,7 +24,6 @@
    }
 }
 
-/* -------------------- 1280 -------------------- */
 @media (max-width: 1280px) {
 
    .user-deposit-history-table .morago-admin-table__header,

@@ -11,6 +11,8 @@ import {
   getAdminThemeById,
 } from "../../../services/adminThemes.ts";
 
+import { getAdminCategoryById } from "../../../services/adminCategory.ts";
+
 const AdminThemesPage = () => {
   const [themes, setThemes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,8 +81,19 @@ const AdminThemesPage = () => {
         setThemeDetailError("");
         setSelectedTheme(null);
 
-        const data = await getAdminThemeById(selectedThemeId);
-        setSelectedTheme(data);
+        const themeData = await getAdminThemeById(selectedThemeId);
+
+let categoryName = "-";
+
+if (themeData.categoryId) {
+  const categoryData = await getAdminCategoryById(themeData.categoryId);
+  categoryName = categoryData.name || "-";
+}
+
+setSelectedTheme({
+  ...themeData,
+  categoryName,
+});
       } catch (apiError) {
         console.error("Failed to fetch theme details:", apiError);
 

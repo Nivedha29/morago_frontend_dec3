@@ -112,7 +112,6 @@ const AdminTranslatorPage = () => {
   );
 
   const handleControlsApply = ({ search, filter, action }) => {
-    // ✅ NEW ACTIONS
 
     if (action === "show-all") {
       setPage(0);
@@ -132,13 +131,11 @@ const AdminTranslatorPage = () => {
       return;
     }
 
-    // ✅ SEARCH
     if (search !== undefined) {
       setPage(0);
       setKeyword(search);
     }
 
-    // ✅ FILTER
     if (filter === "active") {
       setPage(0);
       setIsActive(true);

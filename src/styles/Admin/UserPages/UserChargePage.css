@@ -1,4 +1,4 @@
-/* -------------------- CARD -------------------- */
+
 .user-charge-card {
   width: 100%;
   max-width: 520px;
@@ -10,7 +10,6 @@
   margin: 24px auto 0;
 }
 
-/* -------------------- FORM -------------------- */
 .user-charge-form {
   display: flex;
   flex-direction: column;
@@ -33,7 +32,6 @@
   font-size: 14px;
 }
 
-/* -------------------- HELP + ERROR -------------------- */
 .user-charge-help-text {
   font-size: 11px;
   color: #8a8f98;
@@ -45,7 +43,6 @@
   font-size: 13px;
 }
 
-/* -------------------- ACTIONS -------------------- */
 .user-charge-actions {
   display: flex;
   justify-content: center;
@@ -72,7 +69,6 @@
   color: #fff;
 }
 
-/* -------------------- 1440 -------------------- */
 @media (max-width: 1440px) {
   .user-charge-card {
     padding: 36px 28px;
@@ -88,7 +84,7 @@
   }
 }
 
-/* -------------------- 1280 -------------------- */
+
 @media (max-width: 1280px) {
   .user-charge-card {
     padding: 32px 24px;
