@@ -205,9 +205,6 @@
   transform: translateY(-1px);
 }
 
-/* =========================
-   1440px
-   ========================= */
 @media (max-width: 1440px) {
   .morago-add-theme-card {
     max-width: 920px;
@@ -245,9 +242,6 @@
   }
 }
 
-/* =========================
-   1280px
-   ========================= */
 @media (max-width: 1280px) {
   .morago-add-theme-card {
     max-width: 860px;
