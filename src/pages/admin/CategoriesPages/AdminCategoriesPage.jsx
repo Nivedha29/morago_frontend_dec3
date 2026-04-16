@@ -5,6 +5,7 @@ import AdminTable from "../../../components/admin/AdminTable.jsx";
 import AdminPagination from "../../../components/admin/AdminPagination.jsx";
 import AdminControls from "../../../components/admin/AdminControls.jsx";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CategoryDetailModal from "../../../components/admin/CategoryDetailModal.jsx";
 import { defaultCategoryColumns } from "../../../components/admin/DefaultCategoryColumns.jsx";
 import {
@@ -15,6 +16,14 @@ import {
 import { defaultCategoryColumns } from "../../../components/admin/DefaultCategoryColumns.jsx";
 import { getAdminCategories } from "../../../services/adminCategory";
 >>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
+=======
+import CategoryDetailModal from "../../../components/admin/CategoryDetailModal.jsx";
+import { defaultCategoryColumns } from "../../../components/admin/DefaultCategoryColumns.jsx";
+import {
+  getAdminCategories,
+  getAdminCategoryById,
+} from "../../../services/adminCategory";
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
 
 const AdminCategoryPage = () => {
   const [categories, setCategories] = useState([]);
@@ -29,14 +38,20 @@ const AdminCategoryPage = () => {
   const [isActive, setIsActive] = useState(undefined);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryDetailLoading, setCategoryDetailLoading] = useState(false);
   const [categoryDetailError, setCategoryDetailError] = useState("");
 
+<<<<<<< HEAD
 =======
 >>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
+=======
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -79,6 +94,9 @@ const AdminCategoryPage = () => {
   }, [keyword, isActive, page, size]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
   useEffect(() => {
     const fetchCategoryDetail = async () => {
       if (!selectedCategoryId || !isCategoryModalOpen) return;
@@ -108,6 +126,7 @@ const AdminCategoryPage = () => {
     fetchCategoryDetail();
   }, [selectedCategoryId, isCategoryModalOpen]);
 
+<<<<<<< HEAD
   const handleOpenCategoryDetail = (category) => {
     setSelectedCategoryId(category.id);
     setIsCategoryModalOpen(true);
@@ -124,6 +143,20 @@ const AdminCategoryPage = () => {
   const handleOpenCategoryDetail = (category) => {
     console.log("Open category detail:", category.id);
 >>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
+=======
+  const handleOpenCategoryDetail = (category) => {
+    setSelectedCategoryId(category.id);
+    setIsCategoryModalOpen(true);
+    setCategoryDetailLoading(true);
+  };
+
+  const handleCloseCategoryModal = () => {
+    setIsCategoryModalOpen(false);
+    setSelectedCategoryId(null);
+    setSelectedCategory(null);
+    setCategoryDetailError("");
+    setCategoryDetailLoading(false);
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
   };
 
   const handleControlsApply = ({ search, filter, action }) => {
@@ -222,6 +255,9 @@ const AdminCategoryPage = () => {
           </div>
         )}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
 
         {isCategoryModalOpen && (
           <CategoryDetailModal
@@ -231,8 +267,11 @@ const AdminCategoryPage = () => {
             onClose={handleCloseCategoryModal}
           />
         )}
+<<<<<<< HEAD
 =======
 >>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
+=======
+>>>>>>> 06826af (feat: implement category detail modal with API integration and UI)
       </AdminPageShell>
     </AdminLayout>
   );
