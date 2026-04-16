@@ -18,18 +18,18 @@ export interface CategoryItem {
 export interface CategoryListResponse {
   totalElements: number;
   totalPages: number;
-  number: number;
   size: number;
+  content: CategoryItem[];
+  number: number;
   first: boolean;
   last: boolean;
-  empty: boolean;
   numberOfElements: number;
-  content: CategoryItem[];
+  empty: boolean;
 }
 
 export interface GetAdminCategoriesParams {
-  keyword?: string;
   isActive?: boolean;
+  keyword?: string;
   page?: number;
   size?: number;
   sortBy?: string;

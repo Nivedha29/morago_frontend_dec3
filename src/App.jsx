@@ -49,29 +49,22 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
   return (
+    /* ------------------------- ADMIN ------------------------- */
     <Routes>
       <Route path="/admin/login" element={<AdminLoginPage />} />
-      <Route
-        path="/admin/forgot-password"
-        element={<AdminForgotPasswordPage />}
-      />
-      <Route
-        path="/admin/forgot-password/verify"
-        element={<AdminForgotPasswordVerifyPage />}
-      />
-      <Route
-        path="/admin/forgot-password/new-password"
-        element={<AdminForgotPasswordNewPasswordPage />}
-      />
 
       <Route path="/admin/translators" element={<AdminTranslatorPage />} />
       <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
       <Route
-        path="/admin/translators/:translatorId/withdraw-history"
-        element={<TranslatorWithdrawTablePage />}
+        path="/admin/translators/:translatorId/withdraw"
+        element={<TranslatorWithdrawPage />}
       />
       <Route
-        path="/admin/translators/:translatorId/withdraw-history/:withdrawalId/approval"
+        path="/admin/translators/:translatorId/withdraw-history"
+        element={<TranslatorWithdrawHistoryPage />}
+      />
+      <Route
+        path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
         element={<TranslatorWithdrawApproval />}
       />
       <Route
@@ -104,6 +97,8 @@ const App = () => {
 >>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
+
+      {/* ------------------------- MOBILE APP ------------------------- */}
 
       <Route
         path="*"
