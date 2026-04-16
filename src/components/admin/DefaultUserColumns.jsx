@@ -119,7 +119,7 @@ const userCallHistoryColumns = [
   },
 ];
 
-const userDepositHistoryColumns = [
+const userDepositHistoryColumns = (onCharge) => [
   {
     key: "checkbox",
     header: <input type="checkbox" className="morago-admin-table__checkbox" />,
@@ -152,10 +152,26 @@ const userDepositHistoryColumns = [
     key: "status",
     header: "Deposit request",
     render: (deposit) => {
-      if (deposit.status === "COMPLETED") return "Transfer completed";
-      if (deposit.status === "PENDING") return "Request";
-      if (deposit.status === "FAILED") return "Failed";
-      return deposit.status || "-";
+      const isPending = deposit.status === "PENDING";
+
+      let label = deposit.status || "-";
+
+      if (deposit.status === "COMPLETED") label = "Transfer completed";
+      if (deposit.status === "PENDING") label = "Request";
+      if (deposit.status === "FAILED") label = "Failed";
+
+      if (!isPending) {
+        return <span>{label}</span>;
+      }
+
+      return (
+        <span
+          className="morago-admin-table__link"
+          onClick={() => onCharge && onCharge(deposit)}
+        >
+          {label}
+        </span>
+      );
     },
   },
 ];

@@ -14,6 +14,7 @@ import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorC
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
 import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
+import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
 
 import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
@@ -66,6 +67,10 @@ const App = () => {
       <Route
         path="/admin/users/:userId/deposit-history"
         element={<UserDepositHistoryPage />}
+      />
+      <Route
+        path="/admin/users/:userId/charge/:depositId"
+        element={<UserChargePage />}
       />
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />

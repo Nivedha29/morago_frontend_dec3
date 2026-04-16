@@ -4,6 +4,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
+import AdminControls from "../../../components/admin/AdminControls";
 import { callHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
 import "../../../styles/Admin/TranslatorPages/TranslatorCallHistoryPage.css";
 
@@ -19,6 +20,7 @@ const TranslatorCallHistoryPage = () => {
   const [callHistory, setCallHistory] = useState([]);
   const [translatorName, setTranslatorName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -55,8 +57,13 @@ const TranslatorCallHistoryPage = () => {
       }
 
       try {
-        setLoading(true);
         setError("");
+
+        if (page === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
 
         const data = await getCallHistoryByUserId(Number(id), {
           page,
@@ -83,46 +90,66 @@ const TranslatorCallHistoryPage = () => {
         );
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
     fetchCallHistory();
   }, [id, page, navigate]);
 
+  const handleControlsApply = ({ action }) => {
+    if (action === "show-all") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+    }
+  };
+
   return (
     <AdminLayout>
       <AdminPageShell
         title={`Call history ${translatorName ? translatorName : ""}`}
-        breadcrumbSection="Lists"
-        breadcrumbPage="Translators / Call history"
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Translators", path: "/admin/translators" },
+          { label: "Call history" },
+        ]}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[]}
+            disableSearch={true}
+            onApply={handleControlsApply}
+          />
+        }
       >
-        {loading && (
+        {loading && callHistory.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading call history...</div>
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && error && callHistory.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {!loading && !error && (
+        {callHistory.length > 0 && (
           <>
-            {callHistory.length > 0 && (
-              <AdminTable
-                data={callHistory}
-                columns={callHistoryColumns()}
-                tableClassName="admin-call-history-table"
-              />
-            )}
-
-            {callHistory.length === 0 && (
-              <div className="admin-empty-wrapper">
-                <div className="admin-empty-state">No call history found</div>
-              </div>
-            )}
+            <AdminTable
+              data={callHistory}
+              columns={callHistoryColumns()}
+              tableClassName="admin-call-history-table"
+            />
 
             {totalPages > 0 && (
               <div className="admin-page-footer">
@@ -134,6 +161,12 @@ const TranslatorCallHistoryPage = () => {
               </div>
             )}
           </>
+        )}
+
+        {!loading && !isFetching && !error && callHistory.length === 0 && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No call history found</div>
+          </div>
         )}
       </AdminPageShell>
     </AdminLayout>

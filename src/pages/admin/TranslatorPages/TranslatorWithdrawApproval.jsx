@@ -91,14 +91,23 @@ const TranslatorWithdrawApproval = () => {
     }
   }, [withdrawal, navigate, backPath]);
 
+  const breadcrumbs = [
+    { label: "Lists" },
+    { label: "Translators", path: "/admin/translators" },
+    {
+      label: "Withdraw",
+      path: `/admin/translators/${translatorId}/withdraw`,
+    },
+    { label: "Approval" },
+  ];
+
   if (!withdrawal) {
     return (
       <AdminLayout>
         <AdminPageShell
           title="Withdraw Approval"
-          breadcrumbSection="Lists"
-          breadcrumbPage="Translators / Withdraw"
           showControls={false}
+          breadcrumbs={breadcrumbs}
         >
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Withdrawal data is missing</div>
@@ -112,9 +121,8 @@ const TranslatorWithdrawApproval = () => {
     <AdminLayout>
       <AdminPageShell
         title="Withdraw Approval"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Translators / Withdraw"
         showControls={false}
+        breadcrumbs={breadcrumbs}
       >
         <div className="withdraw-approval-page">
           <div className="withdraw-approval-card">

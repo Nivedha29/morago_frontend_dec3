@@ -4,6 +4,7 @@ import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminTable from "../../../components/admin/AdminTable";
+import AdminControls from "../../../components/admin/AdminControls";
 import "../../../styles/Admin/TranslatorPages/TranslatorWithdrawHistoryPage.css";
 import { getWithdrawalHistoryByUserId } from "../../../services/admin";
 import { translatorWithdrawHistoryColumns } from "../../../components/admin/DefaultTranslatorColumns";
@@ -14,6 +15,7 @@ const TranslatorWithdrawHistoryPage = () => {
   const [page, setPage] = useState(0);
   const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [totalPages, setTotalPages] = useState(0);
 
@@ -22,8 +24,13 @@ const TranslatorWithdrawHistoryPage = () => {
       if (!translatorId) return;
 
       try {
-        setLoading(true);
         setError("");
+
+        if (page === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
 
         const data = await getWithdrawalHistoryByUserId(Number(translatorId), {
           page,
@@ -46,11 +53,28 @@ const TranslatorWithdrawHistoryPage = () => {
         setError(backendMessage);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
     fetchWithdrawalHistory();
   }, [translatorId, page]);
+
+  const handleControlsApply = ({ action }) => {
+    if (action === "show-all") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+    }
+  };
 
   const withdrawalColumns = translatorWithdrawHistoryColumns();
 
@@ -58,11 +82,21 @@ const TranslatorWithdrawHistoryPage = () => {
     <AdminLayout>
       <AdminPageShell
         title="Withdraw History"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Translators / Withdraw history"
-        showControls={false}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[]}
+            disableSearch={true}
+            onApply={handleControlsApply}
+          />
+        }
+        breadcrumbs={[
+          { label: "Lists" },
+          { label: "Translators", path: "/admin/translators" },
+          { label: "Withdraw history" },
+        ]}
       >
-        {loading && (
+        {loading && withdrawals.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">
               Loading withdrawal history...
@@ -70,31 +104,21 @@ const TranslatorWithdrawHistoryPage = () => {
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && error && withdrawals.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {!loading && !error && (
+        {withdrawals.length > 0 && (
           <>
-            {withdrawals.length > 0 && (
-              <div className="translator-withdraw-table">
-                <AdminTable
-                  data={withdrawals}
-                  columns={withdrawalColumns}
-                  tableClassName="admin-translator-withdraw-history-table"
-                />
-              </div>
-            )}
-
-            {withdrawals.length === 0 && (
-              <div className="admin-empty-wrapper">
-                <div className="admin-empty-state">
-                  No withdrawal history found
-                </div>
-              </div>
-            )}
+            <div className="translator-withdraw-table">
+              <AdminTable
+                data={withdrawals}
+                columns={withdrawalColumns}
+                tableClassName="admin-translator-withdraw-history-table"
+              />
+            </div>
 
             {totalPages > 0 && (
               <div className="admin-page-footer">
@@ -106,6 +130,12 @@ const TranslatorWithdrawHistoryPage = () => {
               </div>
             )}
           </>
+        )}
+
+        {!loading && !isFetching && !error && withdrawals.length === 0 && (
+          <div className="admin-empty-wrapper">
+            <div className="admin-empty-state">No withdrawal history found</div>
+          </div>
         )}
       </AdminPageShell>
     </AdminLayout>

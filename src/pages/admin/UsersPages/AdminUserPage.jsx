@@ -3,18 +3,24 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
 import AdminTable from "../../../components/admin/AdminTable";
-import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
 import AdminPagination from "../../../components/admin/AdminPagination";
+import AdminControls from "../../../components/admin/AdminControls";
 import UserDetailModal from "../../../components/admin/UserDetailModal";
+import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
 import { getAdminUsers, getAdminUserById } from "../../../services/adminUser";
 
 const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [keyword, setKeyword] = useState("");
+  const [isDebtor, setIsDebtor] = useState(undefined);
+  const [hasDeposit, setHasDeposit] = useState(undefined);
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -27,10 +33,18 @@ const AdminUserPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setLoading(true);
         setError("");
 
+        if (page === 0) {
+          setLoading(true);
+        } else {
+          setIsFetching(true);
+        }
+
         const data = await getAdminUsers({
+          keyword,
+          isDebtor,
+          hasDeposit,
           page,
           size,
           sortBy: "id",
@@ -51,11 +65,12 @@ const AdminUserPage = () => {
         setError(backendMessage);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
     fetchUsers();
-  }, [page, size]);
+  }, [keyword, isDebtor, hasDeposit, page, size]);
 
   useEffect(() => {
     const fetchUserDetail = async () => {
@@ -121,51 +136,113 @@ const AdminUserPage = () => {
           : user.phone || "User";
 
       navigate(`/admin/users/${user.id}/deposit-history`, {
-        state: { userName: fullName },
+        state: {
+          userName: fullName,
+          phone: user.phone || "-",
+        },
       });
     },
   );
+
+  const handleControlsApply = ({ search, filter, action }) => {
+    // ACTIONS
+    if (action === "show-all") {
+      setPage(0);
+      setKeyword("");
+      setIsDebtor(undefined);
+      setHasDeposit(undefined);
+      return;
+    }
+
+    if (action === "first-page") {
+      setPage(0);
+      return;
+    }
+
+    if (action === "last-page") {
+      setPage(Math.max(0, totalPages - 1));
+      return;
+    }
+
+    // SEARCH
+    if (search !== undefined) {
+      setPage(0);
+      setKeyword(search);
+    }
+
+    // FILTER
+    if (filter === "debtor") {
+      setPage(0);
+      setIsDebtor(true);
+      setHasDeposit(undefined);
+    } else if (filter === "not-debtor") {
+      setPage(0);
+      setIsDebtor(false);
+      setHasDeposit(undefined);
+    } else if (filter === "has-deposit") {
+      setPage(0);
+      setIsDebtor(undefined);
+      setHasDeposit(true);
+    } else if (filter === "no-deposit") {
+      setPage(0);
+      setIsDebtor(undefined);
+      setHasDeposit(false);
+    }
+  };
 
   return (
     <AdminLayout>
       <AdminPageShell
         title="Users list"
-        breadcrumbSection="Lists"
-        breadcrumbPage="Users"
+        breadcrumbs={[{ label: "Lists" }, { label: "Users" }]}
+        showControls
+        controls={
+          <AdminControls
+            filterOptions={[
+              { label: "Debtor", value: "debtor" },
+              { label: "Not debtor", value: "not-debtor" },
+              { label: "Has deposit", value: "has-deposit" },
+              { label: "No deposit", value: "no-deposit" },
+            ]}
+            onApply={handleControlsApply}
+          />
+        }
       >
-        {loading && (
+        {loading && users.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">Loading users...</div>
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && error && users.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">{error}</div>
           </div>
         )}
 
-        {!loading && !error && users.length === 0 && (
+        {users.length > 0 && (
+          <>
+            <AdminTable
+              data={users}
+              columns={userColumns}
+              tableClassName="admin-user-table"
+            />
+
+            {totalPages > 0 && (
+              <div className="admin-page-footer">
+                <AdminPagination
+                  page={page}
+                  setPage={setPage}
+                  totalPages={totalPages}
+                />
+              </div>
+            )}
+          </>
+        )}
+
+        {!loading && !isFetching && !error && users.length === 0 && (
           <div className="admin-empty-wrapper">
             <div className="admin-empty-state">No users found.</div>
-          </div>
-        )}
-
-        {!loading && !error && users.length > 0 && (
-          <AdminTable
-            data={users}
-            columns={userColumns}
-            tableClassName="admin-user-table"
-          />
-        )}
-
-        {!loading && totalPages > 0 && (
-          <div className="admin-page-footer">
-            <AdminPagination
-              page={page}
-              setPage={setPage}
-              totalPages={totalPages}
-            />
           </div>
         )}
 

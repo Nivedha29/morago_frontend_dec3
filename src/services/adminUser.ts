@@ -144,3 +144,18 @@ export const getAdminUserDepositHistory = async (
 
   return response.data;
 };
+
+///////////////////////////////////////////////////////////
+// USER DEPOSIT CHARGE
+///////////////////////////////////////////////////////////
+
+export interface ApproveUserDepositPayload {
+  sum: number;
+}
+
+export const approveAdminUserDeposit = async (
+  depositId: number,
+  payload: ApproveUserDepositPayload,
+): Promise<void> => {
+  await api.put(`/admin/deposits/${depositId}`, payload);
+};
