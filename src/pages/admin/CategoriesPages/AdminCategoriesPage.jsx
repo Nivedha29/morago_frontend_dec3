@@ -4,12 +4,17 @@ import AdminPageShell from "../../../components/admin/AdminPageShell.jsx";
 import AdminTable from "../../../components/admin/AdminTable.jsx";
 import AdminPagination from "../../../components/admin/AdminPagination.jsx";
 import AdminControls from "../../../components/admin/AdminControls.jsx";
+<<<<<<< HEAD
 import CategoryDetailModal from "../../../components/admin/CategoryDetailModal.jsx";
 import { defaultCategoryColumns } from "../../../components/admin/DefaultCategoryColumns.jsx";
 import {
   getAdminCategories,
   getAdminCategoryById,
 } from "../../../services/adminCategory";
+=======
+import { defaultCategoryColumns } from "../../../components/admin/DefaultCategoryColumns.jsx";
+import { getAdminCategories } from "../../../services/adminCategory";
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 
 const AdminCategoryPage = () => {
   const [categories, setCategories] = useState([]);
@@ -23,12 +28,15 @@ const AdminCategoryPage = () => {
   const [keyword, setKeyword] = useState("");
   const [isActive, setIsActive] = useState(undefined);
 
+<<<<<<< HEAD
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryDetailLoading, setCategoryDetailLoading] = useState(false);
   const [categoryDetailError, setCategoryDetailError] = useState("");
 
+=======
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -70,6 +78,7 @@ const AdminCategoryPage = () => {
     fetchCategories();
   }, [keyword, isActive, page, size]);
 
+<<<<<<< HEAD
   useEffect(() => {
     const fetchCategoryDetail = async () => {
       if (!selectedCategoryId || !isCategoryModalOpen) return;
@@ -111,6 +120,10 @@ const AdminCategoryPage = () => {
     setSelectedCategory(null);
     setCategoryDetailError("");
     setCategoryDetailLoading(false);
+=======
+  const handleOpenCategoryDetail = (category) => {
+    console.log("Open category detail:", category.id);
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
   };
 
   const handleControlsApply = ({ search, filter, action }) => {
@@ -208,6 +221,7 @@ const AdminCategoryPage = () => {
             </div>
           </div>
         )}
+<<<<<<< HEAD
 
         {isCategoryModalOpen && (
           <CategoryDetailModal
@@ -217,6 +231,8 @@ const AdminCategoryPage = () => {
             onClose={handleCloseCategoryModal}
           />
         )}
+=======
+>>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
       </AdminPageShell>
     </AdminLayout>
   );
