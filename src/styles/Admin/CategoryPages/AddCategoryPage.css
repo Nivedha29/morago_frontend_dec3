@@ -95,7 +95,6 @@
   cursor: not-allowed;
 }
 
-/* 1440 */
 @media (max-width: 1440px) {
   .add-category-card {
     max-width: 780px;
@@ -123,7 +122,6 @@
   }
 }
 
-/* 1280 */
 @media (max-width: 1280px) {
   .add-category-card {
     max-width: 700px;
@@ -153,22 +151,5 @@
     min-width: 104px;
     height: 38px;
     font-size: 14px;
-  }
-}
-
-/* mobile */
-@media (max-width: 768px) {
-  .add-category-card {
-    padding: 20px;
-  }
-
-  .add-category-actions {
-    justify-content: stretch;
-    flex-direction: column;
-  }
-
-  .add-category-cancel-btn,
-  .add-category-save-btn {
-    width: 100%;
   }
 }
