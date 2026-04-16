@@ -18,9 +18,8 @@ import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryP
 import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
 import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
-import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
-import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
-import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
+import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
+import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -66,18 +65,9 @@ const App = () => {
         path="/admin/users/:userId/call-history"
         element={<AdminUserCallHistoryPage />}
       />
-      <Route
-        path="/admin/users/:userId/deposit-history"
-        element={<UserDepositHistoryPage />}
-      />
-      <Route
-        path="/admin/users/:userId/charge/:depositId"
-        element={<UserChargePage />}
-      />
-      <Route path="/admin/users/add" element={<AddUserPage />} />
+
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
-      <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
       {/* ------------------------- MOBILE APP ------------------------- */}
