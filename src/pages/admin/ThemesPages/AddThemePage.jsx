@@ -247,7 +247,7 @@ const AddThemePage = () => {
         title="Add Theme"
         showControls={false}
         breadcrumbs={[
-          { label: "Lists" },
+          { label: "Translation topics" },
           { label: "Themes", path: "/admin/themes" },
           { label: "Add Theme" },
         ]}
