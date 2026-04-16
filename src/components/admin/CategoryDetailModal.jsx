@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Admin/CategoryPages/CategoryDetailModal.css"
+import "../../styles/Admin/CategoryPages/CategoryDetailModal.css";
 
 const CategoryDetailModal = ({ category, loading, error, onClose }) => {
   if (!loading && !error && !category) return null;
@@ -14,6 +14,7 @@ const CategoryDetailModal = ({ category, loading, error, onClose }) => {
           type="button"
           className="category-detail-modal-close"
           onClick={onClose}
+          aria-label="Close modal"
         >
           ×
         </button>

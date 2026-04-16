@@ -205,12 +205,6 @@
   transform: translateY(-1px);
 }
 
-<<<<<<< HEAD
-=======
-/* =========================
-   1440px
-   ========================= */
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 @media (max-width: 1440px) {
   .morago-add-theme-card {
     max-width: 920px;
@@ -248,12 +242,6 @@
   }
 }
 
-<<<<<<< HEAD
-=======
-/* =========================
-   1280px
-   ========================= */
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 @media (max-width: 1280px) {
   .morago-add-theme-card {
     max-width: 860px;
