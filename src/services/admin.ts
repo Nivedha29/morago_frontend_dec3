@@ -1,9 +1,5 @@
 import api from "./api";
 
-///////////////////////////////////////////////////////////
-// TRANSLATORS
-///////////////////////////////////////////////////////////
-
 export interface Translator {
   id: number;
   firstName: string;
@@ -189,19 +185,6 @@ export const approveWithdrawalById = async (
   await api.put(`/admin/withdrawals/${id}`, payload);
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
-///////////////////////////////////////////////////////////
-// CALL HISTORY
-///////////////////////////////////////////////////////////
-
-<<<<<<< HEAD
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
-=======
->>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
 export interface CallHistoryItem {
   date: string;
   phone: string;

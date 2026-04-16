@@ -39,23 +39,6 @@ export interface GetAdminThemesParams {
   sortDirection?: "ASC" | "DESC";
 }
 
-<<<<<<< HEAD
-export const getAdminThemes = async (
-  params: GetAdminThemesParams = {},
-): Promise<ThemeListResponse> => {
-  const response = await api.get("/admin/themes", {
-    params: {
-      page: 0,
-      size: 10,
-      sortBy: "id",
-      sortDirection: "ASC",
-      ...params,
-    },
-  });
-
-  return response.data;
-};
-=======
 export interface CreateThemePayload {
   name: string;
   title: string;
@@ -110,4 +93,3 @@ export const uploadAdminThemeIcon = async (
 
   return response.data;
 };
->>>>>>> fb1069c (feat: implement admin categories page with table, controls, and API integration)
