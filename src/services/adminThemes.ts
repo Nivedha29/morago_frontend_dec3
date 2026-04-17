@@ -1,9 +1,5 @@
 import api from "./api";
 
-///////////////////////////////////////////////////////////
-// Themes
-///////////////////////////////////////////////////////////
-
 export interface ThemeItem {
   id: number;
   name: string;
@@ -44,5 +40,10 @@ export const getAdminThemes = async (
     params,
   });
 
+  return response.data;
+};
+
+export const getAdminThemeById = async (id: number): Promise<ThemeItem> => {
+  const response = await api.get(`/admin/themes/${id}`);
   return response.data;
 };

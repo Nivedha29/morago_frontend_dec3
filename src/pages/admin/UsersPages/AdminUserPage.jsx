@@ -145,7 +145,7 @@ const AdminUserPage = () => {
   );
 
   const handleControlsApply = ({ search, filter, action }) => {
-    // ACTIONS
+    
     if (action === "show-all") {
       setPage(0);
       setKeyword("");
@@ -164,13 +164,11 @@ const AdminUserPage = () => {
       return;
     }
 
-    // SEARCH
     if (search !== undefined) {
       setPage(0);
       setKeyword(search);
     }
 
-    // FILTER
     if (filter === "debtor") {
       setPage(0);
       setIsDebtor(true);

@@ -1,4 +1,4 @@
-/* BACK BUTTON */
+
 .back-button {
    width: 60px;
    height: 60px;
@@ -16,7 +16,7 @@
    transition: all 0.2s ease;
 }
 
-/* HOVER */
+
 .back-button:hover {
    background: #f9fafb;
 }
