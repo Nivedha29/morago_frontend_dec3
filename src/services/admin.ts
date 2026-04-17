@@ -185,7 +185,6 @@ export const approveWithdrawalById = async (
   await api.put(`/admin/withdrawals/${id}`, payload);
 };
 
-
 export interface CallHistoryItem {
   date: string;
   phone: string;

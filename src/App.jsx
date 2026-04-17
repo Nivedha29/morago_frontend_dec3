@@ -10,6 +10,7 @@ import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.j
 import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
 import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
 import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
+import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
 
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
@@ -18,8 +19,9 @@ import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
 import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
+import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
-import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
+
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -76,6 +78,7 @@ const App = () => {
       <Route path="/admin/users/add" element={<AddUserPage />} />
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
+      <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
       {/* ------------------------- MOBILE APP ------------------------- */}
