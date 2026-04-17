@@ -17,6 +17,13 @@ export interface AuthResponse {
   selectedLanguageIds: number[];
 }
 
+/* -------------------- ROLE NORMALIZER -------------------- */
+export function normalizeRoles(
+  roles: AuthResponse["roles"] | null | undefined,
+): UserRole[] {
+  return Array.isArray(roles) ? roles : roles == null ? [] : [roles];
+}
+
 /* -------------------- LOGIN -------------------- */
 export interface LoginRequest {
   phone: string;
