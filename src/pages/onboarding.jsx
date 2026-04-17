@@ -59,7 +59,7 @@ const OnboardingScreen = () => {
       <div className="onboarding-foreground">
         <StatusBar />
 
-        <button className="onb-skip">Skip</button>
+        <button className="onb-skip" onClick={() => navigate("/login")}>Skip</button>
 
         <div className="onb-bottom">
           <h1 className="onb-title">{s.title}</h1>

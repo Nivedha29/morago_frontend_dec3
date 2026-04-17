@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
-import { login } from "../services/auth";
+import { login, normalizeRoles } from "../services/auth";
 
 /* ------------------------- LOGIN SCREEN ------------------------- */
 const LoginScreen = () => {
@@ -31,16 +31,12 @@ const LoginScreen = () => {
           password: trimmedPassword,
         });
 
-        console.log("LOGIN SUCCESS DATA:", data);
-        console.log("SELECTED UI ROLE:", role);
-        console.log("BACKEND ROLES:", data.roles);
-
         const selectedRole =
           role === "translator" ? "ROLE_TRANSLATOR" : "ROLE_USER";
 
-        const hasSelectedRole = Array.isArray(data.roles)
-          ? data.roles.includes(selectedRole)
-          : String(data.roles).includes(selectedRole);
+        const hasSelectedRole = normalizeRoles(data.roles).includes(
+          selectedRole,
+        );
 
         if (!hasSelectedRole) {
           phoneError = "Please select the correct account type";

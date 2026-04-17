@@ -10,10 +10,12 @@ const ProtectedRoute = ({ children, allowedRole }) => {
   }
 
   const currentUser = JSON.parse(storedUser);
-  const userRole = currentUser.roles;
+  const userRoles = Array.isArray(currentUser.roles)
+    ? currentUser.roles
+    : [currentUser.roles];
 
-  if (allowedRole && userRole !== allowedRole) {
-    if (userRole === "ROLE_TRANSLATOR") {
+  if (allowedRole && !userRoles.includes(allowedRole)) {
+    if (userRoles.includes("ROLE_TRANSLATOR")) {
       return <Navigate to="/translator-home" replace />;
     }
     return <Navigate to="/home" replace />;
