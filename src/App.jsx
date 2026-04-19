@@ -12,14 +12,6 @@ import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/Translator
 import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
 
-<<<<<<< HEAD
-import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
-import UserDetailModal from "./components/admin/UserDetailModal.jsx";
-import UserCallHistoryPage from "./pages/admin/UserCallHistoryPage.jsx";
-
-
-import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
-=======
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
 import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
@@ -28,10 +20,10 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
-import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
-import AdminAddCategoryPage from "./pages/admin/AdminAddCategoryPage";
+import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
+import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
 
+/* ------------------------- Mobile App ------------------------- */
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -77,11 +69,6 @@ const App = () => {
         path="/admin/users/:userId/call-history"
         element={<AdminUserCallHistoryPage />}
       />
-<<<<<<< HEAD
-
-
-      <Route path="/admin/themes" element={<AdminThemesPage />} />
-=======
       <Route
         path="/admin/users/:userId/deposit-history"
         element={<UserDepositHistoryPage />}
@@ -94,7 +81,6 @@ const App = () => {
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
 

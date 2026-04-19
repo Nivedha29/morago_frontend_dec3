@@ -1,12 +1,5 @@
 import api from "./api";
 
-<<<<<<< HEAD
-=======
-///////////////////////////////////////////////////////////
-// Categories
-///////////////////////////////////////////////////////////
-
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
 const ADMIN_CATEGORIES_BASE = "/admin/categories";
 
 export interface CategoryItem {
@@ -36,29 +29,25 @@ export interface GetAdminCategoriesParams {
   sortDirection?: "ASC" | "DESC";
 }
 
-<<<<<<< HEAD
 export interface CategoryDetailResponse {
   id: number;
   name: string;
   isActive: boolean;
 }
 
-export const getAdminCategories = async (
-  params: GetAdminCategoriesParams = {},
-): Promise<CategoryListResponse> => {
-  const response = await api.get<CategoryListResponse>(ADMIN_CATEGORIES_BASE, {
-=======
+export interface CreateCategoryPayload {
+  name: string;
+}
+
 export const getAdminCategories = async (
   params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
-  const response = await api.get(ADMIN_CATEGORIES_BASE, {
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
+  const response = await api.get<CategoryListResponse>(ADMIN_CATEGORIES_BASE, {
     params,
   });
 
   return response.data;
 };
-<<<<<<< HEAD
 
 export const getAdminCategoryById = async (
   id: number,
@@ -69,5 +58,14 @@ export const getAdminCategoryById = async (
 
   return response.data;
 };
-=======
->>>>>>> 343f18a (feat: implement Add Theme page with API integration, icon upload, validation, and responsive layout)
+
+export const createAdminCategory = async (
+  payload: CreateCategoryPayload,
+): Promise<CategoryDetailResponse> => {
+  const response = await api.post<CategoryDetailResponse>(
+    ADMIN_CATEGORIES_BASE,
+    payload,
+  );
+
+  return response.data;
+};
