@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../styles/Admin/CategoryPages/CategoryDetailModal.css";
 
 const CategoryDetailModal = ({ category, loading, error, onClose }) => {
+  // ✅ ADD THIS
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!loading && !error && !category) return null;
 
   return (
