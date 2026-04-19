@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "../../styles/Admin/CategoryPages/CategoryDetailModal.css";
 
 const CategoryDetailModal = ({ category, loading, error, onClose }) => {
-  // ✅ ADD THIS
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
