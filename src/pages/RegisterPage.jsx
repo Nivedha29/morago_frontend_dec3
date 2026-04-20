@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar";
 
 import "./RegisterPage.css";
 import call from "../assets/call.svg";
 import lock from "../assets/lock.svg";
+import eye from "../assets/eye.svg";
 
 const RegisterPage = ({ role = "user" }) => {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ const RegisterPage = ({ role = "user" }) => {
     confirmPassword: "",
   });
 
-  const [activeField, setActiveField] = useState(null);
+  const [activeField, setActiveField] = useState("phone");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const formatPhone = (value) => {
     const numbers = value.replace(/\D/g, "");
@@ -33,6 +36,8 @@ const RegisterPage = ({ role = "user" }) => {
       11,
     )}`;
   };
+
+  const rawPhone = useMemo(() => form.phone.replace(/\D/g, ""), [form.phone]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,8 +82,8 @@ const RegisterPage = ({ role = "user" }) => {
   };
 
   const isFormValid =
-    form.phone.trim() !== "" &&
-    form.password.trim() !== "" &&
+    rawPhone.length === 11 &&
+    form.password.trim().length >= 9 &&
     form.confirmPassword.trim() !== "" &&
     form.password === form.confirmPassword;
 
@@ -89,31 +94,44 @@ const RegisterPage = ({ role = "user" }) => {
   const showPasswordLengthError =
     form.password.trim() !== "" && form.password.length < 9;
 
-  const showPhoneError =
-    form.phone.trim() !== "" && form.phone.replace(/\D/g, "").length !== 11;
+  const showPhoneError = form.phone.trim() !== "" && rawPhone.length !== 11;
 
   return (
-    <div className="screen login-screen">
+    <div className="screen login-screen register-screen">
       <StatusBar />
 
-      <div className="login-body">
-        <div className="login-header">
-          <h1 className="login-title">
-            {role === "translator" ? "Translator" : "User"} <br />
+      <button
+        type="button"
+        className="register-back-button"
+        onClick={() => navigate("/sign-up")}
+      >
+        ←
+      </button>
+
+      <div className="login-body register-body">
+        <div className="login-header register-header">
+          <p className="register-kicker">Sign up</p>
+
+          <h1 className="register-title">
+            {role === "translator" ? "Translator" : "User"}
+            <br />
             Registration
           </h1>
 
-          <p className="login-subtitle">
-            Register to access all the benefits of the app
+          <p className="register-subtitle-copy">
+            Enter your details to create your account.
           </p>
         </div>
 
-        <div className="login-form">
-          {/* PHONE NUMBER */}
+        <div className="login-form register-form">
           <div className="register-field">
             <label className="register-label">Phone number</label>
 
-            <div className="register-input-wrap">
+            <div
+              className={`register-input-wrap ${
+                activeField === "phone" ? "register-input-wrap-active" : ""
+              } ${showPhoneError ? "register-input-wrap-error" : ""}`}
+            >
               <img src={call} alt="Phone" className="register-input-icon" />
 
               <input
@@ -121,7 +139,7 @@ const RegisterPage = ({ role = "user" }) => {
                   form.phone ? "has-value" : ""
                 }`}
                 name="phone"
-                placeholder='Enter your phone number without "-"'
+                placeholder="Phone number"
                 value={form.phone}
                 onFocus={() => setActiveField("phone")}
                 readOnly
@@ -133,21 +151,33 @@ const RegisterPage = ({ role = "user" }) => {
             <p className="register-error">Invalid number format</p>
           )}
 
-          {/* PASSWORD */}
           <label className="register-label">Password</label>
 
-          <div className="register-input-wrap">
+          <div
+            className={`register-input-wrap register-input-wrap-password ${
+              activeField === "password" ? "register-input-wrap-active" : ""
+            } ${showPasswordLengthError ? "register-input-wrap-error" : ""}`}
+          >
             <img src={lock} alt="Password" className="register-input-icon" />
 
             <input
-              className="register-input-with-icon"
-              type="password"
+              className="register-input-with-icon register-input-password"
+              type={showPassword ? "text" : "password"}
               name="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={form.password}
               onChange={handleChange}
               onFocus={() => setActiveField("password")}
             />
+
+            <button
+              type="button"
+              className="register-eye-button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              <img src={eye} alt="" className="register-eye-icon" />
+            </button>
           </div>
 
           {showPasswordLengthError && (
@@ -156,19 +186,37 @@ const RegisterPage = ({ role = "user" }) => {
             </p>
           )}
 
-          {/* CONFIRM PASSWORD */}
-          <div className="register-input-wrap">
+          <div
+            className={`register-input-wrap register-input-wrap-password ${
+              activeField === "confirmPassword"
+                ? "register-input-wrap-active"
+                : ""
+            } ${showPasswordMismatch ? "register-input-wrap-error" : ""}`}
+          >
             <img src={lock} alt="Password" className="register-input-icon" />
 
             <input
-              className="register-input-with-icon"
-              type="password"
+              className="register-input-with-icon register-input-password"
+              type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
-              placeholder="Repeat again"
+              placeholder="Confirm password"
               value={form.confirmPassword}
               onChange={handleChange}
               onFocus={() => setActiveField("confirmPassword")}
             />
+
+            <button
+              type="button"
+              className="register-eye-button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              aria-label={
+                showConfirmPassword
+                  ? "Hide confirm password"
+                  : "Show confirm password"
+              }
+            >
+              <img src={eye} alt="" className="register-eye-icon" />
+            </button>
           </div>
 
           {showPasswordMismatch && (
@@ -176,7 +224,7 @@ const RegisterPage = ({ role = "user" }) => {
           )}
 
           <button
-            className="btn btn-login"
+            className="btn btn-login register-submit-button"
             disabled={!isFormValid}
             onClick={() =>
               navigate("/verify", {
@@ -188,21 +236,15 @@ const RegisterPage = ({ role = "user" }) => {
               })
             }
           >
-            Get code
+            Get Code
           </button>
 
-          <p className="login-back" onClick={() => navigate("/login")}>
+          <p className="login-back register-login-link" onClick={() => navigate("/login")}>
             Already have an account
-          </p>
-
-          <p className="login-consent">
-            By clicking the button, you consent to the processing of your
-            personal data
           </p>
         </div>
       </div>
 
-      {/* CUSTOM KEYPAD */}
       {activeField === "phone" && (
         <div className="register-keyboard">
           {[
