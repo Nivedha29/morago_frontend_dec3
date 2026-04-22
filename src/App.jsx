@@ -32,6 +32,7 @@ import OnboardingScreen from "./pages/onboarding.jsx";
 import HomeScreen from "./pages/home.jsx";
 import TranslatorHome from "./pages/translator-home.jsx";
 import RegisterPage from "./pages/RegisterPage";
+import MobileTranslatorRegisterPage from "./pages/MobileTranslatorRegisterPage.jsx";
 import VerificationCodePage from "./pages/VerificationCodePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
@@ -96,6 +97,10 @@ const App = () => {
                 <Route path="/onboarding" element={<OnboardingScreen />} />
                 <Route path="/login" element={<LoginScreen />} />
                 <Route path="/sign-up" element={<SignupScreen />} />
+                <Route
+                  path="mobile/translator-register"
+                  element={<MobileTranslatorRegisterPage />}
+                />
                 <Route
                   path="/home"
                   element={

@@ -9,11 +9,12 @@ const SignupScreen = () => {
   const navigate = useNavigate();
 
   const handleCreateAccount = () => {
-    if (role === "user") {
-      navigate("/sign-up/user");
-    } else {
-      navigate("/sign-up/translator");
-    }
+    const routes = {
+      user: "/sign-up/user",
+      translator: "/mobile/translator-register",
+    };
+
+    navigate(routes[role]);
   };
   return (
     <div className="screen login-screen">
