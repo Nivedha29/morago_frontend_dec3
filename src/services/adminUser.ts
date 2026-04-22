@@ -1,9 +1,5 @@
 import api from "./api";
 
-///////////////////////////////////////////////////////////
-// USERS
-///////////////////////////////////////////////////////////
-
 export interface UserItem {
   id: number;
   firstName: string;
@@ -60,10 +56,6 @@ export const getAdminUserById = async (
   return response.data;
 };
 
-///////////////////////////////////////////////////////////
-// USER CALL HISTORY
-///////////////////////////////////////////////////////////
-
 export interface UserCallHistoryItem {
   date: string;
   phone: string;
@@ -105,10 +97,6 @@ export const getAdminUserCallHistory = async (
   return response.data;
 };
 
-///////////////////////////////////////////////////////////
-// USER DEPOSIT HISTORY
-///////////////////////////////////////////////////////////
-
 export interface UserDepositHistoryItem {
   id: number;
   date: string;
@@ -145,10 +133,6 @@ export const getAdminUserDepositHistory = async (
   return response.data;
 };
 
-///////////////////////////////////////////////////////////
-// USER DEPOSIT CHARGE
-///////////////////////////////////////////////////////////
-
 export interface ApproveUserDepositPayload {
   sum: number;
 }
@@ -159,10 +143,6 @@ export const approveAdminUserDeposit = async (
 ): Promise<void> => {
   await api.put(`/admin/deposits/${depositId}`, payload);
 };
-
-///////////////////////////////////////////////////////////
-// CREATE USER
-///////////////////////////////////////////////////////////
 
 export interface CreateAdminUserPayload {
   password: string;

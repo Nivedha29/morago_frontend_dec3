@@ -21,6 +21,9 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
+import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
+
+/* ------------------------- Mobile App ------------------------- */
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -79,6 +82,7 @@ const App = () => {
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+      <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
 
       {/* ------------------------- MOBILE APP ------------------------- */}
 

@@ -35,6 +35,10 @@ export interface CategoryDetailResponse {
   isActive: boolean;
 }
 
+export interface CreateCategoryPayload {
+  name: string;
+}
+
 export const getAdminCategories = async (
   params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
@@ -50,6 +54,17 @@ export const getAdminCategoryById = async (
 ): Promise<CategoryDetailResponse> => {
   const response = await api.get<CategoryDetailResponse>(
     `${ADMIN_CATEGORIES_BASE}/${id}`,
+  );
+
+  return response.data;
+};
+
+export const createAdminCategory = async (
+  payload: CreateCategoryPayload,
+): Promise<CategoryDetailResponse> => {
+  const response = await api.post<CategoryDetailResponse>(
+    ADMIN_CATEGORIES_BASE,
+    payload,
   );
 
   return response.data;
