@@ -263,4 +263,8 @@ const RegisterVerifyPage = () => {
   );
 };
 
+<<<<<<< HEAD:src/pages/RegisterVerifyPage.jsx
 export default RegisterVerifyPage;
+=======
+export default MobileTranslatorVerifyPage;
+>>>>>>> 7a909a3 ( Style: Finalized styling to match Figma):src/pages/MobileTranslatorVerifyPage.jsx
