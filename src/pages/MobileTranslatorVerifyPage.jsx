@@ -26,6 +26,7 @@ const MobileTranslatorVerifyPage = () => {
   const [timeLeft, setTimeLeft] = useState(INITIAL_TIME_LEFT);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
 
   const inputRefs = useRef([]);
 
@@ -38,7 +39,10 @@ const MobileTranslatorVerifyPage = () => {
   }, [phone, password, confirmPassword, role, navigate]);
 
   useEffect(() => {
-    if (timeLeft <= 0) return;
+    if (timeLeft <= 0) {
+      setIsExpired(true);
+      return;
+    }
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
@@ -143,6 +147,14 @@ const MobileTranslatorVerifyPage = () => {
     }
   };
 
+  const handleResend = () => {
+    setCode(Array(CODE_LENGTH).fill(""));
+    setTimeLeft(INITIAL_TIME_LEFT);
+    setIsExpired(false);
+    setActiveIndex(0);
+    focusInput(0);
+  };
+
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
   const seconds = String(timeLeft % 60).padStart(2, "0");
 
@@ -198,10 +210,10 @@ const MobileTranslatorVerifyPage = () => {
           <button
             type="button"
             className="btn btn-login mobile-translator-verify__confirm-button"
-            disabled={!isCodeComplete || isSubmitting}
-            onClick={handleConfirm}
+            disabled={isExpired ? false : !isCodeComplete || isSubmitting}
+            onClick={isExpired ? handleResend : handleConfirm}
           >
-            {isSubmitting ? "Confirming..." : "Confirm"}
+            {isExpired ? "Resend Code" : isSubmitting ? "Confirming..." : "Confirm"}
           </button>
 
           <p className="mobile-translator-verify__resend">
