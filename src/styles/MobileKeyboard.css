@@ -1,0 +1,14 @@
+.mobile-keyboard__main {
+   display: block;
+   font-size: 20px;
+   line-height: 1;
+}
+
+.mobile-keyboard__sub {
+   display: block;
+   margin-top: 4px;
+   font-size: 10px;
+   line-height: 1;
+   color: #7b8495;
+   letter-spacing: 0.08em;
+}

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar";
-import RegisterKeyboard from "../components/RegisterKeyboard";
+import MobileKeyboard from "../components/MobileKeyboard";
 
 import "../index.css";
-import "./TranslatorRegisterPage.css";
+import "../styles/MobileTranslatorRegisterPage.css";
 
-const TranslatorRegisterPage = () => {
+const MobileTranslatorRegisterPage = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -25,7 +25,10 @@ const TranslatorRegisterPage = () => {
       return `${numbers.slice(0, 3)} ${numbers.slice(3)}`;
     }
 
-    return `${numbers.slice(0, 3)} ${numbers.slice(3, 7)} ${numbers.slice(7, 11)}`;
+    return `${numbers.slice(0, 3)} ${numbers.slice(3, 7)} ${numbers.slice(
+      7,
+      11,
+    )}`;
   };
 
   const getRawPhone = (value) => value.replace(/\D/g, "");
@@ -98,11 +101,11 @@ const TranslatorRegisterPage = () => {
   };
 
   return (
-    <div className="screen login-screen translator-register">
+    <div className="screen login-screen mobile-translator-register">
       <StatusBar />
 
-      <div className="login-body translator-register__body">
-        <div className="translator-register__header">
+      <div className="login-body mobile-translator-register__body">
+        <div className="mobile-translator-register__header">
           <h1 className="login-title">
             Translator <br />
             Registration
@@ -113,8 +116,8 @@ const TranslatorRegisterPage = () => {
           </p>
         </div>
 
-        <div className="translator-register__form">
-          <div className="translator-register__field">
+        <div className="mobile-translator-register__form">
+          <div className="mobile-translator-register__field">
             <label className="field-label">Phone number</label>
 
             <div
@@ -142,7 +145,7 @@ const TranslatorRegisterPage = () => {
             )}
           </div>
 
-          <div className="translator-register__field">
+          <div className="mobile-translator-register__field">
             <label className="field-label">Password</label>
 
             <div
@@ -171,7 +174,7 @@ const TranslatorRegisterPage = () => {
             )}
           </div>
 
-          <div className="translator-register__field">
+          <div className="mobile-translator-register__field">
             <label className="field-label">Confirm password</label>
 
             <div
@@ -200,7 +203,7 @@ const TranslatorRegisterPage = () => {
 
           <button
             type="button"
-            className="btn btn-login translator-register__submit"
+            className="btn btn-login mobile-translator-register__submit"
             disabled={!isFormValid}
             onClick={handleSubmit}
           >
@@ -209,13 +212,13 @@ const TranslatorRegisterPage = () => {
 
           <button
             type="button"
-            className="translator-register__back-link"
+            className="mobile-translator-register__back-link"
             onClick={() => navigate("/login")}
           >
             Already have an account
           </button>
 
-          <p className="translator-register__consent">
+          <p className="mobile-translator-register__consent">
             By clicking the button, you consent to the processing of your
             personal data
           </p>
@@ -223,7 +226,7 @@ const TranslatorRegisterPage = () => {
       </div>
 
       {activeField === "phone" && (
-        <RegisterKeyboard
+        <MobileKeyboard
           onDigitClick={handlePhoneKeyClick}
           onDelete={handlePhoneDelete}
         />
@@ -238,4 +241,4 @@ const TranslatorRegisterPage = () => {
   );
 };
 
-export default TranslatorRegisterPage;
+export default MobileTranslatorRegisterPage;

@@ -1,0 +1,43 @@
+.mobile-translator-register {
+   position: relative;
+}
+
+.mobile-translator-register__body {
+   display: flex;
+   flex-direction: column;
+}
+
+.mobile-translator-register__header {
+   margin-bottom: 20px;
+}
+
+.mobile-translator-register__form {
+   display: flex;
+   flex-direction: column;
+}
+
+.mobile-translator-register__field+.mobile-translator-register__field {
+   margin-top: 14px;
+}
+
+.mobile-translator-register__submit {
+   margin-top: 20px;
+}
+
+.mobile-translator-register__back-link {
+   margin-top: 12px;
+   background: transparent;
+   border: none;
+   color: #b4b7bd;
+   align-self: center;
+   cursor: pointer;
+   font-size: 14px;
+}
+
+.mobile-translator-register__consent {
+   margin-top: 16px;
+   font-size: 12px;
+   line-height: 18px;
+   text-align: center;
+   color: #9ba2b1;
+}
