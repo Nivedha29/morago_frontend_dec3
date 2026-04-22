@@ -91,11 +91,12 @@ const MobileTranslatorRegisterPage = () => {
   const handleSubmit = () => {
     if (!isFormValid) return;
 
-    navigate("/verify", {
+    navigate("/mobile/translator-verify", {
       state: {
         phone: rawPhone,
         password: form.password,
-        role: "translator",
+        confirmPassword: form.confirmPassword,
+        role: "ROLE_TRANSLATOR",
       },
     });
   };
@@ -134,7 +135,6 @@ const MobileTranslatorRegisterPage = () => {
                 placeholder='Enter your phone number without "-"'
                 value={form.phone}
                 onFocus={() => setActiveField("phone")}
-                onBlur={() => setActiveField(null)}
                 onChange={handleChange}
                 readOnly
               />
@@ -175,8 +175,6 @@ const MobileTranslatorRegisterPage = () => {
           </div>
 
           <div className="mobile-translator-register__field">
-            <label className="field-label">Confirm password</label>
-
             <div
               className={`field-wrapper ${
                 activeField === "confirmPassword" ? "field-focused" : ""

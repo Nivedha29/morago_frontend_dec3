@@ -33,7 +33,7 @@ import HomeScreen from "./pages/home.jsx";
 import TranslatorHome from "./pages/translator-home.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import MobileTranslatorRegisterPage from "./pages/MobileTranslatorRegisterPage.jsx";
-import VerificationCodePage from "./pages/VerificationCodePage.jsx";
+import MobileTranslatorVerifyPage from "./pages/MobileTranslatorVerifyPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
@@ -102,6 +102,10 @@ const App = () => {
                   element={<MobileTranslatorRegisterPage />}
                 />
                 <Route
+                  path="mobile/translator-verify"
+                  element={<MobileTranslatorVerifyPage />}
+                />
+                <Route
                   path="/home"
                   element={
                     <ProtectedRoute allowedRole="ROLE_USER">
@@ -125,7 +129,6 @@ const App = () => {
                   path="/sign-up/translator"
                   element={<RegisterPage role="translator" />}
                 />
-                <Route path="/verify" element={<VerificationCodePage />} />
                 <Route
                   path="/forgot-password"
                   element={<ForgotPasswordPage />}

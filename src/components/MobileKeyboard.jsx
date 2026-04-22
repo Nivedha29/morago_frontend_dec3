@@ -40,7 +40,6 @@ const MobileKeyboard = ({ onDigitClick, onDelete }) => {
           disabled={key.value === ""}
         >
           <span className="mobile-keyboard__main">{key.value}</span>
-
           {key.sub && <span className="mobile-keyboard__sub">{key.sub}</span>}
         </button>
       ))}
