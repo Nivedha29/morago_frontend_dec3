@@ -20,8 +20,7 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
-import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
-
+import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";

@@ -1,5 +1,9 @@
 import api from "./api";
 
+///////////////////////////////////////////////////////////
+// TRANSLATORS
+///////////////////////////////////////////////////////////
+
 export interface Translator {
   id: number;
   firstName: string;
@@ -184,6 +188,10 @@ export const approveWithdrawalById = async (
 ): Promise<void> => {
   await api.put(`/admin/withdrawals/${id}`, payload);
 };
+
+///////////////////////////////////////////////////////////
+// CALL HISTORY
+///////////////////////////////////////////////////////////
 
 export interface CallHistoryItem {
   date: string;
