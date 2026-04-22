@@ -213,7 +213,11 @@ const MobileTranslatorVerifyPage = () => {
             disabled={isExpired ? false : !isCodeComplete || isSubmitting}
             onClick={isExpired ? handleResend : handleConfirm}
           >
-            {isExpired ? "Resend Code" : isSubmitting ? "Confirming..." : "Confirm"}
+            {isExpired
+              ? "Resend Code"
+              : isSubmitting
+                ? "Confirming..."
+                : "Confirm"}
           </button>
 
           <p className="mobile-translator-verify__resend">
@@ -227,7 +231,7 @@ const MobileTranslatorVerifyPage = () => {
           title="Registration was successful"
           subtitle="You can now fully enjoy all the features"
           buttonText="Hello!"
-          onButtonClick={() => navigate("/login")}
+          onButtonClick={() => navigate("/translator/profile-setup")}
         />
       )}
 
