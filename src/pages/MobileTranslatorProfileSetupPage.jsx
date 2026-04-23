@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import SuccessModal from "../components/SuccessModal.jsx";
+import defaultAvatar from "../assets/avatar.svg";
 import {
   fillTranslatorProfile,
   getActiveLanguages,
@@ -10,6 +12,8 @@ import {
 
 import "../index.css";
 import "./../styles/MobileTranslatorProfileSetupPage.css";
+
+const INITIAL_THEME_COUNT = 6;
 
 const MobileTranslatorProfileSetupPage = () => {
   const navigate = useNavigate();
@@ -28,7 +32,8 @@ const MobileTranslatorProfileSetupPage = () => {
     }
   }, []);
 
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [levelOfKorean, setLevelOfKorean] = useState("");
@@ -38,9 +43,11 @@ const MobileTranslatorProfileSetupPage = () => {
   const [languages, setLanguages] = useState([]);
   const [selectedThemeIds, setSelectedThemeIds] = useState([]);
   const [selectedLanguageIds, setSelectedLanguageIds] = useState([]);
+  const [showAllThemes, setShowAllThemes] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -49,11 +56,8 @@ const MobileTranslatorProfileSetupPage = () => {
       return;
     }
 
-    const initialFullName = [storedUser.firstName, storedUser.lastName]
-      .filter(Boolean)
-      .join(" ");
-
-    setFullName(initialFullName);
+    setFirstName(storedUser.firstName || "");
+    setLastName(storedUser.lastName || "");
     setPhone(storedUser.phone || "");
     setDateOfBirth(storedUser.dateOfBirth || "");
     setImageUrl(storedUser.imageUrl || "");
@@ -101,16 +105,24 @@ const MobileTranslatorProfileSetupPage = () => {
     fetchInitialData();
   }, []);
 
+  const visibleThemes = showAllThemes
+    ? themes
+    : themes.slice(0, INITIAL_THEME_COUNT);
+
+  const shouldShowThemeToggle = themes.length > INITIAL_THEME_COUNT;
+
   const isSaveDisabled =
     isSubmitting ||
     isUploadingAvatar ||
-    !fullName.trim() ||
+    !firstName.trim() ||
+    !lastName.trim() ||
     !dateOfBirth ||
     !levelOfKorean ||
     selectedThemeIds.length === 0 ||
     selectedLanguageIds.length === 0;
 
   const handleThemeToggle = (themeId) => {
+    setErrorMessage("");
     setSelectedThemeIds((prev) =>
       prev.includes(themeId)
         ? prev.filter((id) => id !== themeId)
@@ -119,6 +131,7 @@ const MobileTranslatorProfileSetupPage = () => {
   };
 
   const handleLanguageToggle = (languageId) => {
+    setErrorMessage("");
     setSelectedLanguageIds((prev) =>
       prev.includes(languageId)
         ? prev.filter((id) => id !== languageId)
@@ -163,6 +176,7 @@ const MobileTranslatorProfileSetupPage = () => {
 
     if (!file) return;
 
+    setErrorMessage("");
     setTopikFileName(file.name);
     event.target.value = "";
   };
@@ -170,13 +184,13 @@ const MobileTranslatorProfileSetupPage = () => {
   const handleSave = async () => {
     if (isSaveDisabled) return;
 
-    const trimmedName = fullName.trim();
-    const nameParts = trimmedName.split(/\s+/);
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ");
+    if (!firstName.trim()) {
+      setErrorMessage("First name is required");
+      return;
+    }
 
-    if (!firstName || !lastName) {
-      setErrorMessage("Please enter your first and last name");
+    if (!lastName.trim()) {
+      setErrorMessage("Last name is required");
       return;
     }
 
@@ -185,8 +199,8 @@ const MobileTranslatorProfileSetupPage = () => {
       setErrorMessage("");
 
       const response = await fillTranslatorProfile({
-        firstName,
-        lastName,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
         imageUrl,
         levelOfKorean: Number(levelOfKorean),
         dateOfBirth,
@@ -206,7 +220,7 @@ const MobileTranslatorProfileSetupPage = () => {
         }),
       );
 
-      navigate("/translator/home", { replace: true });
+      setShowSuccess(true);
     } catch (error) {
       const message =
         error && typeof error === "object" && "message" in error
@@ -239,15 +253,11 @@ const MobileTranslatorProfileSetupPage = () => {
 
           <div className="mobile-translator-profile-setup__avatar-section">
             <div className="mobile-translator-profile-setup__avatar-wrapper">
-              {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="Profile"
-                  className="mobile-translator-profile-setup__avatar-image"
-                />
-              ) : (
-                <div className="mobile-translator-profile-setup__avatar-placeholder" />
-              )}
+              <img
+                src={imageUrl || defaultAvatar}
+                alt="Profile"
+                className="mobile-translator-profile-setup__avatar-image"
+              />
 
               <button
                 type="button"
@@ -268,14 +278,31 @@ const MobileTranslatorProfileSetupPage = () => {
             </div>
           </div>
 
-          <label className="field-label">Full name</label>
+          <label className="field-label">First name</label>
           <div className="field-wrapper">
             <input
               type="text"
               className="field-input"
-              placeholder="Enter your first and last name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              placeholder="First name"
+              value={firstName}
+              onChange={(e) => {
+                setFirstName(e.target.value);
+                setErrorMessage("");
+              }}
+            />
+          </div>
+
+          <label className="field-label">Last name</label>
+          <div className="field-wrapper">
+            <input
+              type="text"
+              className="field-input"
+              placeholder="Last name"
+              value={lastName}
+              onChange={(e) => {
+                setLastName(e.target.value);
+                setErrorMessage("");
+              }}
             />
           </div>
 
@@ -290,7 +317,10 @@ const MobileTranslatorProfileSetupPage = () => {
               type="date"
               className="field-input"
               value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
+              onChange={(e) => {
+                setDateOfBirth(e.target.value);
+                setErrorMessage("");
+              }}
             />
           </div>
 
@@ -299,7 +329,10 @@ const MobileTranslatorProfileSetupPage = () => {
             <select
               className="field-input mobile-translator-profile-setup__select"
               value={levelOfKorean}
-              onChange={(e) => setLevelOfKorean(e.target.value)}
+              onChange={(e) => {
+                setLevelOfKorean(e.target.value);
+                setErrorMessage("");
+              }}
             >
               <option value="">Enter your Korean level</option>
               <option value="1">Level 1</option>
@@ -338,24 +371,35 @@ const MobileTranslatorProfileSetupPage = () => {
                   Loading topics...
                 </p>
               ) : (
-                themes.map((theme) => (
-                  <label
+                visibleThemes.map((theme) => (
+                  <div
                     key={theme.id}
                     className="mobile-translator-profile-setup__topic-row"
+                    onClick={() => handleThemeToggle(theme.id)}
                   >
                     <input
                       type="checkbox"
                       className="mobile-translator-profile-setup__topic-checkbox"
                       checked={selectedThemeIds.includes(theme.id)}
-                      onChange={() => handleThemeToggle(theme.id)}
+                      readOnly
                     />
                     <span className="mobile-translator-profile-setup__topic-text">
                       {theme.titleEn || theme.title || theme.name}
                     </span>
-                  </label>
+                  </div>
                 ))
               )}
             </div>
+
+            {shouldShowThemeToggle ? (
+              <button
+                type="button"
+                className="mobile-translator-profile-setup__show-more"
+                onClick={() => setShowAllThemes((prev) => !prev)}
+              >
+                {showAllThemes ? "Show less" : "Show more"}
+              </button>
+            ) : null}
           </div>
 
           <div className="mobile-translator-profile-setup__section">
@@ -363,8 +407,20 @@ const MobileTranslatorProfileSetupPage = () => {
               Topics for translation with certificate
             </h2>
 
-            <div className="mobile-translator-profile-setup__certificate-box">
-              Certificate upload is not supported by the current API yet.
+            <div className="mobile-translator-profile-setup__certificate-list">
+              <div className="mobile-translator-profile-setup__certificate-row">
+                <span className="mobile-translator-profile-setup__topic-text">
+                  Upload certificates for selected topics
+                </span>
+
+                <button
+                  type="button"
+                  className="mobile-translator-profile-setup__certificate-upload"
+                  onClick={handleTopikClick}
+                >
+                  {topikFileName ? "1 file" : "Upload"}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -416,6 +472,20 @@ const MobileTranslatorProfileSetupPage = () => {
           </p>
         </div>
       </div>
+
+      {showSuccess && (
+        <SuccessModal
+          title={
+            <>
+              We have sent an SMS with a <br />
+              link to schedule an interview
+            </>
+          }
+          subtitle="If you haven't received it, please call 010 2530 8575"
+          buttonText="Great!"
+          onButtonClick={() => navigate("/onboarding", { replace: true })}
+        />
+      )}
 
       <div className="home-indicator" />
     </div>
