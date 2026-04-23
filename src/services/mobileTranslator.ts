@@ -71,6 +71,70 @@ export interface UploadedAvatarResponse {
   type: string;
 }
 
+export interface SortInfo {
+  sorted: boolean;
+  empty: boolean;
+  unsorted: boolean;
+}
+
+export interface PageableInfo {
+  paged: boolean;
+  pageNumber: number;
+  pageSize: number;
+  offset: number;
+  sort: SortInfo;
+  unpaged: boolean;
+}
+
+export interface TranslatorCallHistoryItem {
+  date: string;
+  phone: string;
+  name: string;
+  imageUrl: string;
+  duration: number;
+  coins: number;
+  theme: string;
+  rating: string;
+  hasRequest: boolean;
+}
+
+export interface PaginatedTranslatorCallHistoryResponse {
+  totalElements: number;
+  totalPages: number;
+  pageable: PageableInfo;
+  size: number;
+  content: TranslatorCallHistoryItem[];
+  number: number;
+  sort: SortInfo;
+  first: boolean;
+  last: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
+
+export interface GetTranslatorCallHistoryParams {
+  isMissed?: boolean;
+  isLast?: boolean;
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: "ASC" | "DESC";
+}
+
+export interface TranslatorStatusResponse {
+  translatorId: number;
+  isOnline: boolean;
+}
+
+export interface CurrentUserProfileResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  balance: number;
+  hasDepositRequest: boolean;
+}
+
 export const getTranslatorThemes = async (
   params: GetTranslatorThemesParams = {},
 ): Promise<PaginatedTranslatorThemesResponse> => {
@@ -116,3 +180,43 @@ export const fillTranslatorProfile = async (
   );
   return response.data;
 };
+
+export const getCurrentUserBalance = async (): Promise<number> => {
+  const response = await api.get<number>("/profile/balance");
+  return response.data;
+};
+
+export const switchTranslatorStatus =
+  async (): Promise<TranslatorStatusResponse> => {
+    const response = await api.put<TranslatorStatusResponse>(
+      "/translator/switch-status",
+    );
+    return response.data;
+  };
+
+export const getTranslatorCallHistory = async (
+  params: GetTranslatorCallHistoryParams = {},
+): Promise<PaginatedTranslatorCallHistoryResponse> => {
+  const response = await api.get<PaginatedTranslatorCallHistoryResponse>(
+    "/profile/calls/history",
+    {
+      params,
+    },
+  );
+  return response.data;
+};
+
+export const getUnreadNotificationsCount = async (): Promise<number> => {
+  const response = await api.get<number>("/profile/notifications/count", {
+    params: {
+      isUnread: true,
+    },
+  });
+  return response.data;
+};
+
+export const getCurrentUserProfile =
+  async (): Promise<CurrentUserProfileResponse> => {
+    const response = await api.get<CurrentUserProfileResponse>("/me");
+    return response.data;
+  };
