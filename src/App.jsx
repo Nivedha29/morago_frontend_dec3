@@ -30,7 +30,7 @@ import LoginScreen from "./pages/login.jsx";
 import SignupScreen from "./pages/sign-up.jsx";
 import OnboardingScreen from "./pages/onboarding.jsx";
 import HomeScreen from "./pages/home.jsx";
-import TranslatorHome from "./pages/translator-home.jsx";
+import TranslatorHome from "./pages/MobileTranslatorHomePage.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterVerifyPage from "./pages/RegisterVerifyPage.jsx";
 import ProfileSetupPage from "./pages/TranslatorProfileSetupPage.jsx";
