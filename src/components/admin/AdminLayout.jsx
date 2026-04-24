@@ -1,7 +1,7 @@
 import React from "react";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
-import "../../styles/AdminLayout.css";
+import "../../styles/Admin/AdminLayout.css";
 
 const AdminLayout = ({ children }) => {
   return (

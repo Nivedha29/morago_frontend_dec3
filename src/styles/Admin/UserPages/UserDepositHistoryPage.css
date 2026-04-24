@@ -1,0 +1,38 @@
+
+.user-deposit-history-table .morago-admin-table__header,
+.user-deposit-history-table .morago-admin-table__row {
+   grid-template-columns:
+      44px minmax(120px, 1fr) minmax(160px, 1.2fr) minmax(100px, 0.9fr) minmax(180px, 1.3fr);
+}
+
+
+.user-deposit-history-table .morago-admin-table__cell {
+   padding: 0 12px;
+}
+
+.user-deposit-history-table .morago-admin-table__checkbox-cell {
+   justify-content: center;
+}
+
+
+@media (max-width: 1440px) {
+
+   .user-deposit-history-table .morago-admin-table__header,
+   .user-deposit-history-table .morago-admin-table__row {
+      grid-template-columns:
+         40px minmax(110px, 1fr) minmax(140px, 1.1fr) minmax(90px, 0.85fr) minmax(160px, 1.2fr);
+   }
+}
+
+@media (max-width: 1280px) {
+
+   .user-deposit-history-table .morago-admin-table__header,
+   .user-deposit-history-table .morago-admin-table__row {
+      grid-template-columns:
+         36px minmax(100px, 1fr) minmax(130px, 1.1fr) minmax(80px, 0.8fr) minmax(150px, 1.15fr);
+   }
+
+   .user-deposit-history-table .morago-admin-table__cell {
+      padding: 0 8px;
+   }
+}

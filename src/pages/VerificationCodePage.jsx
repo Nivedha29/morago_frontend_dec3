@@ -30,7 +30,6 @@ const VerificationCodePage = () => {
     newCode[index] = value;
     setCode(newCode);
 
-    // 👉 move to next input
     if (value && index < code.length - 1) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -125,7 +124,6 @@ const VerificationCodePage = () => {
             to your phone number
           </p>
 
-          {/* CODE INPUTS */}
           <div className="code-container">
             {code.map((digit, index) => (
               <input
