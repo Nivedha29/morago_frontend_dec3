@@ -16,7 +16,7 @@ import {
 } from "../services/mobileTranslator.js";
 
 import "../index.css";
-import "../styles/MobileTranslatorHomePage.css";
+import "../styles/TranslatorHomePage.css";
 
 const MobileTranslatorHomePage = () => {
   const navigate = useNavigate();

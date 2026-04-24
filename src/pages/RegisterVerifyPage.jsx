@@ -209,7 +209,6 @@ const RegisterVerifyPage = () => {
 
           <button
             type="button"
-<<<<<<< HEAD:src/pages/RegisterVerifyPage.jsx
             className={`btn btn-login mobile-translator-verify__confirm-button ${
               isTranslator
                 ? "mobile-translator-verify__confirm-button--translator"
@@ -228,13 +227,6 @@ const RegisterVerifyPage = () => {
               : isSubmitting
                 ? "Confirming..."
                 : "Confirm"}
-=======
-            className="btn btn-login mobile-translator-verify__confirm-button"
-            disabled={isExpired ? false : !isCodeComplete || isSubmitting}
-            onClick={isExpired ? handleResend : handleConfirm}
-          >
-            {isExpired ? "Resend Code" : isSubmitting ? "Confirming..." : "Confirm"}
->>>>>>> 7a909a3 ( Style: Finalized styling to match Figma):src/pages/MobileTranslatorVerifyPage.jsx
           </button>
 
           <p className="mobile-translator-verify__resend">
@@ -271,8 +263,4 @@ const RegisterVerifyPage = () => {
   );
 };
 
-<<<<<<< HEAD:src/pages/RegisterVerifyPage.jsx
 export default RegisterVerifyPage;
-=======
-export default MobileTranslatorVerifyPage;
->>>>>>> 7a909a3 ( Style: Finalized styling to match Figma):src/pages/MobileTranslatorVerifyPage.jsx

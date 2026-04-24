@@ -30,7 +30,7 @@ import LoginScreen from "./pages/login.jsx";
 import SignupScreen from "./pages/sign-up.jsx";
 import OnboardingScreen from "./pages/onboarding.jsx";
 import HomeScreen from "./pages/home.jsx";
-import TranslatorHome from "./pages/MobileTranslatorHomePage.jsx";
+import TranslatorHome from "./pages/TranslatorHomePage.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterVerifyPage from "./pages/RegisterVerifyPage.jsx";
 import ProfileSetupPage from "./pages/TranslatorProfileSetupPage.jsx";
@@ -106,7 +106,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/translator-home"
+                  path="/translator/home"
                   element={
                     <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
                       <TranslatorHome />

@@ -152,11 +152,8 @@
    align-items: center;
    gap: 12px;
    cursor: pointer;
-<<<<<<<< HEAD:src/styles/TranslatorProfileSetupPage.css
    border: none;
    background: transparent;
-========
->>>>>>>> 76f892d (feat: complete mobile translator profile setup page (UI, API integration, validation, and UX improvements)):src/styles/MobileTranslatorProfileSetupPage.css
 }
 
 .mobile-translator-profile-setup__topic-checkbox {
@@ -166,11 +163,7 @@
    height: 22px;
    border-radius: 6px;
    border: 2px solid #e5e7eb;
-<<<<<<<< HEAD:src/styles/TranslatorProfileSetupPage.css
    background: #ffffff;
-========
-   background: white;
->>>>>>>> 76f892d (feat: complete mobile translator profile setup page (UI, API integration, validation, and UX improvements)):src/styles/MobileTranslatorProfileSetupPage.css
    display: inline-flex;
    align-items: center;
    justify-content: center;
@@ -189,13 +182,8 @@
    content: "";
    width: 10px;
    height: 6px;
-<<<<<<<< HEAD:src/styles/TranslatorProfileSetupPage.css
    border-left: 2px solid #ffffff;
    border-bottom: 2px solid #ffffff;
-========
-   border-left: 2px solid white;
-   border-bottom: 2px solid white;
->>>>>>>> 76f892d (feat: complete mobile translator profile setup page (UI, API integration, validation, and UX improvements)):src/styles/MobileTranslatorProfileSetupPage.css
    transform: rotate(-45deg);
    margin-top: -2px;
 }
