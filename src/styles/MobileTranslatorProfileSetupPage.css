@@ -159,7 +159,7 @@
    margin-top: 14px;
    display: flex;
    flex-direction: column;
-   gap: 14px;
+   gap: 10px;
 }
 
 .mobile-translator-profile-setup__topic-row {
@@ -167,6 +167,8 @@
    align-items: center;
    gap: 12px;
    cursor: pointer;
+   border: none; 
+   background: transparent;  
 }
 
 .mobile-translator-profile-setup__topic-checkbox {
