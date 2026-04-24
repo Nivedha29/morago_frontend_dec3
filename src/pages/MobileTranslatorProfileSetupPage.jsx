@@ -11,7 +11,7 @@ import {
 } from "../services/mobileTranslator.js";
 
 import "../index.css";
-import "./../styles/MobileTranslatorProfileSetupPage.css";
+import "../styles/MobileTranslatorProfileSetupPage.css";
 
 const INITIAL_THEME_COUNT = 6;
 
@@ -184,16 +184,6 @@ const MobileTranslatorProfileSetupPage = () => {
   const handleSave = async () => {
     if (isSaveDisabled) return;
 
-    if (!firstName.trim()) {
-      setErrorMessage("First name is required");
-      return;
-    }
-
-    if (!lastName.trim()) {
-      setErrorMessage("Last name is required");
-      return;
-    }
-
     try {
       setIsSubmitting(true);
       setErrorMessage("");
@@ -242,6 +232,7 @@ const MobileTranslatorProfileSetupPage = () => {
           type="button"
           className="mobile-translator-profile-setup__back-button"
           onClick={() => navigate(-1)}
+          aria-label="Go back to previous page"
         >
           ←
         </button>
@@ -255,7 +246,7 @@ const MobileTranslatorProfileSetupPage = () => {
             <div className="mobile-translator-profile-setup__avatar-wrapper">
               <img
                 src={imageUrl || defaultAvatar}
-                alt="Profile"
+                alt="Translator profile"
                 className="mobile-translator-profile-setup__avatar-image"
               />
 
@@ -264,6 +255,7 @@ const MobileTranslatorProfileSetupPage = () => {
                 className="mobile-translator-profile-setup__avatar-trigger"
                 onClick={handleAvatarClick}
                 disabled={isUploadingAvatar}
+                aria-label="Upload profile photo"
               >
                 {isUploadingAvatar ? "..." : "📷"}
               </button>
@@ -274,63 +266,84 @@ const MobileTranslatorProfileSetupPage = () => {
                 accept="image/*"
                 className="mobile-translator-profile-setup__hidden-input"
                 onChange={handleAvatarChange}
+                aria-label="Choose profile photo"
               />
             </div>
           </div>
 
-          <label className="field-label">First name</label>
+          <label className="field-label" htmlFor="translator-first-name">
+            First name
+          </label>
           <div className="field-wrapper">
             <input
+              id="translator-first-name"
               type="text"
               className="field-input"
               placeholder="First name"
               value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
+              onChange={(event) => {
+                setFirstName(event.target.value);
                 setErrorMessage("");
               }}
             />
           </div>
 
-          <label className="field-label">Last name</label>
+          <label className="field-label" htmlFor="translator-last-name">
+            Last name
+          </label>
           <div className="field-wrapper">
             <input
+              id="translator-last-name"
               type="text"
               className="field-input"
               placeholder="Last name"
               value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
+              onChange={(event) => {
+                setLastName(event.target.value);
                 setErrorMessage("");
               }}
             />
           </div>
 
-          <label className="field-label">Phone number</label>
-          <div className="field-wrapper">
-            <input type="text" className="field-input" value={phone} disabled />
-          </div>
-
-          <label className="field-label">Date of birth</label>
+          <label className="field-label" htmlFor="translator-phone">
+            Phone number
+          </label>
           <div className="field-wrapper">
             <input
+              id="translator-phone"
+              type="text"
+              className="field-input"
+              value={phone}
+              disabled
+            />
+          </div>
+
+          <label className="field-label" htmlFor="translator-date-of-birth">
+            Date of birth
+          </label>
+          <div className="field-wrapper">
+            <input
+              id="translator-date-of-birth"
               type="date"
               className="field-input"
               value={dateOfBirth}
-              onChange={(e) => {
-                setDateOfBirth(e.target.value);
+              onChange={(event) => {
+                setDateOfBirth(event.target.value);
                 setErrorMessage("");
               }}
             />
           </div>
 
-          <label className="field-label">Korean level (TOPIK)</label>
+          <label className="field-label" htmlFor="translator-korean-level">
+            Korean level (TOPIK)
+          </label>
           <div className="field-wrapper">
             <select
+              id="translator-korean-level"
               className="field-input mobile-translator-profile-setup__select"
               value={levelOfKorean}
-              onChange={(e) => {
-                setLevelOfKorean(e.target.value);
+              onChange={(event) => {
+                setLevelOfKorean(event.target.value);
                 setErrorMessage("");
               }}
             >
@@ -348,6 +361,7 @@ const MobileTranslatorProfileSetupPage = () => {
             type="button"
             className="mobile-translator-profile-setup__upload-button"
             onClick={handleTopikClick}
+            aria-label="Upload TOPIK certificate photo"
           >
             {topikFileName || "Upload TOPIK photo"}
           </button>
@@ -358,6 +372,7 @@ const MobileTranslatorProfileSetupPage = () => {
             accept="image/*,.pdf"
             className="mobile-translator-profile-setup__hidden-input"
             onChange={handleTopikChange}
+            aria-label="Choose TOPIK certificate file"
           />
 
           <div className="mobile-translator-profile-setup__section">
@@ -371,23 +386,32 @@ const MobileTranslatorProfileSetupPage = () => {
                   Loading topics...
                 </p>
               ) : (
-                visibleThemes.map((theme) => (
-                  <div
-                    key={theme.id}
-                    className="mobile-translator-profile-setup__topic-row"
-                    onClick={() => handleThemeToggle(theme.id)}
-                  >
-                    <input
-                      type="checkbox"
-                      className="mobile-translator-profile-setup__topic-checkbox"
-                      checked={selectedThemeIds.includes(theme.id)}
-                      readOnly
-                    />
-                    <span className="mobile-translator-profile-setup__topic-text">
-                      {theme.titleEn || theme.title || theme.name}
-                    </span>
-                  </div>
-                ))
+                visibleThemes.map((theme) => {
+                  const isSelected = selectedThemeIds.includes(theme.id);
+                  const themeName = theme.titleEn || theme.title || theme.name;
+
+                  return (
+                    <button
+                      key={theme.id}
+                      type="button"
+                      className="mobile-translator-profile-setup__topic-row"
+                      onClick={() => handleThemeToggle(theme.id)}
+                      aria-pressed={isSelected}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mobile-translator-profile-setup__topic-checkbox"
+                        checked={isSelected}
+                        readOnly
+                        tabIndex={-1}
+                        aria-hidden="true"
+                      />
+                      <span className="mobile-translator-profile-setup__topic-text">
+                        {themeName}
+                      </span>
+                    </button>
+                  );
+                })
               )}
             </div>
 
@@ -396,6 +420,7 @@ const MobileTranslatorProfileSetupPage = () => {
                 type="button"
                 className="mobile-translator-profile-setup__show-more"
                 onClick={() => setShowAllThemes((prev) => !prev)}
+                aria-expanded={showAllThemes}
               >
                 {showAllThemes ? "Show less" : "Show more"}
               </button>
@@ -417,6 +442,7 @@ const MobileTranslatorProfileSetupPage = () => {
                   type="button"
                   className="mobile-translator-profile-setup__certificate-upload"
                   onClick={handleTopikClick}
+                  aria-label="Upload certificate for selected topics"
                 >
                   {topikFileName ? "1 file" : "Upload"}
                 </button>
@@ -435,26 +461,33 @@ const MobileTranslatorProfileSetupPage = () => {
                   Loading languages...
                 </p>
               ) : (
-                languages.map((language) => (
-                  <button
-                    key={language.id}
-                    type="button"
-                    className={`mobile-translator-profile-setup__language-chip ${
-                      selectedLanguageIds.includes(language.id)
-                        ? "mobile-translator-profile-setup__language-chip--active"
-                        : ""
-                    }`}
-                    onClick={() => handleLanguageToggle(language.id)}
-                  >
-                    {language.titleEn || language.name}
-                  </button>
-                ))
+                languages.map((language) => {
+                  const isSelected = selectedLanguageIds.includes(language.id);
+
+                  return (
+                    <button
+                      key={language.id}
+                      type="button"
+                      className={`mobile-translator-profile-setup__language-chip ${
+                        isSelected
+                          ? "mobile-translator-profile-setup__language-chip--active"
+                          : ""
+                      }`}
+                      onClick={() => handleLanguageToggle(language.id)}
+                      aria-pressed={isSelected}
+                    >
+                      {language.titleEn || language.name}
+                    </button>
+                  );
+                })
               )}
             </div>
           </div>
 
           {errorMessage ? (
-            <p className="field-error-text">{errorMessage}</p>
+            <p className="field-error-text" aria-live="polite">
+              {errorMessage}
+            </p>
           ) : null}
 
           <button
@@ -462,6 +495,7 @@ const MobileTranslatorProfileSetupPage = () => {
             className="btn btn-login"
             disabled={isSaveDisabled}
             onClick={handleSave}
+            aria-label="Save translator profile"
           >
             {isSubmitting ? "Saving..." : "Save"}
           </button>
