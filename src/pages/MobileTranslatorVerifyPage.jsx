@@ -6,7 +6,7 @@ import SuccessModal from "../components/SuccessModal.jsx";
 import { register } from "../services/auth.js";
 
 import "../index.css";
-import "./../styles/MobileTranslatorVerifyPage.css";
+import "../styles/MobileTranslatorVerifyPage.css";
 
 const CODE_LENGTH = 4;
 const INITIAL_TIME_LEFT = 159;
@@ -167,6 +167,7 @@ const MobileTranslatorVerifyPage = () => {
           type="button"
           className="mobile-translator-verify__back-button"
           onClick={() => navigate(-1)}
+          aria-label="Go back to previous page"
         >
           ←
         </button>
@@ -183,7 +184,9 @@ const MobileTranslatorVerifyPage = () => {
             {code.map((digit, index) => (
               <input
                 key={index}
-                ref={(el) => (inputRefs.current[index] = el)}
+                ref={(el) => {
+                  inputRefs.current[index] = el;
+                }}
                 className={`mobile-translator-verify__code-input ${
                   activeIndex === index
                     ? "mobile-translator-verify__code-input--active"
@@ -197,21 +200,27 @@ const MobileTranslatorVerifyPage = () => {
                   setActiveField("code");
                   setActiveIndex(index);
                 }}
-                onChange={(e) => handleChange(e.target.value, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
+                onChange={(event) => handleChange(event.target.value, index)}
+                onKeyDown={(event) => handleKeyDown(event, index)}
+                aria-label={`Verification code digit ${index + 1}`}
               />
             ))}
           </div>
 
-          <p className="mobile-translator-verify__timer">
+          <p className="mobile-translator-verify__timer" aria-live="polite">
             {minutes}:{seconds}
           </p>
 
           <button
             type="button"
             className="btn btn-login mobile-translator-verify__confirm-button"
-            disabled={isExpired ? false : !isCodeComplete || isSubmitting}
+            disabled={!isExpired && (!isCodeComplete || isSubmitting)}
             onClick={isExpired ? handleResend : handleConfirm}
+            aria-label={
+              isExpired
+                ? "Resend verification code"
+                : "Confirm verification code"
+            }
           >
             {isExpired
               ? "Resend Code"
