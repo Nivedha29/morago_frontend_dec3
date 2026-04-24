@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+﻿import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
@@ -10,7 +10,6 @@ import homeBaseImage from "../assets/Base.jpg";
 
 import {
   getCurrentUserBalance,
-  getCurrentUserProfile,
   getTranslatorCallHistory,
   getUnreadNotificationsCount,
   switchTranslatorStatus,
@@ -33,7 +32,6 @@ const MobileTranslatorHomePage = () => {
     }
   }, []);
 
-  const [profile, setProfile] = useState(null);
   const [balance, setBalance] = useState(0);
   const [notificationCount, setNotificationCount] = useState(0);
   const [callHistory, setCallHistory] = useState([]);
@@ -41,8 +39,9 @@ const MobileTranslatorHomePage = () => {
     typeof storedUser?.isOnline === "boolean" ? storedUser.isOnline : true,
   );
   const [loading, setLoading] = useState(true);
+  const [callHistoryError, setCallHistoryError] = useState("");
   const [isSwitchingStatus, setIsSwitchingStatus] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [statusError, setStatusError] = useState("");
 
   useEffect(() => {
     if (!storedUser?.token) {
@@ -54,43 +53,26 @@ const MobileTranslatorHomePage = () => {
     const fetchHomeData = async () => {
       try {
         setLoading(true);
-        setErrorMessage("");
+        setCallHistoryError("");
 
-        const [
-          balanceResponse,
-          notificationsResponse,
-          callsResponse,
-          meResponse,
-        ] = await Promise.all([
-          getCurrentUserBalance(),
-          getUnreadNotificationsCount(),
-          getTranslatorCallHistory({
-            isLast: true,
-            page: 0,
-            size: 3,
-            sortBy: "id",
-            sortDirection: "DESC",
-          }),
-          getCurrentUserProfile(),
-        ]);
+        const [balanceResponse, notificationsResponse, callsResponse] =
+          await Promise.all([
+            getCurrentUserBalance(),
+            getUnreadNotificationsCount(),
+            getTranslatorCallHistory({
+              isLast: true,
+              page: 0,
+              size: 3,
+              sortBy: "id",
+              sortDirection: "DESC",
+            }),
+          ]);
 
         setBalance(balanceResponse || 0);
         setNotificationCount(notificationsResponse || 0);
         setCallHistory(callsResponse?.content || []);
-        setProfile(meResponse || null);
-
-        localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            ...(storedUser || {}),
-            ...meResponse,
-            isOnline,
-          }),
-        );
       } catch (error) {
-        setErrorMessage(
-          error?.message || "Failed to load translator home data",
-        );
+        setCallHistoryError(error?.message || "Failed to load call history");
         setCallHistory([]);
       } finally {
         setLoading(false);
@@ -98,14 +80,14 @@ const MobileTranslatorHomePage = () => {
     };
 
     fetchHomeData();
-  }, [storedUser, isOnline]);
+  }, [storedUser]);
 
   const handleStatusToggle = async () => {
     if (isSwitchingStatus) return;
 
     try {
       setIsSwitchingStatus(true);
-      setErrorMessage("");
+      setStatusError("");
 
       const response = await switchTranslatorStatus();
       const nextIsOnline = response.isOnline;
@@ -116,12 +98,11 @@ const MobileTranslatorHomePage = () => {
         "currentUser",
         JSON.stringify({
           ...(storedUser || {}),
-          ...(profile || {}),
           isOnline: nextIsOnline,
         }),
       );
     } catch (error) {
-      setErrorMessage(error?.message || "Failed to update translator status");
+      setStatusError(error?.message || "Failed to update translator status");
     } finally {
       setIsSwitchingStatus(false);
     }
@@ -145,10 +126,12 @@ const MobileTranslatorHomePage = () => {
               <button
                 type="button"
                 className="mobile-translator-home__notification-button"
+                aria-label="View notifications"
               >
                 <img
                   src={notificationIcon}
-                  alt="Notifications"
+                  alt=""
+                  aria-hidden="true"
                   className="mobile-translator-home__notification-icon"
                 />
 
@@ -176,6 +159,7 @@ const MobileTranslatorHomePage = () => {
                 }`}
                 onClick={handleStatusToggle}
                 disabled={isSwitchingStatus}
+                aria-pressed={isOnline}
               >
                 <span className="mobile-translator-home__status-track">
                   <span className="mobile-translator-home__status-option">
@@ -190,6 +174,12 @@ const MobileTranslatorHomePage = () => {
                   {isOnline ? "Available" : "Not available"}
                 </span>
               </button>
+
+              {statusError ? (
+                <p className="mobile-translator-home__status-error">
+                  {statusError}
+                </p>
+              ) : null}
             </div>
           </div>
 
@@ -202,7 +192,7 @@ const MobileTranslatorHomePage = () => {
               <div className="mobile-translator-home__history-empty">
                 Loading call history...
               </div>
-            ) : errorMessage ? (
+            ) : callHistoryError ? (
               <div className="mobile-translator-home__history-empty">
                 Failed to load call history
               </div>
