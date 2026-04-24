@@ -104,6 +104,8 @@ const RegisterPage = ({ role = "user" }) => {
         type="button"
         className="register-back-button"
         onClick={() => navigate("/sign-up")}
+        aria-label="Go back"
+        onClick={() => navigate(-1)}
       >
         ←
       </button>
@@ -224,6 +226,7 @@ const RegisterPage = ({ role = "user" }) => {
           )}
 
           <button
+            type="button"
             className="btn btn-login register-submit-button"
             disabled={!isFormValid}
             onClick={() =>
@@ -242,6 +245,13 @@ const RegisterPage = ({ role = "user" }) => {
           <p className="login-back register-login-link" onClick={() => navigate("/login")}>
             Already have an account
           </p>
+          <button
+            type="button"
+            className="login-back register-login-link"
+            onClick={() => navigate("/login")}
+          >
+            Already have an account
+          </button>
         </div>
       </div>
 
