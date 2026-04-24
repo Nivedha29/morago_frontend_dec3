@@ -1,28 +1,28 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
-import SuccessModal from "../components/SuccessModal.jsx";
+import BalanceCard from "../components/BalanceCard.jsx";
+import MobileBottomNav from "../components/MobileBottomNav.jsx";
+
 import defaultAvatar from "../assets/avatar.svg";
+import notificationIcon from "../assets/notification.svg";
+import homeBaseImage from "../assets/Base.jpg";
+
 import {
-  fillTranslatorProfile,
-  getActiveLanguages,
-  getTranslatorThemes,
-  uploadAvatar,
+  getCurrentUserBalance,
+  getTranslatorCallHistory,
+  getUnreadNotificationsCount,
+  switchTranslatorStatus,
 } from "../services/mobileTranslator.js";
 
 import "../index.css";
 import "./../styles/MobileTranslatorProfileSetupPage.css";
 
-const INITIAL_THEME_COUNT = 6;
-
-const MobileTranslatorProfileSetupPage = () => {
+const MobileTranslatorHomePage = () => {
   const navigate = useNavigate();
-  const avatarInputRef = useRef(null);
-  const topikInputRef = useRef(null);
 
   const storedUser = useMemo(() => {
     const rawUser = localStorage.getItem("currentUser");
-
     if (!rawUser) return null;
 
     try {
@@ -32,125 +32,62 @@ const MobileTranslatorProfileSetupPage = () => {
     }
   }, []);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [levelOfKorean, setLevelOfKorean] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [topikFileName, setTopikFileName] = useState("");
-  const [themes, setThemes] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [selectedThemeIds, setSelectedThemeIds] = useState([]);
-  const [selectedLanguageIds, setSelectedLanguageIds] = useState([]);
-  const [showAllThemes, setShowAllThemes] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [callHistory, setCallHistory] = useState([]);
+  const [isOnline, setIsOnline] = useState(
+    typeof storedUser?.isOnline === "boolean" ? storedUser.isOnline : true,
+  );
   const [loading, setLoading] = useState(true);
-  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [callHistoryError, setCallHistoryError] = useState("");
+  const [isSwitchingStatus, setIsSwitchingStatus] = useState(false);
+  const [statusError, setStatusError] = useState("");
 
   useEffect(() => {
     if (!storedUser?.token) {
       navigate("/mobile/translator-login", { replace: true });
-      return;
     }
-
-    setFirstName(storedUser.firstName || "");
-    setLastName(storedUser.lastName || "");
-    setPhone(storedUser.phone || "");
-    setDateOfBirth(storedUser.dateOfBirth || "");
-    setImageUrl(storedUser.imageUrl || "");
-    setLevelOfKorean(
-      storedUser.levelOfKorean !== undefined &&
-        storedUser.levelOfKorean !== null &&
-        storedUser.levelOfKorean !== 0
-        ? String(storedUser.levelOfKorean)
-        : "",
-    );
-    setSelectedThemeIds(storedUser.selectedThemeIds || []);
-    setSelectedLanguageIds(storedUser.selectedLanguageIds || []);
   }, [storedUser, navigate]);
 
   useEffect(() => {
-    const fetchInitialData = async () => {
+    const fetchHomeData = async () => {
       try {
         setLoading(true);
-        setErrorMessage("");
+        setCallHistoryError("");
 
-        const [themesResponse, languagesResponse] = await Promise.all([
-          getTranslatorThemes({
-            page: 0,
-            size: 100,
-            sortBy: "id",
-            sortDirection: "ASC",
-          }),
-          getActiveLanguages(),
-        ]);
+        const [balanceResponse, notificationsResponse, callsResponse] =
+          await Promise.all([
+            getCurrentUserBalance(),
+            getUnreadNotificationsCount(),
+            getTranslatorCallHistory({
+              isLast: true,
+              page: 0,
+              size: 3,
+              sortBy: "id",
+              sortDirection: "DESC",
+            }),
+          ]);
 
-        setThemes(themesResponse.content || []);
-        setLanguages(languagesResponse || []);
+        setBalance(balanceResponse || 0);
+        setNotificationCount(notificationsResponse || 0);
+        setCallHistory(callsResponse?.content || []);
       } catch (error) {
-        const message =
-          error && typeof error === "object" && "message" in error
-            ? error.message
-            : "Failed to load profile setup data";
-
-        setErrorMessage(message);
+        setCallHistoryError(error?.message || "Failed to load call history");
+        setCallHistory([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchInitialData();
-  }, []);
+    fetchHomeData();
+  }, [storedUser]);
 
-  const visibleThemes = showAllThemes
-    ? themes
-    : themes.slice(0, INITIAL_THEME_COUNT);
-
-  const shouldShowThemeToggle = themes.length > INITIAL_THEME_COUNT;
-
-  const isSaveDisabled =
-    isSubmitting ||
-    isUploadingAvatar ||
-    !firstName.trim() ||
-    !lastName.trim() ||
-    !dateOfBirth ||
-    !levelOfKorean ||
-    selectedThemeIds.length === 0 ||
-    selectedLanguageIds.length === 0;
-
-  const handleThemeToggle = (themeId) => {
-    setErrorMessage("");
-    setSelectedThemeIds((prev) =>
-      prev.includes(themeId)
-        ? prev.filter((id) => id !== themeId)
-        : [...prev, themeId],
-    );
-  };
-
-  const handleLanguageToggle = (languageId) => {
-    setErrorMessage("");
-    setSelectedLanguageIds((prev) =>
-      prev.includes(languageId)
-        ? prev.filter((id) => id !== languageId)
-        : [...prev, languageId],
-    );
-  };
-
-  const handleAvatarClick = () => {
-    avatarInputRef.current?.click();
-  };
-
-  const handleAvatarChange = async (event) => {
-    const file = event.target.files?.[0];
-
-    if (!file) return;
+  const handleStatusToggle = async () => {
+    if (isSwitchingStatus) return;
 
     try {
-      setIsUploadingAvatar(true);
-      setErrorMessage("");
+      setIsSwitchingStatus(true);
+      setStatusError("");
 
       const uploadedFile = await uploadAvatar(file);
       setImageUrl(uploadedFile.path || "");
@@ -212,30 +149,25 @@ const MobileTranslatorProfileSetupPage = () => {
         "currentUser",
         JSON.stringify({
           ...(storedUser || {}),
-          ...response,
-          imageUrl,
-          selectedThemeIds: response.themes?.map((theme) => theme.id) || [],
-          selectedLanguageIds:
-            response.languages?.map((language) => language.id) || [],
+          isOnline: nextIsOnline,
         }),
       );
-
-      setShowSuccess(true);
     } catch (error) {
-      const message =
-        error && typeof error === "object" && "message" in error
-          ? error.message
-          : "Failed to complete profile";
-
-      setErrorMessage(message);
+      setStatusError(error?.message || "Failed to update translator status");
     } finally {
-      setIsSubmitting(false);
+      setIsSwitchingStatus(false);
     }
   };
 
   return (
-    <div className="screen mobile-translator-profile-setup">
-      <StatusBar />
+    <div className="screen mobile-translator-home">
+      <div
+        className="mobile-translator-home__background"
+        style={{ backgroundImage: `url(${homeBaseImage})` }}
+      />
+
+      <div className="mobile-translator-home__foreground">
+        <StatusBar />
 
       <div className="mobile-translator-profile-setup__content">
         <button
@@ -424,9 +356,9 @@ const MobileTranslatorProfileSetupPage = () => {
             </div>
           </div>
 
-          <div className="mobile-translator-profile-setup__section">
-            <h2 className="mobile-translator-profile-setup__section-title">
-              Available translation languages
+          <div className="mobile-translator-home__history-section">
+            <h2 className="mobile-translator-home__history-title">
+              Call history
             </h2>
 
             <div className="mobile-translator-profile-setup__languages">
@@ -472,24 +404,8 @@ const MobileTranslatorProfileSetupPage = () => {
           </p>
         </div>
       </div>
-
-      {showSuccess && (
-        <SuccessModal
-          title={
-            <>
-              We have sent an SMS with a <br />
-              link to schedule an interview
-            </>
-          }
-          subtitle="If you haven't received it, please call 010 2530 8575"
-          buttonText="Great!"
-          onButtonClick={() => navigate("/onboarding", { replace: true })}
-        />
-      )}
-
-      <div className="home-indicator" />
     </div>
   );
 };
 
-export default MobileTranslatorProfileSetupPage;
+export default MobileTranslatorHomePage;

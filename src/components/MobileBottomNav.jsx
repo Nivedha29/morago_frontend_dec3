@@ -1,22 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import homeIcon from "./../assets/home.svg"
-import phoneIcon from "./../assets/phone.svg";
-import messageIcon from "./../assets/message.svg";
-import profileIcon from "./../assets/profile.svg";
 
-import "./../styles/MobileBottomNav.css";
+import homeIcon from "../assets/home.svg";
+import phoneIcon from "../assets/phone.svg";
+import messageIcon from "../assets/message.svg";
+import profileIcon from "../assets/profile.svg";
+
+import "../styles/MobileBottomNav.css";
 
 const MobileBottomNav = ({ activeTab = "home" }) => {
   const navigate = useNavigate();
 
   const navItems = [
-    {
-      key: "home",
-      label: "Home",
-      icon: homeIcon,
-      path: "/translator/home",
-    },
+    { key: "home", label: "Home", icon: homeIcon, path: "/translator/home" },
     {
       key: "calls",
       label: "My calls",
@@ -38,7 +34,7 @@ const MobileBottomNav = ({ activeTab = "home" }) => {
   ];
 
   return (
-    <div className="mobile-bottom-nav">
+    <nav className="mobile-bottom-nav">
       {navItems.map((item) => {
         const isActive = activeTab === item.key;
 
@@ -50,10 +46,12 @@ const MobileBottomNav = ({ activeTab = "home" }) => {
               isActive ? "mobile-bottom-nav__item--active" : ""
             }`}
             onClick={() => navigate(item.path)}
+            aria-current={isActive ? "page" : undefined}
           >
             <img
               src={item.icon}
-              alt={item.label}
+              alt=""
+              aria-hidden="true"
               className={`mobile-bottom-nav__icon ${
                 isActive ? "mobile-bottom-nav__icon--active" : ""
               }`}
@@ -62,7 +60,7 @@ const MobileBottomNav = ({ activeTab = "home" }) => {
           </button>
         );
       })}
-    </div>
+    </nav>
   );
 };
 

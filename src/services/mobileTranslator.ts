@@ -138,17 +138,12 @@ export interface CurrentUserProfileResponse {
 export const getTranslatorThemes = async (
   params: GetTranslatorThemesParams = {},
 ): Promise<PaginatedTranslatorThemesResponse> => {
-  const response = await api.get<PaginatedTranslatorThemesResponse>(
-    "/translator/themes",
-    {
-      params,
-    },
-  );
+  const response = await api.get("/translator/themes", { params });
   return response.data;
 };
 
 export const getActiveLanguages = async (): Promise<TranslatorLanguage[]> => {
-  const response = await api.get<TranslatorLanguage[]>("/api/languages");
+  const response = await api.get("/api/languages");
   return response.data;
 };
 
@@ -158,15 +153,11 @@ export const uploadAvatar = async (
   const formData = new FormData();
   formData.append("file", file);
 
-  const response = await api.post<UploadedAvatarResponse>(
-    "/profile/avatar/upload",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+  const response = await api.post("/profile/avatar/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
     },
-  );
+  });
 
   return response.data;
 };
@@ -174,49 +165,37 @@ export const uploadAvatar = async (
 export const fillTranslatorProfile = async (
   payload: FillTranslatorProfileRequest,
 ): Promise<TranslatorProfileResponse> => {
-  const response = await api.put<TranslatorProfileResponse>(
-    "/translator",
-    payload,
-  );
+  const response = await api.put("/translator", payload);
   return response.data;
 };
 
 export const getCurrentUserBalance = async (): Promise<number> => {
-  const response = await api.get<number>("/profile/balance");
+  const response = await api.get("/profile/balance");
   return response.data;
 };
 
 export const switchTranslatorStatus =
   async (): Promise<TranslatorStatusResponse> => {
-    const response = await api.put<TranslatorStatusResponse>(
-      "/translator/switch-status",
-    );
+    const response = await api.put("/translator/switch-status");
     return response.data;
   };
 
 export const getTranslatorCallHistory = async (
   params: GetTranslatorCallHistoryParams = {},
 ): Promise<PaginatedTranslatorCallHistoryResponse> => {
-  const response = await api.get<PaginatedTranslatorCallHistoryResponse>(
-    "/profile/calls/history",
-    {
-      params,
-    },
-  );
+  const response = await api.get("/profile/calls/history", { params });
   return response.data;
 };
 
 export const getUnreadNotificationsCount = async (): Promise<number> => {
-  const response = await api.get<number>("/profile/notifications/count", {
-    params: {
-      isUnread: true,
-    },
+  const response = await api.get("/profile/notifications/count", {
+    params: { isUnread: true },
   });
   return response.data;
 };
 
 export const getCurrentUserProfile =
   async (): Promise<CurrentUserProfileResponse> => {
-    const response = await api.get<CurrentUserProfileResponse>("/me");
+    const response = await api.get("/me");
     return response.data;
   };

@@ -262,3 +262,10 @@
    color: #ff4b4b;
    font-size: 12px;
 }
+
+.mobile-translator-home__status-error {
+   margin-top: 8px;
+   color: #ff4b4b;
+   font-size: 12px;
+   text-align: center;
+}
