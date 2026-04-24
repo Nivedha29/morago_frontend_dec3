@@ -5,15 +5,25 @@ import { Routes, Route } from "react-router-dom";
 
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 
-import AdminTranslatorPage from "./pages/admin/AdminTranslatorPage.jsx";
-import AddTranslatorPage from "./pages/admin/AddTranslatorPage.jsx";
-import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorWithdrawHistoryPage.jsx";
-import TranslatorWithdrawApproval from "./pages/admin/TranslatorWithdrawApproval.jsx";
-import TranslatorCallHistoryPage from "./pages/admin/TranslatorCallHistoryPage";
-import AdminUserPage from "./pages/admin/AdminUserPage.jsx";
-import AdminThemesPage from "./pages/admin/AdminThemesPage.jsx";
-import AdminCategoriesPage from "./pages/admin/AdminCategoriesPage.jsx";
-import TranslatorWithdrawPage from "./pages/admin/TranslatorWithdrawPage.jsx";
+import AdminTranslatorPage from "./pages/admin/TranslatorPages/AdminTranslatorPage.jsx";
+import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.jsx";
+import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
+import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
+import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
+
+import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
+import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
+import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
+import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
+import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
+
+import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
+import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
+import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
+import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
+
+/* ------------------------- Mobile App ------------------------- */
 
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./pages/login.jsx";
@@ -53,9 +63,26 @@ const App = () => {
         path="/admin/translators/:id/call-history"
         element={<TranslatorCallHistoryPage />}
       />
+
       <Route path="/admin/users" element={<AdminUserPage />} />
+      <Route
+        path="/admin/users/:userId/call-history"
+        element={<AdminUserCallHistoryPage />}
+      />
+      <Route
+        path="/admin/users/:userId/deposit-history"
+        element={<UserDepositHistoryPage />}
+      />
+      <Route
+        path="/admin/users/:userId/charge/:depositId"
+        element={<UserChargePage />}
+      />
+      <Route path="/admin/users/add" element={<AddUserPage />} />
+
       <Route path="/admin/themes" element={<AdminThemesPage />} />
+      <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+      <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
 
       {/* ------------------------- MOBILE APP ------------------------- */}
 

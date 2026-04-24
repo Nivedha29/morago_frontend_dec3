@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import statusIcon from "../../assets/SideBarGear.svg";
 import defaultAvatar from "../../assets/avatar.svg";
-import "../../styles/TranslatorDetailModal.css";
+import "../../styles/Admin/TranslatorPages/TranslatorDetailModal.css";
 
 const TranslatorDetailModal = ({ translator, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!translator) return null;
 
   return (
@@ -13,6 +27,7 @@ const TranslatorDetailModal = ({ translator, onClose }) => {
           type="button"
           className="translator-modal-close"
           onClick={onClose}
+          aria-label="Close"
         >
           ×
         </button>
