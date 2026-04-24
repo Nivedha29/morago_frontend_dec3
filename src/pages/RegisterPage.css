@@ -4,13 +4,43 @@
   overflow: hidden;
 }
 
+.register-screen {
+  background: #fbfbfc;
+}
+
 .login-body {
   padding-left: 24px;
   padding-right: 24px;
   margin-top: 50px;
 }
 
+.register-body {
+  padding: 0 24px 145px;
+  margin-top: 2px;
+}
+
 /* ---------- HEADER ---------- */
+.register-header {
+  margin-top: 2px;
+}
+
+.register-back-button {
+  width: 52px;
+  height: 52px;
+  margin-top: 12px;
+  margin-left: 20px;
+  border-radius: 50%;
+  border: 1px solid #d9dde5;
+  background: #ffffff;
+  color: #1b223c;
+  font-size: 26px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
 
 .login-title {
   font-size: 30px;
@@ -20,14 +50,38 @@
   margin-bottom: 8px;
 }
 
+.register-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+
+.register-kicker {
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #a7adb8;
+}
+
 .register-subtitle {
   font-weight: 400;
   line-height: 180%;
   letter-spacing: 0%;
-  color: #8E8E93;
+  color: #8e8e93;
   margin-top: 8px;
   margin-bottom: 24px;
   text-align: left;
+}
+
+.register-subtitle-copy {
+  margin: 10px 0 0;
+  max-width: 290px;
+  color: #b3b8c2;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 /* ---------- FORM ---------- */
@@ -37,83 +91,135 @@
   margin-top: 40px;
 }
 
-/* ---------- PHONE NUMBER SECTION ---------- */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+}
 
+/* ---------- PHONE NUMBER SECTION ---------- */
 .register-label {
   display: block;
   margin-top: 15px;
-  margin-bottom: 8px;
-  font-family: Avenir, sans-serif;
-  font-size: 16px;
-  font-weight: 800;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1.3;
-  color: #1b223c;
+  color: #6c7380;
 }
 
 .register-input-wrap {
   position: relative;
   width: 100%;
   margin-top: 10px;
+  border: 1px solid #edf0f3;
+  border-radius: 14px;
+  background: #f7f8fa;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.register-input-wrap-active {
+  border-color: #d7dde4;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.register-input-wrap-error {
+  border-color: #f26b6b;
+  background: #fffafa;
+}
+
+.register-input-wrap-password .register-input-with-icon {
+  padding-right: 56px;
+}
+
+.register-input-password {
+  border: none;
+  background: transparent;
 }
 
 .register-input-icon {
   position: absolute;
-  left: 16px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   object-fit: contain;
+  opacity: 0.5;
   pointer-events: none;
   z-index: 1;
 }
 
 .register-phone-input {
   width: 100%;
-  height: 56px;
-  padding: 0 16px 0 52px;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  background: #ffffff;
-  font-size: 16px;
+  height: 52px;
+  padding: 0 16px 0 48px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  font-size: 14px;
   font-weight: 400;
-  color: #1b223c;
+  color: #111827;
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
 }
 
 .register-phone-input::placeholder {
-  color: #a9afbf;
-  font-size: 16px;
+  color: #b4bbc6;
+  font-size: 14px;
   font-weight: 400;
 }
 
 .register-phone-input:focus,
 .register-phone-input.has-value {
-  border: 1.5px solid #3b4256;
+  border: none;
 }
 
 .register-input-with-icon {
   width: 100%;
-  height: 56px;
-  padding: 0 16px 0 52px; /* space for icon */
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  background: #ffffff;
-  font-size: 16px;
-  color: #1b223c;
+  height: 52px;
+  padding: 0 16px 0 48px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  font-size: 14px;
+  color: #111827;
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
 }
 
 .register-input-with-icon::placeholder {
-  color: #a9afbf;
+  color: #b4bbc6;
 }
 
 .register-input-with-icon:focus {
-  border: 1.5px solid #3b4256;
+  border: none;
+}
+
+.register-eye-button {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-eye-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.45;
 }
 
 /* ---------- OTHER INPUTS ---------- */
@@ -133,9 +239,18 @@
   border-color: #0e6b6f;
 }
 
-
 .btn-login {
-  margin-top: 35px;
+  margin-top: 18px;
+}
+
+.register-submit-button {
+  height: 52px;
+  border-radius: 999px;
+  background: #0d7280;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: none;
 }
 
 .btn-login:disabled {
@@ -146,11 +261,10 @@
 /* ---------- LOGIN LINK ---------- */
 .login-back {
   text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #5a5a5a;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #8b93a1;
   cursor: pointer;
-  margin-top: 20px;
 }
 
 .login-back:hover {
@@ -159,11 +273,7 @@
 
 /* ---------- CONSENT TEXT ---------- */
 .login-consent {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 12px;
-  color: #9a9a9a;
-  line-height: 1.4;
+  display: none;
 }
 
 /* ---------- KEY BOARD ---------- */
@@ -174,42 +284,42 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 430px;
-  background: #d9d9d9;
-  padding: 10px 12px 30px;
+  background: #d9dde3;
+  padding: 8px 12px 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
   z-index: 20;
   box-sizing: border-box;
 }
 
 .register-key {
-   height: 52px;
+  min-height: 50px;
   border: none;
   border-radius: 12px;
   background: #ffffff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 1px;
 }
 
 .register-key-main {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   color: #000000;
 }
 
 .register-key-sub {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
   line-height: 1;
-  color: #000000;
-  letter-spacing: 0.04em;
+  color: #6b7280;
+  letter-spacing: 0.08em;
 }
 
 .register-key:active {
@@ -224,7 +334,25 @@
 /* ---------- ERROR TEXT ---------- */
 .register-error {
   margin-top: 6px;
-  font-size: 13px;
-  color: #e54848;
+  margin-left: 2px;
+  font-size: 12px;
+  color: #e15757;
   font-weight: 500;
+}
+
+.register-login-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  align-self: center;
+}
+
+.register-back-button:focus-visible,
+.register-eye-button:focus-visible,
+.register-login-link:focus-visible,
+.register-key:focus-visible,
+.register-submit-button:focus-visible {
+  outline: 2px solid #0d7280;
+  outline-offset: 3px;
 }
