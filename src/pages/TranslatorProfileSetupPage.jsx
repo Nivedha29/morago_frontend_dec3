@@ -391,7 +391,6 @@ const TranslatorProfileSetupPage = () => {
                         checked={isSelected}
                         readOnly
                         tabIndex={-1}
-                        aria-hidden="true"
                       />
                       <span className="mobile-translator-profile-setup__topic-text">
                         {themeName}
