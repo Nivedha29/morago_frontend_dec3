@@ -33,6 +33,7 @@ import HomeScreen from "./pages/home.jsx";
 import TranslatorHome from "./pages/translator-home.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterVerifyPage from "./pages/RegisterVerifyPage.jsx";
+import ProfileSetupPage from "./pages/TranslatorProfileSetupPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
@@ -123,6 +124,10 @@ const App = () => {
                 <Route
                   path="/sign-up/verify"
                   element={<RegisterVerifyPage />}
+                />
+                <Route
+                  path="/sign-up/profile-setup"
+                  element={<ProfileSetupPage />}
                 />
                 <Route
                   path="/forgot-password"

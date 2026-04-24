@@ -11,26 +11,29 @@ import {
 } from "../services/mobileTranslator.js";
 
 import "../index.css";
-import "../styles/MobileTranslatorProfileSetupPage.css";
+import "../styles/TranslatorProfileSetupPage.css";
 
 const INITIAL_THEME_COUNT = 6;
+
+const getStoredUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem("currentUser") || "null");
+  } catch {
+    return null;
+  }
+};
+
+const getErrorMessage = (error, fallback) =>
+  error && typeof error === "object" && "message" in error
+    ? error.message
+    : fallback;
 
 const TranslatorProfileSetupPage = () => {
   const navigate = useNavigate();
   const avatarInputRef = useRef(null);
-  const topikInputRef = useRef(null);
+  const certificateInputRef = useRef(null);
 
-  const storedUser = useMemo(() => {
-    const rawUser = localStorage.getItem("currentUser");
-
-    if (!rawUser) return null;
-
-    try {
-      return JSON.parse(rawUser);
-    } catch {
-      return null;
-    }
-  }, []);
+  const storedUser = useMemo(getStoredUser, []);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -38,7 +41,7 @@ const TranslatorProfileSetupPage = () => {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [levelOfKorean, setLevelOfKorean] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [topikFileName, setTopikFileName] = useState("");
+  const [certificateFileName, setCertificateFileName] = useState("");
   const [themes, setThemes] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [selectedThemeIds, setSelectedThemeIds] = useState([]);
@@ -50,9 +53,11 @@ const TranslatorProfileSetupPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const clearError = () => setErrorMessage("");
+
   useEffect(() => {
     if (!storedUser?.token) {
-      navigate("/mobile/translator-login", { replace: true });
+      navigate("/login", { replace: true });
       return;
     }
 
@@ -62,11 +67,7 @@ const TranslatorProfileSetupPage = () => {
     setDateOfBirth(storedUser.dateOfBirth || "");
     setImageUrl(storedUser.imageUrl || "");
     setLevelOfKorean(
-      storedUser.levelOfKorean !== undefined &&
-        storedUser.levelOfKorean !== null &&
-        storedUser.levelOfKorean !== 0
-        ? String(storedUser.levelOfKorean)
-        : "",
+      storedUser.levelOfKorean ? String(storedUser.levelOfKorean) : "",
     );
     setSelectedThemeIds(storedUser.selectedThemeIds || []);
     setSelectedLanguageIds(storedUser.selectedLanguageIds || []);
@@ -76,7 +77,7 @@ const TranslatorProfileSetupPage = () => {
     const fetchInitialData = async () => {
       try {
         setLoading(true);
-        setErrorMessage("");
+        clearError();
 
         const [themesResponse, languagesResponse] = await Promise.all([
           getTranslatorThemes({
@@ -91,12 +92,9 @@ const TranslatorProfileSetupPage = () => {
         setThemes(themesResponse.content || []);
         setLanguages(languagesResponse || []);
       } catch (error) {
-        const message =
-          error && typeof error === "object" && "message" in error
-            ? error.message
-            : "Failed to load profile setup data";
-
-        setErrorMessage(message);
+        setErrorMessage(
+          getErrorMessage(error, "Failed to load profile setup data"),
+        );
       } finally {
         setLoading(false);
       }
@@ -122,7 +120,8 @@ const TranslatorProfileSetupPage = () => {
     selectedLanguageIds.length === 0;
 
   const handleThemeToggle = (themeId) => {
-    setErrorMessage("");
+    clearError();
+
     setSelectedThemeIds((prev) =>
       prev.includes(themeId)
         ? prev.filter((id) => id !== themeId)
@@ -131,7 +130,8 @@ const TranslatorProfileSetupPage = () => {
   };
 
   const handleLanguageToggle = (languageId) => {
-    setErrorMessage("");
+    clearError();
+
     setSelectedLanguageIds((prev) =>
       prev.includes(languageId)
         ? prev.filter((id) => id !== languageId)
@@ -145,39 +145,32 @@ const TranslatorProfileSetupPage = () => {
 
   const handleAvatarChange = async (event) => {
     const file = event.target.files?.[0];
-
     if (!file) return;
 
     try {
       setIsUploadingAvatar(true);
-      setErrorMessage("");
+      clearError();
 
       const uploadedFile = await uploadAvatar(file);
       setImageUrl(uploadedFile.path || "");
     } catch (error) {
-      const message =
-        error && typeof error === "object" && "message" in error
-          ? error.message
-          : "Failed to upload avatar";
-
-      setErrorMessage(message);
+      setErrorMessage(getErrorMessage(error, "Failed to upload avatar"));
     } finally {
       setIsUploadingAvatar(false);
       event.target.value = "";
     }
   };
 
-  const handleTopikClick = () => {
-    topikInputRef.current?.click();
+  const handleCertificateClick = () => {
+    certificateInputRef.current?.click();
   };
 
-  const handleTopikChange = (event) => {
+  const handleCertificateChange = (event) => {
     const file = event.target.files?.[0];
-
     if (!file) return;
 
-    setErrorMessage("");
-    setTopikFileName(file.name);
+    clearError();
+    setCertificateFileName(file.name);
     event.target.value = "";
   };
 
@@ -186,7 +179,7 @@ const TranslatorProfileSetupPage = () => {
 
     try {
       setIsSubmitting(true);
-      setErrorMessage("");
+      clearError();
 
       const response = await fillTranslatorProfile({
         firstName: firstName.trim(),
@@ -198,26 +191,20 @@ const TranslatorProfileSetupPage = () => {
         languageIds: selectedLanguageIds,
       });
 
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-          ...(storedUser || {}),
-          ...response,
-          imageUrl,
-          selectedThemeIds: response.themes?.map((theme) => theme.id) || [],
-          selectedLanguageIds:
-            response.languages?.map((language) => language.id) || [],
-        }),
-      );
+      const updatedUser = {
+        ...(storedUser || {}),
+        ...response,
+        imageUrl,
+        selectedThemeIds: response.themes?.map((theme) => theme.id) || [],
+        selectedLanguageIds:
+          response.languages?.map((language) => language.id) || [],
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(updatedUser));
 
       setShowSuccess(true);
     } catch (error) {
-      const message =
-        error && typeof error === "object" && "message" in error
-          ? error.message
-          : "Failed to complete profile";
-
-      setErrorMessage(message);
+      setErrorMessage(getErrorMessage(error, "Failed to complete profile"));
     } finally {
       setIsSubmitting(false);
     }
@@ -257,7 +244,7 @@ const TranslatorProfileSetupPage = () => {
                 disabled={isUploadingAvatar}
                 aria-label="Upload profile photo"
               >
-                {isUploadingAvatar ? "..." : "📷"}
+                {isUploadingAvatar ? "..." : ""}
               </button>
 
               <input
@@ -283,7 +270,7 @@ const TranslatorProfileSetupPage = () => {
               value={firstName}
               onChange={(event) => {
                 setFirstName(event.target.value);
-                setErrorMessage("");
+                clearError();
               }}
             />
           </div>
@@ -300,7 +287,7 @@ const TranslatorProfileSetupPage = () => {
               value={lastName}
               onChange={(event) => {
                 setLastName(event.target.value);
-                setErrorMessage("");
+                clearError();
               }}
             />
           </div>
@@ -329,7 +316,7 @@ const TranslatorProfileSetupPage = () => {
               value={dateOfBirth}
               onChange={(event) => {
                 setDateOfBirth(event.target.value);
-                setErrorMessage("");
+                clearError();
               }}
             />
           </div>
@@ -344,7 +331,7 @@ const TranslatorProfileSetupPage = () => {
               value={levelOfKorean}
               onChange={(event) => {
                 setLevelOfKorean(event.target.value);
-                setErrorMessage("");
+                clearError();
               }}
             >
               <option value="">Enter your Korean level</option>
@@ -360,18 +347,18 @@ const TranslatorProfileSetupPage = () => {
           <button
             type="button"
             className="mobile-translator-profile-setup__upload-button"
-            onClick={handleTopikClick}
+            onClick={handleCertificateClick}
             aria-label="Upload TOPIK certificate photo"
           >
-            {topikFileName || "Upload TOPIK photo"}
+            {certificateFileName || "Upload TOPIK photo"}
           </button>
 
           <input
-            ref={topikInputRef}
+            ref={certificateInputRef}
             type="file"
             accept="image/*,.pdf"
             className="mobile-translator-profile-setup__hidden-input"
-            onChange={handleTopikChange}
+            onChange={handleCertificateChange}
             aria-label="Choose TOPIK certificate file"
           />
 
@@ -415,7 +402,7 @@ const TranslatorProfileSetupPage = () => {
               )}
             </div>
 
-            {shouldShowThemeToggle ? (
+            {shouldShowThemeToggle && (
               <button
                 type="button"
                 className="mobile-translator-profile-setup__show-more"
@@ -424,7 +411,7 @@ const TranslatorProfileSetupPage = () => {
               >
                 {showAllThemes ? "Show less" : "Show more"}
               </button>
-            ) : null}
+            )}
           </div>
 
           <div className="mobile-translator-profile-setup__section">
@@ -441,10 +428,10 @@ const TranslatorProfileSetupPage = () => {
                 <button
                   type="button"
                   className="mobile-translator-profile-setup__certificate-upload"
-                  onClick={handleTopikClick}
+                  onClick={handleCertificateClick}
                   aria-label="Upload certificate for selected topics"
                 >
-                  {topikFileName ? "1 file" : "Upload"}
+                  {certificateFileName ? "1 file" : "Upload"}
                 </button>
               </div>
             </div>
@@ -484,15 +471,15 @@ const TranslatorProfileSetupPage = () => {
             </div>
           </div>
 
-          {errorMessage ? (
+          {errorMessage && (
             <p className="field-error-text" aria-live="polite">
               {errorMessage}
             </p>
-          ) : null}
+          )}
 
           <button
             type="button"
-            className="btn btn-login"
+            className="btn btn-login mobile-translator-profile-setup__submit"
             disabled={isSaveDisabled}
             onClick={handleSave}
             aria-label="Save translator profile"
@@ -517,7 +504,8 @@ const TranslatorProfileSetupPage = () => {
           }
           subtitle="If you haven't received it, please call 010 2530 8575"
           buttonText="Great!"
-          onButtonClick={() => navigate("/onboarding", { replace: true })}
+          role="ROLE_TRANSLATOR"
+          onButtonClick={() => navigate("/login", { replace: true })}
         />
       )}
 

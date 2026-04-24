@@ -167,8 +167,8 @@
    align-items: center;
    gap: 12px;
    cursor: pointer;
-   border: none; 
-   background: transparent;  
+   border: none;
+   background: transparent;
 }
 
 .mobile-translator-profile-setup__topic-checkbox {
@@ -178,7 +178,7 @@
    height: 22px;
    border-radius: 6px;
    border: 2px solid #e5e7eb;
-   background: white;
+   background: #ffffff;
    display: inline-flex;
    align-items: center;
    justify-content: center;
@@ -197,8 +197,8 @@
    content: "";
    width: 10px;
    height: 6px;
-   border-left: 2px solid white;
-   border-bottom: 2px solid white;
+   border-left: 2px solid #ffffff;
+   border-bottom: 2px solid #ffffff;
    transform: rotate(-45deg);
    margin-top: -2px;
 }
@@ -211,9 +211,6 @@
 
 .mobile-translator-profile-setup__certificate-list {
    margin-top: 14px;
-   display: flex;
-   flex-direction: column;
-   gap: 12px;
 }
 
 .mobile-translator-profile-setup__certificate-row {
@@ -225,15 +222,6 @@
    align-items: center;
    justify-content: space-between;
    gap: 12px;
-}
-
-.mobile-translator-profile-setup__certificate-main {
-   display: flex;
-   align-items: center;
-   gap: 12px;
-   flex: 1;
-   min-width: 0;
-   cursor: pointer;
 }
 
 .mobile-translator-profile-setup__certificate-upload {
@@ -284,13 +272,12 @@
    margin-top: 16px;
 }
 
-.mobile-translator-profile-setup .btn-login {
-   margin-top: 24px;
+.mobile-translator-profile-setup__submit:not(:disabled) {
    background: #ef9f23;
    color: #ffffff;
 }
 
-.mobile-translator-profile-setup .btn-login:disabled {
+.mobile-translator-profile-setup__submit:disabled {
    background: #d1d5db;
    color: #ffffff;
    cursor: not-allowed;
