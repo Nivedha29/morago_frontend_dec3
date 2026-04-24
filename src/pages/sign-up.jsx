@@ -11,7 +11,7 @@ const SignupScreen = () => {
   const handleCreateAccount = () => {
     const routes = {
       user: "/sign-up/user",
-      translator: "/mobile/translator-register",
+      translator: "/sign-up/translator",
     };
 
     navigate(routes[role]);

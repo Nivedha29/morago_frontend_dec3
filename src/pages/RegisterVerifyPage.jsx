@@ -6,19 +6,21 @@ import SuccessModal from "../components/SuccessModal.jsx";
 import { register } from "../services/auth.js";
 
 import "../index.css";
-import "../styles/MobileTranslatorVerifyPage.css";
+import "../styles/RegisterVerifyPage.css";
 
 const CODE_LENGTH = 4;
 const INITIAL_TIME_LEFT = 159;
 
-const MobileTranslatorVerifyPage = () => {
+const RegisterVerifyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const phone = location.state?.phone || "";
   const password = location.state?.password || "";
   const confirmPassword = location.state?.confirmPassword || "";
-  const role = location.state?.role || "ROLE_TRANSLATOR";
+  const role = location.state?.role || "";
+
+  const isTranslator = role === "ROLE_TRANSLATOR";
 
   const [code, setCode] = useState(Array(CODE_LENGTH).fill(""));
   const [activeField, setActiveField] = useState("code");
@@ -29,12 +31,11 @@ const MobileTranslatorVerifyPage = () => {
   const [isExpired, setIsExpired] = useState(false);
 
   const inputRefs = useRef([]);
-
-  const isCodeComplete = code.every((digit) => digit !== "");
+  const isCodeComplete = code.every(Boolean);
 
   useEffect(() => {
     if (!phone || !password || !confirmPassword || !role) {
-      navigate("/mobile/translator-register", { replace: true });
+      navigate("/sign-up", { replace: true });
     }
   }, [phone, password, confirmPassword, role, navigate]);
 
@@ -60,6 +61,7 @@ const MobileTranslatorVerifyPage = () => {
 
     const nextCode = [...code];
     nextCode[index] = value;
+
     setCode(nextCode);
     setActiveIndex(index);
 
@@ -91,6 +93,7 @@ const MobileTranslatorVerifyPage = () => {
 
     const nextCode = [...code];
     nextCode[firstEmptyIndex] = value;
+
     setCode(nextCode);
     setActiveIndex(firstEmptyIndex);
 
@@ -100,19 +103,12 @@ const MobileTranslatorVerifyPage = () => {
   };
 
   const handleKeypadDelete = () => {
-    let lastFilledIndex = -1;
-
-    for (let i = CODE_LENGTH - 1; i >= 0; i--) {
-      if (code[i] !== "") {
-        lastFilledIndex = i;
-        break;
-      }
-    }
-
+    const lastFilledIndex = code.findLastIndex((digit) => digit !== "");
     if (lastFilledIndex === -1) return;
 
     const nextCode = [...code];
     nextCode[lastFilledIndex] = "";
+
     setCode(nextCode);
     setActiveIndex(lastFilledIndex);
     focusInput(lastFilledIndex);
@@ -213,7 +209,11 @@ const MobileTranslatorVerifyPage = () => {
 
           <button
             type="button"
-            className="btn btn-login mobile-translator-verify__confirm-button"
+            className={`btn btn-login mobile-translator-verify__confirm-button ${
+              isTranslator
+                ? "mobile-translator-verify__confirm-button--translator"
+                : "mobile-translator-verify__confirm-button--user"
+            }`}
             disabled={!isExpired && (!isCodeComplete || isSubmitting)}
             onClick={isExpired ? handleResend : handleConfirm}
             aria-label={
@@ -240,7 +240,10 @@ const MobileTranslatorVerifyPage = () => {
           title="Registration was successful"
           subtitle="You can now fully enjoy all the features"
           buttonText="Hello!"
-          onButtonClick={() => navigate("/translator/profile-setup")}
+          role={role}
+          onButtonClick={() =>
+            navigate(isTranslator ? "/sign-up/profile-setup" : "/login")
+          }
         />
       )}
 
@@ -260,4 +263,4 @@ const MobileTranslatorVerifyPage = () => {
   );
 };
 
-export default MobileTranslatorVerifyPage;
+export default RegisterVerifyPage;

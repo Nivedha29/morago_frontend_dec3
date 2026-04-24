@@ -106,10 +106,18 @@
    margin-bottom: 30px;
 }
 
+.success-modal--user {
+   --success-modal-primary: #015f76;
+}
+
+.success-modal--translator {
+   --success-modal-primary: #eb9412;
+}
+
 .success-modal__button {
    width: 100%;
    max-width: 320px;
    margin: 0 auto;
-   background: #EB9412;
+   background: var(--success-modal-primary);
    color: white;
 }

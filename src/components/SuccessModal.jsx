@@ -2,10 +2,20 @@ import React from "react";
 
 import "../styles/SuccessModal.css";
 
-const SuccessModal = ({ title, subtitle, buttonText, onButtonClick }) => {
+const SuccessModal = ({
+  title,
+  subtitle,
+  buttonText,
+  onButtonClick,
+  role = "user",
+}) => {
+  const isTranslator = role === "ROLE_TRANSLATOR" || role === "translator";
+
   return (
     <div
-      className="success-modal"
+      className={`success-modal ${
+        isTranslator ? "success-modal--translator" : "success-modal--user"
+      }`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="success-modal-title"

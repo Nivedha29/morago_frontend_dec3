@@ -68,12 +68,17 @@
    height: 52px;
    margin-bottom: 16px;
    margin-left: 30px;
+   border: none;
 }
 
-.mobile-translator-verify__confirm-button:not(:disabled) {
-   background: #EB9412;
+.mobile-translator-verify__confirm-button--user:not(:disabled) {
+   background: #015f76;
    color: #ffffff;
-   border: none;
+}
+
+.mobile-translator-verify__confirm-button--translator:not(:disabled) {
+   background: #eb9412;
+   color: #ffffff;
 }
 
 .mobile-translator-verify__confirm-button:disabled {
