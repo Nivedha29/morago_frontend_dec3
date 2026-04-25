@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 
 import coinIcon from "../assets/coin icon.svg";
@@ -32,12 +33,24 @@ const calls = [
 ];
 
 export default function HomeScreen() {
+  const navigate = useNavigate();
+
   const [showFirstCall, setShowFirstCall] = useState(true);
   const [showFundsModal, setShowFundsModal] = useState(false);
-  const [balance, setBalance] = useState(50000);
+  const [balance] = useState(50000);
+
 
   const handleTry = () => {
     setShowFirstCall(false);
+  };
+
+  const handleSelectTranslator = () => {
+    if (balance <= 0) {
+      setShowFundsModal(true);
+      return;
+    }
+
+    navigate("/choose-topic");
   };
 
   return (
@@ -72,13 +85,7 @@ export default function HomeScreen() {
             </button>
           </div>
 
-          <button
-            className="call-btn"
-            onClick={() => {
-              setBalance(-10000);
-              setShowFundsModal(true);
-            }}
-          >
+          <button className="call-btn" onClick={handleSelectTranslator}>
             Select a translator and call
           </button>
         </div>
@@ -127,22 +134,21 @@ export default function HomeScreen() {
       </nav>
 
       {showFirstCall && (
-        <div className="first-call">
-          <div className="first-box">
-            <h2>FIRST CALL FREE!</h2>
+  <div className="first-call">
+    <div className="first-call-banner-wrap">
+      <img
+        src={freeCallBanner}
+        alt="First Call Free"
+        className="first-call-banner-img"
+      />
 
-            <p>Try the Morago Translator service on us</p>
-
-            <img
-              className="free-call-img"
-              src={freeCallBanner}
-              alt="Free Call Banner"
-            />
-
-            <button onClick={handleTry}>Try</button>
-          </div>
-        </div>
-      )}
+      <button
+        className="banner-real-click-btn"
+        onClick={handleTry}
+      />
+    </div>
+  </div>
+)}
 
       {showFundsModal && (
         <div className="first-call">

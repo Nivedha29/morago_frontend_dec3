@@ -27,6 +27,8 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
 import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage.jsx";
+import ChooseTopicPage from "./pages/ChooseTopicPage.jsx";
+import CallScreen from "./pages/CallScreen.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -56,6 +58,9 @@ const App = () => {
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+      <Route path="/choose-topic" element={<ChooseTopicPage />} />
+      <Route path="/call" element={<CallScreen />} />
+      
 
       {/* ------------------------- MOBILE APP ------------------------- */}
 
