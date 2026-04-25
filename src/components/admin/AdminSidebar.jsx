@@ -1,121 +1,120 @@
 import React, { useState } from "react";
-import "../../styles/AdminSidebar.css";
+import "../../styles/Admin/AdminSidebar.css";
 import sideBarProfile from "../../assets/SideBarProfile.svg";
 import sideBarGear from "../../assets/SideBarGear.svg";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
   const [isListsOpen, setIsListsOpen] = useState(true);
   const [isTopicsOpen, setIsTopicsOpen] = useState(true);
-
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isUsersSection = location.pathname.startsWith("/admin/users");
+  const isTranslatorsSection =
+    location.pathname.startsWith("/admin/translators");
+  const isThemesSection = location.pathname.startsWith("/admin/themes");
+  const isCategoriesSection = location.pathname.startsWith("/admin/categories");
+
+  const isActive = (path) => location.pathname.startsWith(path);
 
   const handleAddClick = () => {
-    if (location.pathname.startsWith("/admin/translators")) {
+    if (isTranslatorsSection) {
       navigate("/admin/translators/add");
-    } else if (location.pathname.startsWith("/admin/users")) {
+    } else if (isUsersSection) {
       navigate("/admin/users/add");
-    } else if (location.pathname.startsWith("/admin/themes")) {
+    } else if (isThemesSection) {
       navigate("/admin/themes/add");
-    } else if (location.pathname.startsWith("/admin/categories")) {
+    } else if (isCategoriesSection) {
       navigate("/admin/categories/add");
     }
   };
 
   return (
     <aside className="admin-sidebar">
-      <div className="admin-sidebar-content">
-        <div className="admin-sidebar-section">
+      <div className="sidebar-content">
+        <div className="sidebar-section">
           <button
             type="button"
-            className="admin-sidebar-title-row"
+            className="sidebar-title-row"
             onClick={() => setIsListsOpen((prev) => !prev)}
           >
             <span
-              className={`admin-sidebar-title-arrow ${isListsOpen ? "open" : ""}`}
+              className={`sidebar-title-arrow ${isListsOpen ? "open" : ""}`}
             >
               ▾
             </span>
-            <span className="admin-sidebar-title">Lists</span>
+            <span className="sidebar-title">Lists</span>
           </button>
 
           {isListsOpen && (
-            <div className="admin-sidebar-items">
-              <NavLink
-                to="/admin/users"
-                className={({ isActive }) =>
-                  `admin-sidebar-item ${isActive ? "active" : ""}`
-                }
+            <div className="sidebar-items">
+              <div
+                className={`sidebar-item ${isActive("/admin/users") ? "active" : ""}`}
+                onClick={() => navigate("/admin/users")}
               >
                 User
-              </NavLink>
+              </div>
 
-              <NavLink
-                to="/admin/translators"
-                className={({ isActive }) =>
-                  `admin-sidebar-item ${isActive ? "active" : ""}`
-                }
+              <div
+                className={`sidebar-item ${isActive("/admin/translators") ? "active" : ""}`}
+                onClick={() => navigate("/admin/translators")}
               >
                 Translator
-              </NavLink>
+              </div>
             </div>
           )}
         </div>
 
-        <div className="admin-sidebar-section">
+        <div className="sidebar-section">
           <button
             type="button"
-            className="admin-sidebar-title-row"
+            className="sidebar-title-row"
             onClick={() => setIsTopicsOpen((prev) => !prev)}
           >
             <span
-              className={`admin-sidebar-title-arrow ${isTopicsOpen ? "open" : ""}`}
+              className={`sidebar-title-arrow ${isTopicsOpen ? "open" : ""}`}
             >
               ▾
             </span>
-            <span className="admin-sidebar-title">Translation topics</span>
+            <span className="sidebar-title">Translation topics</span>
           </button>
 
           {isTopicsOpen && (
-            <div className="admin-sidebar-items">
-              <NavLink
-                to="/admin/themes"
-                className={({ isActive }) =>
-                  `admin-sidebar-item ${isActive ? "active" : ""}`
-                }
+            <div className="sidebar-items">
+              <div
+                className={`sidebar-item ${isActive("/admin/themes") ? "active" : ""}`}
+                onClick={() => navigate("/admin/themes")}
               >
                 Themes
-              </NavLink>
+              </div>
 
-              <NavLink
-                to="/admin/categories"
-                className={({ isActive }) =>
-                  `admin-sidebar-item ${isActive ? "active" : ""}`
-                }
+              <div
+                className={`sidebar-item ${isActive("/admin/categories") ? "active" : ""}`}
+                onClick={() => navigate("/admin/categories")}
               >
                 Categories
-              </NavLink>
+              </div>
             </div>
           )}
         </div>
       </div>
 
-      <div className="admin-sidebar-footer">
+      <div className="sidebar-footer">
         <button
           type="button"
-          className="admin-sidebar-add-button"
+          className="sidebar-add-button"
           onClick={handleAddClick}
         >
-          <img src={sideBarProfile} alt="" className="admin-sidebar-add-icon" />
+          <img src={sideBarProfile} alt="" className="sidebar-add-icon" />
           <span>Add</span>
         </button>
 
-        <button type="button" className="admin-sidebar-settings-button">
+        <button type="button" className="sidebar-settings-button">
           <img
             src={sideBarGear}
             alt="Settings"
-            className="admin-sidebar-settings-icon"
+            className="sidebar-settings-icon"
           />
         </button>
       </div>

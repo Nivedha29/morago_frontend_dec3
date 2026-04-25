@@ -339,3 +339,20 @@
   color: #e15757;
   font-weight: 500;
 }
+
+.register-login-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  align-self: center;
+}
+
+.register-back-button:focus-visible,
+.register-eye-button:focus-visible,
+.register-login-link:focus-visible,
+.register-key:focus-visible,
+.register-submit-button:focus-visible {
+  outline: 2px solid #0d7280;
+  outline-offset: 3px;
+}
