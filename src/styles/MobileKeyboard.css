@@ -1,0 +1,55 @@
+.mobile-keyboard {
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   height: auto;
+   min-height: 278px;
+   background: #d9d9d9;
+   padding: 10px 12px 12px;
+   gap: 10px;
+   z-index: 20;
+   box-sizing: border-box;
+}
+
+.mobile-keyboard .key {
+   height: 52px;
+   border: none;
+   border-radius: 12px;
+   background: #ffffff;
+   cursor: pointer;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 2px;
+   padding: 0;
+}
+
+.mobile-keyboard .key-empty {
+   background: transparent;
+   cursor: default;
+}
+
+.mobile-keyboard__main {
+   display: block;
+   font-size: 24px;
+   font-weight: 500;
+   line-height: 1;
+   color: #000000;
+}
+
+.mobile-keyboard__sub {
+   display: block;
+   font-size: 10px;
+   font-weight: 500;
+   line-height: 1;
+   color: #000000;
+   letter-spacing: 0.04em;
+}
+
+.mobile-keyboard .key:active {
+   transform: scale(0.98);
+}
