@@ -31,7 +31,6 @@ const getErrorMessage = (error, fallback) =>
 const TranslatorProfileSetupPage = () => {
   const navigate = useNavigate();
   const avatarInputRef = useRef(null);
-  const certificateInputRef = useRef(null);
 
   const storedUser = useMemo(getStoredUser, []);
 
@@ -41,7 +40,6 @@ const TranslatorProfileSetupPage = () => {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [levelOfKorean, setLevelOfKorean] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [certificateFileName, setCertificateFileName] = useState("");
   const [themes, setThemes] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [selectedThemeIds, setSelectedThemeIds] = useState([]);
@@ -161,19 +159,6 @@ const TranslatorProfileSetupPage = () => {
     }
   };
 
-  const handleCertificateClick = () => {
-    certificateInputRef.current?.click();
-  };
-
-  const handleCertificateChange = (event) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    clearError();
-    setCertificateFileName(file.name);
-    event.target.value = "";
-  };
-
   const handleSave = async () => {
     if (isSaveDisabled) return;
 
@@ -201,7 +186,6 @@ const TranslatorProfileSetupPage = () => {
       };
 
       localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-
       setShowSuccess(true);
     } catch (error) {
       setErrorMessage(getErrorMessage(error, "Failed to complete profile"));
@@ -344,24 +328,6 @@ const TranslatorProfileSetupPage = () => {
             </select>
           </div>
 
-          <button
-            type="button"
-            className="mobile-translator-profile-setup__upload-button"
-            onClick={handleCertificateClick}
-            aria-label="Upload TOPIK certificate photo"
-          >
-            {certificateFileName || "Upload TOPIK photo"}
-          </button>
-
-          <input
-            ref={certificateInputRef}
-            type="file"
-            accept="image/*,.pdf"
-            className="mobile-translator-profile-setup__hidden-input"
-            onChange={handleCertificateChange}
-            aria-label="Choose TOPIK certificate file"
-          />
-
           <div className="mobile-translator-profile-setup__section">
             <h2 className="mobile-translator-profile-setup__section-title">
               Topics for translation
@@ -411,29 +377,6 @@ const TranslatorProfileSetupPage = () => {
                 {showAllThemes ? "Show less" : "Show more"}
               </button>
             )}
-          </div>
-
-          <div className="mobile-translator-profile-setup__section">
-            <h2 className="mobile-translator-profile-setup__section-title">
-              Topics for translation with certificate
-            </h2>
-
-            <div className="mobile-translator-profile-setup__certificate-list">
-              <div className="mobile-translator-profile-setup__certificate-row">
-                <span className="mobile-translator-profile-setup__topic-text">
-                  Upload certificates for selected topics
-                </span>
-
-                <button
-                  type="button"
-                  className="mobile-translator-profile-setup__certificate-upload"
-                  onClick={handleCertificateClick}
-                  aria-label="Upload certificate for selected topics"
-                >
-                  {certificateFileName ? "1 file" : "Upload"}
-                </button>
-              </div>
-            </div>
           </div>
 
           <div className="mobile-translator-profile-setup__section">

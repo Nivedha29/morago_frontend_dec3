@@ -127,21 +127,6 @@
    cursor: pointer;
 }
 
-.mobile-translator-profile-setup__upload-button {
-   width: 100%;
-   margin-top: 12px;
-   min-height: 52px;
-   border: none;
-   border-radius: 14px;
-   background: #f3f4f6;
-   color: #6b7280;
-   font-size: 15px;
-   font-weight: 500;
-   padding: 0 16px;
-   text-align: left;
-   cursor: pointer;
-}
-
 .mobile-translator-profile-setup__section {
    margin-top: 22px;
    padding-top: 18px;
@@ -207,35 +192,6 @@
    font-size: 15px;
    color: #1f2937;
    line-height: 1.4;
-}
-
-.mobile-translator-profile-setup__certificate-list {
-   margin-top: 14px;
-}
-
-.mobile-translator-profile-setup__certificate-row {
-   min-height: 52px;
-   border-radius: 14px;
-   background: #f3f4f6;
-   padding: 0 14px;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   gap: 12px;
-}
-
-.mobile-translator-profile-setup__certificate-upload {
-   border: none;
-   background: transparent;
-   color: #9ca3af;
-   font-size: 14px;
-   font-weight: 500;
-   cursor: pointer;
-   flex-shrink: 0;
-}
-
-.mobile-translator-profile-setup__certificate-upload:hover {
-   color: #6b7280;
 }
 
 .mobile-translator-profile-setup__languages {
