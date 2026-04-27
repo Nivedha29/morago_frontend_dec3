@@ -13,7 +13,7 @@ import {
 import "../index.css";
 import "../styles/TranslatorProfileSetupPage.css";
 
-const INITIAL_THEME_COUNT = 6;
+const THEME_PAGE_SIZE = 6;
 
 const getStoredUser = () => {
   try {
@@ -41,17 +41,36 @@ const TranslatorProfileSetupPage = () => {
   const [levelOfKorean, setLevelOfKorean] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [themes, setThemes] = useState([]);
+  const [themePage, setThemePage] = useState(0);
+  const [totalThemePages, setTotalThemePages] = useState(1);
   const [languages, setLanguages] = useState([]);
   const [selectedThemeIds, setSelectedThemeIds] = useState([]);
   const [selectedLanguageIds, setSelectedLanguageIds] = useState([]);
-  const [showAllThemes, setShowAllThemes] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isLoadingMoreThemes, setIsLoadingMoreThemes] = useState(false);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const clearError = () => setErrorMessage("");
+
+  const fetchThemes = async (page = 0) => {
+    const response = await getTranslatorThemes({
+      page,
+      size: THEME_PAGE_SIZE,
+      sortBy: "id",
+      sortDirection: "ASC",
+    });
+
+    setThemes((prev) =>
+      page === 0
+        ? response.content || []
+        : [...prev, ...(response.content || [])],
+    );
+    setThemePage(response.page ?? page);
+    setTotalThemePages(response.totalPages ?? 1);
+  };
 
   useEffect(() => {
     if (!storedUser?.token) {
@@ -77,18 +96,10 @@ const TranslatorProfileSetupPage = () => {
         setLoading(true);
         clearError();
 
-        const [themesResponse, languagesResponse] = await Promise.all([
-          getTranslatorThemes({
-            page: 0,
-            size: 100,
-            sortBy: "id",
-            sortDirection: "ASC",
-          }),
-          getActiveLanguages(),
-        ]);
-
-        setThemes(themesResponse.content || []);
+        const languagesResponse = await getActiveLanguages();
         setLanguages(languagesResponse || []);
+
+        await fetchThemes(0);
       } catch (error) {
         setErrorMessage(
           getErrorMessage(error, "Failed to load profile setup data"),
@@ -101,11 +112,7 @@ const TranslatorProfileSetupPage = () => {
     fetchInitialData();
   }, []);
 
-  const visibleThemes = showAllThemes
-    ? themes
-    : themes.slice(0, INITIAL_THEME_COUNT);
-
-  const shouldShowThemeToggle = themes.length > INITIAL_THEME_COUNT;
+  const hasMoreThemes = themePage + 1 < totalThemePages;
 
   const isSaveDisabled =
     isSubmitting ||
@@ -156,6 +163,21 @@ const TranslatorProfileSetupPage = () => {
     } finally {
       setIsUploadingAvatar(false);
       event.target.value = "";
+    }
+  };
+
+  const handleLoadMoreThemes = async () => {
+    if (!hasMoreThemes || isLoadingMoreThemes) return;
+
+    try {
+      setIsLoadingMoreThemes(true);
+      clearError();
+
+      await fetchThemes(themePage + 1);
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error, "Failed to load more topics"));
+    } finally {
+      setIsLoadingMoreThemes(false);
     }
   };
 
@@ -339,7 +361,7 @@ const TranslatorProfileSetupPage = () => {
                   Loading topics...
                 </p>
               ) : (
-                visibleThemes.map((theme) => {
+                themes.map((theme) => {
                   const isSelected = selectedThemeIds.includes(theme.id);
                   const themeName = theme.titleEn || theme.title || theme.name;
 
@@ -367,14 +389,14 @@ const TranslatorProfileSetupPage = () => {
               )}
             </div>
 
-            {shouldShowThemeToggle && (
+            {hasMoreThemes && (
               <button
                 type="button"
                 className="mobile-translator-profile-setup__show-more"
-                onClick={() => setShowAllThemes((prev) => !prev)}
-                aria-expanded={showAllThemes}
+                onClick={handleLoadMoreThemes}
+                disabled={isLoadingMoreThemes}
               >
-                {showAllThemes ? "Show less" : "Show more"}
+                {isLoadingMoreThemes ? "Loading..." : "Show more"}
               </button>
             )}
           </div>

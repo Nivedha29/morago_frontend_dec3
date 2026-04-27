@@ -45,7 +45,7 @@ const MobileTranslatorHomePage = () => {
 
   useEffect(() => {
     if (!storedUser?.token) {
-      navigate("/mobile/translator-login", { replace: true });
+      navigate("/login", { replace: true });
     }
   }, [storedUser, navigate]);
 
@@ -175,11 +175,11 @@ const MobileTranslatorHomePage = () => {
                 </span>
               </button>
 
-              {statusError ? (
+              {statusError && (
                 <p className="mobile-translator-home__status-error">
                   {statusError}
                 </p>
-              ) : null}
+              )}
             </div>
           </div>
 

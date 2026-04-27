@@ -127,7 +127,11 @@ const App = () => {
                 />
                 <Route
                   path="/sign-up/profile-setup"
-                  element={<ProfileSetupPage />}
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <ProfileSetupPage />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route
                   path="/forgot-password"
