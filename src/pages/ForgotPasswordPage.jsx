@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import { requestPasswordResetCode } from "../services/auth";
 
-import "./RegisterPage.css";
+import "../styles/ForgotPassword.css";
 import call from "../assets/call.svg";
 
 const ForgotPasswordPage = () => {
