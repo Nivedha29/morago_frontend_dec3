@@ -1,43 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StatusBar from "../components/StatusBar.jsx";
 
 import coinIcon from "../assets/coin icon.svg";
-
-import bankIcon from "../assets/dollar-circle.svg";
-import taxiIcon from "../assets/map.svg";
-import mailIcon from "../assets/box.svg";
-import documentIcon from "../assets/sms-tracking.svg";
-import financeIcon from "../assets/wallet-2.svg";
-import othersIcon from "../assets/category.svg";
-
-import caller1 from "../assets/Caller Image.svg";
-import caller2 from "../assets/Caller Image (1).svg";
-import caller3 from "../assets/Caller Image (2).svg";
-
+import fallbackIcon from "../assets/category.svg";
+import fallbackAvatar from "../assets/avatar.svg";
 import freeCallBanner from "../assets/Banner - free call.svg";
 
-const topics = [
-  ["Bank", bankIcon],
-  ["Taxi", taxiIcon],
-  ["Mail", mailIcon],
-  ["Documents", documentIcon],
-  ["Finances", financeIcon],
-  ["Others", othersIcon],
-];
-
-const calls = [
-  ["K. Dmitry", "Bank", "04:25", caller1],
-  ["P. Natalia", "Mail", "02:16", caller2],
-  ["L. Min Ho", "Insurance", "03:03", caller3],
-];
+import { getUserHomeData } from "../services/user.js";
 
 export default function HomeScreen() {
   const [showFirstCall, setShowFirstCall] = useState(true);
   const [showFundsModal, setShowFundsModal] = useState(false);
-  const [balance, setBalance] = useState(50000);
 
-  const handleTry = () => {
-    setShowFirstCall(false);
+  const [balance, setBalance] = useState(0);
+  const [topics, setTopics] = useState([]);
+  const [calls, setCalls] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    getUserHomeData()
+      .then(({ balance, topics, calls }) => {
+        if (!mounted) return;
+
+        setBalance(balance ?? 0);
+        setTopics(topics ?? []);
+        setCalls(calls ?? []);
+      })
+      .catch((error) => {
+        console.error("Home API error:", error);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const handleCallClick = () => {
+    if (balance <= 0) {
+      setShowFundsModal(true);
+    }
   };
 
   return (
@@ -58,7 +60,7 @@ export default function HomeScreen() {
 
               <h2 className={balance < 0 ? "minus-balance" : ""}>
                 <img src={coinIcon} alt="coin" className="coin-icon" />
-                {balance.toLocaleString()}
+                {Number(balance).toLocaleString()}
                 <span>-0 min</span>
               </h2>
             </div>
@@ -72,13 +74,7 @@ export default function HomeScreen() {
             </button>
           </div>
 
-          <button
-            className="call-btn"
-            onClick={() => {
-              setBalance(-10000);
-              setShowFundsModal(true);
-            }}
-          >
+          <button className="call-btn" onClick={handleCallClick}>
             Select a translator and call
           </button>
         </div>
@@ -88,33 +84,65 @@ export default function HomeScreen() {
         <h3>Popular translation topics</h3>
 
         <div className="topic-grid">
-          {topics.map(([item, icon]) => (
-            <button key={item}>
-              <span className="topic-icon">
-                <img src={icon} alt={item} />
-              </span>
-              <b>{item}</b>
-            </button>
-          ))}
+          {topics.map((topic) => {
+            const title = topic.name || topic.title || "Topic";
+            const icon = topic.iconUrl || topic.iconURL || fallbackIcon;
+
+            return (
+              <button key={topic.id || title}>
+                <span className="topic-icon">
+                  <img
+                    src={icon}
+                    alt={title}
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackIcon;
+                    }}
+                  />
+                </span>
+                <b>{title}</b>
+              </button>
+            );
+          })}
         </div>
 
         <h3>My recent calls</h3>
 
-        {calls.map(([name, topic, time, img]) => (
-          <div className="call-item" key={name}>
-            <img className="avatar" src={img} alt={name} />
+        {calls.map((call) => {
+          const name = call.name || call.phone || "Unknown user";
+          const topic = call.theme || "-";
+          const duration = call.duration ? `${call.duration}` : "-";
+          const rating = Number(call.rating) || 0;
 
-            <div>
-              <b>{name}</b>
-              <p>{topic}</p>
-            </div>
+          const avatar =
+            call.imageURL ||
+            call.imageUrl ||
+            call.avatarURL ||
+            call.avatarUrl ||
+            fallbackAvatar;
 
-            <div className="rate">
-              ⭐⭐⭐⭐⭐
-              <small>{time}</small>
+          return (
+            <div className="call-item" key={call.id || `${name}-${call.date}`}>
+              <img
+                className="avatar"
+                src={avatar}
+                alt={name}
+                onError={(e) => {
+                  e.currentTarget.src = fallbackAvatar;
+                }}
+              />
+
+              <div>
+                <b>{name}</b>
+                <p>{topic}</p>
+              </div>
+
+              <div className="rate">
+                {"⭐".repeat(rating)}
+                <small>{duration}</small>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </main>
 
       <nav className="bottom-nav">
@@ -130,7 +158,6 @@ export default function HomeScreen() {
         <div className="first-call">
           <div className="first-box">
             <h2>FIRST CALL FREE!</h2>
-
             <p>Try the Morago Translator service on us</p>
 
             <img
@@ -139,7 +166,7 @@ export default function HomeScreen() {
               alt="Free Call Banner"
             />
 
-            <button onClick={handleTry}>Try</button>
+            <button onClick={() => setShowFirstCall(false)}>Try</button>
           </div>
         </div>
       )}
@@ -148,7 +175,6 @@ export default function HomeScreen() {
         <div className="first-call">
           <div className="funds-box">
             <h3>Insufficient funds</h3>
-
             <p>Top up your balance</p>
 
             <div className="funds-actions">
