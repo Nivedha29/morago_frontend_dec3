@@ -46,7 +46,7 @@ const LoginScreen = () => {
           localStorage.setItem("currentUser", JSON.stringify(data));
 
           if (selectedRole === "ROLE_TRANSLATOR") {
-            navigate("/translator-home");
+            navigate("/translator/home");
           } else {
             navigate("/home");
           }
