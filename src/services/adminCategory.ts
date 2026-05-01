@@ -69,3 +69,7 @@ export const createAdminCategory = async (
 
   return response.data;
 };
+
+export const deleteAdminCategory = async (id: number): Promise<void> => {
+  await api.delete(`${ADMIN_CATEGORIES_BASE}/${id}`);
+};
