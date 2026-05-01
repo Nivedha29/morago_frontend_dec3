@@ -7,7 +7,11 @@ import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminControls from "../../../components/admin/AdminControls";
 import UserDetailModal from "../../../components/admin/UserDetailModal";
 import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
-import { getAdminUsers, getAdminUserById } from "../../../services/adminUser";
+import {
+  getAdminUsers,
+  getAdminUserById,
+  deleteAdminUser,
+} from "../../../services/adminUser";
 
 const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
@@ -115,6 +119,25 @@ const AdminUserPage = () => {
     setUserDetailLoading(false);
   };
 
+  const handleDeleteUser = async (id) => {
+    try {
+      await deleteAdminUser(id);
+
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      handleCloseUserModal();
+    } catch (apiError) {
+      console.error("Failed to delete user:", apiError);
+
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to delete user";
+
+      setUserDetailError(backendMessage);
+    }
+  };
+
   const userColumns = defaultUserColumns(
     (user) => {
       handleOpenUserModal(user);
@@ -145,7 +168,6 @@ const AdminUserPage = () => {
   );
 
   const handleControlsApply = ({ search, filter, action }) => {
-    
     if (action === "show-all") {
       setPage(0);
       setKeyword("");
@@ -250,6 +272,7 @@ const AdminUserPage = () => {
             loading={userDetailLoading}
             error={userDetailError}
             onClose={handleCloseUserModal}
+            onDelete={handleDeleteUser}
           />
         )}
       </AdminPageShell>
