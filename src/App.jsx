@@ -22,7 +22,7 @@ import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
 import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
-import EditCategoryPage from "./pages/Admin/CategoryPages/EditCategoryPage";
+import EditCategoryPage from "./pages/Admin/CategoriesPages/EditCategoryPage.jsx";
 
 /* ------------------------- Mobile App ------------------------- */
 
