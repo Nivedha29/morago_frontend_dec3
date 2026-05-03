@@ -112,7 +112,6 @@ const AdminTranslatorPage = () => {
   );
 
   const handleControlsApply = ({ search, filter, action }) => {
-
     if (action === "show-all") {
       setPage(0);
       setKeyword("");
@@ -166,8 +165,8 @@ const AdminTranslatorPage = () => {
             filterOptions={[
               { label: "Active", value: "active" },
               { label: "Inactive", value: "inactive" },
-              { label: "Has withdrawal", value: "has-withdrawal" },
-              { label: "No withdrawal", value: "no-withdrawal" },
+              { label: "Has pending withdrawal", value: "has-withdrawal" },
+              { label: "No pending withdrawal", value: "no-withdrawal" },
             ]}
             onApply={handleControlsApply}
           />
