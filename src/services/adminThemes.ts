@@ -48,6 +48,22 @@ export interface CreateThemePayload {
   isPopular: boolean;
 }
 
+export interface UpdateThemePayload {
+  name: string;
+  title: string;
+  titleEn: string;
+  titleRu: string;
+  description: string;
+  descriptionEn: string;
+  descriptionRu: string;
+  price: number;
+  nightPrice: number;
+  isPopular: boolean;
+  isActive: boolean;
+  iconId: number;
+  categoryId: number;
+}
+
 export const getAdminThemes = async (
   params?: GetAdminThemesParams,
 ): Promise<ThemeListResponse> => {
@@ -86,6 +102,15 @@ export const uploadAdminThemeIcon = async (
       },
     },
   );
+
+  return response.data;
+};
+
+export const updateAdminTheme = async (
+  id: number,
+  payload: UpdateThemePayload,
+): Promise<ThemeItem> => {
+  const response = await api.put(`${ADMIN_THEMES_BASE}/update/${id}`, payload);
 
   return response.data;
 };
