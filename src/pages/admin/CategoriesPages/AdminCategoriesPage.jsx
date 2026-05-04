@@ -9,6 +9,7 @@ import { defaultCategoryColumns } from "../../../components/admin/DefaultCategor
 import {
   getAdminCategories,
   getAdminCategoryById,
+  deleteAdminCategory,
 } from "../../../services/adminCategory";
 
 const AdminCategoryPage = () => {
@@ -113,6 +114,28 @@ const AdminCategoryPage = () => {
     setCategoryDetailLoading(false);
   };
 
+  const handleDeleteCategory = async (id) => {
+    try {
+      await deleteAdminCategory(id);
+
+      setCategories((prev) =>
+        prev.map((cat) => (cat.id === id ? { ...cat, isActive: false } : cat)),
+      );
+
+      handleCloseCategoryModal();
+    } catch (apiError) {
+      console.error("Failed to deactivate category:", apiError);
+
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to deactivate category";
+
+      setCategoryDetailError(backendMessage);
+    }
+  };
+
   const handleControlsApply = ({ search, filter, action }) => {
     if (action === "show-all") {
       setPage(0);
@@ -209,14 +232,13 @@ const AdminCategoryPage = () => {
           </div>
         )}
 
-        {isCategoryModalOpen && (
-          <CategoryDetailModal
-            category={selectedCategory}
-            loading={categoryDetailLoading}
-            error={categoryDetailError}
-            onClose={handleCloseCategoryModal}
-          />
-        )}
+        <CategoryDetailModal
+          category={selectedCategory}
+          loading={categoryDetailLoading}
+          error={categoryDetailError}
+          onClose={handleCloseCategoryModal}
+          onDelete={handleDeleteCategory}
+        />
       </AdminPageShell>
     </AdminLayout>
   );
