@@ -89,23 +89,8 @@
 }
 
 .category-detail-modal-edit-btn {
-   color: #222;
+   color: #222222;
    gap: 15px;
-}
-
-.category-detail-modal-delete-btn {
-   color: #d93025;
-}
-
-.category-detail-modal-delete-btn:disabled {
-   color: #9aa0a6;
-   background: #eeeeee;
-   cursor: not-allowed;
-}
-
-.category-detail-modal-gear {
-   font-size: 20px;
-   line-height: 1;
 }
 
 .category-detail-modal-content {
@@ -113,7 +98,7 @@
    justify-content: space-between;
    align-items: flex-start;
    gap: 40px;
-   padding: 0px 12px 0;
+   padding: 0 12px;
 }
 
 .category-detail-modal-name-block,
@@ -144,8 +129,7 @@
 .category-detail-modal-state {
    margin-top: 28px;
    font-size: 15px;
-   color: #333;
-
+   color: #333333;
 }
 
 .category-detail-modal-error {
@@ -156,11 +140,6 @@
    .category-detail-modal {
       max-width: 600px;
       padding: 50px 45px 36px;
-   }
-
-   .category-detail-modal-image {
-      width: 150px;
-      height: 110px;
    }
 
    .category-detail-modal-content {
@@ -174,9 +153,9 @@
       padding: 45px 40px 32px;
    }
 
-   .category-detail-modal-image {
+   .category-detail-modal-image-wrapper {
       width: 140px;
-      height: 100px;
+      height: 140px;
    }
 
    .category-detail-modal-actions {

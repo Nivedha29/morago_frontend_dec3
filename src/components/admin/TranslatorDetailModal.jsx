@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import statusIcon from "../../assets/SideBarGear.svg";
+import { useNavigate } from "react-router-dom";
 import defaultAvatar from "../../assets/avatar.svg";
 import "../../styles/Admin/TranslatorPages/TranslatorDetailModal.css";
 
-const TranslatorDetailModal = ({ translator, onClose }) => {
+const TranslatorDetailModal = ({ translator, onClose, onToggleActive }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -20,6 +22,8 @@ const TranslatorDetailModal = ({ translator, onClose }) => {
 
   if (!translator) return null;
 
+  const isActive = translator.isActive;
+
   return (
     <div className="translator-modal-overlay" onClick={onClose}>
       <div className="translator-modal" onClick={(e) => e.stopPropagation()}>
@@ -27,7 +31,7 @@ const TranslatorDetailModal = ({ translator, onClose }) => {
           type="button"
           className="translator-modal-close"
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Close translator detail modal"
         >
           ×
         </button>
@@ -35,31 +39,48 @@ const TranslatorDetailModal = ({ translator, onClose }) => {
         <div className="translator-modal-body">
           <div className="translator-modal-top">
             <img
-              alt="avatar"
+              alt="Translator avatar"
               className="translator-modal-avatar"
               src={defaultAvatar}
             />
 
             <div className="translator-modal-actions">
-              <button type="button" className="translator-modal-btn">
+              <button
+                type="button"
+                className="translator-modal-btn"
+                onClick={() =>
+                  navigate(`/admin/translators/${translator.id}/edit`)
+                }
+                aria-label="Edit translator account"
+              >
                 <span>Edit account</span>
                 <span className="translator-modal-btn-arrow">→</span>
               </button>
 
-              <button type="button" className="translator-modal-btn">
-                Status
-                <img
-                  src={statusIcon}
-                  alt="status"
-                  className="translator-modal-btn-icon"
-                />
+              <button
+                type="button"
+                className={`translator-modal-btn ${
+                  isActive
+                    ? "translator-modal-btn-delete"
+                    : "translator-modal-btn-activate"
+                }`}
+                onClick={() => onToggleActive(translator.id, isActive)}
+                aria-label={
+                  isActive
+                    ? "Deactivate translator account"
+                    : "Activate translator account"
+                }
+              >
+                {isActive ? "Deactivate account" : "Activate account"}
               </button>
             </div>
           </div>
 
           <h3 className="translator-modal-name">
             {translator.firstName || translator.lastName
-              ? `${translator.firstName || ""} ${translator.lastName || ""}`.trim()
+              ? `${translator.firstName || ""} ${
+                  translator.lastName || ""
+                }`.trim()
               : "-"}
           </h3>
 
@@ -103,8 +124,11 @@ const TranslatorDetailModal = ({ translator, onClose }) => {
                 <strong>Birth:</strong> {translator.dateOfBirth || "-"}
               </p>
               <p>
-                <strong>Status:</strong>{" "}
+                <strong>Online:</strong>{" "}
                 {translator.isOnline ? "Online" : "Offline"}
+              </p>
+              <p>
+                <strong>Account:</strong> {isActive ? "Active" : "Inactive"}
               </p>
             </div>
           </div>
