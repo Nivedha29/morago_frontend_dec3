@@ -8,7 +8,6 @@ import "../styles/RegisterPage.css";
 
 const RegisterPage = ({ role }) => {
   const navigate = useNavigate();
-
   const isTranslator = role === "translator";
 
   const [form, setForm] = useState({
@@ -29,7 +28,7 @@ const RegisterPage = ({ role }) => {
 
     return `${numbers.slice(0, 3)} ${numbers.slice(3, 7)} ${numbers.slice(
       7,
-      11,
+      11
     )}`;
   };
 
@@ -106,6 +105,15 @@ const RegisterPage = ({ role }) => {
   return (
     <div className="screen login-screen mobile-translator-register">
       <StatusBar />
+
+      <button
+        type="button"
+        className="register-back-button"
+        onClick={() => navigate(-1)}
+        aria-label="Go back"
+      >
+        ←
+      </button>
 
       <div className="login-body mobile-translator-register__body">
         <div className="mobile-translator-register__header">
@@ -197,6 +205,10 @@ const RegisterPage = ({ role }) => {
           </div>
 
           <div className="mobile-translator-register__field">
+            <label className="field-label" htmlFor="register-confirm-password">
+              Confirm password
+            </label>
+
             <div
               className={`field-wrapper ${
                 activeField === "confirmPassword" ? "field-focused" : ""
