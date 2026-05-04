@@ -10,7 +10,7 @@ import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns
 import {
   getAdminUsers,
   getAdminUserById,
-  deleteAdminUser,
+  updateAdminUser,
 } from "../../../services/adminUser";
 
 const AdminUserPage = () => {
@@ -58,8 +58,6 @@ const AdminUserPage = () => {
         setUsers(data.content || []);
         setTotalPages(data.totalPages || 0);
       } catch (apiError) {
-        console.error("Failed to fetch users:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -88,8 +86,6 @@ const AdminUserPage = () => {
         const data = await getAdminUserById(selectedUserId);
         setSelectedUser(data);
       } catch (apiError) {
-        console.error("Failed to fetch user details:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -119,20 +115,26 @@ const AdminUserPage = () => {
     setUserDetailLoading(false);
   };
 
-  const handleDeleteUser = async (id) => {
+  const handleToggleUserActive = async (id, currentIsActive) => {
     try {
-      await deleteAdminUser(id);
+      await updateAdminUser(id, {
+        ...selectedUser,
+        isActive: !currentIsActive,
+      });
 
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === id ? { ...user, isActive: !currentIsActive } : user,
+        ),
+      );
+
       handleCloseUserModal();
     } catch (apiError) {
-      console.error("Failed to delete user:", apiError);
-
       const backendMessage =
         apiError?.message ||
         apiError?.details?.error ||
         apiError?.details?.message ||
-        "Failed to delete user";
+        "Failed to update user status";
 
       setUserDetailError(backendMessage);
     }
@@ -272,7 +274,7 @@ const AdminUserPage = () => {
             loading={userDetailLoading}
             error={userDetailError}
             onClose={handleCloseUserModal}
-            onDelete={handleDeleteUser}
+            onToggleActive={handleToggleUserActive}
           />
         )}
       </AdminPageShell>
