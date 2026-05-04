@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import eyeIcon from "../../assets/eye.svg";
+import { useNavigate } from "react-router-dom";
+import defaultAvatar from "../../assets/avatar.svg";
 import "../../styles/Admin/ThemesPages/ThemeDetailModal.css";
 
 const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -20,6 +23,13 @@ const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
   if (!theme && !loading && !error) return null;
 
   const categoryName = theme?.categoryName || "-";
+
+  const handleEditTheme = () => {
+    if (!theme?.id) return;
+
+    onClose();
+    navigate(`/admin/themes/edit/${theme.id}`);
+  };
 
   return (
     <div className="morago-theme-detail-modal__overlay" onClick={onClose}>
@@ -46,21 +56,14 @@ const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
           <>
             <div className="morago-theme-detail-modal__top">
               <div className="morago-theme-detail-modal__image-wrap">
-                {theme?.iconUrl ? (
-                  <img
-                    src={theme.iconUrl}
-                    alt={theme.title || theme.name}
-                    className="morago-theme-detail-modal__image"
-                  />
-                ) : (
-                  <div className="morago-theme-detail-modal__image-placeholder">
-                    <img
-                      src={eyeIcon}
-                      alt="theme"
-                      className="morago-theme-detail-modal__placeholder-icon"
-                    />
-                  </div>
-                )}
+                <img
+                  src={theme?.iconUrl || defaultAvatar}
+                  alt={theme?.title || theme?.name}
+                  className="morago-theme-detail-modal__image"
+                  onError={(e) => {
+                    e.currentTarget.src = defaultAvatar;
+                  }}
+                />
               </div>
 
               <div className="morago-theme-detail-modal__banner" />
@@ -69,15 +72,11 @@ const ThemeDetailModal = ({ theme, loading, error, onClose }) => {
                 <button
                   type="button"
                   className="morago-theme-detail-modal__action-btn"
+                  onClick={handleEditTheme}
+                  aria-label="Edit theme"
+                  disabled={!theme?.id}
                 >
                   Edit <span>→</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="morago-theme-detail-modal__action-btn"
-                >
-                  Status <span>⚙</span>
                 </button>
               </div>
             </div>

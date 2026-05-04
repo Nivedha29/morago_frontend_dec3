@@ -171,11 +171,15 @@ const EditThemePage = () => {
                       src={previewImage}
                       alt="Theme preview"
                       className="morago-add-theme-preview-image"
+                      onError={() => setPreviewImage("")}
                     />
                   ) : (
-                    <span className="morago-add-theme-upload-placeholder">
-                      Upload icon
-                    </span>
+                    <div className="morago-add-theme-fallback">
+                      <span className="morago-add-theme-fallback-icon">🖼️</span>
+                      <span className="morago-add-theme-fallback-text">
+                        Click to upload icon
+                      </span>
+                    </div>
                   )}
                 </div>
 
@@ -219,51 +223,71 @@ const EditThemePage = () => {
               </div>
 
               <div className="morago-add-theme-row">
-                <input
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  className="morago-add-theme-input"
-                  placeholder="Title"
-                />
-                <input
-                  name="titleEn"
-                  value={formData.titleEn}
-                  onChange={handleChange}
-                  className="morago-add-theme-input"
-                  placeholder="Title EN"
-                />
-                <input
-                  name="titleRu"
-                  value={formData.titleRu}
-                  onChange={handleChange}
-                  className="morago-add-theme-input"
-                  placeholder="Title RU"
-                />
+                <div className="morago-add-theme-field">
+                  <label className="morago-add-theme-label">Title</label>
+                  <input
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    className="morago-add-theme-input"
+                  />
+                </div>
+
+                <div className="morago-add-theme-field">
+                  <label className="morago-add-theme-label">Title EN</label>
+                  <input
+                    name="titleEn"
+                    value={formData.titleEn}
+                    onChange={handleChange}
+                    className="morago-add-theme-input"
+                  />
+                </div>
+
+                <div className="morago-add-theme-field">
+                  <label className="morago-add-theme-label">Title RU</label>
+                  <input
+                    name="titleRu"
+                    value={formData.titleRu}
+                    onChange={handleChange}
+                    className="morago-add-theme-input"
+                  />
+                </div>
               </div>
 
               <div className="morago-add-theme-row">
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  className="morago-add-theme-textarea"
-                  placeholder="Description"
-                />
-                <textarea
-                  name="descriptionEn"
-                  value={formData.descriptionEn}
-                  onChange={handleChange}
-                  className="morago-add-theme-textarea"
-                  placeholder="Description EN"
-                />
-                <textarea
-                  name="descriptionRu"
-                  value={formData.descriptionRu}
-                  onChange={handleChange}
-                  className="morago-add-theme-textarea"
-                  placeholder="Description RU"
-                />
+                <div className="morago-add-theme-field">
+                  <label className="morago-add-theme-label">Description</label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    className="morago-add-theme-textarea"
+                  />
+                </div>
+
+                <div className="morago-add-theme-field">
+                  <label className="morago-add-theme-label">
+                    Description EN
+                  </label>
+                  <textarea
+                    name="descriptionEn"
+                    value={formData.descriptionEn}
+                    onChange={handleChange}
+                    className="morago-add-theme-textarea"
+                  />
+                </div>
+
+                <div className="morago-add-theme-field">
+                  <label className="morago-add-theme-label">
+                    Description RU
+                  </label>
+                  <textarea
+                    name="descriptionRu"
+                    value={formData.descriptionRu}
+                    onChange={handleChange}
+                    className="morago-add-theme-textarea"
+                  />
+                </div>
               </div>
 
               <div className="morago-add-theme-row">
@@ -316,7 +340,6 @@ const EditThemePage = () => {
                   type="button"
                   className="morago-add-theme-cancel-btn"
                   onClick={() => navigate("/admin/themes")}
-                  aria-label="Cancel edit theme"
                   disabled={isSubmitting}
                 >
                   Cancel
@@ -325,7 +348,6 @@ const EditThemePage = () => {
                 <button
                   type="submit"
                   className="morago-add-theme-save-btn"
-                  aria-label="Save theme changes"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Saving..." : "Save"}
