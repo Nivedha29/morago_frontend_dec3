@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import defaultAvatar from "../assets/avatar.svg";
 import {
   deleteAvatar,
   getActiveLanguages,
-  getCurrentUserProfile,
   getTranslatorThemes,
   patchTranslatorProfile,
   updateProfilePassword,
@@ -30,10 +29,21 @@ const getErrorMessage = (error, fallback) =>
     ? error.message
     : fallback;
 
-const MobileTranslatorProfilePage = () => {
+const normalizeDateForInput = (value) => {
+  if (!value) return "";
+  return String(value).replaceAll(".", "-");
+};
+
+const getAvatarUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${import.meta.env.VITE_API_BASE_URL}/${path}`;
+};
+
+const TranslatorProfilePage = () => {
   const navigate = useNavigate();
   const avatarInputRef = useRef(null);
-  const storedUser = useMemo(getStoredUser, []);
+  const [storedUser, setStoredUser] = useState(getStoredUser());
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -53,7 +63,8 @@ const MobileTranslatorProfilePage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [loading, setLoading] = useState(true);
+  const [isThemesLoading, setIsThemesLoading] = useState(true);
+  const [isLanguagesLoading, setIsLanguagesLoading] = useState(true);
   const [isLoadingMoreThemes, setIsLoadingMoreThemes] = useState(false);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
   const [isDeletingAvatar, setIsDeletingAvatar] = useState(false);
@@ -87,33 +98,37 @@ const MobileTranslatorProfilePage = () => {
       return;
     }
 
+    setFirstName(storedUser.firstName || "");
+    setLastName(storedUser.lastName || "");
+    setPhone(storedUser.phone || "");
+    setDateOfBirth(normalizeDateForInput(storedUser.dateOfBirth));
+    setImageUrl(storedUser.imageUrl || "");
+    setLevelOfKorean(
+      storedUser.levelOfKorean ? String(storedUser.levelOfKorean) : "",
+    );
+    setSelectedThemeIds(storedUser.selectedThemeIds || []);
+    setSelectedLanguageIds(storedUser.selectedLanguageIds || []);
+
     const fetchProfileData = async () => {
+      clearError();
+
       try {
-        setLoading(true);
-        clearError();
-
-        const [profile, languagesResponse] = await Promise.all([
-          getCurrentUserProfile(),
-          getActiveLanguages(),
-          fetchThemes(0),
-        ]);
-
-        setFirstName(profile.firstName || "");
-        setLastName(profile.lastName || "");
-        setPhone(profile.phone || "");
-
-        setDateOfBirth(storedUser.dateOfBirth || "");
-        setImageUrl(storedUser.imageUrl || "");
-        setLevelOfKorean(
-          storedUser.levelOfKorean ? String(storedUser.levelOfKorean) : "",
-        );
-        setSelectedThemeIds(storedUser.selectedThemeIds || []);
-        setSelectedLanguageIds(storedUser.selectedLanguageIds || []);
+        setIsLanguagesLoading(true);
+        const languagesResponse = await getActiveLanguages();
         setLanguages(languagesResponse || []);
       } catch (error) {
-        setErrorMessage(getErrorMessage(error, "Failed to load profile"));
+        setErrorMessage(getErrorMessage(error, "Failed to load languages"));
       } finally {
-        setLoading(false);
+        setIsLanguagesLoading(false);
+      }
+
+      try {
+        setIsThemesLoading(true);
+        await fetchThemes(0);
+      } catch (error) {
+        setErrorMessage(getErrorMessage(error, "Failed to load topics"));
+      } finally {
+        setIsThemesLoading(false);
       }
     };
 
@@ -172,7 +187,7 @@ const MobileTranslatorProfilePage = () => {
       clearError();
 
       const uploadedFile = await uploadAvatar(file);
-      setImageUrl(uploadedFile.path || "");
+      setImageUrl(getAvatarUrl(uploadedFile.path));
     } catch (error) {
       setErrorMessage(getErrorMessage(error, "Failed to upload avatar"));
     } finally {
@@ -237,7 +252,8 @@ const MobileTranslatorProfilePage = () => {
       };
 
       localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-      navigate("/translator-home");
+      setStoredUser(updatedUser);
+      navigate("/translator/home");
     } catch (error) {
       setErrorMessage(getErrorMessage(error, "Failed to update profile"));
     } finally {
@@ -435,9 +451,13 @@ const MobileTranslatorProfilePage = () => {
             </h2>
 
             <div className="mobile-translator-profile-setup__topics-list">
-              {loading ? (
+              {isThemesLoading ? (
                 <p className="mobile-translator-profile-setup__helper-text">
                   Loading topics...
+                </p>
+              ) : themes.length === 0 ? (
+                <p className="mobile-translator-profile-setup__helper-text">
+                  No topics available
                 </p>
               ) : (
                 themes.map((theme) => {
@@ -486,9 +506,13 @@ const MobileTranslatorProfilePage = () => {
             </h2>
 
             <div className="mobile-translator-profile-setup__languages">
-              {loading ? (
+              {isLanguagesLoading ? (
                 <p className="mobile-translator-profile-setup__helper-text">
                   Loading languages...
+                </p>
+              ) : languages.length === 0 ? (
+                <p className="mobile-translator-profile-setup__helper-text">
+                  No languages available
                 </p>
               ) : (
                 languages.map((language) => {
@@ -528,7 +552,10 @@ const MobileTranslatorProfilePage = () => {
                 type="password"
                 className="field-input"
                 value={oldPassword}
-                onChange={(event) => setOldPassword(event.target.value)}
+                onChange={(event) => {
+                  setOldPassword(event.target.value);
+                  setPasswordMessage("");
+                }}
                 placeholder="Old password"
               />
             </div>
@@ -542,7 +569,10 @@ const MobileTranslatorProfilePage = () => {
                 type="password"
                 className="field-input"
                 value={newPassword}
-                onChange={(event) => setNewPassword(event.target.value)}
+                onChange={(event) => {
+                  setNewPassword(event.target.value);
+                  setPasswordMessage("");
+                }}
                 placeholder="New password"
               />
             </div>
@@ -559,7 +589,10 @@ const MobileTranslatorProfilePage = () => {
                 type="password"
                 className="field-input"
                 value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event.target.value)}
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value);
+                  setPasswordMessage("");
+                }}
                 placeholder="Confirm password"
               />
             </div>
@@ -604,4 +637,4 @@ const MobileTranslatorProfilePage = () => {
   );
 };
 
-export default MobileTranslatorProfilePage;
+export default TranslatorProfilePage;
