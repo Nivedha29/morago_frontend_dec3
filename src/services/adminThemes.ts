@@ -89,3 +89,7 @@ export const uploadAdminThemeIcon = async (
 
   return response.data;
 };
+
+export const deleteAdminTheme = async (id: number): Promise<void> => {
+  await api.delete(`${ADMIN_THEMES_BASE}/${id}`);
+};

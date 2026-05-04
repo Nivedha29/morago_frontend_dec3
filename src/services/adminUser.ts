@@ -165,3 +165,7 @@ export const createAdminUser = async (
   const response = await api.post("/admin/users", payload);
   return response.data;
 };
+
+export const deleteAdminUser = async (id: number): Promise<void> => {
+  await api.delete(`/admin/users/${id}`);
+};
