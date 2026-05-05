@@ -20,6 +20,8 @@ import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
+import EditThemePage from "./pages/admin/ThemesPages/EditThemesPage.jsx";
+
 import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
 import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
 import EditCategoryPage from "./pages/Admin/CategoriesPages/EditCategoryPage.jsx";
@@ -83,6 +85,8 @@ const App = () => {
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
+      <Route path="/admin/themes/edit/:id" element={<EditThemePage />} />
+
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
       <Route path="/admin/categories/edit/:id" element={<EditCategoryPage />} />
