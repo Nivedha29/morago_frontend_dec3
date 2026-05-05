@@ -11,6 +11,7 @@ import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/Transla
 import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
 import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
+import EditTranslatorPage from "./pages/admin/TranslatorPages/EditTranslatorPage.jsx";
 
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
@@ -37,6 +38,7 @@ import TranslatorHome from "./pages/TranslatorHomePage.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterVerifyPage from "./pages/RegisterVerifyPage.jsx";
 import ProfileSetupPage from "./pages/TranslatorProfileSetupPage.jsx";
+import TranslatorProfilePage from "./pages/TranslatorProfilePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
@@ -66,6 +68,10 @@ const App = () => {
       <Route
         path="/admin/translators/:id/call-history"
         element={<TranslatorCallHistoryPage />}
+      />
+      <Route
+        path="/admin/translators/:id/edit"
+        element={<EditTranslatorPage />}
       />
 
       <Route path="/admin/users" element={<AdminUserPage />} />
@@ -116,6 +122,14 @@ const App = () => {
                   element={
                     <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
                       <TranslatorHome />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/translator/profile"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <TranslatorProfilePage />
                     </ProtectedRoute>
                   }
                 />

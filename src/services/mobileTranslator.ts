@@ -10,6 +10,22 @@ export interface FillTranslatorProfileRequest {
   languageIds: number[];
 }
 
+export interface PatchTranslatorProfileRequest {
+  firstName?: string;
+  lastName?: string;
+  imageUrl?: string;
+  levelOfKorean?: number;
+  dateOfBirth?: string;
+  themeIds?: number[];
+  languageIds?: number[];
+}
+
+export interface UpdateProfilePasswordPayload {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface TranslatorLanguage {
   id: number;
   name: string;
@@ -167,6 +183,23 @@ export const fillTranslatorProfile = async (
 ): Promise<TranslatorProfileResponse> => {
   const response = await api.put("/translator", payload);
   return response.data;
+};
+
+export const patchTranslatorProfile = async (
+  payload: PatchTranslatorProfileRequest,
+): Promise<TranslatorProfileResponse> => {
+  const response = await api.patch("/translator", payload);
+  return response.data;
+};
+
+export const deleteAvatar = async (): Promise<void> => {
+  await api.delete("/profile/avatar/delete");
+};
+
+export const updateProfilePassword = async (
+  payload: UpdateProfilePasswordPayload,
+): Promise<void> => {
+  await api.post("/profile/password/update", payload);
 };
 
 export const getCurrentUserBalance = async (): Promise<number> => {

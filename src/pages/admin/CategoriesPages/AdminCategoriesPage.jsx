@@ -9,7 +9,7 @@ import { defaultCategoryColumns } from "../../../components/admin/DefaultCategor
 import {
   getAdminCategories,
   getAdminCategoryById,
-  deleteAdminCategory,
+  updateAdminCategory,
 } from "../../../services/adminCategory";
 
 const AdminCategoryPage = () => {
@@ -53,8 +53,6 @@ const AdminCategoryPage = () => {
         setCategories(data.content || []);
         setTotalPages(data.totalPages || 0);
       } catch (apiError) {
-        console.error("Failed to fetch categories:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -83,8 +81,6 @@ const AdminCategoryPage = () => {
         const data = await getAdminCategoryById(selectedCategoryId);
         setSelectedCategory(data);
       } catch (apiError) {
-        console.error("Failed to fetch category details:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -114,23 +110,26 @@ const AdminCategoryPage = () => {
     setCategoryDetailLoading(false);
   };
 
-  const handleDeleteCategory = async (id) => {
+  const handleToggleCategoryActive = async (id, currentIsActive) => {
     try {
-      await deleteAdminCategory(id);
+      await updateAdminCategory(id, {
+        name: selectedCategory.name,
+        isActive: !currentIsActive,
+      });
 
       setCategories((prev) =>
-        prev.map((cat) => (cat.id === id ? { ...cat, isActive: false } : cat)),
+        prev.map((cat) =>
+          cat.id === id ? { ...cat, isActive: !currentIsActive } : cat,
+        ),
       );
 
       handleCloseCategoryModal();
     } catch (apiError) {
-      console.error("Failed to deactivate category:", apiError);
-
       const backendMessage =
         apiError?.message ||
         apiError?.details?.error ||
         apiError?.details?.message ||
-        "Failed to deactivate category";
+        "Failed to update category status";
 
       setCategoryDetailError(backendMessage);
     }
@@ -237,7 +236,7 @@ const AdminCategoryPage = () => {
           loading={categoryDetailLoading}
           error={categoryDetailError}
           onClose={handleCloseCategoryModal}
-          onDelete={handleDeleteCategory}
+          onToggleActive={handleToggleCategoryActive}
         />
       </AdminPageShell>
     </AdminLayout>

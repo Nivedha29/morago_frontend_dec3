@@ -8,7 +8,7 @@ const CategoryDetailModal = ({
   loading,
   error,
   onClose,
-  onDelete,
+  onToggleActive,
 }) => {
   const navigate = useNavigate();
 
@@ -33,15 +33,10 @@ const CategoryDetailModal = ({
     navigate(`/admin/categories/edit/${category.id}`);
   };
 
-  const handleDelete = async () => {
+  const handleToggleActive = async () => {
     if (!category?.id) return;
 
-    const confirmed = window.confirm(
-      "Are you sure you want to deactivate this category?",
-    );
-    if (!confirmed) return;
-
-    await onDelete(category.id);
+    await onToggleActive(category.id, category.isActive);
     onClose();
   };
 
@@ -73,7 +68,7 @@ const CategoryDetailModal = ({
           <div className="category-detail-modal-top">
             <div className="category-detail-modal-image-wrapper">
               <img
-                alt="Category image"
+                alt="Category"
                 className="category-detail-modal-image"
                 src={category?.imageUrl || defaultAvatar}
                 onError={(e) => {
@@ -96,11 +91,15 @@ const CategoryDetailModal = ({
               <button
                 type="button"
                 className="category-detail-modal-delete-btn"
-                onClick={handleDelete}
-                aria-label="Deactivate category"
-                disabled={!category?.isActive}
+                onClick={handleToggleActive}
+                aria-label={
+                  category?.isActive
+                    ? "Deactivate category"
+                    : "Activate category"
+                }
+                disabled={!category?.id}
               >
-                Deactivate
+                {category?.isActive ? "Deactivate" : "Activate"}
               </button>
             </div>
           </div>
