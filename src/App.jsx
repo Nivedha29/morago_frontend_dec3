@@ -22,6 +22,7 @@ import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
 import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
 import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
+import EditCategoryPage from "./pages/Admin/CategoriesPages/EditCategoryPage.jsx";
 
 /* ------------------------- Mobile App ------------------------- */
 
@@ -84,6 +85,7 @@ const App = () => {
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
+      <Route path="/admin/categories/edit/:id" element={<EditCategoryPage />} />
 
       {/* ------------------------- MOBILE APP ------------------------- */}
 

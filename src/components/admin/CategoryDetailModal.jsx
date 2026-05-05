@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import defaultAvatar from "../../assets/avatar.svg";
 import "../../styles/Admin/CategoryPages/CategoryDetailModal.css";
 
@@ -9,6 +10,8 @@ const CategoryDetailModal = ({
   onClose,
   onDelete,
 }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -22,6 +25,13 @@ const CategoryDetailModal = ({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
+
+  const handleEdit = () => {
+    if (!category?.id) return;
+
+    onClose();
+    navigate(`/admin/categories/edit/${category.id}`);
+  };
 
   const handleDelete = async () => {
     if (!category?.id) return;
@@ -76,7 +86,9 @@ const CategoryDetailModal = ({
               <button
                 type="button"
                 className="category-detail-modal-edit-btn"
+                onClick={handleEdit}
                 aria-label="Edit category"
+                disabled={!category?.id}
               >
                 Edit <span>→</span>
               </button>
