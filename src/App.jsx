@@ -18,6 +18,7 @@ import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPa
 import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
 import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
 import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
+import EditUserPage from "./pages/admin/UsersPages/EditUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
@@ -79,6 +80,7 @@ const App = () => {
         path="/admin/users/:userId/call-history"
         element={<AdminUserCallHistoryPage />}
       />
+      <Route path="/admin/users/edit/:id" element={<EditUserPage />} />
       <Route
         path="/admin/users/:userId/deposit-history"
         element={<UserDepositHistoryPage />}

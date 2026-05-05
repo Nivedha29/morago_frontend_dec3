@@ -5,6 +5,8 @@ export interface UserItem {
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
+  isActive: boolean;
   balance: number;
   hasDepositRequest: boolean;
 }
@@ -45,6 +47,8 @@ export interface UserDetailResponse {
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
+  isActive: boolean;
   balance: number;
   hasDepositRequest: boolean;
 }
@@ -155,6 +159,8 @@ export interface CreateAdminUserResponse {
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
+  isActive: boolean;
   balance: number;
   hasDepositRequest: boolean;
 }
@@ -163,6 +169,33 @@ export const createAdminUser = async (
   payload: CreateAdminUserPayload,
 ): Promise<CreateAdminUserResponse> => {
   const response = await api.post("/admin/users", payload);
+  return response.data;
+};
+
+export interface UpdateAdminUserPayload {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  isActive?: boolean;
+}
+
+export interface UpdateAdminUserResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  isActive: boolean;
+  balance: number;
+  hasDepositRequest: boolean;
+}
+
+export const updateAdminUser = async (
+  id: number,
+  payload: UpdateAdminUserPayload,
+): Promise<UpdateAdminUserResponse> => {
+  const response = await api.put(`/admin/users/${id}`, payload);
   return response.data;
 };
 

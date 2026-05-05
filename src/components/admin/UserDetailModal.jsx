@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import defaultAvatar from "../../assets/avatar.svg";
 import "../../styles/Admin/UserPages/UserDetailModal.css";
 
-const UserDetailModal = ({ user, loading, error, onClose, onDelete }) => {
+const UserDetailModal = ({ user, loading, error, onClose, onToggleActive }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -17,15 +20,10 @@ const UserDetailModal = ({ user, loading, error, onClose, onDelete }) => {
     };
   }, [onClose]);
 
-  const handleDelete = async () => {
+  const handleToggleActive = async () => {
     if (!user?.id) return;
 
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this user?",
-    );
-    if (!confirmed) return;
-
-    await onDelete(user.id);
+    await onToggleActive(user.id, user.isActive);
     onClose();
   };
 
@@ -68,6 +66,11 @@ const UserDetailModal = ({ user, loading, error, onClose, onDelete }) => {
               <button
                 type="button"
                 className="user-modal-btn"
+                onClick={() => {
+                  if (!user?.id) return;
+                  onClose();
+                  navigate(`/admin/users/edit/${user.id}`);
+                }}
                 aria-label="Edit user account"
               >
                 <span>Edit account</span>
@@ -77,10 +80,16 @@ const UserDetailModal = ({ user, loading, error, onClose, onDelete }) => {
               <button
                 type="button"
                 className="user-modal-btn user-modal-btn--danger"
-                onClick={handleDelete}
-                aria-label="Delete user"
+                onClick={handleToggleActive}
+                aria-label={
+                  user?.isActive
+                    ? "Deactivate user account"
+                    : "Activate user account"
+                }
               >
-                <span>Delete user</span>
+                <span>
+                  {user?.isActive ? "Deactivate user" : "Activate user"}
+                </span>
               </button>
             </div>
           </div>
@@ -106,6 +115,11 @@ const UserDetailModal = ({ user, loading, error, onClose, onDelete }) => {
               <div className="user-modal-right">
                 <p>
                   <strong>Phone:</strong> {user.phone || "-"}
+                </p>
+
+                <p>
+                  <strong>Status:</strong>{" "}
+                  {user.isActive ? "Active" : "Inactive"}
                 </p>
 
                 <p>
