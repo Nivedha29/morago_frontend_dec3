@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import "./CallScreen.css";
 
 export default function CallScreen() {
   const navigate = useNavigate();

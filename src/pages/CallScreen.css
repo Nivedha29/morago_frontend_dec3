@@ -1,0 +1,82 @@
+.active-call-page {
+  width: 390px;
+  height: 844px;
+  min-height: 844px;
+  background: #00727e;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.call-header {
+  height: 56px;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 0 14px;
+  text-align: center;
+}
+
+.call-header button {
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  text-align: left;
+}
+
+.call-header b {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.active-call-body {
+  height: calc(100% - 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 40px;
+}
+
+.calling-label {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 34px;
+}
+
+.active-call-img {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  margin-bottom: 18px;
+}
+
+.call-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.call-actions button {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 22px;
+}
+
+.end-call-btn {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 0;
+  background: #ff3b30;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import { login, normalizeRoles } from "../services/auth";
+import "./Login.css";
 
 /* ------------------------- LOGIN SCREEN ------------------------- */
 const LoginScreen = () => {

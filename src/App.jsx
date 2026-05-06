@@ -84,8 +84,23 @@ const App = () => {
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
-      <Route path="/choose-topic" element={<ChooseTopicPage />} />
-      <Route path="/call" element={<CallScreen />} />
+      <Route
+  path="/choose-topic"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <ChooseTopicPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/call"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <CallScreen />
+    </ProtectedRoute>
+  }
+/>
       
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
 

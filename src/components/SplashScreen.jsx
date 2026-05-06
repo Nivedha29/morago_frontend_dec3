@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
+import "./SplashScreen.css";
 
 /* ------------------------- SPLASH SCREEN ------------------------- */
 const SplashScreen = () => {

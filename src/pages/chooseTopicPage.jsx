@@ -1,58 +1,10 @@
-// src/pages/ChooseTopicPage.jsx
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import StatusBar from "../components/StatusBar.jsx";
+import api from "../services/api";
+import "./ChooseTopicPage.css";
 
-import bankIcon from "../assets/dollar-circle.svg";
-import taxiIcon from "../assets/map.svg";
-import mailIcon from "../assets/box.svg";
-import documentIcon from "../assets/sms-tracking.svg";
-import financeIcon from "../assets/wallet-2.svg";
-import othersIcon from "../assets/category.svg";
-
-import caller1 from "../assets/Caller Image.svg";
-import caller2 from "../assets/Caller Image (1).svg";
-import caller3 from "../assets/Caller Image (2).svg";
-
-const topics = [
-  ["Bank", bankIcon],
-  ["Taxi", taxiIcon],
-  ["Mail", mailIcon],
-  ["Documents", documentIcon],
-  ["Finances", financeIcon],
-  ["Others", othersIcon],
-];
-
-const translators = [
-  {
-    name: "Ms. Diana",
-    topic: "Bank",
-    language: "Bank, English, Taal",
-    rating: "4.9",
-    reviews: "7",
-    image: caller1,
-    status: "online",
-  },
-  {
-    name: "Ms. Natalia",
-    topic: "Bank",
-    language: "Bank, English, Taal",
-    rating: "4.8",
-    reviews: "34",
-    image: caller2,
-    status: "offline",
-  },
-  {
-    name: "Mr. Min Ho",
-    topic: "Bank",
-    language: "Bank, English, Taal",
-    rating: "4.9",
-    reviews: "67",
-    image: caller3,
-    status: "online",
-  },
-];
 
 export default function ChooseTopicPage() {
   const navigate = useNavigate();
@@ -62,13 +14,63 @@ export default function ChooseTopicPage() {
   const [selectedTranslator, setSelectedTranslator] = useState(null);
   const [calling, setCalling] = useState(false);
 
+  const [translators, setTranslators] = useState([]);
+  const [loadingTranslators, setLoadingTranslators] = useState(false);
+  const [translatorError, setTranslatorError] = useState("");
+
+  useEffect(() => {
+    if (!showTranslators) return;
+
+    const fetchTranslators = async () => {
+      try {
+        setLoadingTranslators(true);
+        setTranslatorError("");
+
+        const response = await api.get("/admin/translators", {
+          params: {
+            isActive: true,
+            hasWithdrawal: false,
+            page: 0,
+            size: 20,
+            sortDirection: "ASC",
+          },
+        });
+
+        setTranslators(response.data?.content || []);
+      } catch (error) {
+        console.error("Failed to fetch translators:", error);
+        setTranslatorError("Failed to load translators.");
+      } finally {
+        setLoadingTranslators(false);
+      }
+    };
+
+    fetchTranslators();
+  }, [showTranslators]);
+
+  const getTranslatorName = (translator) => {
+    return `${translator.firstName || ""} ${translator.lastName || ""}`.trim();
+  };
+
+  const getTranslatorLanguage = (translator) => {
+    return translator.languages?.[0]?.name || "No language";
+  };
+
+  const getTranslatorTheme = (translator) => {
+    return translator.themes?.[0]?.titleEn || selectedTopic?.name || "General";
+  };
+
+  const getTranslatorStatus = (translator) => {
+    return translator.isOnline ? "online" : "offline";
+  };
+
   const handleNext = () => {
     if (!selectedTopic) return;
     setShowTranslators(true);
   };
 
   const handleCall = () => {
-    if (!selectedTranslator || selectedTranslator.status === "offline") return;
+    if (!selectedTranslator || !selectedTranslator.isOnline) return;
 
     setCalling(true);
 
@@ -148,26 +150,35 @@ export default function ChooseTopicPage() {
 
             <h3>Available Translators</h3>
 
-            <div className="translator-list">
-              {translators.map((translator) => (
-                <button
-                  key={translator.name}
-                  className="translator-card"
-                  onClick={() => setSelectedTranslator(translator)}
-                >
-                  <img src={translator.image} alt={translator.name} />
+            {loadingTranslators && <p>Loading translators...</p>}
 
-                  <div>
-                    <b>{translator.name}</b>
-                    <p>{translator.topic}</p>
-                  </div>
+            {translatorError && <p className="error-text">{translatorError}</p>}
 
-                  <span>
-                    ⭐⭐⭐⭐⭐ <small>({translator.reviews})</small>
-                  </span>
-                </button>
-              ))}
-            </div>
+            {!loadingTranslators && !translatorError && (
+              <div className="translator-list">
+                {translators.map((translator) => (
+                  <button
+                    key={translator.id}
+                    className="translator-card"
+                    onClick={() => setSelectedTranslator(translator)}
+                  >
+                    <div className="translator-avatar">
+                      {getTranslatorName(translator).charAt(0) || "T"}
+                    </div>
+
+                    <div>
+                      <b>{getTranslatorName(translator) || "Translator"}</b>
+                      <p>{getTranslatorTheme(translator)}</p>
+                    </div>
+
+                    <span>
+                      ⭐ {translator.averageRating || 0}
+                      <small> ({translator.completedCalls || 0})</small>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
           </main>
         )}
 
@@ -191,26 +202,26 @@ export default function ChooseTopicPage() {
               <div className="popup-title">
                 <span
                   className={
-                    selectedTranslator.status === "online"
+                    getTranslatorStatus(selectedTranslator) === "online"
                       ? "dot green"
                       : "dot red"
                   }
                 />
+
                 <div>
-                  <b>Translator Diana</b>
-                  <p>{selectedTranslator.language}</p>
+                  <b>{getTranslatorName(selectedTranslator) || "Translator"}</b>
+                  <p>{getTranslatorLanguage(selectedTranslator)}</p>
                 </div>
               </div>
 
               <div className="popup-user">
-                <img
-                  src={selectedTranslator.image}
-                  alt={selectedTranslator.name}
-                />
+                <div className="popup-avatar">
+                  {getTranslatorName(selectedTranslator).charAt(0) || "T"}
+                </div>
 
                 <div>
-                  <b>{selectedTranslator.name}</b>
-                  <p>⭐ {selectedTranslator.rating}</p>
+                  <b>{getTranslatorName(selectedTranslator) || "Translator"}</b>
+                  <p>⭐ {selectedTranslator.averageRating || 0}</p>
                 </div>
 
                 <button>📞</button>
@@ -221,12 +232,12 @@ export default function ChooseTopicPage() {
                 <div>
                   <b
                     className={
-                      selectedTranslator.status === "online"
+                      getTranslatorStatus(selectedTranslator) === "online"
                         ? "green-text"
                         : "red-text"
                     }
                   >
-                    {selectedTranslator.status === "online"
+                    {getTranslatorStatus(selectedTranslator) === "online"
                       ? "Online"
                       : "Offline"}
                   </b>
@@ -246,14 +257,14 @@ export default function ChooseTopicPage() {
 
               <button
                 className={
-                  selectedTranslator.status === "online"
+                  getTranslatorStatus(selectedTranslator) === "online"
                     ? "popup-call"
                     : "popup-call disabled"
                 }
-                disabled={selectedTranslator.status === "offline"}
+                disabled={getTranslatorStatus(selectedTranslator) === "offline"}
                 onClick={handleCall}
               >
-                {selectedTranslator.status === "online"
+                {getTranslatorStatus(selectedTranslator) === "online"
                   ? "Call"
                   : "Not Available"}
               </button>
