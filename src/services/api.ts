@@ -73,4 +73,19 @@ api.interceptors.response.use(
   },
 );
 
+      export const createCall = async ({
+  recipientId,
+  themeId,
+}: {
+  recipientId: number;
+  themeId: number;
+}) => {
+  const response = await api.post("/call/create", {
+    recipientId,
+    themeId,
+  });
+
+  return response.data;
+};
+
 export default api;
