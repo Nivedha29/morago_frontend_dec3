@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
-
 import coinIcon from "../assets/coin icon.svg";
 import fallbackIcon from "../assets/category.svg";
 import fallbackAvatar from "../assets/avatar.svg";
-
 import "./Home.css";
 import { getUserHomeData } from "../services/user.js";
 
 export default function HomeScreen() {
   const navigate = useNavigate();
 
-  const [showFirstCall, setShowFirstCall] = useState(false);
   const [showFundsModal, setShowFundsModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -202,19 +199,6 @@ export default function HomeScreen() {
           </button>
         ))}
       </nav>
-
-      {showFirstCall && (
-        <div className="first-call">
-          <div className="first-box">
-            <h2>FIRST CALL FREE!</h2>
-            <p>Try the Morago Translator service on us</p>
-            <img className="free-call-img" src={freeCallBanner} alt="" />
-            <button type="button" onClick={() => setShowFirstCall(false)}>
-              Try
-            </button>
-          </div>
-        </div>
-      )}
 
       {showFundsModal && (
         <div className="first-call">
