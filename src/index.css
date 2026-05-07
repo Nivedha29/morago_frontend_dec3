@@ -549,9 +549,18 @@ body {
   color: #ffffff;
 }
 
+.screen {
+  overflow: hidden;
+}
+
 .home-content {
-  padding: 19px 22px 90px;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.home-content::-webkit-scrollbar {
+  display: none;
 }
 
 .topic-grid {
