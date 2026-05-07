@@ -5,6 +5,7 @@ import StatusBar from "../components/StatusBar.jsx";
 import coinIcon from "../assets/coin icon.svg";
 import fallbackIcon from "../assets/category.svg";
 import fallbackAvatar from "../assets/avatar.svg";
+
 import "./Home.css";
 import { getUserHomeData } from "../services/user.js";
 
@@ -103,6 +104,7 @@ export default function HomeScreen() {
             : topics.map((topic) => {
                 const title =
                   topic.name || topic.title || topic.titleEn || "Topic";
+
                 const icon =
                   topic.iconUrl ||
                   topic.iconURL ||
@@ -158,7 +160,10 @@ export default function HomeScreen() {
                 fallbackAvatar;
 
               return (
-                <div className="call-item" key={call.id || `${name}-${duration}`}>
+                <div
+                  className="call-item"
+                  key={call.id || `${name}-${duration}`}
+                >
                   <img
                     className="avatar"
                     src={avatar}
@@ -203,6 +208,7 @@ export default function HomeScreen() {
           <div className="first-box">
             <h2>FIRST CALL FREE!</h2>
             <p>Try the Morago Translator service on us</p>
+            <img className="free-call-img" src={freeCallBanner} alt="" />
             <button type="button" onClick={() => setShowFirstCall(false)}>
               Try
             </button>

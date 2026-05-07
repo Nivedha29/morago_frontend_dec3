@@ -19,6 +19,10 @@ type BackendErrorResponse =
     }
   | string;
 
+interface StoredUser {
+  token?: string;
+}
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
@@ -34,8 +38,21 @@ const PUBLIC_ROUTES = [
   "/publicResetPassword/reset/confirm",
 ];
 
+const getStoredToken = (): string | null => {
+  const rawUser = localStorage.getItem("currentUser");
+
+  if (!rawUser) return null;
+
+  try {
+    const parsedUser: StoredUser = JSON.parse(rawUser);
+    return parsedUser?.token || null;
+  } catch {
+    return null;
+  }
+};
+
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = localStorage.getItem("token");
+  const token = getStoredToken();
   const requestUrl = config.url ?? "";
   const isPublicRoute = PUBLIC_ROUTES.some((route) =>
     requestUrl.includes(route),
@@ -73,7 +90,7 @@ api.interceptors.response.use(
   },
 );
 
-      export const createCall = async ({
+export const createCall = async ({
   recipientId,
   themeId,
 }: {

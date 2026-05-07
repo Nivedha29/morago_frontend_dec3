@@ -498,6 +498,7 @@ body {
   border-radius: 0;
 }
 
+<<<<<<< HEAD
 
 
 .call-header button {
@@ -516,4 +517,76 @@ body {
 .active-call-body h2 {
   font-size: 22px;
   margin-bottom: 6px;
+}
+
+.user-home {
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.home-head {
+  background: #00616b;
+  color: #ffffff;
+  padding-bottom: 22px;
+}
+
+.home-top {
+  height: 48px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-top b {
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+
+.home-top button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: transparent;
+  color: #ffffff;
+}
+
+.home-content {
+  padding: 19px 22px 90px;
+  overflow-y: auto;
+}
+
+.topic-grid {
+  min-height: 134px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.topic-placeholder {
+  height: 62px;
+  border: 1px solid #eeeeee;
+  border-radius: 9px;
+  background: #ffffff;
+  opacity: 0.35;
+}
+
+.call-list {
+  min-height: 170px;
+}
+
+.empty-calls {
+  min-height: 150px;
+}
+
+.call-main b {
+  font-size: 12px;
+}
+
+.call-main p {
+  margin: 3px 0 0;
+  font-size: 10px;
+  color: #9ca3a8;
 }

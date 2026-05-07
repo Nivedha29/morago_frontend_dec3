@@ -39,6 +39,11 @@ export interface CreateCategoryPayload {
   name: string;
 }
 
+export interface UpdateCategoryPayload {
+  name: string;
+  isActive: boolean;
+}
+
 export const getAdminCategories = async (
   params?: GetAdminCategoriesParams,
 ): Promise<CategoryListResponse> => {
@@ -68,4 +73,20 @@ export const createAdminCategory = async (
   );
 
   return response.data;
+};
+
+export const updateAdminCategory = async (
+  id: number,
+  payload: UpdateCategoryPayload,
+): Promise<CategoryDetailResponse> => {
+  const response = await api.put<CategoryDetailResponse>(
+    `${ADMIN_CATEGORIES_BASE}/${id}`,
+    payload,
+  );
+
+  return response.data;
+};
+
+export const deleteAdminCategory = async (id: number): Promise<void> => {
+  await api.delete(`${ADMIN_CATEGORIES_BASE}/${id}`);
 };

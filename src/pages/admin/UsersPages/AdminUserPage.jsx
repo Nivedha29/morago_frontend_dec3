@@ -7,7 +7,11 @@ import AdminPagination from "../../../components/admin/AdminPagination";
 import AdminControls from "../../../components/admin/AdminControls";
 import UserDetailModal from "../../../components/admin/UserDetailModal";
 import { defaultUserColumns } from "../../../components/admin/DefaultUserColumns";
-import { getAdminUsers, getAdminUserById } from "../../../services/adminUser";
+import {
+  getAdminUsers,
+  getAdminUserById,
+  updateAdminUser,
+} from "../../../services/adminUser";
 
 const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
@@ -54,8 +58,6 @@ const AdminUserPage = () => {
         setUsers(data.content || []);
         setTotalPages(data.totalPages || 0);
       } catch (apiError) {
-        console.error("Failed to fetch users:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -84,8 +86,6 @@ const AdminUserPage = () => {
         const data = await getAdminUserById(selectedUserId);
         setSelectedUser(data);
       } catch (apiError) {
-        console.error("Failed to fetch user details:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -113,6 +113,31 @@ const AdminUserPage = () => {
     setSelectedUser(null);
     setUserDetailError("");
     setUserDetailLoading(false);
+  };
+
+  const handleToggleUserActive = async (id, currentIsActive) => {
+    try {
+      await updateAdminUser(id, {
+        ...selectedUser,
+        isActive: !currentIsActive,
+      });
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === id ? { ...user, isActive: !currentIsActive } : user,
+        ),
+      );
+
+      handleCloseUserModal();
+    } catch (apiError) {
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to update user status";
+
+      setUserDetailError(backendMessage);
+    }
   };
 
   const userColumns = defaultUserColumns(
@@ -145,7 +170,6 @@ const AdminUserPage = () => {
   );
 
   const handleControlsApply = ({ search, filter, action }) => {
-    
     if (action === "show-all") {
       setPage(0);
       setKeyword("");
@@ -250,6 +274,7 @@ const AdminUserPage = () => {
             loading={userDetailLoading}
             error={userDetailError}
             onClose={handleCloseUserModal}
+            onToggleActive={handleToggleUserActive}
           />
         )}
       </AdminPageShell>

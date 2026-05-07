@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import { verifyPasswordResetCode } from "../services/auth";
 
-import "./VerificationCodePage.css";
+import "../styles/ForgotPassword.css";
 
 const ForgotPasswordVerifyPage = () => {
   const navigate = useNavigate();

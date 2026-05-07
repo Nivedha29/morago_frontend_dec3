@@ -233,3 +233,42 @@ export const getCallHistoryByUserId = async (
 
   return response.data;
 };
+
+
+export interface UpdateTranslatorPayload {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  isActive?: boolean;
+}
+
+export interface UpdateTranslatorResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  isActive: boolean;
+  isOnline: boolean;
+  levelOfKorean: number;
+  dateOfBirth: string;
+  hasWithdrawalRequest: boolean;
+  languages: Language[];
+  themes: Theme[];
+  averageRating: number;
+}
+
+export const updateTranslatorById = async (
+  translatorId: number,
+  payload: UpdateTranslatorPayload,
+): Promise<UpdateTranslatorResponse> => {
+  const response = await api.put(`/admin/translators/${translatorId}`, payload);
+  return response.data;
+};
+
+export const deactivateTranslatorById = async (
+  translatorId: number,
+): Promise<void> => {
+  await api.delete(`/admin/translators/${translatorId}`);
+};

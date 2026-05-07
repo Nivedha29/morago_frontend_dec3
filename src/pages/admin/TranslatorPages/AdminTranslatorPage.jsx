@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AdminPageShell from "../../../components/admin/AdminPageShell";
@@ -10,6 +10,7 @@ import { defaultTranslatorColumns } from "../../../components/admin/DefaultTrans
 import {
   getAdminTranslators,
   getTranslatorById,
+  updateTranslatorById,
 } from "../../../services/admin";
 
 const AdminTranslatorPage = () => {
@@ -31,47 +32,45 @@ const AdminTranslatorPage = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchTranslators = async () => {
-      try {
-        setError("");
+  const fetchTranslators = useCallback(async () => {
+    try {
+      setError("");
 
-        if (page === 0) {
-          setLoading(true);
-        } else {
-          setIsFetching(true);
-        }
-
-        const data = await getAdminTranslators({
-          keyword,
-          isActive,
-          hasWithdrawal,
-          page,
-          size,
-          sortBy: "id",
-          sortDirection: "ASC",
-        });
-
-        setTranslators(data.content || []);
-        setTotalPages(data.totalPages || 0);
-      } catch (apiError) {
-        console.error("Failed to fetch translators:", apiError);
-
-        const backendMessage =
-          apiError?.message ||
-          apiError?.details?.error ||
-          apiError?.details?.message ||
-          "Failed to fetch translators";
-
-        setError(backendMessage);
-      } finally {
-        setLoading(false);
-        setIsFetching(false);
+      if (page === 0) {
+        setLoading(true);
+      } else {
+        setIsFetching(true);
       }
-    };
 
-    fetchTranslators();
+      const data = await getAdminTranslators({
+        keyword,
+        isActive,
+        hasWithdrawal,
+        page,
+        size,
+        sortBy: "id",
+        sortDirection: "ASC",
+      });
+
+      setTranslators(data.content || []);
+      setTotalPages(data.totalPages || 0);
+    } catch (apiError) {
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to fetch translators";
+
+      setError(backendMessage);
+    } finally {
+      setLoading(false);
+      setIsFetching(false);
+    }
   }, [keyword, isActive, hasWithdrawal, page, size]);
+
+  useEffect(() => {
+    fetchTranslators();
+  }, [fetchTranslators]);
 
   useEffect(() => {
     const fetchTranslatorDetail = async () => {
@@ -81,8 +80,6 @@ const AdminTranslatorPage = () => {
         const data = await getTranslatorById(selectedTranslatorId);
         setSelectedTranslatorDetail(data);
       } catch (apiError) {
-        console.error("Failed to fetch translator detail:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -95,6 +92,27 @@ const AdminTranslatorPage = () => {
 
     fetchTranslatorDetail();
   }, [selectedTranslatorId]);
+
+  const handleToggleActive = async (id, currentIsActive) => {
+    try {
+      await updateTranslatorById(id, {
+        isActive: !currentIsActive,
+      });
+
+      setSelectedTranslatorId(null);
+      setSelectedTranslatorDetail(null);
+
+      fetchTranslators();
+    } catch (apiError) {
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to update translator status";
+
+      setError(backendMessage);
+    }
+  };
 
   const translatorColumns = defaultTranslatorColumns(
     (translator) => {
@@ -112,7 +130,6 @@ const AdminTranslatorPage = () => {
   );
 
   const handleControlsApply = ({ search, filter, action }) => {
-
     if (action === "show-all") {
       setPage(0);
       setKeyword("");
@@ -166,8 +183,8 @@ const AdminTranslatorPage = () => {
             filterOptions={[
               { label: "Active", value: "active" },
               { label: "Inactive", value: "inactive" },
-              { label: "Has withdrawal", value: "has-withdrawal" },
-              { label: "No withdrawal", value: "no-withdrawal" },
+              { label: "Has pending withdrawal", value: "has-withdrawal" },
+              { label: "No pending withdrawal", value: "no-withdrawal" },
             ]}
             onApply={handleControlsApply}
           />
@@ -219,6 +236,7 @@ const AdminTranslatorPage = () => {
             setSelectedTranslatorId(null);
             setSelectedTranslatorDetail(null);
           }}
+          onToggleActive={handleToggleActive}
         />
       )}
     </AdminLayout>

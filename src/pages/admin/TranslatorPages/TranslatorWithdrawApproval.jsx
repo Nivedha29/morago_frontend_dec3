@@ -31,8 +31,8 @@ const TranslatorWithdrawApproval = () => {
       return;
     }
 
-    if (!withdrawal?.accountHolder) {
-      setErrorMessage("Withdrawal owner is missing");
+    if (!translatorName.trim()) {
+      setErrorMessage("Translator name is missing");
       return;
     }
 
@@ -60,7 +60,7 @@ const TranslatorWithdrawApproval = () => {
       setIsSubmitting(true);
 
       await approveWithdrawalById(Number(withdrawalId), {
-        fullName: withdrawal.accountHolder,
+        fullName: translatorName.trim(),
         bankName: bankName.trim(),
         bankAccount: bankAccount.trim(),
         sum: Number(sum),

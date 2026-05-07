@@ -11,17 +11,22 @@ import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/Transla
 import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
 import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
 import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
+import EditTranslatorPage from "./pages/admin/TranslatorPages/EditTranslatorPage.jsx";
 
 import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
 import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
 import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
 import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
 import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
+import EditUserPage from "./pages/admin/UsersPages/EditUserPage.jsx";
 
 import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
 import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
+import EditThemePage from "./pages/admin/ThemesPages/EditThemesPage.jsx";
+
 import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
 import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
+import EditCategoryPage from "./pages/Admin/CategoriesPages/EditCategoryPage.jsx";
 
 /* ------------------------- Mobile App ------------------------- */
 
@@ -30,9 +35,11 @@ import LoginScreen from "./pages/login.jsx";
 import SignupScreen from "./pages/sign-up.jsx";
 import OnboardingScreen from "./pages/onboarding.jsx";
 import HomeScreen from "./pages/home.jsx";
-import TranslatorHome from "./pages/translator-home.jsx";
+import TranslatorHome from "./pages/TranslatorHomePage.jsx";
 import RegisterPage from "./pages/RegisterPage";
-import VerificationCodePage from "./pages/VerificationCodePage.jsx";
+import RegisterVerifyPage from "./pages/RegisterVerifyPage.jsx";
+import ProfileSetupPage from "./pages/TranslatorProfileSetupPage.jsx";
+import TranslatorProfilePage from "./pages/TranslatorProfilePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
@@ -65,12 +72,17 @@ const App = () => {
         path="/admin/translators/:id/call-history"
         element={<TranslatorCallHistoryPage />}
       />
+      <Route
+        path="/admin/translators/:id/edit"
+        element={<EditTranslatorPage />}
+      />
 
       <Route path="/admin/users" element={<AdminUserPage />} />
       <Route
         path="/admin/users/:userId/call-history"
         element={<AdminUserCallHistoryPage />}
       />
+      <Route path="/admin/users/edit/:id" element={<EditUserPage />} />
       <Route
         path="/admin/users/:userId/deposit-history"
         element={<UserDepositHistoryPage />}
@@ -83,6 +95,8 @@ const App = () => {
 
       <Route path="/admin/themes" element={<AdminThemesPage />} />
       <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
+      <Route path="/admin/themes/edit/:id" element={<EditThemePage />} />
+
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
       <Route
   path="/choose-topic"
@@ -103,6 +117,7 @@ const App = () => {
 />
       
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
+      <Route path="/admin/categories/edit/:id" element={<EditCategoryPage />} />
 
       {/* ------------------------- MOBILE APP ------------------------- */}
 
@@ -125,10 +140,18 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/translator-home"
+                  path="/translator/home"
                   element={
                     <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
                       <TranslatorHome />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/translator/profile"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <TranslatorProfilePage />
                     </ProtectedRoute>
                   }
                 />
@@ -140,7 +163,18 @@ const App = () => {
                   path="/sign-up/translator"
                   element={<RegisterPage role="translator" />}
                 />
-                <Route path="/verify" element={<VerificationCodePage />} />
+                <Route
+                  path="/sign-up/verify"
+                  element={<RegisterVerifyPage />}
+                />
+                <Route
+                  path="/sign-up/profile-setup"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <ProfileSetupPage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/forgot-password"
                   element={<ForgotPasswordPage />}

@@ -1,0 +1,62 @@
+.mobile-translator-register {
+   position: relative;
+}
+
+.mobile-translator-register__body {
+   display: flex;
+   flex-direction: column;
+   padding-left: 24px;
+   padding-right: 24px;
+   margin-top: 50px;
+}
+
+.mobile-translator-register__header {
+   margin-bottom: 20px;
+}
+
+.mobile-translator-register__form {
+   display: flex;
+   flex-direction: column;
+   margin-top: 40px;
+}
+
+.mobile-translator-register__field+.mobile-translator-register__field {
+   margin-top: 15px;
+}
+
+.mobile-translator-register__submit {
+   margin-top: 35px;
+}
+
+.mobile-translator-register__back-link {
+   text-align: center;
+   margin-top: 20px;
+   font-size: 14px;
+   cursor: pointer;
+   background-color: transparent;
+   border: none;
+   color: #5a5a5a;
+}
+
+.mobile-translator-register__back-link:hover {
+   text-decoration: underline;
+}
+
+
+.mobile-translator-register__consent {
+   text-align: center;
+   margin-top: 50px;
+   font-size: 12px;
+   color: #9a9a9a;
+   line-height: 1.4;
+}
+
+.mobile-translator-register__submit--user {
+   background-color: #015F76;
+   color: #ffffff;
+}
+
+.mobile-translator-register__submit--translator {
+   background-color: #EB9412;
+   color: #ffffff;
+}

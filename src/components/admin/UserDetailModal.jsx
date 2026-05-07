@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import defaultAvatar from "../../assets/avatar.svg";
 import "../../styles/Admin/UserPages/UserDetailModal.css";
 
-const UserDetailModal = ({ user, loading, error, onClose }) => {
+const UserDetailModal = ({ user, loading, error, onClose, onToggleActive }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -17,16 +20,33 @@ const UserDetailModal = ({ user, loading, error, onClose }) => {
     };
   }, [onClose]);
 
+  const handleToggleActive = async () => {
+    if (!user?.id) return;
+
+    await onToggleActive(user.id, user.isActive);
+    onClose();
+  };
+
   if (!loading && !error && !user) return null;
 
   return (
-    <div className="user-modal-overlay" onClick={onClose}>
-      <div className="user-modal" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="user-modal-overlay"
+      onClick={onClose}
+      aria-label="Close user modal overlay"
+    >
+      <div
+        className="user-modal"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="User details modal"
+      >
         <button
           type="button"
           className="user-modal-close"
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Close modal"
         >
           ×
         </button>
@@ -34,15 +54,42 @@ const UserDetailModal = ({ user, loading, error, onClose }) => {
         <div className="user-modal-body">
           <div className="user-modal-top">
             <img
-              alt="avatar"
+              alt="User avatar"
               className="user-modal-avatar"
-              src={defaultAvatar}
+              src={user?.imageUrl || defaultAvatar}
+              onError={(e) => {
+                e.currentTarget.src = defaultAvatar;
+              }}
             />
 
             <div className="user-modal-actions">
-              <button type="button" className="user-modal-btn">
+              <button
+                type="button"
+                className="user-modal-btn"
+                onClick={() => {
+                  if (!user?.id) return;
+                  onClose();
+                  navigate(`/admin/users/edit/${user.id}`);
+                }}
+                aria-label="Edit user account"
+              >
                 <span>Edit account</span>
                 <span className="user-modal-btn-arrow">→</span>
+              </button>
+
+              <button
+                type="button"
+                className="user-modal-btn user-modal-btn--danger"
+                onClick={handleToggleActive}
+                aria-label={
+                  user?.isActive
+                    ? "Deactivate user account"
+                    : "Activate user account"
+                }
+              >
+                <span>
+                  {user?.isActive ? "Deactivate user" : "Activate user"}
+                </span>
               </button>
             </div>
           </div>
@@ -71,6 +118,11 @@ const UserDetailModal = ({ user, loading, error, onClose }) => {
                 </p>
 
                 <p>
+                  <strong>Status:</strong>{" "}
+                  {user.isActive ? "Active" : "Inactive"}
+                </p>
+
+                <p>
                   <strong>Deposit Request:</strong>{" "}
                   {user.hasDepositRequest ? "Yes" : "No"}
                 </p>
@@ -79,7 +131,11 @@ const UserDetailModal = ({ user, loading, error, onClose }) => {
                   <strong>Coins:</strong> {user.balance ?? 0}
                 </p>
 
-                <button type="button" className="user-modal-charge-btn">
+                <button
+                  type="button"
+                  className="user-modal-charge-btn"
+                  aria-label="Charge user balance"
+                >
                   <span className="user-modal-charge-icon">$</span>
                   Charge <span>›</span>
                 </button>

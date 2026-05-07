@@ -9,6 +9,7 @@ import { defaultCategoryColumns } from "../../../components/admin/DefaultCategor
 import {
   getAdminCategories,
   getAdminCategoryById,
+  updateAdminCategory,
 } from "../../../services/adminCategory";
 
 const AdminCategoryPage = () => {
@@ -52,8 +53,6 @@ const AdminCategoryPage = () => {
         setCategories(data.content || []);
         setTotalPages(data.totalPages || 0);
       } catch (apiError) {
-        console.error("Failed to fetch categories:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -82,8 +81,6 @@ const AdminCategoryPage = () => {
         const data = await getAdminCategoryById(selectedCategoryId);
         setSelectedCategory(data);
       } catch (apiError) {
-        console.error("Failed to fetch category details:", apiError);
-
         const backendMessage =
           apiError?.message ||
           apiError?.details?.error ||
@@ -111,6 +108,31 @@ const AdminCategoryPage = () => {
     setSelectedCategory(null);
     setCategoryDetailError("");
     setCategoryDetailLoading(false);
+  };
+
+  const handleToggleCategoryActive = async (id, currentIsActive) => {
+    try {
+      await updateAdminCategory(id, {
+        name: selectedCategory.name,
+        isActive: !currentIsActive,
+      });
+
+      setCategories((prev) =>
+        prev.map((cat) =>
+          cat.id === id ? { ...cat, isActive: !currentIsActive } : cat,
+        ),
+      );
+
+      handleCloseCategoryModal();
+    } catch (apiError) {
+      const backendMessage =
+        apiError?.message ||
+        apiError?.details?.error ||
+        apiError?.details?.message ||
+        "Failed to update category status";
+
+      setCategoryDetailError(backendMessage);
+    }
   };
 
   const handleControlsApply = ({ search, filter, action }) => {
@@ -209,14 +231,13 @@ const AdminCategoryPage = () => {
           </div>
         )}
 
-        {isCategoryModalOpen && (
-          <CategoryDetailModal
-            category={selectedCategory}
-            loading={categoryDetailLoading}
-            error={categoryDetailError}
-            onClose={handleCloseCategoryModal}
-          />
-        )}
+        <CategoryDetailModal
+          category={selectedCategory}
+          loading={categoryDetailLoading}
+          error={categoryDetailError}
+          onClose={handleCloseCategoryModal}
+          onToggleActive={handleToggleCategoryActive}
+        />
       </AdminPageShell>
     </AdminLayout>
   );
