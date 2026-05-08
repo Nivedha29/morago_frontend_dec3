@@ -44,6 +44,8 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
 import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage.jsx";
+import ChooseTopicPage from "./pages/ChooseTopicPage.jsx";
+import CallScreen from "./pages/CallScreen.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -96,6 +98,24 @@ const App = () => {
       <Route path="/admin/themes/edit/:id" element={<EditThemePage />} />
 
       <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+      <Route
+  path="/choose-topic"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <ChooseTopicPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/call"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <CallScreen />
+    </ProtectedRoute>
+  }
+/>
+      
       <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
       <Route path="/admin/categories/edit/:id" element={<EditCategoryPage />} />
 

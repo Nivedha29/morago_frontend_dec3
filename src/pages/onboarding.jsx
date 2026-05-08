@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import { slides } from "../utils/slides.js";
+import "./Onboarding.css";
 
 /* ------------------------- ONBOARDING SCREEN ------------------------- */
 const OnboardingScreen = () => {

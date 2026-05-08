@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
-
 import coinIcon from "../assets/coin icon.svg";
 import fallbackIcon from "../assets/category.svg";
 import fallbackAvatar from "../assets/avatar.svg";
-import freeCallBanner from "../assets/Banner - free call.svg";
-
+import "./Home.css";
 import { getUserHomeData } from "../services/user.js";
 
 export default function HomeScreen() {
-  const [showFirstCall, setShowFirstCall] = useState(false);
+  const navigate = useNavigate();
+
   const [showFundsModal, setShowFundsModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -42,13 +42,8 @@ export default function HomeScreen() {
     };
   }, []);
 
-  const handleCallClick = () => {
-    if (balance <= 0) {
-      setShowFundsModal(true);
-      return;
-    }
-
-    // navigate to translator/topic select page here
+  const goToChooseTopic = () => {
+    navigate("/choose-topic");
   };
 
   return (
@@ -85,7 +80,7 @@ export default function HomeScreen() {
             </button>
           </div>
 
-          <button type="button" className="call-btn" onClick={handleCallClick}>
+          <button type="button" className="call-btn" onClick={goToChooseTopic}>
             Select a translator and call
           </button>
         </div>
@@ -104,11 +99,22 @@ export default function HomeScreen() {
                 <div className="topic-placeholder" key={index} />
               ))
             : topics.map((topic) => {
-                const title = topic.name || topic.title || "Topic";
-                const icon = topic.iconUrl || topic.iconURL || fallbackIcon;
+                const title =
+                  topic.name || topic.title || topic.titleEn || "Topic";
+
+                const icon =
+                  topic.iconUrl ||
+                  topic.iconURL ||
+                  topic.imageUrl ||
+                  topic.imageURL ||
+                  fallbackIcon;
 
                 return (
-                  <button type="button" key={topic.id || title}>
+                  <button
+                    type="button"
+                    key={topic.id || title}
+                    onClick={goToChooseTopic}
+                  >
                     <span className="topic-icon">
                       <img
                         src={icon}
@@ -151,7 +157,10 @@ export default function HomeScreen() {
                 fallbackAvatar;
 
               return (
-                <div className="call-item" key={call.id || `${name}-${duration}`}>
+                <div
+                  className="call-item"
+                  key={call.id || `${name}-${duration}`}
+                >
                   <img
                     className="avatar"
                     src={avatar}
@@ -179,25 +188,17 @@ export default function HomeScreen() {
 
       <nav className="bottom-nav">
         {["Home", "My calls", "Message", "Profile"].map((item, index) => (
-          <button type="button" key={item} className={index === 0 ? "active" : ""}>
+          <button
+            type="button"
+            key={item}
+            className={index === 0 ? "active" : ""}
+            onClick={index === 0 ? () => navigate("/home") : undefined}
+          >
             <span>{["⌂", "☏", "▢", "♙"][index]}</span>
             {item}
           </button>
         ))}
       </nav>
-
-      {showFirstCall && (
-        <div className="first-call">
-          <div className="first-box">
-            <h2>FIRST CALL FREE!</h2>
-            <p>Try the Morago Translator service on us</p>
-            <img className="free-call-img" src={freeCallBanner} alt="" />
-            <button type="button" onClick={() => setShowFirstCall(false)}>
-              Try
-            </button>
-          </div>
-        </div>
-      )}
 
       {showFundsModal && (
         <div className="first-call">
