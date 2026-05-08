@@ -72,12 +72,12 @@ export default function HomeScreen() {
             </div>
 
             <button
-              type="button"
-              className="topup-btn"
-              onClick={() => setShowFundsModal(true)}
-            >
-              Top up <span>+</span>
-            </button>
+  type="button"
+  className="topup-btn"
+  onClick={() => navigate("/balance")}
+>
+  Top up <span>+</span>
+</button>
           </div>
 
           <button type="button" className="call-btn" onClick={goToChooseTopic}>
@@ -210,9 +210,15 @@ export default function HomeScreen() {
               <button type="button" onClick={() => setShowFundsModal(false)}>
                 Later
               </button>
-              <button type="button" onClick={() => setShowFundsModal(false)}>
-                Top up
-              </button>
+              <button
+  type="button"
+  onClick={() => {
+    setShowFundsModal(false);
+    navigate("/balance");
+  }}
+>
+  Top up
+</button>
             </div>
           </div>
         </div>

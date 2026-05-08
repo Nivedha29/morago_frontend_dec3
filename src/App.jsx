@@ -46,6 +46,7 @@ import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
 import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage.jsx";
 import ChooseTopicPage from "./pages/ChooseTopicPage.jsx";
 import CallScreen from "./pages/CallScreen.jsx";
+import BalancePage from "./pages/BalancePage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -139,6 +140,14 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/balance"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_USER">
+                    <BalancePage />
+                  </ProtectedRoute>
+            }
+              />
                 <Route
                   path="/translator/home"
                   element={
