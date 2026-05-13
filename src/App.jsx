@@ -47,6 +47,7 @@ import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage
 import ChooseTopicPage from "./pages/ChooseTopicPage.jsx";
 import CallScreen from "./pages/CallScreen.jsx";
 import BalancePage from "./pages/BalancePage.jsx";
+import MyCallsPage from "./pages/MyCallsPage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -148,6 +149,14 @@ const App = () => {
                   </ProtectedRoute>
             }
               />
+              <Route
+  path="/my-calls"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <MyCallsPage />
+    </ProtectedRoute>
+  }
+/>
                 <Route
                   path="/translator/home"
                   element={

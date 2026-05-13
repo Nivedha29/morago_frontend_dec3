@@ -39,6 +39,9 @@ const PUBLIC_ROUTES = [
 ];
 
 const getStoredToken = (): string | null => {
+   const directToken = localStorage.getItem("token");
+
+  if (directToken) return directToken;
   const rawUser = localStorage.getItem("currentUser");
 
   if (!rawUser) return null;

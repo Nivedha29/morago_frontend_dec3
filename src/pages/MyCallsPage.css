@@ -1,0 +1,153 @@
+.my-calls-page {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.my-calls-top {
+  width: 100%;
+  background: #00727e;
+  color: #ffffff;
+}
+
+.my-calls-header {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-calls-header b {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.my-calls-body {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 24px 100px;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+}
+
+.calls-tabs {
+  height: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f1f1;
+  border-radius: 7px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.calls-tabs button {
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+  color: #777;
+}
+
+.calls-tabs button.active {
+  background: white;
+  color: #111;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.my-calls-body h2 {
+  margin: 0 0 18px;
+  font-size: 26px;
+  font-weight: 800;
+  color: #20232a;
+}
+
+.calls-list {
+  display: grid;
+  gap: 14px;
+}
+
+.calls-row {
+  border: none;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  padding: 0;
+}
+
+.calls-avatar-wrap {
+  width: 46px;
+  height: 46px;
+  position: relative;
+}
+
+.calls-avatar-wrap img {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.missed-dot {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 9px;
+  height: 9px;
+  background: #e00012;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.calls-info div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calls-info b {
+  font-size: 13px;
+  color: #222;
+}
+
+.calls-info p {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #a0a5aa;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.dot.green {
+  background: #17bf00;
+}
+
+.dot.red {
+  background: #e00012;
+}
+
+.calls-meta {
+  text-align: right;
+  color: #a0a5aa;
+}
+
+.calls-meta span,
+.calls-meta small {
+  display: block;
+  font-size: 11px;
+}
+
+.calls-muted {
+  color: #999;
+  font-size: 13px;
+}
