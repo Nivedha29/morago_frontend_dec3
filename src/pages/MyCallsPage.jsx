@@ -167,10 +167,13 @@ export default function MyCallsPage() {
         Message
       </button>
 
-      <button type="button">
-        <span>♙</span>
-        Profile
-      </button>
+      <button
+    type="button"
+    onClick={() => navigate("/profile")}
+  >
+    <span>♙</span>
+    Profile
+  </button>
     </nav>
 
     <div className="home-indicator" />

@@ -108,4 +108,34 @@ export const createCall = async ({
   return response.data;
 };
 
+export const updateUserProfile = async (data: {
+  firstname: string;
+  lastname: string;
+}) => {
+  const response = await api.put("/user", data);
+  return response.data;
+};
+
+export const updatePassword = async (data: {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}) => {
+  const response = await api.post("/profile/password/update", data);
+  return response.data;
+};
+
+export const uploadUserAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await api.post("/profile/avatar/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
+};
+
 export default api;

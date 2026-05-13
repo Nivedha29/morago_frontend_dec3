@@ -1,0 +1,254 @@
+.profile-page {
+  width: min(100%, 430px);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 90px;
+}
+
+.profile-card {
+  width: 100%;
+  height: 130px;
+  background: linear-gradient(135deg, #006b7b 0%, #008c99 100%);
+  color: #ffffff;
+  padding: 24px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.profile-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* avatar */
+.profile-avatar,
+.profile-avatar-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #007c89;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  object-fit: cover;
+}
+
+/* name + phone */
+.profile-text h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  white-space: nowrap;
+}
+
+.profile-text p {
+  font-size: 11px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* edit button */
+.edit-btn {
+  width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 18px 18px 10px;
+  color: #111;
+}
+
+.menu-item {
+  height: 46px;
+  margin: 0 18px 12px;
+  padding: 0 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* icons */
+.menu-icon {
+  width: 20px;
+  min-width: 20px;
+  text-align: center;
+  font-size: 15px;
+  color: #7c8a8f;
+}
+
+.menu-icon-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+.page-header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 20px 18px 0;
+  position: relative;
+  background: #ffffff;
+}
+
+.page-header button {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.page-header h3 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  pointer-events: none;
+}
+
+.profile-form {
+  padding: 28px 18px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-form label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.profile-form input {
+  height: 46px;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  padding: 0 14px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  outline: none;
+}
+
+.profile-form input::placeholder {
+  color: #c9c9c9;
+}
+
+.save-btn {
+  position: fixed;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 36px), 335px);
+  height: 52px;
+  border: none;
+  border-radius: 28px;
+  background: #007c89;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 430px);
+  height: 64px;
+  background: #ffffff;
+  border-top: 1px solid #eeeeee;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+}
+
+.bottom-nav button {
+  border: none;
+  background: transparent;
+  color: #b5b5b5;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.bottom-nav button span {
+  font-size: 16px;
+}
+
+.bottom-nav button.active {
+  color: #000000;
+  font-weight: 600;
+}
+
+.home-indicator {
+  position: fixed;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 1001;
+}
+
+.avatar-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.avatar-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
