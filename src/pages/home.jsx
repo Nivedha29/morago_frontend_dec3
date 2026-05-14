@@ -185,20 +185,40 @@ export default function HomeScreen() {
           )}
         </div>
       </main>
+          <nav className="bottom-nav">
+  <button
+    type="button"
+    className="active"
+    onClick={() => navigate("/home")}
+  >
+    <span>⌂</span>
+    Home
+  </button>
 
-      <nav className="bottom-nav">
-        {["Home", "My calls", "Message", "Profile"].map((item, index) => (
-          <button
-            type="button"
-            key={item}
-            className={index === 0 ? "active" : ""}
-            onClick={index === 0 ? () => navigate("/home") : undefined}
-          >
-            <span>{["⌂", "☏", "▢", "♙"][index]}</span>
-            {item}
-          </button>
-        ))}
-      </nav>
+  <button
+    type="button"
+    onClick={() => navigate("/my-calls")}
+  >
+    <span>☏</span>
+    My calls
+  </button>
+
+  <button
+    type="button"
+    onClick={() => console.log("Message page later")}
+  >
+    <span>▢</span>
+    Message
+  </button>
+
+  <button
+    type="button"
+    onClick={() => console.log("Profile page later")}
+  >
+    <span>♙</span>
+    Profile
+  </button>
+</nav>
 
       {showFundsModal && (
         <div className="first-call">

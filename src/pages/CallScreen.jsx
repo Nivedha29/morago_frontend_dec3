@@ -43,9 +43,9 @@ export default function CallScreen() {
             <button>💬</button>
           </div>
 
-          <button className="end-call-btn" onClick={() => navigate("/home")}>
-            End Call
-          </button>
+          <button className="end-call-btn" onClick={() => navigate("/my-calls")}>
+  End Call
+</button>
         </main>
 
         <div className="home-indicator" />
