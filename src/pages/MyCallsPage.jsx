@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
-import api from "../services/api";
+import { getUserCallHistory } from "../services/user.js";
 import fallbackAvatar from "../assets/avatar.svg";
 import "./MyCallsPage.css";
 
@@ -23,18 +23,16 @@ export default function MyCallsPage() {
       try {
         setLoading(true);
 
-        const res = await api.get("/profile/calls/history", {
-          params: {
-            isMissed,
-            isLast: false,
-            page: 0,
-            size: 20,
-            sortBy: "id",
-            sortDirection: "DESC",
-          },
+        const data = await getUserCallHistory({
+          isMissed,
+          isLast: false,
+          page: 0,
+          size: 20,
+          sortBy: "id",
+          sortDirection: "DESC",
         });
 
-        setCalls(getContent(res.data));
+        setCalls(getContent(data));
       } catch (error) {
         console.error("Call history error:", error);
         setCalls([]);
@@ -76,107 +74,108 @@ export default function MyCallsPage() {
   };
 
   return (
-  <div className="screen my-calls-page">
-    <div className="my-calls-top">
-      <StatusBar />
+    <div className="screen my-calls-page">
+      <div className="my-calls-top">
+        <StatusBar />
 
-      <header className="my-calls-header">
-        <b>morago</b>
-      </header>
-    </div>
-
-    <main className="my-calls-body">
-      <div className="calls-tabs">
-        <button
-          type="button"
-          className={activeTab === "all" ? "active" : ""}
-          onClick={() => setActiveTab("all")}
-        >
-          All
-        </button>
-
-        <button
-          type="button"
-          className={activeTab === "missed" ? "active" : ""}
-          onClick={() => setActiveTab("missed")}
-        >
-          Missed
-        </button>
+        <header className="my-calls-header">
+          <b>morago</b>
+        </header>
       </div>
 
-      <h2>Recent</h2>
+      <main className="my-calls-body">
+        <div className="calls-tabs">
+          <button
+            type="button"
+            className={activeTab === "all" ? "active" : ""}
+            onClick={() => setActiveTab("all")}
+          >
+            All
+          </button>
 
-      {loading && <p className="calls-muted">Loading...</p>}
+          <button
+            type="button"
+            className={activeTab === "missed" ? "active" : ""}
+            onClick={() => setActiveTab("missed")}
+          >
+            Missed
+          </button>
+        </div>
 
-      {!loading && calls.length === 0 && (
-        <p className="calls-muted">No call history found.</p>
-      )}
+        <h2>Recent</h2>
 
-      <div className="calls-list">
-        {calls.map((call) => {
-          const missed = call?.isMissed || call?.missed || isMissed;
+        {loading && <p className="calls-muted">Loading...</p>}
 
-          return (
-            <button type="button" className="calls-row" key={call.id}>
-              <div className="calls-avatar-wrap">
-                <img
-                  src={getAvatar(call)}
-                  alt={getName(call)}
-                  onError={(e) => {
-                    e.currentTarget.src = fallbackAvatar;
-                  }}
-                />
-                {missed && <span className="missed-dot" />}
-              </div>
+        {!loading && calls.length === 0 && (
+          <p className="calls-muted">No call history found.</p>
+        )}
 
-              <div className="calls-info">
-                <div>
-                  <b>{getName(call)}</b>
-                  <span className={missed ? "dot red" : "dot green"} />
+        <div className="calls-list">
+          {calls.map((call) => {
+            const missed = call?.isMissed || call?.missed || isMissed;
+
+            return (
+              <button type="button" className="calls-row" key={call.id}>
+                <div className="calls-avatar-wrap">
+                  <img
+                    src={getAvatar(call)}
+                    alt={getName(call)}
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackAvatar;
+                    }}
+                  />
+                  {missed && <span className="missed-dot" />}
                 </div>
-                <p>{getTopic(call)}</p>
-              </div>
 
-              <div className="calls-meta">
-                <span>
-                  {formatDate(
-                    call?.createdAt || call?.createdDate || call?.date
-                  )}
-                </span>
-                <small>{call?.duration || call?.minutes || ""} minutes</small>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-    </main>
+                <div className="calls-info">
+                  <div>
+                    <b>{getName(call)}</b>
+                    <span className={missed ? "dot red" : "dot green"} />
+                  </div>
+                  <p>{getTopic(call)}</p>
+                </div>
 
-    <nav className="bottom-nav">
-      <button type="button" onClick={() => navigate("/home")}>
-        <span>⌂</span>
-        Home
-      </button>
+                <div className="calls-meta">
+                  <span>
+                    {formatDate(
+                      call?.createdAt || call?.createdDate || call?.date
+                    )}
+                  </span>
+                  <small>{call?.duration || call?.minutes || ""} minutes</small>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </main>
 
-      <button type="button" className="active" onClick={() => navigate("/my-calls")}>
-        <span>☏</span>
-        My calls
-      </button>
+      <nav className="bottom-nav">
+        <button type="button" onClick={() => navigate("/home")}>
+          <span>⌂</span>
+          Home
+        </button>
 
-      <button type="button">
-        <span>▢</span>
-        Message
-      </button>
+        <button
+          type="button"
+          className="active"
+          onClick={() => navigate("/my-calls")}
+        >
+          <span>☏</span>
+          My calls
+        </button>
 
-      <button
-    type="button"
-    onClick={() => navigate("/profile")}
-  >
-    <span>♙</span>
-    Profile
-  </button>
-    </nav>
+        <button type="button">
+          <span>▢</span>
+          Message
+        </button>
 
-    <div className="home-indicator" />
-  </div>
-);
+        <button type="button" onClick={() => navigate("/profile")}>
+          <span>♙</span>
+          Profile
+        </button>
+      </nav>
+
+      <div className="home-indicator" />
+    </div>
+  );
 }

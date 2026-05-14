@@ -1,10 +1,22 @@
 import api from "./api";
 
+// Helper to normalize paginated response
 const getPageContent = (data) => {
   if (Array.isArray(data)) return data;
   return data?.content ?? [];
 };
 
+/**
+ * GET user call history (centralized API)
+ */
+export const getUserCallHistory = async (params = {}) => {
+  const response = await api.get("/profile/calls/history", { params });
+  return response.data;
+};
+
+/**
+ * GET home screen data (balance + categories + recent calls)
+ */
 export const getUserHomeData = async () => {
   const [balanceRes, categoriesRes, callsRes] = await Promise.allSettled([
     api.get("/profile/balance"),
@@ -19,15 +31,13 @@ export const getUserHomeData = async () => {
       },
     }),
 
-    api.get("/profile/calls/history", {
-      params: {
-        isMissed: false,
-        isLast: true,
-        page: 0,
-        size: 3,
-        sortBy: "id",
-        sortDirection: "DESC",
-      },
+    getUserCallHistory({
+      isMissed: false,
+      isLast: true,
+      page: 0,
+      size: 3,
+      sortBy: "id",
+      sortDirection: "DESC",
     }),
   ]);
 
@@ -44,18 +54,22 @@ export const getUserHomeData = async () => {
 
     calls:
       callsRes.status === "fulfilled"
-        ? getPageContent(callsRes.value.data)
+        ? getPageContent(callsRes.value)
         : [],
   };
 };
 
-// GET current balance
+/**
+ * GET current balance
+ */
 export const getBalance = async () => {
   const response = await api.get("/profile/balance");
   return response.data;
 };
 
-// POST top-up request
+/**
+ * POST top-up request
+ */
 export const requestTopup = async (data) => {
   const response = await api.post("/user/deposit", {
     accountHolder: data.accountHolder,
