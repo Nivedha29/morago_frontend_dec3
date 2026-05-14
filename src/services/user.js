@@ -48,3 +48,20 @@ export const getUserHomeData = async () => {
         : [],
   };
 };
+
+// GET current balance
+export const getBalance = async () => {
+  const response = await api.get("/profile/balance");
+  return response.data;
+};
+
+// POST top-up request
+export const requestTopup = async (data) => {
+  const response = await api.post("/user/deposit", {
+    accountHolder: data.accountHolder,
+    nameOfBank: data.nameOfBank,
+    won: Number(data.won),
+  });
+
+  return response.data;
+};
