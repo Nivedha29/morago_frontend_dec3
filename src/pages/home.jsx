@@ -210,10 +210,10 @@ export default function HomeScreen() {
     <span>▢</span>
     Message
   </button>
-
+  
   <button
     type="button"
-    onClick={() => console.log("Profile page later")}
+    onClick={() => navigate("/profile")}
   >
     <span>♙</span>
     Profile

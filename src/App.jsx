@@ -48,6 +48,9 @@ import ChooseTopicPage from "./pages/ChooseTopicPage.jsx";
 import CallScreen from "./pages/CallScreen.jsx";
 import BalancePage from "./pages/BalancePage.jsx";
 import MyCallsPage from "./pages/MyCallsPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import EditProfilePage from "./pages/EditProfilePage.jsx";
+import ChangePasswordPage from "./pages/ChangePasswordPage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -133,6 +136,9 @@ const App = () => {
                 <Route path="/onboarding" element={<OnboardingScreen />} />
                 <Route path="/login" element={<LoginScreen />} />
                 <Route path="/sign-up" element={<SignupScreen />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/edit" element={<EditProfilePage />} />
+                <Route path="/profile/change-password" element={<ChangePasswordPage />} />
                 <Route
                   path="/home"
                   element={
