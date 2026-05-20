@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../components/StatusBar.jsx";
 import defaultAvatar from "../assets/avatar.svg";
+import { logout } from "../utils/logout";
 import {
   deleteAvatar,
   getActiveLanguages,
@@ -629,6 +630,13 @@ const TranslatorProfilePage = () => {
           >
             {isSubmitting ? "Saving..." : "Save Profile"}
           </button>
+          <button
+  type="button"
+  className="btn btn-login mobile-translator-profile-setup__submit"
+  onClick={() => logout(navigate)}
+>
+  Logout
+</button>
         </div>
       </div>
 

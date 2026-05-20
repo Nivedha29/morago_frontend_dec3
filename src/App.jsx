@@ -51,6 +51,8 @@ import MyCallsPage from "./pages/MyCallsPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import EditProfilePage from "./pages/EditProfilePage.jsx";
 import ChangePasswordPage from "./pages/ChangePasswordPage.jsx";
+import TranslatorMyCallsPage from "./pages/TranslatorMyCallsPage.jsx";
+import TranslatorWalletPage from "./pages/TranslatorWalletPage.jsx";
 
 /* ------------------------- APP MAIN ------------------------- */
 const App = () => {
@@ -179,6 +181,23 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+  path="/translator/my-calls"
+  element={
+    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+      <TranslatorMyCallsPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/translator/wallet"
+  element={
+    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+      <TranslatorWalletPage />
+    </ProtectedRoute>
+  }
+/>
                 <Route
                   path="/sign-up/user"
                   element={<RegisterPage role="user" />}

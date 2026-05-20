@@ -232,3 +232,30 @@ export const getCurrentUserProfile =
     const response = await api.get("/me");
     return response.data;
   };
+
+  export interface TranslatorWithdrawalPayload {
+  accountHolder: string;
+  nameOfBank: string;
+  won: number;
+}
+
+export interface TranslatorWithdrawalResponse {
+  id: number;
+  accountNumber: string;
+  accountHolder: string;
+  nameOfBank: string;
+  sum: number;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+}
+
+export const requestTranslatorWithdrawal = async (
+  payload: TranslatorWithdrawalPayload,
+): Promise<TranslatorWithdrawalResponse> => {
+  const response = await api.post("/translator/withdrawal", {
+    accountHolder: payload.accountHolder,
+    nameOfBank: payload.nameOfBank,
+    won: Number(payload.won),
+  });
+
+  return response.data;
+};
