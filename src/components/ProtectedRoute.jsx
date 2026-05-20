@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
 
   if (allowedRole && !userRoles.includes(allowedRole)) {
     if (userRoles.includes("ROLE_TRANSLATOR")) {
-      return <Navigate to="/translator-home" replace />;
+      return <Navigate to="/translator/home" replace />;
     }
     return <Navigate to="/home" replace />;
   }

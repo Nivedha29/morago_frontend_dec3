@@ -21,14 +21,17 @@ export default function ChooseTopicPage() {
         setTopicError("");
 
         const response = await api.get("/profile/categories", {
-          params: {
-            page: 0,
-            size: 20,
-            sortBy: "id",
-            sortDirection: "ASC",
-            isActive: true,
-          },
-        });
+  params: {
+    categoryPageRequest: JSON.stringify({
+      page: 0,
+      size: 20,
+      sortBy: "id",
+      sortDirection: "ASC",
+      isActive: true,
+      keyword: "",
+    }),
+  },
+});
 
         setTopics(response.data?.content || []);
       } catch (error) {
