@@ -111,11 +111,15 @@ export default function MyCallsPage() {
         )}
 
         <div className="calls-list">
-          {calls.map((call) => {
+          {calls.map((call, index) => {
             const missed = call?.isMissed || call?.missed || isMissed;
 
             return (
-              <button type="button" className="calls-row" key={call.id}>
+              <button
+  type="button"
+  className="calls-row"
+  key={call.id || call.callId || call.createdAt || index}
+>
                 <div className="calls-avatar-wrap">
                   <img
                     src={getAvatar(call)}
