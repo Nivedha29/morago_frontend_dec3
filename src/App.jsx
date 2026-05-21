@@ -198,6 +198,15 @@ const App = () => {
     </ProtectedRoute>
   }
 />
+
+<Route
+  path="/translator/call"
+  element={
+    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+      <CallScreen />
+    </ProtectedRoute>
+  }
+/>
                 <Route
                   path="/sign-up/user"
                   element={<RegisterPage role="user" />}

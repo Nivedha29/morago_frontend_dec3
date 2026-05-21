@@ -1,7 +1,7 @@
 import axios, {
   AxiosError,
-  InternalAxiosRequestConfig,
   AxiosHeaders,
+  InternalAxiosRequestConfig,
 } from "axios";
 
 export interface ApiError {
@@ -9,6 +9,16 @@ export interface ApiError {
   status: number;
   code?: string;
   details?: unknown;
+}
+
+export interface CallPayload {
+  callId: number;
+  callerId: number;
+  translatorId: number;
+  theme: string;
+  callerName: string;
+  costPerMinute: number;
+  isFirst: boolean;
 }
 
 type BackendErrorResponse =
@@ -38,10 +48,11 @@ const PUBLIC_ROUTES = [
   "/publicResetPassword/reset/confirm",
 ];
 
-const getStoredToken = (): string | null => {
-   const directToken = localStorage.getItem("token");
+export const getStoredToken = (): string | null => {
+  const directToken = localStorage.getItem("token");
 
   if (directToken) return directToken;
+
   const rawUser = localStorage.getItem("currentUser");
 
   if (!rawUser) return null;
@@ -57,6 +68,7 @@ const getStoredToken = (): string | null => {
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = getStoredToken();
   const requestUrl = config.url ?? "";
+
   const isPublicRoute = PUBLIC_ROUTES.some((route) =>
     requestUrl.includes(route),
   );
@@ -99,8 +111,8 @@ export const createCall = async ({
 }: {
   recipientId: number;
   themeId: number;
-}) => {
-  const response = await api.post("/call/create", {
+}): Promise<CallPayload> => {
+  const response = await api.post<CallPayload>("/call/create", {
     recipientId,
     themeId,
   });
