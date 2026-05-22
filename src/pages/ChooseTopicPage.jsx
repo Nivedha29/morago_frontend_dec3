@@ -88,12 +88,25 @@ export default function ChooseTopicPage() {
   }, [topics, topicSearch]);
 
   const getTranslatorName = (translator) => {
-    return (
-      translator.name ||
-      `${translator.firstName || ""} ${translator.lastName || ""}`.trim() ||
-      "Translator"
-    );
-  };
+  const fullName = [
+    translator.firstName || translator.firstname || translator.user?.firstName,
+    translator.lastName || translator.lastname || translator.user?.lastName,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+
+  const displayName =
+    fullName ||
+    translator.fullName ||
+    translator.user?.fullName ||
+    translator.name ||
+    translator.user?.name;
+
+  return displayName && displayName !== "Translator"
+    ? displayName
+    : `Translator #${translator.id || translator.translatorId || ""}`.trim();
+};
 
   const getTranslatorImage = (translator) => {
     return translator.image || translator.avatar || translator.avatarUrl || "";

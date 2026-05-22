@@ -32,7 +32,9 @@ export default function MyCallsPage() {
           sortDirection: "DESC",
         });
 
-        setCalls(getContent(data));
+        const content = getContent(data);
+        console.log("Full call object:", content[0]); // debug
+        setCalls(content);
       } catch (error) {
         console.error("Call history error:", error);
         setCalls([]);
@@ -44,12 +46,16 @@ export default function MyCallsPage() {
     fetchCalls();
   }, [isMissed]);
 
-  const getName = (call) =>
-    call?.translatorName ||
-    call?.recipientName ||
-    call?.callerName ||
-    call?.translator?.name ||
-    "Translator";
+  const getName = (call) => {
+    return (
+      call?.name ||                
+      call?.translatorName ||
+      call?.recipientName ||
+      call?.callerName ||
+      call?.translator?.name ||
+      "Translator"
+    );
+  };
 
   const getTopic = (call) =>
     call?.theme ||
@@ -71,6 +77,13 @@ export default function MyCallsPage() {
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return "";
     return date.toLocaleDateString("en-GB");
+  };
+
+  const getDuration = (call) => {
+    if (call?.duration !== null && call?.duration !== undefined) {
+      return `${call.duration} minutes`;
+    }
+    return ""; // 👈 show nothing if no duration
   };
 
   return (
@@ -116,10 +129,10 @@ export default function MyCallsPage() {
 
             return (
               <button
-  type="button"
-  className="calls-row"
-  key={call.id || call.callId || call.createdAt || index}
->
+                type="button"
+                className="calls-row"
+                key={call.id || call.callId || call.createdAt || index}
+              >
                 <div className="calls-avatar-wrap">
                   <img
                     src={getAvatar(call)}
@@ -145,7 +158,7 @@ export default function MyCallsPage() {
                       call?.createdAt || call?.createdDate || call?.date
                     )}
                   </span>
-                  <small>{call?.duration || call?.minutes || ""} minutes</small>
+                  <small>{getDuration(call)}</small>
                 </div>
               </button>
             );
