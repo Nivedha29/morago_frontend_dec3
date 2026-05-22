@@ -1,0 +1,293 @@
+.morago-edit-theme-page {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+}
+
+.morago-edit-theme-card {
+   width: 100%;
+   max-width: 980px;
+   background: #ffffff;
+   border: 1px solid #e9edf5;
+   border-radius: 20px;
+   padding: 32px;
+   box-sizing: border-box;
+}
+
+.morago-edit-theme-form {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   width: 100%;
+}
+
+.morago-edit-theme-upload-section {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 12px;
+   text-align: center;
+   margin-bottom: 4px;
+}
+
+.morago-edit-theme-label {
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 20px;
+   color: #1e1e1e;
+}
+
+.morago-edit-theme-upload-box {
+   width: 140px;
+   height: 140px;
+   border: 1px dashed #cfd6e4;
+   border-radius: 18px;
+   background: #f8fafc;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   overflow: hidden;
+   transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.morago-edit-theme-upload-box:hover {
+   border-color: #7b61ff;
+   background: #f5f3ff;
+}
+
+.morago-edit-theme-upload-placeholder {
+   font-size: 14px;
+   font-weight: 500;
+   color: #7a7a7a;
+   text-align: center;
+   padding: 0 12px;
+}
+
+.morago-edit-theme-preview-image {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+.morago-edit-theme-hidden-input {
+   display: none;
+}
+
+.morago-edit-theme-field {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+   width: 100%;
+   min-width: 0;
+}
+
+.morago-edit-theme-input,
+.morago-edit-theme-textarea {
+   width: 100%;
+   box-sizing: border-box;
+   border: 1px solid #d9dfeb;
+   border-radius: 12px;
+   background: #ffffff;
+   padding: 14px 16px;
+   font-size: 14px;
+   font-weight: 400;
+   color: #1e1e1e;
+   outline: none;
+}
+
+.morago-edit-theme-input::placeholder,
+.morago-edit-theme-textarea::placeholder {
+   color: #98a2b3;
+}
+
+.morago-edit-theme-input:focus,
+.morago-edit-theme-textarea:focus {
+   border-color: #7b61ff;
+}
+
+.morago-edit-theme-input:disabled,
+.morago-edit-theme-textarea:disabled {
+   background: #f8fafc;
+   cursor: not-allowed;
+}
+
+.morago-edit-theme-textarea {
+   min-height: 96px;
+   resize: none;
+   font-family: inherit;
+}
+
+.morago-edit-theme-row {
+   display: grid;
+   grid-template-columns: repeat(3, minmax(0, 1fr));
+   gap: 16px;
+   width: 100%;
+}
+
+.morago-edit-theme-options-field {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.morago-edit-theme-checkbox-option {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   font-size: 14px;
+   font-weight: 500;
+   color: #1e1e1e;
+}
+
+.morago-edit-theme-checkbox-option input[type="checkbox"] {
+   width: 16px;
+   height: 16px;
+   cursor: pointer;
+}
+
+.morago-edit-theme-field-error {
+   margin: 0;
+   font-size: 12px;
+   line-height: 16px;
+   color: #d92d20;
+}
+
+.morago-edit-theme-error-message {
+   margin: 0;
+   font-size: 14px;
+   line-height: 20px;
+   color: #d92d20;
+}
+
+.morago-edit-theme-actions {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 12px;
+   width: 100%;
+   margin-top: 8px;
+}
+
+.morago-edit-theme-cancel-btn,
+.morago-edit-theme-save-btn {
+   min-width: 120px;
+   height: 44px;
+   border-radius: 12px;
+   padding: 0 20px;
+   font-size: 14px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.morago-edit-theme-cancel-btn {
+   border: 1px solid #d0d5dd;
+   background: #ffffff;
+   color: #344054;
+}
+
+.morago-edit-theme-save-btn {
+   border: none;
+   background: #7b61ff;
+   color: #ffffff;
+}
+
+.morago-edit-theme-cancel-btn:disabled,
+.morago-edit-theme-save-btn:disabled {
+   cursor: not-allowed;
+   opacity: 0.6;
+}
+
+.morago-edit-theme-cancel-btn:hover:not(:disabled),
+.morago-edit-theme-save-btn:hover:not(:disabled) {
+   transform: translateY(-1px);
+}
+
+@media (max-width: 1440px) {
+   .morago-edit-theme-card {
+      max-width: 920px;
+      padding: 28px;
+   }
+
+   .morago-edit-theme-form {
+      gap: 18px;
+   }
+
+   .morago-edit-theme-row {
+      gap: 14px;
+   }
+
+   .morago-edit-theme-upload-box {
+      width: 128px;
+      height: 128px;
+   }
+
+   .morago-edit-theme-input,
+   .morago-edit-theme-textarea {
+      padding: 13px 14px;
+      font-size: 13px;
+   }
+
+   .morago-edit-theme-textarea {
+      min-height: 90px;
+   }
+
+   .morago-edit-theme-cancel-btn,
+   .morago-edit-theme-save-btn {
+      min-width: 112px;
+      height: 42px;
+      font-size: 13px;
+   }
+}
+
+@media (max-width: 1280px) {
+   .morago-edit-theme-card {
+      max-width: 860px;
+      padding: 24px;
+      border-radius: 16px;
+   }
+
+   .morago-edit-theme-form {
+      gap: 16px;
+   }
+
+   .morago-edit-theme-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+   }
+
+   .morago-edit-theme-upload-box {
+      width: 120px;
+      height: 120px;
+   }
+
+   .morago-edit-theme-label {
+      font-size: 13px;
+   }
+
+   .morago-edit-theme-input,
+   .morago-edit-theme-textarea {
+      padding: 12px 14px;
+      font-size: 13px;
+      border-radius: 10px;
+   }
+
+   .morago-edit-theme-textarea {
+      min-height: 84px;
+   }
+
+   .morago-edit-theme-actions {
+      justify-content: center;
+      flex-wrap: wrap;
+   }
+
+   .morago-edit-theme-cancel-btn,
+   .morago-edit-theme-save-btn {
+      min-width: 108px;
+      height: 40px;
+      font-size: 13px;
+      border-radius: 10px;
+   }
+}

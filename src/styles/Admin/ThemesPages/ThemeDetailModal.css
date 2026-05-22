@@ -1,0 +1,144 @@
+.morago-theme-detail-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.morago-theme-detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  min-height: 350px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 28px 34px 34px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.morago-theme-detail-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  font-size: 40px;
+  cursor: pointer;
+  color: #777;
+}
+
+.morago-theme-detail-modal__top {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 18px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.morago-theme-detail-modal__image-wrap {
+  width: 180px;
+  height: 180px;
+  background: #aeb7c1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.morago-theme-detail-modal__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.morago-theme-detail-modal__image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.morago-theme-detail-modal__placeholder-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+}
+
+.morago-theme-detail-modal__banner {
+  flex: 1;
+  background: #efefef;
+}
+
+.morago-theme-detail-modal__actions {
+  position: absolute;
+  top: 55px;
+  right: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 150px;
+}
+
+.morago-theme-detail-modal__action-btn {
+  height: 40px;
+  border: 1px solid #d7dce2;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #2f2f2f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.morago-theme-detail-modal__info {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 6px 10px 0;
+}
+
+.morago-theme-detail-modal__info-left {
+  min-width: 180px;
+}
+
+.morago-theme-detail-modal__info-right {
+  min-width: 140px;
+}
+
+.morago-theme-detail-modal__info-block+.morago-theme-detail-modal__info-block {
+  margin-top: 16px;
+}
+
+.morago-theme-detail-modal__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #353535;
+  margin-bottom: 4px;
+}
+
+.morago-theme-detail-modal__value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+}
+
+.morago-theme-detail-modal__subvalue {
+  font-size: 13px;
+  color: #666;
+}
+
+.morago-theme-detail-modal__state {
+  font-size: 14px;
+  color: #333;
+}
+
+.morago-theme-detail-modal__state--error {
+  color: #d14343;
+}

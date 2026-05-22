@@ -1,0 +1,134 @@
+.onboarding-screen {
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+.onboarding-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  z-index: 0;
+  width:100%;
+  height:100%;
+}
+
+.onb-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.6) 60%,
+    black 100%
+  );
+  z-index: 1;
+}
+
+.onboarding-foreground {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+}
+
+/* SKIP under icons */
+.onb-skip {
+  position: absolute;
+  right: 16px;
+  top: 52px;
+  color: white;
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* onboarding bottom content */
+.onb-bottom {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.onb-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.onb-subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #e5e5e5;
+  text-align: center;
+  padding: 0 16px;
+}
+
+/* dots */
+.onb-dots-row {
+  display: flex;
+  gap: 6px;
+  margin: 16px 0;
+}
+
+.onb-dot {
+  width: 6px;
+  height: 6px;
+  background: #bbbbbb;
+  border-radius: 50%;
+}
+
+.onb-dot-active {
+  width: 16px;
+  background: white;
+  border-radius: 8px;
+}
+
+/* buttons */
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #005f6b;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.btn-secondary {
+  background: white;
+  color: #005f6b;
+}
+
+.onb-translator-link {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* dynamic side shapes */
+.onb-shape {
+  position: absolute;
+  z-index: 2;
+}
+
+.onb-shape-left {
+  border-radius: 0 100px 100px 0; /* half-circle from left */
+}
+
+.onb-shape-right {
+  border-radius: 50%; /* full circle from right */
+}

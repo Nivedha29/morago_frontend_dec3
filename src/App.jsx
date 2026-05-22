@@ -1,0 +1,251 @@
+import "./index.css";
+import { Routes, Route } from "react-router-dom";
+
+/* ------------------------- Admin Page ------------------------- */
+
+import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
+
+import AdminTranslatorPage from "./pages/admin/TranslatorPages/AdminTranslatorPage.jsx";
+import AddTranslatorPage from "./pages/admin/TranslatorPages/AddTranslatorPage.jsx";
+import TranslatorWithdrawHistoryPage from "./pages/admin/TranslatorPages/TranslatorWithdrawHistoryPage.jsx";
+import TranslatorWithdrawApproval from "./pages/admin/TranslatorPages/TranslatorWithdrawApproval.jsx";
+import TranslatorCallHistoryPage from "./pages/admin/TranslatorPages/TranslatorCallHistoryPage.jsx";
+import TranslatorWithdrawPage from "./pages/admin/TranslatorPages/TranslatorWithdrawPage.jsx";
+import EditTranslatorPage from "./pages/admin/TranslatorPages/EditTranslatorPage.jsx";
+
+import AdminUserPage from "./pages/admin/UsersPages/AdminUserPage.jsx";
+import AdminUserCallHistoryPage from "./pages/admin/UsersPages/UserCallHistoryPage.jsx";
+import UserDepositHistoryPage from "./pages/admin/UsersPages/UserDepositHistoryPage.jsx";
+import UserChargePage from "./pages/admin/UsersPages/UserChargePage.jsx";
+import AddUserPage from "./pages/admin/UsersPages/AddUserPage.jsx";
+import EditUserPage from "./pages/admin/UsersPages/EditUserPage.jsx";
+
+import AdminThemesPage from "./pages/admin/ThemesPages/AdminThemesPage.jsx";
+import AdminThemesAddPage from "./pages/admin/ThemesPages/AddThemePage.jsx";
+import EditThemePage from "./pages/admin/ThemesPages/EditThemesPage.jsx";
+
+import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
+import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
+import EditCategoryPage from "./pages/Admin/CategoriesPages/EditCategoryPage.jsx";
+
+/* ------------------------- Mobile App ------------------------- */
+
+import SplashScreen from "./components/SplashScreen.jsx";
+import LoginScreen from "./pages/login.jsx";
+import SignupScreen from "./pages/sign-up.jsx";
+import OnboardingScreen from "./pages/onboarding.jsx";
+import HomeScreen from "./pages/home.jsx";
+import TranslatorHome from "./pages/TranslatorHomePage.jsx";
+import RegisterPage from "./pages/RegisterPage";
+import RegisterVerifyPage from "./pages/RegisterVerifyPage.jsx";
+import ProfileSetupPage from "./pages/TranslatorProfileSetupPage.jsx";
+import TranslatorProfilePage from "./pages/TranslatorProfilePage.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
+import ForgotPasswordVerifyPage from "./pages/ForgotPasswordVerifyPage.jsx";
+import ForgotPasswordNewPasswordPage from "./pages/ForgotPasswordNewPasswordPage.jsx";
+import ChooseTopicPage from "./pages/ChooseTopicPage.jsx";
+import CallScreen from "./pages/CallScreen.jsx";
+import BalancePage from "./pages/BalancePage.jsx";
+import MyCallsPage from "./pages/MyCallsPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import EditProfilePage from "./pages/EditProfilePage.jsx";
+import ChangePasswordPage from "./pages/ChangePasswordPage.jsx";
+import TranslatorMyCallsPage from "./pages/TranslatorMyCallsPage.jsx";
+import TranslatorWalletPage from "./pages/TranslatorWalletPage.jsx";
+
+/* ------------------------- APP MAIN ------------------------- */
+const App = () => {
+  return (
+    /* ------------------------- ADMIN ------------------------- */
+    <Routes>
+      <Route path="/admin/login" element={<AdminLoginPage />} />
+
+      <Route path="/admin/translators" element={<AdminTranslatorPage />} />
+      <Route path="/admin/translators/add" element={<AddTranslatorPage />} />
+      <Route
+        path="/admin/translators/:translatorId/withdraw"
+        element={<TranslatorWithdrawPage />}
+      />
+      <Route
+        path="/admin/translators/:translatorId/withdraw-history"
+        element={<TranslatorWithdrawHistoryPage />}
+      />
+      <Route
+        path="/admin/translators/:translatorId/withdraw/:withdrawalId/approval"
+        element={<TranslatorWithdrawApproval />}
+      />
+      <Route
+        path="/admin/translators/:id/call-history"
+        element={<TranslatorCallHistoryPage />}
+      />
+      <Route
+        path="/admin/translators/:id/edit"
+        element={<EditTranslatorPage />}
+      />
+
+      <Route path="/admin/users" element={<AdminUserPage />} />
+      <Route
+        path="/admin/users/:userId/call-history"
+        element={<AdminUserCallHistoryPage />}
+      />
+      <Route path="/admin/users/edit/:id" element={<EditUserPage />} />
+      <Route
+        path="/admin/users/:userId/deposit-history"
+        element={<UserDepositHistoryPage />}
+      />
+      <Route
+        path="/admin/users/:userId/charge/:depositId"
+        element={<UserChargePage />}
+      />
+      <Route path="/admin/users/add" element={<AddUserPage />} />
+
+      <Route path="/admin/themes" element={<AdminThemesPage />} />
+      <Route path="/admin/themes/add" element={<AdminThemesAddPage />} />
+      <Route path="/admin/themes/edit/:id" element={<EditThemePage />} />
+
+      <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+      <Route
+  path="/choose-topic"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <ChooseTopicPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/call"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <CallScreen />
+    </ProtectedRoute>
+  }
+/>
+      
+      <Route path="/admin/categories/add" element={<AdminAddCategoryPage />} />
+      <Route path="/admin/categories/edit/:id" element={<EditCategoryPage />} />
+
+      {/* ------------------------- MOBILE APP ------------------------- */}
+
+      <Route
+        path="*"
+        element={
+          <div className="app-root">
+            <div className="phone-shell">
+              <Routes>
+                <Route path="/" element={<SplashScreen />} />
+                <Route path="/onboarding" element={<OnboardingScreen />} />
+                <Route path="/login" element={<LoginScreen />} />
+                <Route path="/sign-up" element={<SignupScreen />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/edit" element={<EditProfilePage />} />
+                <Route path="/profile/change-password" element={<ChangePasswordPage />} />
+                <Route
+                  path="/home"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_USER">
+                      <HomeScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/balance"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_USER">
+                    <BalancePage />
+                  </ProtectedRoute>
+            }
+              />
+              <Route
+  path="/my-calls"
+  element={
+    <ProtectedRoute allowedRole="ROLE_USER">
+      <MyCallsPage />
+    </ProtectedRoute>
+  }
+/>
+                <Route
+                  path="/translator/home"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <TranslatorHome />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/translator/profile"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <TranslatorProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+  path="/translator/my-calls"
+  element={
+    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+      <TranslatorMyCallsPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/translator/wallet"
+  element={
+    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+      <TranslatorWalletPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/translator/call"
+  element={
+    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+      <CallScreen />
+    </ProtectedRoute>
+  }
+/>
+                <Route
+                  path="/sign-up/user"
+                  element={<RegisterPage role="user" />}
+                />
+                <Route
+                  path="/sign-up/translator"
+                  element={<RegisterPage role="translator" />}
+                />
+                <Route
+                  path="/sign-up/verify"
+                  element={<RegisterVerifyPage />}
+                />
+                <Route
+                  path="/sign-up/profile-setup"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_TRANSLATOR">
+                      <ProfileSetupPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
+                <Route
+                  path="/forgot-password/verify"
+                  element={<ForgotPasswordVerifyPage />}
+                />
+                <Route
+                  path="/forgot-password/new-password"
+                  element={<ForgotPasswordNewPasswordPage />}
+                />
+              </Routes>
+            </div>
+          </div>
+        }
+      />
+    </Routes>
+  );
+};
+
+export default App;

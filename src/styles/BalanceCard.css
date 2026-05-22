@@ -1,0 +1,45 @@
+.mobile-balance-card {
+   width: 100%;
+   margin-top: 26px;
+   padding: 18px 18px 16px;
+   border: none;
+   border-radius: 22px;
+   background: rgba(255, 255, 255, 0.14);
+   backdrop-filter: blur(10px);
+   color: #ffffff;
+   text-align: left;
+   cursor: pointer;
+}
+
+.mobile-balance-card__label {
+   display: block;
+   font-size: 14px;
+   font-weight: 500;
+   color: rgba(255, 255, 255, 0.82);
+}
+
+.mobile-balance-card__row {
+   margin-top: 10px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.mobile-balance-card__icon {
+   width: 22px;
+   height: 22px;
+   object-fit: contain;
+}
+
+.mobile-balance-card__value {
+   font-size: 24px;
+   font-weight: 700;
+   line-height: 1.2;
+   flex: 1;
+}
+
+.mobile-balance-card__arrow {
+   font-size: 26px;
+   line-height: 1;
+   color: rgba(255, 255, 255, 0.82);
+}

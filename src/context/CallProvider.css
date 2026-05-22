@@ -1,0 +1,53 @@
+.incoming-call-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.incoming-call-card {
+  width: min(330px, calc(100vw - 32px));
+  border-radius: 24px;
+  background: #fff;
+  color: #132426;
+  padding: 28px 22px;
+  text-align: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+.incoming-call-label {
+  margin: 0 0 8px;
+  color: #00727e;
+  font-weight: 700;
+}
+
+.incoming-call-card h3 {
+  margin: 0 0 8px;
+}
+
+.incoming-call-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.incoming-call-actions button {
+  flex: 1;
+  height: 46px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.incoming-call-actions .reject {
+  background: #ff3b30;
+}
+
+.incoming-call-actions .accept {
+  background: #00727e;
+}

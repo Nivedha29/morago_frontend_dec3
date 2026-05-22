@@ -1,0 +1,155 @@
+.edit-category-page {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+}
+
+.edit-category-card {
+   width: 100%;
+   max-width: 860px;
+   background: #ffffff;
+   border-radius: 8px;
+   padding: 32px;
+   box-sizing: border-box;
+   margin: 0 auto;
+}
+
+.edit-category-form {
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+}
+
+.edit-category-field {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+
+.edit-category-label {
+   font-size: 16px;
+   font-weight: 600;
+   color: #1d2433;
+}
+
+.edit-category-input {
+   width: 100%;
+   height: 44px;
+   border: 1px solid #d8dde6;
+   border-radius: 6px;
+   padding: 0 14px;
+   font-size: 15px;
+   color: #1d2433;
+   background: #ffffff;
+   box-sizing: border-box;
+   outline: none;
+}
+
+.edit-category-input::placeholder {
+   color: #9aa3b2;
+}
+
+.edit-category-input:focus {
+   border-color: #7c8aa5;
+}
+
+.edit-category-error-message {
+   margin: 0;
+   font-size: 14px;
+   color: #d93025;
+}
+
+.edit-category-actions {
+   display: flex;
+   justify-content: flex-end;
+   gap: 12px;
+   margin-top: 8px;
+}
+
+.edit-category-cancel-btn,
+.edit-category-save-btn {
+   min-width: 120px;
+   height: 42px;
+   border-radius: 6px;
+   font-size: 15px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: opacity 0.2s ease;
+}
+
+.edit-category-cancel-btn {
+   border: 1px solid #d8dde6;
+   background: #ffffff;
+   color: #1d2433;
+}
+
+.edit-category-save-btn {
+   border: none;
+   background: #1d2433;
+   color: #ffffff;
+}
+
+.edit-category-cancel-btn:disabled,
+.edit-category-save-btn:disabled {
+   opacity: 0.6;
+   cursor: not-allowed;
+}
+
+@media (max-width: 1440px) {
+   .edit-category-card {
+      max-width: 780px;
+      padding: 28px;
+   }
+
+   .edit-category-form {
+      gap: 22px;
+   }
+
+   .edit-category-label {
+      font-size: 15px;
+   }
+
+   .edit-category-input {
+      height: 42px;
+      font-size: 14px;
+   }
+
+   .edit-category-cancel-btn,
+   .edit-category-save-btn {
+      min-width: 112px;
+      height: 40px;
+      font-size: 14px;
+   }
+}
+
+@media (max-width: 1280px) {
+   .edit-category-card {
+      max-width: 700px;
+      padding: 24px;
+   }
+
+   .edit-category-form {
+      gap: 20px;
+   }
+
+   .edit-category-label {
+      font-size: 14px;
+   }
+
+   .edit-category-input {
+      height: 40px;
+      padding: 0 12px;
+      font-size: 14px;
+   }
+
+   .edit-category-actions {
+      gap: 10px;
+   }
+
+   .edit-category-cancel-btn,
+   .edit-category-save-btn {
+      min-width: 104px;
+      height: 38px;
+      font-size: 14px;
+   }
+}

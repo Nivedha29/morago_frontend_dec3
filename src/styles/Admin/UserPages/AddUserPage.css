@@ -1,0 +1,112 @@
+.add-user-page {
+  width: 100%;
+}
+
+.add-user-card {
+  width: 100%;
+  max-width: 520px;
+  min-height: 320px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fff;
+  padding: 40px 32px;
+  margin: 24px auto 0;
+}
+
+.add-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.add-user-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-user-label {
+  font-size: 14px;
+  color: #222;
+}
+
+.add-user-input {
+  height: 40px;
+  border: 1px solid #cfd6df;
+  border-radius: 4px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.add-user-error-message {
+  color: #d14343;
+  font-size: 13px;
+}
+
+.add-user-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.add-user-cancel-btn,
+.add-user-save-btn {
+  min-width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-user-cancel-btn {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.add-user-save-btn {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+.add-user-cancel-btn:disabled,
+.add-user-save-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (max-width: 1440px) {
+  .add-user-card {
+    padding: 36px 28px;
+    max-width: 480px;
+  }
+
+  .add-user-form {
+    gap: 16px;
+  }
+
+  .add-user-actions {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .add-user-card {
+    padding: 32px 24px;
+    max-width: 440px;
+  }
+
+  .add-user-form {
+    gap: 14px;
+  }
+
+  .add-user-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .add-user-cancel-btn,
+  .add-user-save-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,95 @@
+.mobile-translator-verify__back-button {
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   border: 1px solid #d1d5db;
+   background: transparent;
+   color: #111827;
+   font-size: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   margin-top: 40px;
+   margin-left: 16px;
+   transition: all 0.2s ease;
+}
+
+.mobile-translator-verify__back-button:hover {
+   background: #f9fafb;
+}
+
+.mobile-translator-verify__card {
+   margin-top: 20px;
+   margin-left: 20px;
+}
+
+.mobile-translator-verify__subtitle {
+   margin-top: 10px;
+}
+
+.mobile-translator-verify__code-container {
+   display: flex;
+   justify-content: center;
+   gap: 15px;
+   margin: 24px 0 12px;
+}
+
+.mobile-translator-verify__code-input {
+   width: 80px;
+   height: 70px;
+   background: #f3f4f6;
+   border: 1px solid transparent;
+   border-radius: 14px;
+   text-align: center;
+   font-size: 22px;
+   font-weight: 600;
+   color: #111827;
+   outline: none;
+   transition: all 0.2s ease;
+}
+
+.mobile-translator-verify__code-input--active {
+   background: #ffffff;
+   border: 2px solid #a25c23;
+}
+
+.mobile-translator-verify__timer {
+   margin-top: 30px;
+   text-align: center;
+   font-size: 18px;
+   color: #6b7280;
+   margin-bottom: 15px;
+   font-weight: 700;
+}
+
+.mobile-translator-verify__confirm-button {
+   width: 85%;
+   height: 52px;
+   margin-bottom: 16px;
+   margin-left: 30px;
+   border: none;
+}
+
+.mobile-translator-verify__confirm-button--user:not(:disabled) {
+   background: #015f76;
+   color: #ffffff;
+}
+
+.mobile-translator-verify__confirm-button--translator:not(:disabled) {
+   background: #eb9412;
+   color: #ffffff;
+}
+
+.mobile-translator-verify__confirm-button:disabled {
+   background: #d1d5db;
+   color: #ffffff;
+   border: none;
+}
+
+.mobile-translator-verify__resend {
+   margin-top: 10px;
+   text-align: center;
+   font-size: 13px;
+   color: #9ca3af;
+}

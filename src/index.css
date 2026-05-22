@@ -1,0 +1,259 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f4f5f7;
+}
+
+/* PHONE SHELL */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-shell {
+  max-width: 430px;
+  width: 100%;
+  height: 812px;
+  background: #ffffff;
+  border-radius: 0; /* flat corners */
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+}
+
+/* GENERIC SCREEN */
+.screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------- STATUS BAR ------------------------- */
+.status-bar {
+  height: 44px;
+  padding: 0 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #000;
+  pointer-events: none;
+}
+
+.status-time {
+  font-weight: 600;
+}
+
+/* RIGHT ICONS GROUP */
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* SIGNAL BARS */
+.icon-signal {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.icon-signal span {
+  width: 2px;
+  border-radius: 999px;
+  background: #000;
+}
+
+.icon-signal span:nth-child(1) {
+  height: 3px;
+}
+.icon-signal span:nth-child(2) {
+  height: 4px;
+}
+.icon-signal span:nth-child(3) {
+  height: 5px;
+}
+.icon-signal span:nth-child(4) {
+  height: 7px;
+}
+
+/* Filled iOS-style WiFi icon */
+.icon-wifi-filled {
+  width: 17px;
+  height: 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg width='17' height='12' viewBox='0 0 17 12' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.5 12C9.32843 12 10 11.3284 10 10.5C10 9.67157 9.32843 9 8.5 9C7.67157 9 7 9.67157 7 10.5C7 11.3284 7.67157 12 8.5 12Z'/%3E%3Cpath opacity='0.4' d='M3.34315 6.34315C5.36683 4.31947 8.63317 4.31947 10.6569 6.34315L12.0711 4.92893C9.21447 2.07232 4.78553 2.07232 1.92893 4.92893L3.34315 6.34315Z'/%3E%3Cpath opacity='0.2' d='M0.514719 2.51472C4.20101 -1.17157 10.799 -1.17157 14.4853 2.51472L15.8995 1.1005C11.6009 -3.19802 3.39914 -3.19802 -0.899495 1.1005L0.514719 2.51472Z'/%3E%3C/svg%3E");
+}
+
+/* BATTERY */
+.icon-battery {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.battery-body {
+  width: 18px;
+  height: 8px;
+  border: 1.5px solid #000;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+}
+
+.battery-level {
+  flex: 1;
+  height: 100%;
+  background: #000;
+  border-radius: 1px;
+}
+
+.battery-cap {
+  width: 2px;
+  height: 4px;
+  background: #000;
+  border-radius: 1px;
+}
+
+
+/* base icon slot */
+.field-icon {
+  position: relative;
+  flex: 0 0 24px;
+  height: 24px;
+}
+
+/* PHONE ICON – rounded square with handset */
+.phone-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background-color: #f5f6f8;
+  border: 1.5px solid #d4d7dd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23d4d7dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.72 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.74a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 1 2.34.72A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E");
+}
+
+/* LOCK ICON – rounded square with lock glyph */
+.lock-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background-color: #f5f6f8;
+  border: 1.5px solid #d4d7dd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23d4d7dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3Crect x='5' y='11' width='14' height='10' rx='2' ry='2'/%3E%3Cpath d='M12 16v2'/%3E%3C/svg%3E");
+}
+
+/* Error state: icons become red */
+.field-wrapper.field-error .phone-icon {
+  border-color: #ea3e3e;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ea3e3e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.72 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.74a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 1 2.34.72A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E");
+}
+
+.field-wrapper.field-error .lock-icon {
+  border-color: #ea3e3e;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ea3e3e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3Crect x='5' y='11' width='14' height='10' rx='2' ry='2'/%3E%3Cpath d='M12 16v2'/%3E%3C/svg%3E");
+}
+
+/* home bar */
+.home-indicator {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 5px;
+  border-radius: 10px;
+  background: #111111;
+}
+
+.home-indicator-keyboard {
+  bottom:4px;
+}
+
+.phone-wrap {
+  width: 390px;
+  height: 844px;
+  margin: 0 auto;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0;
+}
+
+.call-header button {
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  text-align: left;
+}
+
+.call-header b {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.active-call-body h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.topic-grid {
+  min-height: 134px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.topic-placeholder {
+  height: 62px;
+  border: 1px solid #eeeeee;
+  border-radius: 9px;
+  background: #ffffff;
+  opacity: 0.35;
+}
+
+.call-list {
+  min-height: 170px;
+}
+
+.empty-calls {
+  min-height: 150px;
+}
+
+.call-main b {
+  font-size: 12px;
+}
+
+.call-main p {
+  margin: 3px 0 0;
+  font-size: 10px;
+  color: #9ca3a8;
+}
