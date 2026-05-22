@@ -72,15 +72,19 @@ export default function HomeScreen() {
             </div>
 
             <button
-  type="button"
-  className="topup-btn"
-  onClick={() => navigate("/balance")}
->
-  Top up <span>+</span>
-</button>
+              type="button"
+              className="topup-btn"
+              onClick={() => navigate("/balance")}
+            >
+              Top up <span>+</span>
+            </button>
           </div>
 
-          <button type="button" className="call-btn" onClick={goToChooseTopic}>
+          <button
+            type="button"
+            className="call-btn"
+            onClick={goToChooseTopic}
+          >
             Select a translator and call
           </button>
         </div>
@@ -98,7 +102,7 @@ export default function HomeScreen() {
             ? Array.from({ length: 6 }).map((_, index) => (
                 <div className="topic-placeholder" key={index} />
               ))
-            : topics.map((topic) => {
+            : topics.map((topic, index) => {
                 const title =
                   topic.name || topic.title || topic.titleEn || "Topic";
 
@@ -112,7 +116,11 @@ export default function HomeScreen() {
                 return (
                   <button
                     type="button"
-                    key={topic.id || title}
+                    key={
+                      topic.id ||
+                      topic.categoryId ||
+                      `${title}-${index}`
+                    }
                     onClick={goToChooseTopic}
                   >
                     <span className="topic-icon">
@@ -138,7 +146,7 @@ export default function HomeScreen() {
           ) : calls.length === 0 ? (
             <div className="empty-calls" />
           ) : (
-            calls.map((call) => {
+            calls.map((call, index) => {
               const name =
                 call.name ||
                 call.translatorName ||
@@ -159,7 +167,12 @@ export default function HomeScreen() {
               return (
                 <div
                   className="call-item"
-                  key={call.id || `${name}-${duration}`}
+                  key={
+                    call.id ||
+                    call.callId ||
+                    call.createdAt ||
+                    `${name}-${duration}-${index}`
+                  }
                 >
                   <img
                     className="avatar"
@@ -185,40 +198,38 @@ export default function HomeScreen() {
           )}
         </div>
       </main>
-          <nav className="bottom-nav">
-  <button
-    type="button"
-    className="active"
-    onClick={() => navigate("/home")}
-  >
-    <span>⌂</span>
-    Home
-  </button>
 
-  <button
-    type="button"
-    onClick={() => navigate("/my-calls")}
-  >
-    <span>☏</span>
-    My calls
-  </button>
+      <nav className="bottom-nav">
+        <button
+          type="button"
+          className="active"
+          onClick={() => navigate("/home")}
+        >
+          <span>⌂</span>
+          Home
+        </button>
 
-  <button
-    type="button"
-    onClick={() => console.log("Message page later")}
-  >
-    <span>▢</span>
-    Message
-  </button>
-  
-  <button
-    type="button"
-    onClick={() => navigate("/profile")}
-  >
-    <span>♙</span>
-    Profile
-  </button>
-</nav>
+        <button
+          type="button"
+          onClick={() => navigate("/my-calls")}
+        >
+          <span>☏</span>
+          My calls
+        </button>
+
+        <button type="button">
+          <span>▢</span>
+          Message
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/profile")}
+        >
+          <span>♙</span>
+          Profile
+        </button>
+      </nav>
 
       {showFundsModal && (
         <div className="first-call">
@@ -227,18 +238,17 @@ export default function HomeScreen() {
             <p>Top up your balance</p>
 
             <div className="funds-actions">
-              <button type="button" onClick={() => setShowFundsModal(false)}>
+              <button onClick={() => setShowFundsModal(false)}>
                 Later
               </button>
               <button
-  type="button"
-  onClick={() => {
-    setShowFundsModal(false);
-    navigate("/balance");
-  }}
->
-  Top up
-</button>
+                onClick={() => {
+                  setShowFundsModal(false);
+                  navigate("/balance");
+                }}
+              >
+                Top up
+              </button>
             </div>
           </div>
         </div>
