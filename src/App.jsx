@@ -26,7 +26,7 @@ import EditThemePage from "./pages/admin/ThemesPages/EditThemesPage.jsx";
 
 import AdminCategoriesPage from "./pages/admin/CategoriesPages/AdminCategoriesPage.jsx";
 import AdminAddCategoryPage from "./pages/admin/CategoriesPages/AddCategoryPage.jsx";
-import EditCategoryPage from "./pages/Admin/CategoriesPages/EditCategoryPage.jsx";
+import EditCategoryPage from "./pages/admin/CategoriesPages/EditCategoryPage.jsx";
 
 /* ------------------------- Mobile App ------------------------- */
 
