@@ -113,7 +113,6 @@ const App = () => {
     </ProtectedRoute>
   }
 />
-
 <Route
   path="/call"
   element={
